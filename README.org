@@ -2,4 +2,14 @@
 ** Setup
 *** Första gången:
 Klona repot genom att kopiera länken ni får från knappen "Clone"
-Kör kommandot "git clone " + länken från tidigare.
+Kör ett av följande kommandon:
+
+Detta om ni har fixat med ssh nyckel
+#+BEGIN_SRC bash
+  git clone git@gitlab.liu.se:isaal360/tddd83-grupp-6.git
+#+END_SRC
+
+Detta om ni inte har gjort det
+#+BEGIN_SRC bash
+  git clone https://gitlab.liu.se/isaal360/tddd83-grupp-6.git
+#+END_SRC

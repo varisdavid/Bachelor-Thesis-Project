@@ -1,9 +1,9 @@
 * Kandidatprojekt grupp 6
 ** Setup
-*** Första gången:
+** Första gången:
 Klona repot genom att kopiera länken ni får från knappen "Clone"
 Kör ett av följande kommandon:
-
+*** Klona repo
 Detta om ni har fixat med ssh nyckel
 #+BEGIN_SRC bash
   git clone git@gitlab.liu.se:isaal360/tddd83-grupp-6.git
@@ -14,6 +14,7 @@ Detta om ni inte har gjort det
   git clone https://gitlab.liu.se/isaal360/tddd83-grupp-6.git
 #+END_SRC
 
+*** Allmänt setup
 Navigera in i mappen med kommandot
 #+BEGIN_SRC bash
   cd tddd83-grupp-6
@@ -24,3 +25,16 @@ Skapa en venv med kommandot
 #+BEGIN_SRC bash
   python3 -m venv venv
 #+END_SRC
+
+Gå in i venv
+#+BEGIN_SRC bash
+  source venv/bin/activate
+#+END_SRC
+
+** Varje gång
+
+Navigera till huvudmappen i projektet och kör
+#+BEGIN_SRC bash
+source venv/bin/activate
+#+END_SRC
+   

@@ -32,7 +32,7 @@ Gå in i venv
 
 Skaffa alla requirements
 #+BEGIN_SRC bash
-pip install -r requrements.txt
+pip install -r requirements.txt
 #+END_SRC
 
 ** Varje gång:

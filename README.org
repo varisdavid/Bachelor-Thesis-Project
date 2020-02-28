@@ -13,3 +13,14 @@ Detta om ni inte har gjort det
 #+BEGIN_SRC bash
   git clone https://gitlab.liu.se/isaal360/tddd83-grupp-6.git
 #+END_SRC
+
+Navigera in i mappen med kommandot
+#+BEGIN_SRC bash
+  cd tddd83-grupp-6
+#+END_SRC
+
+Skapa en venv med kommandot
+
+#+BEGIN_SRC bash
+  python3 -m venv venv
+#+END_SRC

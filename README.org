@@ -1,0 +1,5 @@
+* Kandidatprojekt grupp 6
+** Setup
+*** Första gången:
+Klona repot genom att kopiera länken ni får från knappen "Clone"
+Kör kommandot "git clone " + länken från tidigare.

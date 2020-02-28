@@ -1,5 +1,4 @@
 * Kandidatprojekt grupp 6
-** Setup
 ** Första gången:
 Klona repot genom att kopiera länken ni får från knappen "Clone"
 Kör ett av följande kommandon:
@@ -31,7 +30,12 @@ Gå in i venv
   source venv/bin/activate
 #+END_SRC
 
-** Varje gång
+Skaffa alla requirements
+#+BEGIN_SRC bash
+pip install -r requrements.txt
+#+END_SRC
+
+** Varje gång:
 
 Navigera till huvudmappen i projektet och kör
 #+BEGIN_SRC bash

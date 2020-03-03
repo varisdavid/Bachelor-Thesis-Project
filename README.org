@@ -1,5 +1,8 @@
 * Kandidatprojekt grupp 6
 ** Första gången:
+*** Frivilligt: Fixa ssh-nyckel
+Gör att man inte behöver skriva in epost och lösenord varje gång man pushar.
+[https://gitlab.liu.se/help/ssh/README#generating-a-new-ssh-key-pair][Skapa och lägg till ssh-nyckel]
 Klona repot genom att kopiera länken ni får från knappen "Clone"
 Kör ett av följande kommandon:
 *** Klona repo

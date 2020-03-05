@@ -1,6 +1,7 @@
 #Projektspecifika filer som inte ska versionshanteras
 *.db
 venv/
+.vscode/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

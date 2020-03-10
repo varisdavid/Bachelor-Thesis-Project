@@ -7,9 +7,11 @@
 + Allt som ska in i master är färdig kod.
 
 [[https://git-scm.com/book/en/v2][Hemsida med mer info om git]]
+
 Lång men utförlig.
 *** Branching:
 [[https://www.atlassian.com/git/tutorials/using-branches][Tutorial om branches]]
+
 Skapa branch
 #+BEGIN_SRC bash
 git branch NAMN-PÅ-BRANCH

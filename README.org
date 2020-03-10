@@ -66,7 +66,10 @@ git status
 #+END_SRC
 
 ** Första gången:
-Klona repot genom att kopiera länken ni får från knappen "Clone"
+*** Frivilligt: Fixa ssh-nyckel
+Gör att man inte behöver skriva in epost och lösenord varje gång man pushar.
+[[https://gitlab.liu.se/help/ssh/README#generating-a-new-ssh-key-pair][Skapa och lägg till ssh-nyckel]]
+
 Kör ett av följande kommandon:
 *** Klona repo
 Detta om ni har fixat med ssh nyckel
@@ -92,18 +95,20 @@ Skapa en venv med kommandot
 #+END_SRC
 
 Gå in i venv
+(Ser annorlunda ut i windows. [[https://docs.python.org/3/library/venv.html][guide för windows]])
 #+BEGIN_SRC bash
   source venv/bin/activate
 #+END_SRC
 
 Skaffa alla requirements
 #+BEGIN_SRC bash
-pip install -r requrements.txt
+pip install -r requirements.txt
 #+END_SRC
 
 ** Varje gång:
 
 Navigera till huvudmappen i projektet och kör
+(Ser annorlunda ut i windows. [[https://docs.python.org/3/library/venv.html][guide för windows]])
 #+BEGIN_SRC bash
 source venv/bin/activate
 #+END_SRC

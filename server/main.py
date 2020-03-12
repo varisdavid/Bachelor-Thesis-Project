@@ -9,7 +9,15 @@ app.config['SQLALCHEMY_TRACK_MODIFICATION'] = False
 
 db = SQLAlchemy(app)
 
+class Project(db.Model):
+    id=db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String, nullable=False)
 
+    def __repr__(self):
+        return '<Project {}: {}>'.format(self.id, self.name)
+
+    def serialize(self):
+        return dict(id=self.id, name=self.name)
 
 
 @app.route("/")

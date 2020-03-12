@@ -9,9 +9,10 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
 
+
 class Project(db.Model):
     __tablename__ = 'projects'
-    id=db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String, nullable=False)
     #activities = db.relationship('Activity', backref='project', lazy=True)
 
@@ -21,22 +22,26 @@ class Project(db.Model):
     def serialize(self):
         return dict(id=self.id, name=self.name)
 
+
 class Activity(db.Model):
     __tablename__ = 'activities'
-    id = db.Column(db.Integer, primary_key = True)
+    id = db.Column(db.Integer, primary_key=True)
     date = db.Column(db.DateTime)
-    name = db.Column(db.String, nullable = False)
+    name = db.Column(db.String, nullable=False)
     startTime = db.Column(db.DateTime)
     stopTime = db.Column(db.DateTime)
-    location = db.Column(db.String, nullable = True)
-    description = db.Column(db.String, nullable = True)
-    project_id = db.Column(db.Integer, db.ForeignKey('projects.id'), nullable = False)
+    location = db.Column(db.String, nullable=True)
+    description = db.Column(db.String, nullable=True)
+    project_id = db.Column(db.Integer, db.ForeignKey(
+        'projects.id'), nullable=False)
 
     def __repr__(self):
         return '<Activity {} : {} {} {} {} {} {} {}>'.format(self.id, self.date, self.name, self.startTime, self.stopTime, self.location, self.description, self.project)
+
     def serialize(self):
-        return dict(id = self.id, date = self.date, name = self.name, startTime = self.startTime,
-        stopTime = self.StopTime, location = self.Location, description = self.description, project = self.project)
+        return dict(id=self.id, date=self.date, name=self.name, startTime=self.startTime,
+                    stopTime=self.StopTime, location=self.Location, description=self.description, project=self.project)
+
 
 class Employee(db.Model):
     __tablename__ = 'employees'
@@ -54,14 +59,17 @@ class Employee(db.Model):
 
 class Person_Activity(db.Model):
     __tablename__ = 'person_activities'
-    personId = db.Column(db.String, db.ForeignKey('employees.personID'), primary_key=True)
-    id = db.Column(db.Integer, db.ForeignKey('activities.id'), primary_key=True)
+    personId = db.Column(db.String, db.ForeignKey(
+        'employees.personID'), primary_key=True)
+    id = db.Column(db.Integer, db.ForeignKey(
+        'activities.id'), primary_key=True)
 
     def __repr__(self):
         return '<Person_Activity {} {}:>'.format(self.personID, self.id)
-    
+
     def serialize(self):
         return dict(personID=self.personID, id=self.id)
+
 
 class LoggedWork(db.Model):
     __tablename__ = 'logged_work'
@@ -82,7 +90,7 @@ class LoggedWork(db.Model):
 
     def serialize(self):
         return dict(id=self.id, employeeID=self.employeeID, projectID=self.projectID, approved=self.approved, startTime=self.startTime, endTime=self.endTime, comment=self.comment, petrolCost=self.petrolCost, otherCost=self.otherCost)
-    
+
 
 @app.route("/")
 def client():

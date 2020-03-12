@@ -1,7 +1,14 @@
 from flask import Flask
+from flask_sqlalchemy import SQLAlchemy
 
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite://database.db'
+app.config['SQLALCHEMY_TRACK_MODIFICATION'] = False
+
+db = SQLAlchemy(app)
 app = Flask(__name__, static_folder='../client', static_url_path='/')
-from database import *
+
+
+
 
 @app.route("/")
 def client(): 

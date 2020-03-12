@@ -14,7 +14,6 @@ class Project(db.Model):
     __tablename__ = 'projects'
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String, nullable=False)
-    #activities = db.relationship('Activity', backref='project', lazy=True)
 
     def __repr__(self):
         return '<Project {}: {}>'.format(self.id, self.name)
@@ -36,7 +35,7 @@ class Activity(db.Model):
         'projects.id'), nullable=False)
 
     def __repr__(self):
-        return '<Activity {} : {} {} {} {} {} {} {}>'.format(self.id, self.date, self.name, self.startTime, self.stopTime, self.location, self.description, self.project)
+        return '<Activity {} : {} {} {} {} {} {} {}>'.format(self.id, self.date, self.name, self.startTime, self.stopTime, self.location, self.description, self.project_id)
 
     def serialize(self):
         return dict(id=self.id, date=self.date, name=self.name, startTime=self.startTime,

@@ -22,7 +22,7 @@ class Activity(db.Model):
 
     def __repr__(self):
         return '<Activity {} : {} {} {} {} {} {} {} {}>'.format(
-            id, date, name, startTime, stopTime, location, description, project)
+            id, self.date, self.name, self.startTime, self.stopTime, self.location, self.description, self.project)
     def serialize(self):
         return dict(id = self.id, date = self.date, name = self.name, startTime = self.startTime,
         stopTime = self.StopTime, location = self.Location, description = self.description, project = self.project)

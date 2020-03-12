@@ -58,7 +58,7 @@ class Employee(db.Model):
 
 class Person_Activity(db.Model):
     __tablename__ = 'person_activities'
-    personId = db.Column(db.String, db.ForeignKey(
+    personID = db.Column(db.String, db.ForeignKey(
         'employees.personID'), primary_key=True)
     id = db.Column(db.Integer, db.ForeignKey(
         'activities.id'), primary_key=True)

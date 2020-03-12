@@ -9,6 +9,7 @@ app.config['SQLALCHEMY_TRACK_MODIFICATION'] = False
 
 db = SQLAlchemy(app)
 
+<<<<<<< HEAD
 class Employee(db.Model):
     personID = db.Column(db.String, primary_key=True)
     name = db.Column(db.String, nullable=False)
@@ -20,6 +21,17 @@ class Employee(db.Model):
 
     def serialize(self):
         return dict(personID=self.personID, name=self.name, isAdmin=self.isAdmin, isBoss=self.isBoss)
+
+
+class Project(db.Model):
+    id=db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String, nullable=False)
+
+    def __repr__(self):
+        return '<Project {}: {}>'.format(self.id, self.name)
+
+    def serialize(self):
+        return dict(id=self.id, name=self.name)
 
 class Person_Activity(db.Model):
     personId = db.Column(db.String, db.ForeignKey('Employee.personID'), primary_key=True)

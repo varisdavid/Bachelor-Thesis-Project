@@ -36,7 +36,7 @@ class Activity(db.Model):
         'projects.id'), nullable=False)
 
     def __repr__(self):
-        return '<Activity {} : {} {} {} {} {} {} {}>'.format(self.id, self.date, self.name, self.startTime, self.stopTime, self.location, self.description, self.project)
+        return '<Activity {} : {} {} {} {} {} {} {}>'.format(self.id, self.date, self.name, self.startTime, self.stopTime, self.location, self.description, self.project_id)
 
     def serialize(self):
         return dict(id=self.id, date=self.date, name=self.name, startTime=self.startTime,
@@ -59,7 +59,7 @@ class Employee(db.Model):
 
 class Person_Activity(db.Model):
     __tablename__ = 'person_activities'
-    personId = db.Column(db.String, db.ForeignKey(
+    personID = db.Column(db.String, db.ForeignKey(
         'employees.personID'), primary_key=True)
     id = db.Column(db.Integer, db.ForeignKey(
         'activities.id'), primary_key=True)

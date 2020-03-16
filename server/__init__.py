@@ -11,7 +11,3 @@ from server.database import db, Employee
 @app.route("/")
 def client():
     return app.send_static_file("client.html")
-
-@app.route("/emp")
-def emp():
-    return Employee.query.filter_by(name="asdf").first().serialize()

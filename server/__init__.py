@@ -8,6 +8,13 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 from server.database import db, Employee
 
+
+#imports the blueprint from package blueprints
+from server.blueprints import auth
+#Adds all the defined routes in auth
+app.register_blueprint(auth.bp)
+
+
 @app.route("/")
 def client():
     return app.send_static_file("client.html")

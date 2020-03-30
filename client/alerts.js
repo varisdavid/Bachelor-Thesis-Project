@@ -25,7 +25,7 @@ text: The content of the notification
 type: The type of notification you want to send, valid values: primary, secondary, success, danger, warning, info, light, dark. See https://getbootstrap.com/docs/4.0/components/alerts/. 
 time: The time in ms before the alert disappears. 0 indicates that the notification must be manually removed.
 */
-function spawnAlert(text, type="success", time=2000) {
+function spawnAlert(text, type="success", time=5000) {
     notificationHtml = `
     <div class="alert alert-${type} alert-dismissible fade show" role="alert">
         ${text}

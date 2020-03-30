@@ -11,7 +11,7 @@ function alertTimeout(wait, container){
 }
 
 /**
- * Spawns a alert that disappears after 2000ms (default, can be changed via paramerter time) containing the specified text. 
+ * Spawns a alert that disappears after 5000ms (default, can be changed via paramerter time) containing the specified text. 
  * A few example calls:
  * 
  * Spawns a default alert:
@@ -20,8 +20,8 @@ function alertTimeout(wait, container){
  * Spawns a green alert, indicating success:
  * spawnAlert("Detta är en exempeltext", "success");
  *
- * Spawns a red alert, for 5000 ms. Note that you need to specify the type parameter if you also want to specify the time parameter:
- * spawnAlert("Detta är en exempeltext", "danger", 5000);
+ * Spawns a red alert, for 10000 ms. Note that you need to specify the type parameter if you also want to specify the time parameter:
+ * spawnAlert("Detta är en exempeltext", "danger", 10000);
  *
  * Spawns an alert that must be manually removed. Note that you need to specify the type parameter if you also want to specify the time parameter:
  * spawnAlert("Detta är en exempeltext", "danger", 0)

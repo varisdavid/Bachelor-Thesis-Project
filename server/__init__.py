@@ -11,8 +11,10 @@ from server.database import db, Employee
 
 #imports the blueprint from package blueprints
 from server.blueprints import auth
+from server.blueprints import activities
 #Adds all the defined routes in auth
 app.register_blueprint(auth.bp)
+app.register_blueprint(activities.bp)
 
 
 @app.route("/")

@@ -33,7 +33,7 @@ class Activity(db.Model):
 
     def serialize(self):
         return dict(id=self.id, date=self.date, name=self.name, startTime=self.startTime,
-                    stopTime=self.StopTime, location=self.Location, description=self.description, project=self.project)
+                    stopTime=self.StopTime, location=self.Location, description=self.description, project_id=self.project_id)
 
 
 class Employee(db.Model):

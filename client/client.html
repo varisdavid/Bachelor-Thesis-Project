@@ -9,6 +9,15 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="client.css">
 
+    <!-- Fullcalendar -->
+    <link href='fullcalendar/packages/core/main.css' rel='stylesheet' />
+    <link href='fullcalendar/packages/daygrid/main.css' rel='stylesheet' />
+    <link href='fullcalendar/packages/timegrid/main.css' rel='stylesheet' />
+
+    <script src='fullcalendar/packages/core/main.js'></script>
+    <script src='fullcalendar/packages/daygrid/main.js'></script>
+    <script src='fullcalendar/packages/timegrid/main.js'></script>
+
     <title>ERP</title>
   </head>
   <body>
@@ -32,7 +41,8 @@
 
     <!-- Container for holding the main view. -->
     <div class="container" id="mainView">
-      
+      <div id='calendar'></div>
+
     </div>
     <!-- Placeholder for placing bootstrap alerts, see alerts.js -->
     <div class="container" id="main-alert-holder"></div>
@@ -56,5 +66,9 @@
       <button type="button" class="btn btn-primary">Logga in</button>
       <button type="button" class="btn btn-outline-dark">Bli kund</button>
     </pp>
+  </template>
+
+  <template id="calendarView">
+    <div id='calendar'></div>
   </template>
 </html>

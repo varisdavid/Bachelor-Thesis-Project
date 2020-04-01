@@ -19,7 +19,7 @@ class Project(db.Model):
 class Activity(db.Model):
     __tablename__ = 'activities'
     id = db.Column(db.Integer, primary_key=True)
-    date = db.Column(db.DateTime)
+    date = db.Column(db.Date)
     name = db.Column(db.String, nullable=False)
     startTime = db.Column(db.DateTime)
     stopTime = db.Column(db.DateTime)

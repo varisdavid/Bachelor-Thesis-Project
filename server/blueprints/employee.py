@@ -10,12 +10,10 @@ bp = Blueprint('authentication', __name__, url_prefix='/employee')
 @bp.route("/employees", methods=['GET', 'POST'])
 def employees():
     if request.method == 'GET':
-        print("GET")
         serializedEmployeeList = [i.serialize() for i in Employee.query.all()]
         return jsonify(serializedEmployeeList)
 
     if request.method == 'POST':
-        print("POST")
         jsonData = request.get_json()
         db.session.add(Employee(personID=jsonData['personID'], name=jsonData['name'],
                                 isAdmin=jsonData['isAdmin'], isBoss=jsonData['isBoss']))
@@ -26,15 +24,11 @@ def employees():
 @bp.route("<int:pID>", methods=['GET', 'PUT', 'DELETE'])
 def employee(pID):
     if request.method == 'GET':
-        print("GET")
-        print(pID)
         employee = Employee.query.filter_by(personID=pID).first_or_404()
         serializedEmployee = Employee.serialize(employee)
         return jsonify(serializedEmployee)
 
     if request.method == 'PUT':
-        print("PUT")
-        print(pID)
         employee = Employee.query.filter_by(personID=pID).first_or_404()
         jsonData = request.get_json()
         employee.personID=jsonData['personID']
@@ -45,8 +39,6 @@ def employee(pID):
         return Employee.query.get_or_404(jsonData['personID']).serialize()
 
     if request.method == 'DELETE':
-        print("DELETE")
-        print(pID)
         employee = Employee.query.filter_by(personID=pID).first_or_404()
         serializedEmployee = Employee.serialize(employee)
         db.session.delete(employee)

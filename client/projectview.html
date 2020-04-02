@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="client.css">
+
+    <title>ERP</title>
+</head>
+
+<body>
+
+
+    <nav class="navbar navbar-expand-sm navbar-light bg-light">
+        <h2><a class="navbar-brand" href="/">ERP</a></h2>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
+            aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+                <a class="nav-item nav-link" href="#">SCHEMA</a>
+                <a class="nav-item nav-link" href="#">TIDSRAPP</a>
+                <a class="nav-item nav-link" href="#">ANSTÄLLDA</a>
+                <a class="nav-item nav-link" href="/project">PROJEKTÖVERSIKT</a>
+            </div>
+            <ul class="nav navbar-nav navbar-right ml-auto">
+                <button type="button" class="btn btn-outline-dark"> Logga ut</button>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Page title-->
+    <section class="jumbotron rounded-0 text-center bg-dark text-white">
+        <div class="container">
+            <h1 class="jumbotron-heading">Projektöversikt</h1>
+        </div>
+    </section>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col">
+                <div class="list-group" id="list-tab" role="tablist">
+                    <a class="list-group-item list-group-item-action rounded-0 active" id="list-home-list" data-toggle="list"
+                        href="#list-home" role="tab" aria-controls="home">Projekt: Vasagatan</a>
+                    <a class="list-group-item list-group-item-action rounded-0" id="list-profile-list" data-toggle="list"
+                        href="#list-profile" role="tab" aria-controls="profile">Projekt: Äppelvägen</a>
+                    <a class="list-group-item list-group-item-action rounded-0" id="list-messages-list" data-toggle="list"
+                        href="#list-messages" role="tab" aria-controls="messages">Projekt: Månlandning</a>
+                    <a class="list-group-item list-group-item-action rounded-0" id="list-settings-list" data-toggle="list"
+                        href="#list-settings" role="tab" aria-controls="settings">Projekt: Midgård</a>
+                </div>
+            </div>
+            <div class="col">
+                <div class="tab-content" id="nav-tabContent">
+                    <div class="tab-pane fade show active" id="list-home" role="tabpanel"
+                        aria-labelledby="list-home-list">
+                        <h1>Projekt: Vasagatan</h1>
+                        <p>
+                            <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis
+                                egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante.
+                                Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris
+                                placerat eleifend leo.</p>
+
+                                <p>Status: Pågående <br>
+                                    Antal timmar kvar: 150</p>
+
+                            <button type="button" class="btn btn-primary rounded-0 mt-3 float-right">Ändra</button>
+
+
+                            
+                        </p>
+                        
+                    </div>
+                    <div class="tab-pane fade" id="list-profile" role="tabpanel" aria-labelledby="list-profile-list">
+                        <h1>Projekt: Äppelvägen</h1>
+                        <p>
+                            <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis
+                                egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante.
+                                Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris
+                                placerat eleifend leo.</p>
+
+                                <p>Status: Pågående <br>
+                                    Antal timmar kvar: 150</p>
+
+                            <button type="button" class="btn btn-primary rounded-0 mt-3 float-right">Ändra</button>
+
+
+                            
+                        </p>
+                    </div>
+                    <div class="tab-pane fade" id="list-messages" role="tabpanel" aria-labelledby="list-messages-list">
+                        <h1>Projekt: Månlandning</h1>
+                        <p>
+                            <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis
+                                egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante.
+                                Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris
+                                placerat eleifend leo.</p>
+
+                                <p>Status: Pågående <br>
+                                    Antal timmar kvar: 150</p>
+
+                            <button type="button" class="btn btn-primary rounded-0 mt-3 float-right">Ändra</button>
+
+
+                            
+                        </p>
+                    </div>
+                    <div class="tab-pane fade" id="list-settings" role="tabpanel" aria-labelledby="list-settings-list">
+                        <h1>Projekt: Midgård</h1>
+                        <p>
+                            <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis
+                                egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante.
+                                Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris
+                                placerat eleifend leo.</p>
+
+                            <p>Status: Pågående <br>
+                            Antal timmar kvar: 150</p>
+
+                            <button type="button" class="btn btn-primary rounded-0 mt-3 float-right">Ändra</button>
+
+
+                            
+                        </p>    
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <button type="button" class="btn btn-primary rounded-0 mt-3">Nytt Projekt</button>
+            </div>
+        </div>
+    </div>
+
+
+
+    </div>
+
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
+
+    <!-- Our scrips -->
+    <script src="client.js"></script>
+</body>
+
+</html>
+
+
+<!--         <div class="row">
+            <div class="col">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Projektnamn</th>
+                            <th>Planerade Timmar</th>
+                            <th>Antal Timmar Kvar</th>
+                            <th>Status</th>
+                            <th>Ändra</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Alpha</td>
+                            <td>100</td>
+                            <td>20</td>
+                            <td>Påbörjad</td>
+                        </tr>
+                        <tr>
+                            <td>Beta</td>
+                            <td>200</td>
+                            <td>40</td>
+                            <td>Påbörjad</td>
+                        </tr>
+                        <tr>
+                            <td>Charlie</td>
+                            <td>50</td>
+                            <td>0</td>
+                            <td>Klar</td>
+                        </tr>
+                        <tr>
+                            <td>Delta</td>
+                            <td>400</td>
+                            <td>0</td>
+                            <td>Klar</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+        </div> -->

@@ -18,3 +18,7 @@ app.register_blueprint(auth.bp)
 @app.route("/")
 def client():
     return app.send_static_file("client.html")
+
+@app.route("/project")
+def client2():
+    return app.send_static_file("projectview.html")

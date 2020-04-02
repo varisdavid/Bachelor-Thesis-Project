@@ -19,7 +19,7 @@ class Project(db.Model):
 class Activity(db.Model):
     __tablename__ = 'activities'
     id = db.Column(db.Integer, primary_key=True)
-    date = db.Column(db.DateTime)
+    date = db.Column(db.Date)
     name = db.Column(db.String, nullable=False)
     startTime = db.Column(db.DateTime)
     stopTime = db.Column(db.DateTime)
@@ -33,7 +33,7 @@ class Activity(db.Model):
 
     def serialize(self):
         return dict(id=self.id, date=self.date, name=self.name, startTime=self.startTime,
-                    stopTime=self.StopTime, location=self.Location, description=self.description, project=self.project)
+                    stopTime=self.stopTime, location=self.location, description=self.description, project_id=self.project_id)
 
 
 class Employee(db.Model):

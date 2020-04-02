@@ -25,32 +25,42 @@
           <a class="nav-item nav-link" href="#">KONTAKT</a>
         </div> 
       </div>
-      <ul class="nav navbar-nav navbar-right">
-        <button type="button"  class="btn btn-outline-dark">Logga in</button>
-      </ul>  
     </nav>
-      
+
     <!-- Container for holding the main view. -->
     <div class="container" id="mainView">
       
     </div>
+    <!-- Placeholder for placing bootstrap alerts, see alerts.js -->
+    <div class="container" id="main-alert-holder"></div>
+
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
   
-    <!-- Our scrips -->
+    <!-- Our scripts -->
+    <script src="alerts.js"></script>
     <script src="client.js"></script>
   </body>
 
    <!-- The template for the landing page for not logged in visitors -->
    <template id="landingPage">
-    <h1>ERP- Snickeri <br> TDDD83</h1>
-    <pp>
-      För den moderna snickaren <br><br>
-      <button type="button" class="btn btn-primary">Logga in</button>
-      <button type="button" class="btn btn-outline-dark">Bli kund</button>
-    </pp>
+     <div class="row">
+       <div class="col">
+        <h1>ERP- Snickeri <br> TDDD83</h1>
+       </div>
+     </div>
+     <div class="row">
+       <div class="col">
+        För den moderna snickaren <br><br>
+        <button type="button" class="btn btn-primary">Logga in</button>
+        <button type="button" class="btn btn-outline-dark">Bli kund</button>
+       </div>
+     </div>
+     
+    
+    
   </template>
 </html>

@@ -14,3 +14,11 @@ h1 {
 h2 {
     font-weight: bold;
 }
+
+#main-alert-holder {
+    position:fixed;
+    margin:auto;
+    left: 0;
+    right: 0;
+    z-index:200000;
+}

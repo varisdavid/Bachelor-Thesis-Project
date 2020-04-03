@@ -10,7 +10,8 @@ from server.database import db, Activity, Person_Activity, Project, Employee
 # Creates the blueprint
 bp = Blueprint('activities', __name__, url_prefix='/activity')
 
-
+# Adds an activity to the database. Checks whether the project and the adder exists within the same company to prevent employees from changing other companies databases.
+# The request must contain the following fields: data, name, startTire, stopTime, location, description and project_id
 @bp.route("/add", methods=['POST'])
 @jwt_required
 def addActivity():

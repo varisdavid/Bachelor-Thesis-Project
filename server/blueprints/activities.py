@@ -27,7 +27,10 @@ def getActivitiesOnDate(date):
                              for activity in activities]
     return jsonify(serialized_activities), 200
 
-
+# returns the activities of the current user formatted in fullcalender event parsable json.
+# i.e. the return values from this route can be passed directly into the fullcalendar events field
+# 
+# TODO: Should return a subset of all activities. For example only upcoming activities
 @bp.route("/current_user", methods=['GET'])
 @jwt_required
 def getUserActivities():

@@ -8,12 +8,12 @@ class Project(db.Model):
     __tablename__ = 'projects'
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String, nullable=False)
-
+    companyOrgNumber = db.Column(db.String, db.ForeignKey('companies.orgNumber'), nullable=False)
     def __repr__(self):
-        return '<Project {}: {}>'.format(self.id, self.name)
+        return '<Project {}: {} {}>'.format(self.id, self.name, self.companyOrgNumber)
 
     def serialize(self):
-        return dict(id=self.id, name=self.name)
+        return dict(id=self.id, name=self.name, companyOrgNumber=self.companyOrgNumber)
 
 
 class Activity(db.Model):

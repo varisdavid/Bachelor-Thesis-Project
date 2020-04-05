@@ -7,9 +7,11 @@ function updatePageLoggedIn(signedIn) {
     if(signedIn) {
         $(".signInButton").hide()
         $(".signOutButton").show()
+        $("#navbarScheduleLink").show()
     } else {
         $(".signInButton").show()
         $(".signOutButton").hide()
+        $("#navbarScheduleLink").hide()
     }
 }
 

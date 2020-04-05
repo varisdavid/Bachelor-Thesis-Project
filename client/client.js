@@ -36,5 +36,9 @@ $( document ).ready(function() {
     $("#brandButton").click(function (e) {
         changeToLandingPage();
     })
-    changeToCalendarView();
+
+    //Navbar links:
+    $("#navbarScheduleLink").click(function (e) {
+        changeToCalendarView()
+    })
 })

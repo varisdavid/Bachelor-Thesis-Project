@@ -15,7 +15,7 @@ jwt = JWTManager(app)
 bp = Blueprint('authentication', __name__, url_prefix='/auth')
 
 # TODO: Should probably be moved to a better location, for example a blueprint for management the companies.
-# TODO: Currently sets the default password to "hallå". Should be changed to either a random string, or a string supplied by the person who signs up the company.
+# TODO: Currently sets the default password to "halla". Should be changed to either a random string, or a string supplied by the person who signs up the company.
 
 # Adds an employee to the database. The company field of the employee is assigned to whatever the value of the assignee is.
 # POST: Required json fields: personID, email and name
@@ -31,7 +31,7 @@ def employee():
         if employee.isAdmin:
             jsonData = request.get_json()
             db.session.add(Employee(personID=jsonData['personID'], email=jsonData['email'], name=jsonData['name'],
-                                    isAdmin=False, isBoss=False, company=employee.company, passwordHash = bcrypt.generate_password_hash("hallå").decode('utf-8'), usingDefaultPassword=True))
+                                    isAdmin=False, isBoss=False, company=employee.company, passwordHash = bcrypt.generate_password_hash("halla").decode('utf-8'), usingDefaultPassword=True))
 
             db.session.commit()
             return Employee.query.get_or_404(jsonData['personID']).serialize(), 200

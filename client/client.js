@@ -3,6 +3,11 @@
  */
 function changeToCalendarView() {
     $("#mainView").html($("#calendarView").html())
+    console.log("asdS")
+
+    $("#addActivityButton").click(function (e) {
+        spawnAddActivityModal()
+    })
     createCalendar();
 }
 
@@ -32,11 +37,13 @@ function changeToLandingPage() {
 }
 
 $( document ).ready(function() {
+    $("form :input").attr("autocomplete", "off");
+
     changeToLandingPage();
     $("#brandButton").click(function (e) {
         changeToLandingPage();
     })
-
+    
     //Navbar links:
     $("#navbarScheduleLink").click(function (e) {
         changeToCalendarView()

@@ -28,4 +28,21 @@ $( document ).ready(function() {
     $("#brandButton").click(function (e) {
         changeToLandingPage();
     })
+
+    //Navbar links:
+    $("#navAboutLink").click(function (e) {
+        $("#mainView").html($("#aboutView").html())
+    })
+
+    $("#navPriceLink").click(function (e) {
+        $("#mainView").html($("#priceView").html())
+    })
+
+    $("#navContactLink").click(function (e) {
+        $("#mainView").html($("#contactView").html())
+    })
+
+    $("#navSupportLink").click(function (e) {
+        $("#mainView").html($("#supportView").html())
+    })
 })

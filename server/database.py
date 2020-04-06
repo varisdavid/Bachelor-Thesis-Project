@@ -8,18 +8,18 @@ class Project(db.Model):
     __tablename__ = 'projects'
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String, nullable=False)
-
+    companyOrgNumber = db.Column(db.String, db.ForeignKey('companies.orgNumber'), nullable=False)
     def __repr__(self):
-        return '<Project {}: {}>'.format(self.id, self.name)
+        return '<Project {}: {} {}>'.format(self.id, self.name, self.companyOrgNumber)
 
     def serialize(self):
-        return dict(id=self.id, name=self.name)
+        return dict(id=self.id, name=self.name, companyOrgNumber=self.companyOrgNumber)
 
 
 class Activity(db.Model):
     __tablename__ = 'activities'
     id = db.Column(db.Integer, primary_key=True)
-    date = db.Column(db.DateTime)
+    date = db.Column(db.Date)
     name = db.Column(db.String, nullable=False)
     startTime = db.Column(db.DateTime)
     stopTime = db.Column(db.DateTime)
@@ -33,21 +33,25 @@ class Activity(db.Model):
 
     def serialize(self):
         return dict(id=self.id, date=self.date, name=self.name, startTime=self.startTime,
-                    stopTime=self.StopTime, location=self.Location, description=self.description, project=self.project)
+                    stopTime=self.stopTime, location=self.location, description=self.description, project_id=self.project_id)
 
 
 class Employee(db.Model):
     __tablename__ = 'employees'
     personID = db.Column(db.String, primary_key=True)
+    email = db.Column(db.String, nullable=True)
     name = db.Column(db.String, nullable=False)
     isAdmin = db.Column(db.Boolean, nullable=False)
     isBoss = db.Column(db.Boolean, nullable=False)
-
+    passwordHash = db.Column(db.String, nullable=True)
+    usingDefaultPassword = db.Column(db.Boolean, nullable=False)
+    company = db.Column(db.String, db.ForeignKey('companies.orgNumber'), nullable=False)
+    
     def __repr__(self):
-        return '<Employee {}: {} {} {}>'.format(self.personID, self.name, self.isAdmin, self.isBoss)
+        return '<Employee {}: {} {} {} {} {}>'.format(self.personID, self.email, self.name, self.isAdmin, self.isBoss, self.company)
 
     def serialize(self):
-        return dict(personID=self.personID, name=self.name, isAdmin=self.isAdmin, isBoss=self.isBoss)
+        return dict(personID=self.personID, email=self.email, name=self.name, isAdmin=self.isAdmin, isBoss=self.isBoss, company=self.company)
 
 
 class Person_Activity(db.Model):
@@ -83,3 +87,14 @@ class LoggedWork(db.Model):
 
     def serialize(self):
         return dict(id=self.id, employeeID=self.employeeID, projectID=self.projectID, approved=self.approved, startTime=self.startTime, endTime=self.endTime, comment=self.comment, petrolCost=self.petrolCost, otherCost=self.otherCost)
+
+class Company(db.Model):
+    __tablename__ = 'companies'
+    orgNumber = db.Column(db.String, primary_key = True)
+    name = db.Column(db.String, nullable = False)
+
+    def __repr__(self):
+        return '<Company {}: {}>'.format(self.orgNumber, self.name)
+
+    def serialize(self):
+        return dict(id=self.orgNumber, name=self.name)

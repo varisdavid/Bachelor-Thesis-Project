@@ -4,7 +4,7 @@ pp {
     top:200px;
 }
 
-h1 {
+.landingPageHeading {
     position: absolute;
     left: 40px;
     top:100px;

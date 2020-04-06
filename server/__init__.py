@@ -6,7 +6,7 @@ app = Flask(__name__, static_folder='../client', static_url_path='/')
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
-from server.database import db, Employee, Project, LoggedWork
+from server.database import db, Employee, Project, LoggedWork, Company
 
 
 #imports the blueprint from package blueprints

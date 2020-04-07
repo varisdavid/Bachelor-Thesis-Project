@@ -37,20 +37,16 @@ function changeToLandingPage() {
 }
 
 $( document ).ready(function() {
-    $("form :input").attr("autocomplete", "off");
-
     changeToLandingPage();
     $("#brandButton").click(function (e) {
         changeToLandingPage();
     })
-<<<<<<< HEAD
     
     //Navbar links:
     $("#navbarScheduleLink").click(function (e) {
         changeToCalendarView()
-=======
-
-    //Navbar links:
+    })
+    
     $("#navAboutLink").click(function (e) {
         $("#mainView").html($("#aboutView").html())
     })
@@ -65,6 +61,5 @@ $( document ).ready(function() {
 
     $("#navSupportLink").click(function (e) {
         $("#mainView").html($("#supportView").html())
->>>>>>> origin/master
     })
 })

@@ -11,7 +11,10 @@ from server.database import db, Activity, Person_Activity, Project, Employee
 bp = Blueprint('activities', __name__, url_prefix='/activity')
 
 # Adds an activity to the database. Checks whether the project and the adder exists within the same company to prevent employees from changing other companies databases.
-# The request must contain the following fields: data, name, startTire, stopTime, location, description and project_id
+# The request must contain the following fields: date, name, startTire, stopTime, location, description and project_id
+# If the field "employees" (should be of type: list of integers) is included all employees in that list are added to the activity. Else the activity is created for the current user.
+
+#TODO: Implement controls for Projects and Employee before using them.
 @bp.route("/add", methods=['POST'])
 @jwt_required
 def addActivity():
@@ -21,13 +24,22 @@ def addActivity():
             ('description' not in jsonData) or ('project_id' not in jsonData)):
         return {"msg": "Wrong fields"}, 400
     elif Project.query.get(jsonData["project_id"]).companyOrgNumber != Employee.query.get(get_jwt_identity()).company:
-        return {"msg" : "Wrong project id"}, 401
+        return {"msg": "Wrong project id"}, 401
     else:
         newActivity = Activity(date=d.fromisoformat(jsonData['date']), name=jsonData['name'], startTime=datetime.fromisoformat(jsonData['startTime']),
                                stopTime=datetime.fromisoformat(jsonData['stopTime']), location=jsonData['location'],
                                description=jsonData['description'], project_id=jsonData['project_id'])
         db.session.add(newActivity)
         db.session.commit()
+
+        if 'employees' in jsonData:
+            for employee in jsonData['employees']:
+                db.session.add(Person_Activity(personID = employee, id = newActivity.id))
+        else:
+            user = get_jwt_identity()
+            db.session.add(Person_Activity(personID = user, id = newActivity.id))
+        db.session.commit()
+
         return newActivity.serialize()
 
 

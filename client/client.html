@@ -155,17 +155,29 @@
               <label for="addActivityName">Namn</label>
               <input class="form-control" id="addActivityName" placeholder="Namn på aktiviteten">
             </div>
+
             <div class="form-group">
               <label for="addActivityLocation">Plats</label>
               <input class="form-control" id="addActivityLocation" placeholder="Plats där den sker">
             </div>
+
             <div class="form-group">
               <label for="addActivityDescription">Beskrivning</label>
               <textarea class="form-control" id="addActivityDescription" rows="4" placeholder="Övriga upplysningar eller beskrivning"></textarea>
             </div>
+
+            <div class="form-group">
+              <label for="addActivityProjectSelector">Vilket projekt gäller detta</label>
+              <select class="form-control" id="addActivityProjectSelector">
+                <option value="0">Inget projekt</option>
+
+              </select>
+            </div>
+
             <div class="alert alert-warning" id="addActivityWrongDateAlert" hidden="true" role="alert">
               Avslutstiden måste ligga efter den första
             </div>
+
             <label for="addActivityStartPickers">Starttid</label>
             <div class="row" id="addActivityStartPickers">
               <div class="col">
@@ -178,6 +190,7 @@
                       </div>
                   </div>
               </div>
+
               <div class="col">
                 <div class="form-group">
                     <div class="input-group date" id="addActivityStartTimePicker" data-target-input="nearest">
@@ -189,6 +202,7 @@
                 </div>
               </div>
             </div>
+
             <label for="addActivityStopPickers">Sluttid</label>
             <div class="row" id="addActivityStopPickers">
               <div class="col">
@@ -201,6 +215,7 @@
                       </div>
                   </div>
               </div>
+
               <div class="col">
                 <div class="form-group">
                     <div class="input-group date" id="addActivityStopTimePicker" data-target-input="nearest">

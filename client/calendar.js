@@ -90,17 +90,46 @@ function activateDateAndTimePickers() {
     });
 }
 /**
+ * Helper function for populating the employee selector
+ */
+function populateEmployeeSelector() {
+    
+}
+
+/**
+ * Helper function for populating the drop down menus
+ */
+function populateProjectsDropdown() {
+    //Hämta alla projekt genom ett ajax-anrop
+    //Currently using stub
+    //Populating projects
+    var projects = [
+    {
+        name: "Bygga hus",
+        id:1
+    },
+    {
+        name: "Lägg golv",
+        id: 5
+    },
+    {
+        name: "Bygg veranda",
+        id: 6    
+    }]
+    projects.forEach(element => $("#addActivityProjectSelector").append(`<option value="${element.id}">${element.name}</option>`));
+}
+/**
  * Spawns a modal prompting the user to add an activity.
  */
 
 // TODO: Skulle eventuellt kunna flyttas till en annan fil innehållande saker relaterade till aktiviterer.
 function spawnAddActivityModal() {
     $("#addActivityModal").modal("show")
-    $(activateDateAndTimePickers);        
+    $(activateDateAndTimePickers);
+    populateProjectsDropdown();
 }
 
 function addActivity() {
-    //Konvertera till svenska datum innan skickande.
     var name = $("#addActivityName").val();
     var date = $("#addActivityStartDatePicker").datetimepicker('date').toISOString(true).substring(0,10)
     var startTime = $("#addActivityStartDatePicker").datetimepicker('date').toISOString(true).substring(0,11) + $("#addActivityStartTimePicker").datetimepicker('date').toISOString(true).substring(11,19)
@@ -108,7 +137,8 @@ function addActivity() {
     var loc = $("#addActivityLocation").val()
     var description = $("#addActivityDescription").val()
     //TODO: Ta fram projekt med en hashmap och populera den från servern med data.
-    var project_id = 1
+    //TODO: Samma sak med employees
+    var project_id = $("#addActivityProjectSelector").val()
 
     var activityData = `
     {

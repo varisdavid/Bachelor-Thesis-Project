@@ -89,11 +89,14 @@ function activateDateAndTimePickers() {
         }
     });
 }
+
 /**
  * Helper function for populating the employee selector
  */
 function populateEmployeeSelector() {
-    
+    $("#addActivityEmpSelGroup").show()
+
+    employees.forEach(employee => $("#addActivityEmployeeSelector").append(`<option id="${employee.id}" value="${employee.id}">${employee.name}</option>`))
 }
 
 /**
@@ -103,42 +106,109 @@ function populateProjectsDropdown() {
     //Hämta alla projekt genom ett ajax-anrop
     //Currently using stub
     //Populating projects
+    $("#addActivityProjectSelector").html("");
     var projects = [
+        {
+            name: "Bygga hus",
+            id: 1
+        },
+        {
+            name: "Lägg golv",
+            id: 5
+        },
+        {
+            name: "Bygg veranda",
+            id: 6
+        }
+    ]
+    projects.forEach(project => $("#addActivityProjectSelector").append(`<option value="${project.id}">${project.name}</option>`));
+}
+
+//Global variable for keeping track of what employees are currently selected.
+var employees = [
     {
-        name: "Bygga hus",
-        id:1
+        name: "Anders Andersson",
+        id: "199403010000",
+        selected: false
     },
     {
-        name: "Lägg golv",
-        id: 5
-    },
-    {
-        name: "Bygg veranda",
-        id: 6    
-    }]
-    projects.forEach(element => $("#addActivityProjectSelector").append(`<option value="${element.id}">${element.name}</option>`));
+        name: "Pelle Svensson",
+        id: "199001010000",
+        selected: false
+    }
+]
+
+var employeeMap = new Map()
+employeeMap.set("199403010000", {
+    name: "Anders Andersson",
+    selected: false
+});
+employeeMap.set("199001010000", {
+    name: "Pelle Svensson",
+    selected: false
+});
+
+/**
+ * Helper function for populating the employee selector
+ * 
+ * USES GLOBAL VARIABLE "EMPLOYEES"
+ */
+
+function populateEmployeeSelector() {
+    $("#addActivityEmpSelGroup").show()
+    $("#addActivitySelectedEmployeeList").show()
+    var selectHTML = ""
+    var selectedHTML = ""
+    
+    employeeMap.forEach(function (value, key, map) {
+
+        if (value.selected) {
+            selectedHTML = selectedHTML + `<li class="list-group-item">${value.name}<button style="float: right;" type="button" class="btn btn-dark" value="${key}" onclick="removeEmployeeFromSelectedEmployees(this.value)"><i class="fa fa-times"></i></button></li>`
+        } else {
+            selectHTML = selectHTML + `<option value="${key}">${value.name}</option>`
+        }
+    })
+    $("#addActivitySelectedEmployeeList").html(selectedHTML)
+    $("#addActivityEmployeeSelector").html(selectHTML)
+}
+
+function addEmployeeToSelectedEmployees() {
+    employeeMap.get($("#addActivityEmployeeSelector").val()).selected=true;
+    populateEmployeeSelector();
+}
+
+function removeEmployeeFromSelectedEmployees(id) {
+    employeeMap.get(id).selected=false;
+    populateEmployeeSelector();
 }
 /**
  * Spawns a modal prompting the user to add an activity.
+ * Uses global variable selectedEmployees
  */
 
 // TODO: Skulle eventuellt kunna flyttas till en annan fil innehållande saker relaterade till aktiviterer.
 function spawnAddActivityModal() {
+    selectedEmployees = [];
     $("#addActivityModal").modal("show")
     $(activateDateAndTimePickers);
     populateProjectsDropdown();
+    populateEmployeeSelector();
 }
-
+/**
+ * Function called by the submit button.
+ * Uses global variable selectedEmployees
+ */
 function addActivity() {
     var name = $("#addActivityName").val();
-    var date = $("#addActivityStartDatePicker").datetimepicker('date').toISOString(true).substring(0,10)
-    var startTime = $("#addActivityStartDatePicker").datetimepicker('date').toISOString(true).substring(0,11) + $("#addActivityStartTimePicker").datetimepicker('date').toISOString(true).substring(11,19)
-    var stopTime = $("#addActivityStopDatePicker").datetimepicker('date').toISOString(true).substring(0,11) + $("#addActivityStopTimePicker").datetimepicker('date').toISOString(true).substring(11,19)
+    var date = $("#addActivityStartDatePicker").datetimepicker('date').toISOString(true).substring(0, 10)
+    var startTime = $("#addActivityStartDatePicker").datetimepicker('date').toISOString(true).substring(0, 11) + $("#addActivityStartTimePicker").datetimepicker('date').toISOString(true).substring(11, 19)
+    var stopTime = $("#addActivityStopDatePicker").datetimepicker('date').toISOString(true).substring(0, 11) + $("#addActivityStopTimePicker").datetimepicker('date').toISOString(true).substring(11, 19)
     var loc = $("#addActivityLocation").val()
     var description = $("#addActivityDescription").val()
     //TODO: Ta fram projekt med en hashmap och populera den från servern med data.
     //TODO: Samma sak med employees
     var project_id = $("#addActivityProjectSelector").val()
+    var employees = selectedEmployees;
 
     var activityData = `
     {
@@ -148,7 +218,8 @@ function addActivity() {
         "stopTime": "${stopTime}",
         "location": "${loc}",
         "description": "${description}",
-        "project_id": "${project_id}"
+        "project_id": ${project_id},
+        "employees": ${JSON.stringify(employees)}
     }`
     console.log(activityData)
     $.ajax({
@@ -162,7 +233,7 @@ function addActivity() {
             $("#addActivityModal").modal("hide");
             spawnAlert("Aktiviteten har lagts till")
             calendar.refetchEvents()
-        }, 
+        },
         error: function (response) {
             console.log("error")
         }

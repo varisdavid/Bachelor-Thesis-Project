@@ -8,19 +8,10 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 from server.database import db, Employee, Project, LoggedWork, Company
 
-
-#imports the blueprint from package blueprints
-<<<<<<< HEAD
-# from server.blueprints import auth
-from server.blueprints import employee
-#Adds all the defined routes in auth
-#app.register_blueprint(auth.bp)
-app.register_blueprint(employee.bp)
-
-=======
-from server.blueprints import auth, time_report
+from server.blueprints import auth, time_report, employee
 #Adds all the defined routes in auth
 app.register_blueprint(auth.bp)
+app.register_blueprint(employee.bp)
 app.register_blueprint(time_report.bp)
 
 @app.route("/")

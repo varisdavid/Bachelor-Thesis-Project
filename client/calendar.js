@@ -2,7 +2,10 @@
  * Functions for handling the calendar view.
  */
 var calendar;
-
+/**
+ * Global variable for keeping track of some available colors. Used for coloring the calendar events.
+ */
+let colorsArray = ["lightsalmon", "tomato", "papayawhip", "greenyellow", "lightskyblue", "lightskyblue", "navajowhite"]
 /**
  * Creates the calendar, needs a html element with a 'calendar' id for it to work.
  * Fetches only the data needed from the server.
@@ -17,7 +20,7 @@ function createCalendar() {
             defaultView: 'timeGridWeek',
             nowIndicator: true,
             locale: 'sv',
-            events: function (info, callback) {
+            eventSources: [function (info, callback) {
                 $.ajax({
                     url: `/activity/feed?start=${info.startStr}&end=${info.endStr}`,
                     type: 'GET',
@@ -26,7 +29,7 @@ function createCalendar() {
                         callback(response);
                     },
                 });
-            }
+            }]
         });
         calendar.render();
     })
@@ -154,32 +157,38 @@ employeeMap.set("199001010000", {
  * USES GLOBAL VARIABLE "EMPLOYEES"
  */
 
-function populateEmployeeSelector() {
+function populateEmployeeSelectorAct() {
     $("#addActivityEmpSelGroup").show()
     $("#addActivitySelectedEmployeeList").show()
     var selectHTML = ""
     var selectedHTML = ""
-    
+
     employeeMap.forEach(function (value, key, map) {
 
         if (value.selected) {
-            selectedHTML = selectedHTML + `<li class="list-group-item">${value.name}<button style="float: right;" type="button" class="btn btn-dark" value="${key}" onclick="removeEmployeeFromSelectedEmployees(this.value)"><i class="fa fa-times"></i></button></li>`
+            selectedHTML = selectedHTML + `<li class="list-group-item selected-emp">${value.name}<button style="float: right;" type="button" class="close" value="${key}" onclick="removeFromSelEmployeesAct(this.value)"><i class="fa fa-times"></i></button></li>`
         } else {
             selectHTML = selectHTML + `<option value="${key}">${value.name}</option>`
         }
     })
+    /*
+    if (selectedHTML=="") {
+        $("#addActivityEmpHolderText").show()
+    } else {
+        $("#addActivityEmpHolderText").hide()
+    }*/
     $("#addActivitySelectedEmployeeList").html(selectedHTML)
     $("#addActivityEmployeeSelector").html(selectHTML)
 }
 
-function addEmployeeToSelectedEmployees() {
-    employeeMap.get($("#addActivityEmployeeSelector").val()).selected=true;
-    populateEmployeeSelector();
+function addEmployeeToSelectedEmployeesAct() {
+    employeeMap.get($("#addActivityEmployeeSelector").val()).selected = true;
+    populateEmployeeSelectorAct();
 }
 
-function removeEmployeeFromSelectedEmployees(id) {
-    employeeMap.get(id).selected=false;
-    populateEmployeeSelector();
+function removeFromSelEmployeesAct(id) {
+    employeeMap.get(id).selected = false;
+    populateEmployeeSelectorAct();
 }
 /**
  * Spawns a modal prompting the user to add an activity.
@@ -192,7 +201,7 @@ function spawnAddActivityModal() {
     $("#addActivityModal").modal("show")
     $(activateDateAndTimePickers);
     populateProjectsDropdown();
-    populateEmployeeSelector();
+    populateEmployeeSelectorAct();
 }
 /**
  * Function called by the submit button.
@@ -239,3 +248,73 @@ function addActivity() {
         }
     })
 }
+
+
+/**
+ * Helper function for populating the employee selector
+ * 
+ * USES GLOBAL VARIABLE "EMPLOYEES"
+ */
+
+function populateEmployeeSelectorCal() {
+    $("#viewCalendarsEmpSelGroup").show()
+    $("#viewCalendarsSelectedEmployeeList").show()
+    var selectHTML = ""
+    var selectedHTML = ""
+
+    employeeMap.forEach(function (value, key, map) {
+
+        if (value.selected) {
+            selectedHTML = selectedHTML + `<li class="list-group-item selected-emp">${value.name}<button style="float: right;" type="button" class="close" value="${key}" onclick="removeFromSelEmployeesCal(this.value)"><i class="fa fa-times"></i></button></li>`
+        } else {
+            selectHTML = selectHTML + `<option value="${key}">${value.name}</option>`
+        }
+    })
+    /*
+    if (selectedHTML=="") {
+        $("#addActivityEmpHolderText").show()
+    } else {
+        $("#addActivityEmpHolderText").hide()
+    }*/
+    $("#viewCalendarsSelectedEmployeeList").html(selectedHTML)
+    $("#viewCalendarsEmployeeSelector").html(selectHTML)
+}
+
+function addEmployeeToSelectedEmployeesCal() {
+    employeeMap.get($("#viewCalendarsEmployeeSelector").val()).selected = true;
+    populateEmployeeSelectorCal();
+}
+
+function removeFromSelEmployeesCal(id) {
+    employeeMap.get(id).selected = false;
+    populateEmployeeSelectorCal();
+}
+
+function spawnViewCalendarsModal() {
+    $("#viewCalendarsModal").modal("show")
+    populateEmployeeSelectorCal()
+}
+
+function viewCalendars() {
+    calendar.getEventSources().forEach(s => s.remove());
+    var colorIndex = 0;
+    employeeMap.forEach(function (value, key, map) {
+        if (value.selected) {
+            calendar.addEventSource({
+                events: function (info, callback) {
+                    $.ajax({
+                        url: `/activity/${key}/feed?start=${info.startStr}&end=${info.endStr}`,
+                        type: 'GET',
+                        headers: { "Authorization": "Bearer " + JSON.parse(sessionStorage.getItem('auth')).access_token },
+                        success: function (response) {
+                            callback(response);
+                        }
+                    });
+                },
+                color: colorsArray[colorIndex++]
+            });
+        }
+    })
+    $("#viewCalendarsModal").modal("hide")
+}
+

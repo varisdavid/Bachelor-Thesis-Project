@@ -53,6 +53,13 @@ def activityFeed():
     start = request.args.get("start")
     end = request.args.get("end")
     user_id = get_jwt_identity()
+    if(request.get_json() is not None):
+        if("employeeID" in request.get_json()):
+            emp = Employee.query.get(user_id)
+            if(emp.isAdmin or emp.isBoss):
+                user_id=request.get_json()["employeeID"]
+            else:
+                return {"msg": "not authorized"}, 401
 
     activities = db.session.query(Activity).\
         join(Person_Activity, Person_Activity.id == Activity.id).\
@@ -62,3 +69,22 @@ def activityFeed():
         all()
 
     return jsonify([activity.serializeForCalendar() for activity in activities]), 200
+
+@bp.route("/<id>/feed")
+@jwt_required
+def activityFeedID(id):
+    start = request.args.get("start")
+    end = request.args.get("end")
+    user_id = get_jwt_identity()
+    emp = Employee.query.get(user_id)
+    if(not(emp.isAdmin or emp.isBoss)):
+        return {"msg": "not authorized"}, 401
+    else:
+        activities = db.session.query(Activity).\
+            join(Person_Activity, Person_Activity.id == Activity.id).\
+            filter(Person_Activity.personID == id).\
+            filter(Activity.startTime >= start).\
+            filter(Activity.startTime <= end).\
+            all()
+
+        return jsonify([activity.serializeForCalendar() for activity in activities]), 200

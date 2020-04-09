@@ -8,6 +8,10 @@ function changeToCalendarView() {
     $("#addActivityButton").click(function (e) {
         spawnAddActivityModal()
     })
+
+    $("#viewCalendarsButton").click(function (e) {
+        spawnViewCalendarsModal();
+    })
     createCalendar();
 }
 

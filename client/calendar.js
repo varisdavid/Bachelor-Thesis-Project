@@ -29,7 +29,21 @@ function createCalendar() {
                         callback(response);
                     },
                 });
-            }]
+            }],
+            eventClick: function(info) {
+                console.log("klickade på: ", info.event.id)
+                $.ajax({
+                    url: `activity/${info.event.id}`,
+                    type: 'GET',
+                    headers: { "Authorization": "Bearer " + JSON.parse(sessionStorage.getItem('auth')).access_token },
+                    success: function (response) {
+                        console.log(response)
+                    },
+                    error: function (response) {
+                        console.log("error")
+                    }
+                })
+            }
         });
         calendar.render();
     })

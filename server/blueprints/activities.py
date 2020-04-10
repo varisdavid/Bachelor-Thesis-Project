@@ -42,6 +42,19 @@ def addActivity():
 
         return newActivity.serialize()
 
+@bp.route("/<id>", methods=["GET", "PUT"])
+@jwt_required
+def act(id):
+    user_id = get_jwt_identity()
+    if request.method == "GET":
+        activity = Activity.query.get_or_404(id)
+        if Project.query.get(activity.project_id).companyOrgNumber == Employee.query.get(user_id).company:
+            return jsonify(activity.serialize())
+        else:
+            return {"msg" : "not authorized"}, 401
+    else:
+        #Skapa put.
+        return {"msg": "not finished"}, 400
 
 # Returns the activities in the given timeframe. Only the users activities are returned.
 # The url format for accessing this is: localhost:5000/feed?start=TIME-IN-ISO-FORMAT&end=TIME-IN-ISO-FORMAT

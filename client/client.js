@@ -4,10 +4,10 @@
 function changeToRegisterCompany() {
     $("#mainView").html($("#signUpView").html());
 
-    $("#signUpButton").click(function (e) {
+    $("#signUpButton").click(function(e) {
         signUpCompany()
     })
-    $("#cancelSignUpButton").click(function (e) {
+    $("#cancelSignUpButton").click(function(e) {
         changeToLandingPage()
     })
 }
@@ -17,32 +17,37 @@ function changeToRegisterCompany() {
 function changeToLandingPage() {
     $("#mainView").html($("#landingPage").html())
 
-    $(".becomeCustomerButton").click(function (e) {
+    $(".becomeCustomerButton").click(function(e) {
         e.preventDefault();
         changeToRegisterCompany()
     })
 }
 
-$( document ).ready(function() {
+$(document).ready(function() {
     changeToLandingPage();
-    $("#brandButton").click(function (e) {
+    $("#brandButton").click(function(e) {
         changeToLandingPage();
     })
 
     //Navbar links:
-    $("#navAboutLink").click(function (e) {
+    $("#navAboutLink").click(function(e) {
         $("#mainView").html($("#aboutView").html())
     })
 
-    $("#navPriceLink").click(function (e) {
+    $("#navPriceLink").click(function(e) {
         $("#mainView").html($("#priceView").html())
     })
 
-    $("#navContactLink").click(function (e) {
+    $("#navContactLink").click(function(e) {
         $("#mainView").html($("#contactView").html())
     })
 
-    $("#navSupportLink").click(function (e) {
+    $("#navSupportLink").click(function(e) {
         $("#mainView").html($("#supportView").html())
+    })
+
+    $("#navEmployeeLink").click(function(e) {
+        $("#mainView").html($("#employeeView").html())
+        loadEmployees(); //In employee.js
     })
 })

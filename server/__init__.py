@@ -7,9 +7,9 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 from server.database import db, Employee, Project, LoggedWork, Company
+from server.blueprints import auth, time_report, employee, schedule
 
-from server.blueprints import auth, time_report, employee
-#Adds all the defined routes in auth
+#Adds all the defined routes from blueprints
 app.register_blueprint(auth.bp)
 app.register_blueprint(employee.bp)
 app.register_blueprint(time_report.bp)

@@ -18,7 +18,6 @@ def employees():
         return jsonify(serializedEmployeeList)
     if request.method == 'POST':
         #if employee.isAdmin:
-        print("POST")
         jsonData = request.get_json()
         db.session.add(Employee(personID=jsonData['personID'], email=jsonData['email'], name=jsonData['name'],
                                 isAdmin=False, isBoss=False, company=employee.company, passwordHash = bcrypt.generate_password_hash("halla").decode('utf-8'), usingDefaultPassword=True))

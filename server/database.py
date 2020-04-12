@@ -83,7 +83,7 @@ class LoggedWork(db.Model):
     otherCost = db.Column(db.Integer, nullable=True)
 
     def __repr__(self):
-        return '<LoggedWork {}: {} {} {} {} {} {} {} {}>'.format(self.id, self.personID, self.projectID, self.approved, self.startTime, self.endTime, self.comment, self.petrolCost, self.otherCost)
+        return '<LoggedWork {}: {} {} {} {} {} {} {} {}>'.format(self.id, self.employeeID, self.projectID, self.approved, self.startTime, self.endTime, self.comment, self.petrolCost, self.otherCost)
 
     def serialize(self):
         return dict(id=self.id, employeeID=self.employeeID, projectID=self.projectID, approved=self.approved, startTime=self.startTime, endTime=self.endTime, comment=self.comment, petrolCost=self.petrolCost, otherCost=self.otherCost)

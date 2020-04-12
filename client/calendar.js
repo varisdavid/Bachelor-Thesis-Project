@@ -1,14 +1,20 @@
 /**
  * Functions for handling the calendar view.
  */
+
+/**
+ * Global variable for keepin track of the calendar.
+ */
 var calendar;
+
 /**
  * Global variable for keeping track of some available colors. Used for coloring the calendar events.
  */
-let colorsArray = ["lightsalmon", "tomato", "papayawhip", "greenyellow", "lightskyblue", "lightskyblue", "navajowhite"]
+let colorsArray = ["lightsalmon", "lightskyblue", "tomato", "papayawhip", "greenyellow", "lightskyblue", "navajowhite"]
+
 /**
  * Creates the calendar, needs a html element with a 'calendar' id for it to work.
- * Fetches only the data needed from the server.
+ * Fetches only the data needed from the server through the 'feed' route.
  */
 function createCalendar() {
     $(function () {
@@ -32,80 +38,128 @@ function createCalendar() {
             }],
             eventClick: function(info) {
                 console.log("klickade på: ", info.event.id)
-                $.ajax({
-                    url: `activity/${info.event.id}`,
-                    type: 'GET',
-                    headers: { "Authorization": "Bearer " + JSON.parse(sessionStorage.getItem('auth')).access_token },
-                    success: function (response) {
-                        console.log(response)
-                    },
-                    error: function (response) {
-                        console.log("error")
-                    }
-                })
+                spawnActivityInfoModal(info.event.id)
             }
         });
         calendar.render();
     })
 }
 
-/**
- * Helper function for making the datepicker and timepicker fields work properly. Should be called from a $( document ).ready()
- */
-function activateDateAndTimePickers() {
-    $("#addActivityStartDatePicker").datetimepicker({
+function spawnActivityInfoModal(activityID) {
+    $.ajax({
+        url: `activity/${activityID}`,
+        type: 'GET',
+        headers: { "Authorization": "Bearer " + JSON.parse(sessionStorage.getItem('auth')).access_token },
+        success: function (response) {
+            console.log(response)
+            $("#activityInfoTitle").html(response.name);
+
+            employeeString = "";
+            response.employees.forEach(function(emp) {
+                console.log(emp.name)
+                employeeString = employeeString + emp.name + "\n";
+            })
+
+            $("#activityInfoBody").html(`
+            <div>
+                <h5>Starttid </h5>
+                <p>${response.startTime}</p>
+                <h5>Sluttid</h5>
+                <p>${response.stopTime}</p>
+                <h5>Beskrivning</h5>
+                <p>${response.description}</p>
+                <h5>Projekt</h5>
+                <p>${response.project.name}</p>
+                <h5>Anställda</h5>
+                <p>${employeeString}</p>
+                <h5>Plats</h5>
+                <p>${response.location}</p>
+             </div>`);
+            $("#activityInfoModal").modal("show");
+        },
+        error: function (response) {
+            console.log("error")
+        }
+    })
+}
+ /**
+  * Helper function for making the datepicker and timepicker fields work properly. Should be called from a $( document ).ready()
+  * 
+  * @param {string} startDatePicker the identifier of the time picker used for picking the start date 
+  * @param {string} startTimePicker the identifier of the time picker used for picking the start time
+  * @param {string} stopDatePicker the identifier of the time picker used for picking the stop date
+  * @param {string} stopTimePicker the identifier of the time picker used for picking the stop time
+  * @param {string} wrongDateAlert the identifier of the alert that is shown when the user picks a start date that is greater than the stop date, or vice versa
+  * @param {string} startTime Sets the defaultDate property of the start time and date pickers
+  * @param {string} stopTime Sets the defaultDate property of the stop time and date pickers
+  */
+function activateDateAndTimePickers(startDatePicker, startTimePicker, stopDatePicker, stopTimePicker, wrongDateAlert, startTime = moment(), stopTime = moment()) {
+    $(startDatePicker).datetimepicker({
         format: "L",
-        locale: "sv"
+        locale: "sv",
+        defaultDate: startTime
     });
-    $("#addActivityStartTimePicker").datetimepicker({
+    $(startTimePicker).datetimepicker({
         format: "LT",
-        locale: "sv"
+        locale: "sv",
+        defaultDate: startTime
     })
 
-    $("#addActivityStopDatePicker").datetimepicker({
+    $(stopDatePicker).datetimepicker({
         format: "L",
-        locale: "sv"
+        locale: "sv",
+        defaultDate: stopTime
     });
-    $("#addActivityStopTimePicker").datetimepicker({
+    $(stopTimePicker).datetimepicker({
         format: "LT",
-        locale: "sv"
+        locale: "sv",
+        defaultDate: stopTime
     })
 
 
     //TODO: Eventuellt implementera automatisk datumväxlig när tid ändras. Även lägga till global offset som sätts när slutdatum ändras.
-    $('#addActivityStartDatePicker').on("change.datetimepicker", function (e) {
-        $("#addActivityStopDatePicker").datetimepicker('minDate', e.date)
-        $("#addActivityStopDatePicker").datetimepicker('date', e.date)
+    $(startDatePicker).on("change.datetimepicker", function (e) {
+        $(stopDatePicker).datetimepicker('minDate', e.date)
+        $(stopDatePicker).datetimepicker('date', e.date)
     })
 
-    $("#addActivityStartTimePicker").on("change.datetimepicker", function (e) {
+    $(startTimePicker).on("change.datetimepicker", function (e) {
         var newDate = e.date;
         newDate.hour(newDate.hour() + 1)
-        $("#addActivityStopTimePicker").datetimepicker('date', newDate)
+        $(stopTimePicker).datetimepicker('date', newDate)
     });
-
-    $('#addActivityStopTimePicker').on("change.datetimepicker", function (e) {
-        var startDate = $("#addActivityStartDatePicker").datetimepicker('date')
-        var stopDate = $("#addActivityStopDatePicker").datetimepicker('date')
-        var startTime = $("#addActivityStartTimePicker").datetimepicker('date')
-        var stopTime = $("#addActivityStopTimePicker").datetimepicker('date')
-
+    
+    function checkWrongDate (e) {
+        var startDate = $(startDatePicker).datetimepicker('date');
+        var stopDate = $(stopDatePicker).datetimepicker('date')
+        var startTime = $(startTimePicker).datetimepicker('date')
+        var stopTime = $(stopTimePicker).datetimepicker('date')
+    
         if (startDate < stopDate) {
-            document.getElementById("addActivityWrongDateAlert").hidden = true;
+            $(wrongDateAlert).hide();
+        } else if (startDate > stopDate) {
+            $(wrongDateAlert).show()
         } else {
             if (startTime.hour() < stopTime.hour()) {
-                document.getElementById("addActivityWrongDateAlert").hidden = true;
-            }
-            else {
-                if (startTime.minute() < stopTime.minute()) {
-                    document.getElementById("addActivityWrongDateAlert").hidden = true;
+                $(wrongDateAlert).hide();
+            } else if(startTime.hour() > stopTime.hour()) {
+                $(wrongDateAlert).show()
+            } else {
+                if (startTime.minute() <= stopTime.minute()) {
+                    $(wrongDateAlert).hide();
                 } else {
-                    document.getElementById("addActivityWrongDateAlert").hidden = false;
+                    $(wrongDateAlert).show();
                 }
             }
         }
-    });
+    }
+
+    $(startDatePicker).on("change.datetimepicker", function (e) {checkWrongDate(e)});
+    $(startTimePicker).on("change.datetimepicker", function (e) {checkWrongDate(e)});
+    $(stopDatePicker).on("change.datetimepicker", function (e) {checkWrongDate(e)});
+    $(stopTimePicker).on("change.datetimepicker", function (e) {checkWrongDate(e)});
 }
+
 
 /**
  * Helper function for populating the employee selector
@@ -213,10 +267,11 @@ function removeFromSelEmployeesAct(id) {
 function spawnAddActivityModal() {
     selectedEmployees = [];
     $("#addActivityModal").modal("show")
-    $(activateDateAndTimePickers);
+    $(activateDateAndTimePickers("#addActivityStartDatePicker", "#addActivityStartTimePicker", "#addActivityStopDatePicker", "#addActivityStopTimePicker", "#addActivityWrongDateAlert"));
     populateProjectsDropdown();
     populateEmployeeSelectorAct();
 }
+
 /**
  * Function called by the submit button.
  * Uses global variable selectedEmployees
@@ -232,18 +287,30 @@ function addActivity() {
     //TODO: Samma sak med employees
     var project_id = $("#addActivityProjectSelector").val()
     var employees = selectedEmployees;
-
-    var activityData = `
-    {
-        "date": "${date}",
-        "name": "${name}",
-        "startTime": "${startTime}",
-        "stopTime": "${stopTime}",
-        "location": "${loc}",
-        "description": "${description}",
-        "project_id": ${project_id},
-        "employees": ${JSON.stringify(employees)}
-    }`
+    if(employees.length > 0){
+        var activityData = `
+        {
+            "date": "${date}",
+            "name": "${name}",
+            "startTime": "${startTime}",
+            "stopTime": "${stopTime}",
+            "location": "${loc}",
+            "description": "${description}",
+            "project_id": ${project_id},
+            "employees": ${JSON.stringify(employees)}
+        }`
+    } else {
+        var activityData = `
+        {
+            "date": "${date}",
+            "name": "${name}",
+            "startTime": "${startTime}",
+            "stopTime": "${stopTime}",
+            "location": "${loc}",
+            "description": "${description}",
+            "project_id": ${project_id}
+        }`
+    }
     console.log(activityData)
     $.ajax({
         url: 'activity/add',

@@ -49,12 +49,24 @@ def act(id):
     if request.method == "GET":
         activity = Activity.query.get_or_404(id)
         if Project.query.get(activity.project_id).companyOrgNumber == Employee.query.get(user_id).company:
-            return jsonify(activity.serialize())
+            activityDict = activity.serialize()
+            activityDict["project"] = Project.query.get(activity.project_id).serialize()
+            activityDict["employees"] = []
+            for p_a in Person_Activity.query.filter_by(id = activity.id).all():
+                print(p_a.personID)
+                activityDict["employees"].append(Employee.query.get(p_a.personID).serialize())
+            
+            return jsonify(activityDict)
         else:
             return {"msg" : "not authorized"}, 401
     else:
-        #Skapa put.
-        return {"msg": "not finished"}, 400
+        activity = Activity.query.get_or_404(id)
+        jsonData = request.get_json()
+        for key in request.get_json():
+            # TODO: Filtrera bort alla attribut som inte ska gå att ändra.
+            if(hasattr(activity, key) and (key != "id")):
+                setattr(activity, key, jsonData[key])
+        return jsonify(Activity.query.get(id).serialize())
 
 # Returns the activities in the given timeframe. Only the users activities are returned.
 # The url format for accessing this is: localhost:5000/feed?start=TIME-IN-ISO-FORMAT&end=TIME-IN-ISO-FORMAT

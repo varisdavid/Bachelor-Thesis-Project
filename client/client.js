@@ -24,7 +24,7 @@ function changeToLandingPage() {
 }
 
 $( document ).ready(function() {
-    changeToLandingPage();
+    $("#mainView").html($("#landingPage").html())
     $("#brandButton").click(function (e) {
         changeToLandingPage();
     })
@@ -45,4 +45,10 @@ $( document ).ready(function() {
     $("#navSupportLink").click(function (e) {
         $("#mainView").html($("#supportView").html())
     })
+
+    $("#navProjectViewLink").click(function (e) {
+       changeToProjectView()
+    })
 })
+
+

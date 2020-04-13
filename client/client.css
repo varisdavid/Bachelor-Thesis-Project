@@ -16,9 +16,6 @@
     border-color: lightgray;
 }
 
-.list-group-item-action.active{
-}
-
 .list-group-item-action:hover{
     background-color: lightgray;
 }

@@ -16,27 +16,36 @@
 
 <body>
   <nav class="navbar navbar-expand-md navbar-light bg-light">
-    <h2 id="brandButton"><a class="navbar-brand" href="#">ERP</a></h2>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
-      aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-      <div class="navbar-nav">
-        <a class="nav-item nav-link" id="navPriceLink" href="#">PRIS</a>
-        <a class="nav-item nav-link" id="navAboutLink" href="#">OM OSS</a>
-        <a class="nav-item nav-link" id="navSupportLink" href="#">SUPPORT</a>
-        <a class="nav-item nav-link" id="navContactLink" href="#">KONTAKT</a>
-        <a class="nav-item nav-link" id="navTimeReportLink" data-toggle="modal"
-          href="#time-report-modal">TIDSRAPPORTERING </a>
-        <a class="nav-item nav-link" id="navProjectViewLink" href="#">PROJEKTÖVERSIKT</a>
+    <div class="container">
+      <div class="row">
+        <div class="col">
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
+            aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <h2 id="brandButton"><a class="navbar-brand" href="#">ERP</a></h2>
+            <div class="navbar-nav">
+              <a class="nav-item nav-link" id="navPriceLink" href="#">PRIS</a>
+              <a class="nav-item nav-link" id="navAboutLink" href="#">OM OSS</a>
+              <a class="nav-item nav-link" id="navSupportLink" href="#">SUPPORT</a>
+              <a class="nav-item nav-link" id="navContactLink" href="#">KONTAKT</a>
+              <a class="nav-item nav-link" id="navTimeReportLink" data-toggle="modal"
+                href="#time-report-modal">TIDSRAPPORTERING </a>
+              <a class="nav-item nav-link" id="navProjectViewLink" href="#">PROJEKTÖVERSIKT</a>
+              
+            </div>
+          </div>
+          <ul class="nav navbar-nav navbar-right">
+            
+          </ul>
+        </div>
       </div>
+      <button type="button" class="btn btn-outline-dark signInButton float-right" data-toggle="modal"
+      data-target="#signInModal">Logga in</button>
+    <button type="button" class="btn btn-outline-dark signOutButton" onclick="signOut()">Logga ut</button>
     </div>
-    <ul class="nav navbar-nav navbar-right">
-      <button type="button" class="btn btn-outline-dark signInButton" data-toggle="modal"
-        data-target="#signInModal">Logga in</button>
-      <button type="button" class="btn btn-outline-dark signOutButton" onclick="signOut()">Logga ut</button>
-    </ul>
+   
   </nav>
 
   <!-- Placeholder for placing bootstrap alerts, see alerts.js -->
@@ -44,6 +53,7 @@
 
   <!-- Container for holding the main view. -->
   <div class="container" id="mainView"></div>
+  
 
   <!-- Optional JavaScript -->
   <!-- jQuery first, then Popper.js, then Bootstrap JS -->

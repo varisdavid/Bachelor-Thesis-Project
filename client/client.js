@@ -24,7 +24,7 @@ function changeToLandingPage() {
 }
 
 $( document ).ready(function() {
-    $("#mainView").html($("#projectView").html())
+    $("#mainView").html($("#landingPage").html())
     $("#brandButton").click(function (e) {
         changeToLandingPage();
     })

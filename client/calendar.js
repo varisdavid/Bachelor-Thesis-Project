@@ -19,7 +19,11 @@ let colorsArray = ["lightsalmon", "lightskyblue", "tomato", "papayawhip", "green
 function createCalendar() {
     $(function () {
         var calendarEl = document.getElementById('calendar');
-
+        var centerButtonsString = "addActivityButton"
+        if(true) {
+            centerButtonsString = centerButtonsString + " viewOtherCalendarsButton ";
+        }
+        
         calendar = new FullCalendar.Calendar(calendarEl, {
             timeZone: 'local',
             plugins: ['timeGrid', 'bootstrap'],
@@ -45,14 +49,14 @@ function createCalendar() {
                     click : function() {spawnAddActivityModal()}
                 },
                 viewOtherCalendarsButton: {
-                    text: "Visa andra scheman",
+                    text: "Visa andras kalendrar",
                     click: function () {spawnViewCalendarsModal()}
                 }
             },
             header: {
-                left: "title",
-                center: "addActivityButton viewOtherCalendarsButton",
-                right: "today prev,next"
+                left: "today prev,next",
+                center: "title",
+                right: centerButtonsString + "dayGridMonth,timeGridWeek,timeGridDay"
             }, themeSystem: "bootstrap"
         });
         calendar.render();

@@ -122,7 +122,45 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Stäng</button>
-                <button type="button" class="btn btn-primary" onclick="addEmployee()">Lägg till</button>
+                <button type="button" class="btn btn-primary" onclick="addEmployee()" data-dismiss="modal">Lägg till</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 
+    Edit employee modal, would be shown from some kind of employee management page. 
+  -->
+<div class="modal fade" id="editEmployeeModal" tabindex="-1" role="dialog" aria-labelledby="editEmployeeModal" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editEmployeeModalTitle">Redigera anställda</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Stäng">
+            <span aria-hidden="true">&times;</span>
+          </button>
+            </div>
+            <div class="modal-body">
+                <form id="editEmployeeForm">
+                    <div class="form-group">
+                        <label for="editEmployeePid">Personnummer</label>
+                        <input class="form-control" id="editEmployeePid-input" placeholder="ÅÅMMDD-xxxx">
+                        <small id="10 eller 12 siffror" class="form-text text-muted"></small>
+                    </div>
+                    <div class="form-group">
+                        <label for="editEmployeeName">Namn</label>
+                        <input class="form-control" id="editEmployeeName-input" placeholder="Den anställdes namn">
+                    </div>
+                    <div class="form-group">
+                        <label for="editEmployeeEmail">Epost</label>
+                        <input class="form-control" id="editEmployeeEmail-input" placeholder="namn@domän.com">
+                        <small id="" class="form-text text-muted"></small>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Stäng</button>
+                <button type="button" id="editEmployeeSubmitButton" class="btn btn-primary" data-dismiss="modal" onclick="editEmployee()">Slutför</button>
             </div>
         </div>
     </div>

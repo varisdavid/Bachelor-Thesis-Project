@@ -19,51 +19,59 @@ bp = Blueprint('employee', __name__, url_prefix='/employee')
 @jwt_required
 def employees():
     user_id = get_jwt_identity()
-    print(user_id)
     employee = Employee.query.get_or_404(user_id)
-    print(employee)
-    print(employee.company)
     if request.method == 'GET':
-        print("==GET==")
         serializedEmployeeList = [emp.serialize() for emp in Employee.query.all()]
         return jsonify(serializedEmployeeList)
     if request.method == 'POST':
-        print("==POST==")
         if employee.isAdmin:
-            print("IS ADMIN")
             jsonData = request.get_json()
             db.session.add(Employee(personID=jsonData['personID'], email=jsonData['email'], name=jsonData['name'],
                                     isAdmin=False, isBoss=False, company=employee.company, passwordHash = bcrypt.generate_password_hash("halla").decode('utf-8'), usingDefaultPassword=True))
             db.session.commit()
             return Employee.query.get_or_404(jsonData['personID']).serialize(), 200
         else:
-            print("NOT ADMIN")
             return {"msg": "Not authorized"}, 401
 
 # Route for fetsching one employee, editing one employee and removing one employee
 @bp.route("/<int:pID>", methods=['GET', 'PUT', 'DELETE'])
+@jwt_required
 def employee(pID):
+    user_id = get_jwt_identity()
+    employee = Employee.query.get_or_404(user_id)
+
     if request.method == 'GET':
         employee = Employee.query.filter_by(personID=pID).first_or_404()
         serializedEmployee = Employee.serialize(employee)
         return jsonify(serializedEmployee)
-
     if request.method == 'PUT':
-        employee = Employee.query.filter_by(personID=pID).first_or_404()
-        jsonData = request.get_json()
-        employee.personID=jsonData['personID']
-        employee.name=jsonData['name']
-        employee.isAdmin=jsonData['isAdmin']
-        employee.isBoss=jsonData['isBoss']
-        db.session.commit()
-        return Employee.query.get_or_404(jsonData['personID']).serialize()
+        if employee.isAdmin:
+            employee = Employee.query.filter_by(personID=pID).first_or_404()
+            jsonData = request.get_json()
+            if jsonData['personID'] != None and jsonData['personID'] != "":
+                employee.personID=jsonData['personID']
+            if jsonData['name'] != None and jsonData['name'] != "":
+                employee.name=jsonData['name']
+            if jsonData['isAdmin'] != None and jsonData['isAdmin'] != "":
+                employee.isAdmin=jsonData['isAdmin']
+            if jsonData['isBoss'] != None and jsonData['isBoss'] != "":
+                employee.isBoss=jsonData['isBoss']
+            db.session.commit()
+            return Employee.query.get_or_404(jsonData['personID']).serialize()
+        else: 
+            return {"msg": "Not authorized"}, 401
 
     if request.method == 'DELETE':
-        employee = Employee.query.filter_by(personID=pID).first_or_404()
-        serializedEmployee = Employee.serialize(employee)
-        db.session.delete(employee)
-        db.session.commit()
-        return jsonify(serializedEmployee)
+        user_id = get_jwt_identity()
+        employee = Employee.query.get_or_404(user_id)
+        if employee.isAdmin:
+            employee = Employee.query.filter_by(personID=pID).first_or_404()
+            serializedEmployee = Employee.serialize(employee)
+            db.session.delete(employee)
+            db.session.commit()
+            return Employee.query.get_or_404(jsonData['personID']).serialize()
+        else:
+            return {"msg": "Not authorized"}, 401
 
 
 

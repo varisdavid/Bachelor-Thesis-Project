@@ -28,7 +28,7 @@ function changeToTimeOverview(){
     getEmployees()
 }
 $( document ).ready(function() {
-    changeToLandingPage();
+    $("#mainView").html($("#landingPage").html())
     $("#brandButton").click(function (e) {
         changeToLandingPage();
     })
@@ -65,4 +65,9 @@ $( document ).ready(function() {
     $("#dashboardViewLink").click(function (e) {
         $("#mainView").html($("#dashboardView").html())
     })
+    $("#navProjectViewLink").click(function (e) {
+       changeToProjectView()
+    })
 })
+
+

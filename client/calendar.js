@@ -22,7 +22,7 @@ function createCalendar() {
 
         calendar = new FullCalendar.Calendar(calendarEl, {
             timeZone: 'local',
-            plugins: ['timeGrid'],
+            plugins: ['timeGrid', 'bootstrap'],
             defaultView: 'timeGridWeek',
             nowIndicator: true,
             locale: 'sv',
@@ -54,7 +54,7 @@ function createCalendar() {
                 left: "title",
                 center: "addActivityButton viewOtherCalendarsButton",
                 right: "today prev,next"
-            }
+            }, themeSystem: "bootstrap"
         });
         calendar.render();
     })

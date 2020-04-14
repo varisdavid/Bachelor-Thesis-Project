@@ -3,14 +3,14 @@
  */
 
 /**
- * Global variable for keepin track of the calendar.
+ * Global variable for keeping track of the calendar.
  */
 var calendar;
 
 /**
  * Global variable for keeping track of some available colors. Used for coloring the calendar events.
  */
-let colorsArray = ["lightsalmon", "lightskyblue", "tomato", "papayawhip", "greenyellow", "lightskyblue", "navajowhite"]
+let colorsArray = ["lightsalmon", "lightskyblue", "tomato", "papayawhip", "greenyellow", "lightskyblue", "navajowhite"];
 
 /**
  * Creates the calendar, needs a html element with a 'calendar' id for it to work.
@@ -19,12 +19,12 @@ let colorsArray = ["lightsalmon", "lightskyblue", "tomato", "papayawhip", "green
 function createCalendar() {
     $(function () {
         var calendarEl = document.getElementById('calendar');
-        var centerButtonsString = "addActivityButton"
-        if(true) {
-            centerButtonsString = centerButtonsString + " viewOtherCalendarsButton ";
-        }
+        var centerButtonsString = "addActivityButton";
+        // TODO: Could be done if user is admin or boss
+        centerButtonsString = centerButtonsString + " viewOtherCalendarsButton ";
         
         calendar = new FullCalendar.Calendar(calendarEl, {
+            height:  $(window).height() - 100,
             timeZone: 'local',
             plugins: ['timeGrid', 'bootstrap'],
             defaultView: 'timeGridWeek',
@@ -56,8 +56,19 @@ function createCalendar() {
             header: {
                 left: "today prev,next",
                 center: "title",
-                right: centerButtonsString + "dayGridMonth,timeGridWeek,timeGridDay"
-            }, themeSystem: "bootstrap"
+                right: "dayGridMonth,timeGridWeek,timeGridDay"
+            },
+            footer: {
+                left: "",
+                center: "",
+                right: centerButtonsString
+            },
+            themeSystem: "bootstrap",
+            // Not a good solution since changes elsewhere could and probably would break this.
+            windowResize: function (view) {
+                calendar.setOption("height", $(window).height() - 100);
+            }
+            
         });
         calendar.render();
     })

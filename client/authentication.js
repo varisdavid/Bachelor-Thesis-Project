@@ -7,11 +7,19 @@ function updatePageLoggedIn(signedIn) {
     if(signedIn) {
         $(".signInButton").hide()
         $(".signOutButton").show()
-        $("#tidsrapportering").show()
+        $("#navTimeReportLink1").show()
+        $("#timeReport").show()
+        $("#navPriceLink").hide()
+        $("#navAboutLink").hide()
+        $("#navContactLink").hide()
     } else {
         $(".signInButton").show()
         $(".signOutButton").hide()
-        $("#tidsrapportering").hide()
+        $("#navTimeReportLink1").hide()
+        $("#timeReport").hide()
+        $("#navPriceLink").show()
+        $("#navAboutLink").show()
+        $("#navContactLink").show()
     }
 }
 

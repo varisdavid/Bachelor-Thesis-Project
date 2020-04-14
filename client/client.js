@@ -23,6 +23,10 @@ function changeToLandingPage() {
     })
 }
 
+function changeToTimeOverview(){
+    $("#mainView").html($("#timeOverviewView").html())
+    getEmployees()
+}
 $( document ).ready(function() {
     changeToLandingPage();
     $("#brandButton").click(function (e) {
@@ -32,6 +36,10 @@ $( document ).ready(function() {
     //Navbar links:
     $("#navAboutLink").click(function (e) {
         $("#mainView").html($("#aboutView").html())
+    })
+
+    $("#navDashboardLink").click(function (e) {
+        $("#mainView").html($("#dashboardView").html())
     })
 
     $("#navPriceLink").click(function (e) {
@@ -44,5 +52,17 @@ $( document ).ready(function() {
 
     $("#navSupportLink").click(function (e) {
         $("#mainView").html($("#supportView").html())
+    })
+
+    $("#navTimeReportLink").click(function (e) {
+        $("#mainView").html($("#timeReportView").html())
+    })
+
+    $("#navTimeOverviewLink").click(function (e) {
+        changeToTimeOverview()
+    })
+
+    $("#dashboardViewLink").click(function (e) {
+        $("#mainView").html($("#dashboardView").html())
     })
 })

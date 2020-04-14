@@ -22,3 +22,8 @@ h2 {
     right: 0;
     z-index:200000;
 }
+
+.btn-square {
+    width: 350px;
+    height: 200px;
+}

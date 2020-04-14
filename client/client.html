@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="client.css">
 
+    <!-- Script-->
     <title>ERP</title>
   </head>
   <body>
@@ -19,11 +20,21 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav">
+          <a class="nav-item nav-link" id="navDashboardLink" href="#">Översikt</a>
           <a class="nav-item nav-link" id="navPriceLink" href="#">PRIS</a>
           <a class="nav-item nav-link" id="navAboutLink" href="#">OM OSS</a>
           <a class="nav-item nav-link" id="navSupportLink" href="#">SUPPORT</a>
           <a class="nav-item nav-link" id="navContactLink" href="#">KONTAKT</a>
-          <a class="nav-item nav-link" id ="navTimeReportLink" data-toggle="modal" href="#time-report-modal">TIDSRAPPORTERING </a>
+          <a class="nav-item nav-link" id ="navTimeReportLink1" data-toggle="modal" href="#time-report-modal">TIDSRAPPORTERING1 </a>
+          <div class="dropdown" id="timeReport">
+            <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              TIDSRAPPORTERING
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <a class="nav-item nav-link" id ="navTimeReportLink" href="#">Rapportera tid</a>
+              <a class="nav-item nav-link" id ="navTimeOverviewLink"href="#">Tidsöversikt</a>
+            </div>
+          </div>
         </div> 
       </div>
       <ul class="nav navbar-nav navbar-right">
@@ -39,11 +50,11 @@
     <div class="container" id="mainView"></div>
     
     <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <!-- jQuery first, then Popper.js, Bootstrap JS, charts.js -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
   
     <!-- Our scripts -->
     <script src="alerts.js"></script>
@@ -276,4 +287,93 @@
     <h1>Support</h1>
     <p>Här kommer det att finnas hjälp någon gång i framtiden</p>
   </template>
+
+  <template id="timeReportView">
+    <h1>Tidsrapportering</h1>
+      <p>Här kan du rapportera in tid</p>
+      <div class="row justify-content-center">
+        <div class="col-md-8">
+          <form>
+            <div class="form-group">
+              <label for="projekt">Projekt</label>
+              <input type="text" class="form-control" id="projectID">
+            </div>
+            <div class="form-group">
+              <label for="starttid">Började klockan</label>
+              <input type="datetime-local" class="form-control" id="startTime">
+            </div>
+            <div class="form-group">
+              <label for="sluttid">Slutade klockan</label>
+              <input type="datetime-local" class="form-control" id="endTime">
+            </div>
+
+            <div class="form-group">
+              <label for="sluttid">Kommentarer</label>
+              <input type="text" class="form-control" id="comments">
+            </div>
+            <button type="submit" data-dismiss="modal" class="btn btn-primary" onclick=reportTime()>Skicka in</button>
+          </form>
+        </div>
+        <div class="col-md-4">
+          Här ska tidsrapporteringar som behöver ändras finnas
+        </div>
+      </div>
+  </template>
+
+  <template id="timeOverviewView">
+    <div class="row">
+
+    </div>
+    <div class="row">
+      <div class="col">
+        <h1>Tidsöversikt</h1>
+      </div>
+      <div class="col">
+        <div class="btn-group">
+          <button type="button" class="btn btn-outline-dark dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Anställd
+          </button>
+          <div class="dropdown-menu" id="users"> 
+          </div>
+        </div>
+      </div> 
+    </div>
+    <div class="row justify-content-right">
+      <div class="col" id="timeChart">
+      </div>
+      <div class="col" id="loggedJobs" >
+        </div>
+      </div>
+    </div>     
+  </template>
+
+  <template id="dashboardView">
+    <div class="row">
+      <div class="col">
+        <a href=# class="btn btn-square btn-primary">Medarbetare</a>  
+      </div>
+      <div class="col">
+        <a href=# class="btn btn-square btn-secondary">Projekt</a>    
+      </div>
+      <div class="col">
+        <a href=# class="btn btn-square btn-success">Kunder</a>    
+      </div>
+    </div>
+    <div class="row">
+      <p>   
+      </p>
+    </div>
+    <div class="row">
+      <div class="col">
+        <a href=# class="btn btn-square btn-danger">Schemaläggning</a>    
+      </div>
+      <div class="col">
+        <a href=# class="btn btn-square btn-warning" onclick=changeToTimeOverview()>Tidsrapportsöversikt</a>     
+      </div>
+      <div class="col">
+        <a href=# class="btn btn-square btn-info">Betalningar</a>     
+      </div>
+    </div>
+  </template>
+
 </html>

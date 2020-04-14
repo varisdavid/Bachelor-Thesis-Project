@@ -53,7 +53,6 @@ def act(id):
             activityDict["project"] = Project.query.get(activity.project_id).serialize()
             activityDict["employees"] = []
             for p_a in Person_Activity.query.filter_by(id = activity.id).all():
-                print(p_a.personID)
                 activityDict["employees"].append(Employee.query.get(p_a.personID).serialize())
             
             return jsonify(activityDict)

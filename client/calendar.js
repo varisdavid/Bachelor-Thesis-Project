@@ -39,6 +39,21 @@ function createCalendar() {
             eventClick: function(info) {
                 console.log("klickade på: ", info.event.id)
                 spawnActivityInfoModal(info.event.id)
+            },
+            customButtons: {
+                addActivityButton: {
+                    text: "Lägg till aktivitet",
+                    click : function() {spawnAddActivityModal()}
+                },
+                viewOtherCalendarsButton: {
+                    text: "Visa andra scheman",
+                    click: function () {spawnViewCalendarsModal()}
+                }
+            },
+            header: {
+                left: "title",
+                center: "addActivityButton viewOtherCalendarsButton",
+                right: "today prev,next"
             }
         });
         calendar.render();
@@ -59,21 +74,23 @@ function spawnActivityInfoModal(activityID) {
                 console.log(emp.name)
                 employeeString = employeeString + emp.name + "\n";
             })
+            var startTime = response.startTime.split("T")[1] + ", " + response.startTime.split("T")[0]
+            var stopTime = response.stopTime.split("T")[1] + ", " + response.stopTime.split("T")[0]
 
             $("#activityInfoBody").html(`
             <div>
                 <h5>Starttid </h5>
-                <p>${response.startTime}</p>
+                <p>${startTime}</p>
                 <h5>Sluttid</h5>
-                <p>${response.stopTime}</p>
+                <p>${stopTime}</p>
+                <h5>Plats</h5>
+                <p>${response.location}</p>
                 <h5>Beskrivning</h5>
                 <p>${response.description}</p>
                 <h5>Projekt</h5>
                 <p>${response.project.name}</p>
                 <h5>Anställda</h5>
                 <p>${employeeString}</p>
-                <h5>Plats</h5>
-                <p>${response.location}</p>
              </div>`);
             $("#activityInfoModal").modal("show");
         },

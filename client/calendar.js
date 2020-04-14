@@ -37,7 +37,6 @@ function createCalendar() {
                 });
             }],
             eventClick: function(info) {
-                console.log("klickade på: ", info.event.id)
                 spawnActivityInfoModal(info.event.id)
             },
             customButtons: {
@@ -66,12 +65,10 @@ function spawnActivityInfoModal(activityID) {
         type: 'GET',
         headers: { "Authorization": "Bearer " + JSON.parse(sessionStorage.getItem('auth')).access_token },
         success: function (response) {
-            console.log(response)
             $("#activityInfoTitle").html(response.name);
 
             employeeString = "";
             response.employees.forEach(function(emp) {
-                console.log(emp.name)
                 employeeString = employeeString + emp.name + "\n";
             })
             var startTime = response.startTime.split("T")[1] + ", " + response.startTime.split("T")[0]
@@ -256,12 +253,13 @@ function populateEmployeeSelectorAct() {
             selectHTML = selectHTML + `<option value="${key}">${value.name}</option>`
         }
     })
-    /*
+    
     if (selectedHTML=="") {
         $("#addActivityEmpHolderText").show()
     } else {
         $("#addActivityEmpHolderText").hide()
-    }*/
+    }
+
     $("#addActivitySelectedEmployeeList").html(selectedHTML)
     $("#addActivityEmployeeSelector").html(selectHTML)
 }
@@ -328,7 +326,6 @@ function addActivity() {
             "project_id": ${project_id}
         }`
     }
-    console.log(activityData)
     $.ajax({
         url: 'activity/add',
         type: 'POST',
@@ -368,12 +365,12 @@ function populateEmployeeSelectorCal() {
             selectHTML = selectHTML + `<option value="${key}">${value.name}</option>`
         }
     })
-    /*
+    
     if (selectedHTML=="") {
-        $("#addActivityEmpHolderText").show()
+        $("#viewCalendarsEmpHolderText").show()
     } else {
-        $("#addActivityEmpHolderText").hide()
-    }*/
+        $("#viewCalendarsEmpHolderText").hide()
+    }
     $("#viewCalendarsSelectedEmployeeList").html(selectedHTML)
     $("#viewCalendarsEmployeeSelector").html(selectHTML)
 }

@@ -48,7 +48,7 @@
     </nav>
 
     <!-- Placeholder for placing bootstrap alerts, see alerts.js -->
-    <div class="container" id="main-alert-holder"></div>
+    <div class="container" id="main-alert-holder" ></div>
 
     <!-- Container for holding the main view. -->
     <div class="container" id="mainView"></div>
@@ -168,11 +168,11 @@
                 <button type="button" class="btn btn-secondary" onclick="addEmployeeToSelectedEmployeesCal()"><i class="fa fa-user-plus"></i></button>
               </div>
             </div>
-            <div class="highlight empHolder" id="viewCalendarsEmpHolder">
+            <div class="empHolder border rounded" id="viewCalendarsEmpHolder">
             <ul class="list-group h-25" id="viewCalendarsSelectedEmployeeList" style="display:none">
               <li class="list-group-item active">Valda medarbetare</li>
             </ul>
-            <p id="addActivityEmpHolderText" style="display:none">Lägg till medarbetare först</p>
+            <p class="text-center text-muted" id="viewCalendarsEmpHolderText">Valda medarbetare kommer att hamna här</p>
           </div>
 
         </div>
@@ -219,7 +219,7 @@
               </select>
             </div>
 
-            <label for="addActivityEmpSelGroup">Vilken medarbetare</label>
+            <label for="addActivityEmpSelGroup">Vilka medarbetare</label>
             <div class="row" id="addActivityEmpSelGroup" style="display: none">
               <div class="col">
               <div class="form-group" >
@@ -231,11 +231,11 @@
                 <button type="button" class="btn btn-secondary" onclick="addEmployeeToSelectedEmployeesAct()"><i class="fa fa-user-plus"></i></button>
               </div>
             </div>
-            <div class="highlight empHolder" id="addActivityEmpHolder">
+            <div class="empHolder rounded border" id="addActivityEmpHolder">
             <ul class="list-group h-25" id="addActivitySelectedEmployeeList" style="display:none">
               <li class="list-group-item active">Valda medarbetare</li>
             </ul>
-            <p id="addActivityEmpHolderText" style="display:none">Lägg till medarbetare först</p>
+            <p class="text-center text-muted" id="addActivityEmpHolderText">Valda medarbetare kommer att hamna här</p>
             </div>
             <hr>
             <div class="alert alert-warning" id="addActivityWrongDateAlert" style="display:none;" role="alert">
@@ -422,7 +422,7 @@
   </template>
 
   <template id="calendarView">
-    <div id='calendar'></div>
+    <div class="mt-5" id='calendar'></div>
   </template>
   
   <div class="modal" id="time-report-modal" tabindex="-1" role="dialog">

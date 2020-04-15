@@ -42,7 +42,7 @@ def addActivity():
 
         return newActivity.serialize()
 
-@bp.route("/<id>", methods=["GET", "PUT"])
+@bp.route("/<id>", methods=["GET", "PUT", "DELETE"])
 @jwt_required
 def act(id):
     user_id = get_jwt_identity()
@@ -58,7 +58,7 @@ def act(id):
             return jsonify(activityDict)
         else:
             return {"msg" : "not authorized"}, 401
-    else:
+    elif request.method == "PUT":
         activity = Activity.query.get_or_404(id)
         jsonData = request.get_json()
         for key in request.get_json():
@@ -66,6 +66,18 @@ def act(id):
             if(hasattr(activity, key) and (key != "id")):
                 setattr(activity, key, jsonData[key])
         return jsonify(Activity.query.get(id).serialize())
+    elif request.method == "DELETE":
+        emp = Employee.query.get(user_id)
+        companyOrgNumber = db.session.query(Project).join(Activity).filter(Activity.project_id == Project.id).filter(Project.companyOrgNumber == emp.company).filter(Activity.id == id).first().companyOrgNumber
+        if (emp.isAdmin or emp.isBoss) and (emp.company == companyOrgNumber):
+            act = Activity.query.get(id)
+            serializedActivity = act.serialize()
+            for pa in Person_Activity.query.filter_by(id=act.id).all():
+                db.session.delete(pa)
+            db.session.delete(act)
+            db.session.commit()
+            return jsonify(serializedActivity)
+
 
 # Returns the activities in the given timeframe. Only the users activities are returned.
 # The url format for accessing this is: localhost:5000/feed?start=TIME-IN-ISO-FORMAT&end=TIME-IN-ISO-FORMAT

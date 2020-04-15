@@ -12,6 +12,18 @@ var calendar;
  */
 let colorsArray = ["lightsalmon", "lightskyblue", "tomato", "papayawhip", "greenyellow", "lightskyblue", "navajowhite"];
 
+$( document ).ready(function () {
+    $("#addActivityOnlyMeButton").click(function () {
+        $("#addActivityWholeEmpSelector").hide("fast")
+    })
+    $("#addActivitySomeButton").click(function () {
+        $("#addActivityWholeEmpSelector").show("fast")
+    })
+    $("#addActivityEveryoneButton").click(function () {
+        $("#addActivityWholeEmpSelector").hide("fast")
+    })
+
+})
 /**
  * Creates the calendar, needs a html element with a 'calendar' id for it to work.
  * Fetches only the data needed from the server through the 'feed' route.
@@ -104,6 +116,7 @@ function spawnActivityInfoModal(activityID) {
                 <h5>Anställda</h5>
                 <p>${employeeString}</p>
              </div>`);
+             $("#activityInfoRemoveActivityButton").val(response.id);
             $("#activityInfoModal").modal("show");
         },
         error: function (response) {
@@ -255,8 +268,6 @@ employeeMap.set("199001010000", {
  */
 
 function populateEmployeeSelectorAct() {
-    $("#addActivityEmpSelGroup").show()
-    $("#addActivitySelectedEmployeeList").show()
     var selectHTML = ""
     var selectedHTML = ""
 
@@ -290,12 +301,13 @@ function removeFromSelEmployeesAct(id) {
 }
 /**
  * Spawns a modal prompting the user to add an activity.
- * Uses global variable selectedEmployees
  */
 
 // TODO: Skulle eventuellt kunna flyttas till en annan fil innehållande saker relaterade till aktiviterer.
 function spawnAddActivityModal() {
-    selectedEmployees = [];
+    employeeMap.forEach(function(value) {
+        value.selected = false;
+    })
     $("#addActivityModal").modal("show")
     $(activateDateAndTimePickers("#addActivityStartDatePicker", "#addActivityStartTimePicker", "#addActivityStopDatePicker", "#addActivityStopTimePicker", "#addActivityWrongDateAlert"));
     populateProjectsDropdown();
@@ -304,9 +316,21 @@ function spawnAddActivityModal() {
 
 /**
  * Function called by the submit button.
- * Uses global variable selectedEmployees
  */
 function addActivity() {
+    var selectedEmployees = [];
+    var notSelectedEmployees = [];
+    var allEmployees = []
+    employeeMap.forEach(function (value, key) {
+        if(value.selected == true) {
+            selectedEmployees.push(key);
+        } else {
+            notSelectedEmployees.push(key);
+        }
+        allEmployees.push(key);
+    })
+
+
     var name = $("#addActivityName").val();
     var date = $("#addActivityStartDatePicker").datetimepicker('date').toISOString(true).substring(0, 10)
     var startTime = $("#addActivityStartDatePicker").datetimepicker('date').toISOString(true).substring(0, 11) + $("#addActivityStartTimePicker").datetimepicker('date').toISOString(true).substring(11, 19)
@@ -316,9 +340,10 @@ function addActivity() {
     //TODO: Ta fram projekt med en hashmap och populera den från servern med data.
     //TODO: Samma sak med employees
     var project_id = $("#addActivityProjectSelector").val()
-    var employees = selectedEmployees;
-    if(employees.length > 0){
-        var activityData = `
+    var activityData;
+
+    if ($("#addActivitySomeButton:checked").val() && (employees.length > 0)) {
+        activityData = `
         {
             "date": "${date}",
             "name": "${name}",
@@ -327,7 +352,19 @@ function addActivity() {
             "location": "${loc}",
             "description": "${description}",
             "project_id": ${project_id},
-            "employees": ${JSON.stringify(employees)}
+            "employees": ${JSON.stringify(selectedEmployees)}
+        }`
+    } else if ($("#addActivityEveryoneButton:checked").val()) {
+        activityData = `
+        {
+            "date": "${date}",
+            "name": "${name}",
+            "startTime": "${startTime}",
+            "stopTime": "${stopTime}",
+            "location": "${loc}",
+            "description": "${description}",
+            "project_id": ${project_id},
+            "employees": ${JSON.stringify(allEmployees)}
         }`
     } else {
         var activityData = `
@@ -341,6 +378,7 @@ function addActivity() {
             "project_id": ${project_id}
         }`
     }
+
     $.ajax({
         url: 'activity/add',
         type: 'POST',
@@ -428,3 +466,16 @@ function viewCalendars() {
     $("#viewCalendarsModal").modal("hide")
 }
 
+function removeActivity(id) {
+    $.ajax({
+        url: 'activity/' + id,
+        type: 'DELETE',
+        headers: {"Authorization" : "Bearer " + JSON.parse(sessionStorage.getItem('auth')).access_token},
+        success: function (response) {
+            $("#activityInfoModal").modal("hide");
+            spawnAlert("Aktiviteten togs bort", "warning")
+            calendar.refetchEvents()
+            //calendar.render()
+        }
+    })
+}

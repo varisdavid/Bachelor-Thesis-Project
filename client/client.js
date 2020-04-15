@@ -23,6 +23,7 @@ function changeToLandingPage() {
     })
 }
 
+
 $(document).ready(function() {
     changeToLandingPage();
     $("#brandButton").click(function(e) {

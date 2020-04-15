@@ -1,9 +1,8 @@
 $('#editEmployeeModal').on('show.bs.modal', function(event) {
-    var button = $(event.relatedTarget);
-    var id_string = button.data('personID');
-    var personID = parseInt(id_string, 10);
+    console.log("NU KÖRS DEN HÄR SKITEN");
+    var personID = event.relatedTarget.dataset['personid'];
     var modal = $(this);
-    console.log("PERSONID" + personID)
+    console.log("PERSON-ID: " + personID)
 
     $.ajax({
         headers: { "Authorization": "Bearer " + JSON.parse(sessionStorage.getItem('auth')).access_token },
@@ -18,8 +17,15 @@ $('#editEmployeeModal').on('show.bs.modal', function(event) {
             console.log(employee.email);
             $('#editEmployeeSubmitButton').attr('onclick', 'editEmployee("' + personID + '")')
         }
-    })
+    });
 });
+
+$('#editEmployeeModal').on('hidden.bs.modal', function(event) {
+    $(this).find('#editEmployeePid-input').val('');
+    $(this).find('#editEmployeeName-input').val('');
+    $(this).find('#editEmployeeEmail-input').val('');
+});
+
 
 function loadEmployees() {
     $.ajax({
@@ -30,15 +36,16 @@ function loadEmployees() {
         contentType: 'application/json',
         success: function(employees) {
             console.log("EMPLOYEE/ALL SUCCESS");
+            $('#employee-data').html('');
             for (employee of employees) {
-                $('#car-table').append("<tr><td>" +
+                $('#employee-data').append("<tr><td>" +
                     employee.personID + "</td><td>" +
                     employee.name + "</td><td>" +
                     employee.isAdmin + "</td><td>" +
                     employee.isBoss + "</td><td>" +
                     "</td><td>" +
                     "</td><td>" +
-                    "<button class = 'btn btn-secondary' type = 'button' data-toggle='modal' data-target='#editEmployeeModal' data-personID='" + employee.personID + "'>Redigera </button>" +
+                    "<button id= 'editEmployeeButton' value= 'employee.personID' class = 'btn btn-secondary' type = 'button' data-toggle='modal' data-target='#editEmployeeModal' data-personID='" + employee.personID + "'>Redigera </button>" +
                     "</td></tr>");
             }
         }
@@ -53,9 +60,11 @@ function editEmployee(personID) {
     {
         "name":"${name}",
         "email":"${email}",
-        "personID":"${personID}"
-    }
-    `
+        "personID":"${personID}",
+        "isBoss": true,
+        "isAdmin": true
+    }`
+    console.log(employeeData);
     $.ajax({
         headers: { "Authorization": "Bearer " + JSON.parse(sessionStorage.getItem('auth')).access_token },
         url: 'http://127.0.0.1:5000/employee/' + personID,
@@ -66,6 +75,7 @@ function editEmployee(personID) {
         success: function() {
             $("#editEmployeeModal").modal("hide");
             spawnAlert("Medarbetaren har redigerats", "success")
+            loadEmployees();
         }
-    })
+    });
 }

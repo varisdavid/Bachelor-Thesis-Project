@@ -34,7 +34,7 @@ def employees():
             return {"msg": "Not authorized"}, 401
 
 # Route for fetsching one employee, editing one employee and removing one employee
-@bp.route("/<int:pID>", methods=['GET', 'PUT', 'DELETE'])
+@bp.route("/<string:pID>", methods=['GET', 'PUT', 'DELETE'])
 @jwt_required
 def employee(pID):
     user_id = get_jwt_identity()

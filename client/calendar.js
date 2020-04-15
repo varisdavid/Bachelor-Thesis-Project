@@ -12,6 +12,9 @@ var calendar;
  */
 let colorsArray = ["lightsalmon", "lightskyblue", "tomato", "papayawhip", "greenyellow", "lightskyblue", "navajowhite"];
 
+/**
+ * Adds the ability to hide and show the employee selector based on which employees are chosen.
+ */
 $( document ).ready(function () {
     $("#addActivityOnlyMeButton").click(function () {
         $("#addActivityWholeEmpSelector").hide("fast")
@@ -31,9 +34,6 @@ $( document ).ready(function () {
 function createCalendar() {
     $(function () {
         var calendarEl = document.getElementById('calendar');
-        var centerButtonsString = "addActivityButton";
-        // TODO: Could be done if user is admin or boss
-        centerButtonsString = centerButtonsString + " viewOtherCalendarsButton ";
         
         calendar = new FullCalendar.Calendar(calendarEl, {
             height:  $(window).height() - 100,
@@ -73,7 +73,7 @@ function createCalendar() {
             footer: {
                 left: "",
                 center: "",
-                right: centerButtonsString
+                right: "addActivityButton viewOtherCalendarsButton"
             },
             themeSystem: "bootstrap",
             // Not a good solution since changes elsewhere could and probably would break this.
@@ -85,7 +85,11 @@ function createCalendar() {
         calendar.render();
     })
 }
-
+/**
+ * Function for showing more info about an activity. Spawns a modal containing info about the activity.
+ * 
+ * @param {number} activityID The id of the activity you want to show more info about
+ */
 function spawnActivityInfoModal(activityID) {
     $.ajax({
         url: `activity/${activityID}`,
@@ -204,15 +208,6 @@ function activateDateAndTimePickers(startDatePicker, startTimePicker, stopDatePi
 
 
 /**
- * Helper function for populating the employee selector
- */
-function populateEmployeeSelector() {
-    $("#addActivityEmpSelGroup").show()
-
-    employees.forEach(employee => $("#addActivityEmployeeSelector").append(`<option id="${employee.id}" value="${employee.id}">${employee.name}</option>`))
-}
-
-/**
  * Helper function for populating the drop down menus
  */
 function populateProjectsDropdown() {
@@ -238,19 +233,6 @@ function populateProjectsDropdown() {
 }
 
 //Global variable for keeping track of what employees are currently selected.
-var employees = [
-    {
-        name: "Anders Andersson",
-        id: "199403010000",
-        selected: false
-    },
-    {
-        name: "Pelle Svensson",
-        id: "199001010000",
-        selected: false
-    }
-]
-
 var employeeMap = new Map()
 employeeMap.set("199403010000", {
     name: "Anders Andersson",
@@ -264,7 +246,7 @@ employeeMap.set("199001010000", {
 /**
  * Helper function for populating the employee selector
  * 
- * USES GLOBAL VARIABLE "EMPLOYEES"
+ * Reads from global variable employeeMap
  */
 
 function populateEmployeeSelectorAct() {
@@ -289,18 +271,29 @@ function populateEmployeeSelectorAct() {
     $("#addActivitySelectedEmployeeList").html(selectedHTML)
     $("#addActivityEmployeeSelector").html(selectHTML)
 }
-
+/**
+ * Function for selecting employees. Is called from the add employee button
+ * 
+ * Changes global variable employeeMap
+ */
 function addEmployeeToSelectedEmployeesAct() {
     employeeMap.get($("#addActivityEmployeeSelector").val()).selected = true;
     populateEmployeeSelectorAct();
 }
-
+/**
+ * Fucntion for un-selecting employees. Is called from the 'remove' button.
+ * 
+ * Changes global variable employeeMap
+ * @param {string} id The affected employee 
+ */
 function removeFromSelEmployeesAct(id) {
     employeeMap.get(id).selected = false;
     populateEmployeeSelectorAct();
 }
 /**
  * Spawns a modal prompting the user to add an activity.
+ * 
+ * Changed global variable employeeMap
  */
 
 // TODO: Skulle eventuellt kunna flyttas till en annan fil innehållande saker relaterade till aktiviterer.
@@ -316,6 +309,8 @@ function spawnAddActivityModal() {
 
 /**
  * Function called by the submit button.
+ * 
+ * Reads from global variable employeeMap
  */
 function addActivity() {
     var selectedEmployees = [];
@@ -342,7 +337,7 @@ function addActivity() {
     var project_id = $("#addActivityProjectSelector").val()
     var activityData;
 
-    if ($("#addActivitySomeButton:checked").val() && (employees.length > 0)) {
+    if ($("#addActivitySomeButton:checked").val() && (selectedEmployees.length > 0)) {
         activityData = `
         {
             "date": "${date}",
@@ -399,9 +394,9 @@ function addActivity() {
 
 
 /**
- * Helper function for populating the employee selector
+ * Helper function for populating the employee selector for the view calendar modal. 
  * 
- * USES GLOBAL VARIABLE "EMPLOYEES"
+ * Reads from global variable employeeMap
  */
 
 function populateEmployeeSelectorCal() {
@@ -427,22 +422,40 @@ function populateEmployeeSelectorCal() {
     $("#viewCalendarsSelectedEmployeeList").html(selectedHTML)
     $("#viewCalendarsEmployeeSelector").html(selectHTML)
 }
-
+/**
+ * Function for adding employees to the selected employees. Should only be called from the add employee button
+ * 
+ * Reads from global variable employeeMap
+ */
 function addEmployeeToSelectedEmployeesCal() {
     employeeMap.get($("#viewCalendarsEmployeeSelector").val()).selected = true;
     populateEmployeeSelectorCal();
 }
-
+/**
+ * Removes an employee from the selected employees. Should only be called from the remove employee button.
+ * 
+ * Changes global variable employeeMap
+ * @param {string} id The id of the employee
+ */
 function removeFromSelEmployeesCal(id) {
     employeeMap.get(id).selected = false;
     populateEmployeeSelectorCal();
 }
-
+/**
+ * Spawns a modal for selecting what employees caledars should be viewed.
+ * 
+ * Changes global variable employeeMap
+ */
 function spawnViewCalendarsModal() {
     $("#viewCalendarsModal").modal("show")
     populateEmployeeSelectorCal()
 }
 
+/**
+ * Changed the calendars eventSources to the selected employees. 
+ * 
+ * Uses global variable employeeMap for determining what employees are currently selected.
+ */
 function viewCalendars() {
     calendar.getEventSources().forEach(s => s.remove());
     var colorIndex = 0;
@@ -466,6 +479,10 @@ function viewCalendars() {
     $("#viewCalendarsModal").modal("hide")
 }
 
+/**
+ * Front end functionality for removing an activity.
+ * @param {number} id id of the activity to be removed.
+ */
 function removeActivity(id) {
     $.ajax({
         url: 'activity/' + id,

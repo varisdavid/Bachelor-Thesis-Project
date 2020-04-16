@@ -58,11 +58,11 @@ function createCalendar() {
             customButtons: {
                 addActivityButton: {
                     text: "Lägg till aktivitet",
-                    click : function() {spawnAddActivityModal()}
+                    click : spawnAddActivityModal
                 },
                 viewOtherCalendarsButton: {
                     text: "Visa andras kalendrar",
-                    click: function () {spawnViewCalendarsModal()}
+                    click: spawnViewCalendarsModal
                 }
             },
             header: {
@@ -175,12 +175,12 @@ function activateDateAndTimePickers(startDatePicker, startTimePicker, stopDatePi
         $(stopTimePicker).datetimepicker('date', newDate)
     });
     
-    function checkWrongDate (e) {
+    function checkWrongDate() {
         var startDate = $(startDatePicker).datetimepicker('date');
         var stopDate = $(stopDatePicker).datetimepicker('date')
         var startTime = $(startTimePicker).datetimepicker('date')
         var stopTime = $(stopTimePicker).datetimepicker('date')
-    
+
         if (startDate < stopDate) {
             $(wrongDateAlert).hide();
         } else if (startDate > stopDate) {
@@ -200,10 +200,10 @@ function activateDateAndTimePickers(startDatePicker, startTimePicker, stopDatePi
         }
     }
 
-    $(startDatePicker).on("change.datetimepicker", function (e) {checkWrongDate(e)});
-    $(startTimePicker).on("change.datetimepicker", function (e) {checkWrongDate(e)});
-    $(stopDatePicker).on("change.datetimepicker", function (e) {checkWrongDate(e)});
-    $(stopTimePicker).on("change.datetimepicker", function (e) {checkWrongDate(e)});
+    $(startDatePicker).on("change.datetimepicker", checkWrongDate);
+    $(startTimePicker).on("change.datetimepicker", checkWrongDate);
+    $(stopDatePicker).on("change.datetimepicker", checkWrongDate);
+    $(stopTimePicker).on("change.datetimepicker", checkWrongDate);
 }
 
 

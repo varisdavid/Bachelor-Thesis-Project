@@ -16,7 +16,6 @@ function changeToRegisterCompany() {
  */
 function changeToLandingPage() {
     $("#mainView").html($("#landingPage").html())
-
     $("#becomeCustomerButton").click(function(e) {
         e.preventDefault();
         changeToRegisterCompany()
@@ -25,6 +24,11 @@ function changeToLandingPage() {
 
 $(document).ready(function() {
     $("#mainView").html($("#landingPage").html())
+
+    $("#becomeCustomerButton").click(function(e) {
+        e.preventDefault();
+        changeToRegisterCompany()
+    })
 
     $("#brandButton").click(function(e) {
         changeToLandingPage();

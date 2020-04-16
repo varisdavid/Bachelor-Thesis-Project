@@ -18,6 +18,18 @@ function updatePageLoggedIn(signedIn) {
     }
 }
 
+
+/**
+ * Adds the ability to press enter to log in.
+*/
+ $( document ).ready(function() {
+    $("#signInModal").keyup(function(event) {
+        if (event.key=="Enter") {
+            signIn();
+        }
+    })
+})
+
 /**
  * Helper function for spawning a "change password" dialogue if the user is still using their default assigned password.
  */

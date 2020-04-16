@@ -33,8 +33,12 @@ $(document).ready(function() {
     $("#brandButton").click(function(e) {
         changeToLandingPage();
     })
-
+    
     //Navbar links:
+    $("#navbarScheduleLink").click(function (e) {
+        changeToCalendarView()
+    })
+    
     $("#navAboutLink").click(function(e) {
         $("#mainView").html($("#aboutView").html())
     })

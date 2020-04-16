@@ -37,6 +37,18 @@ h2 {
     z-index:200000;
 }
 
+.empHolder {
+    padding-left: 1rem;
+    padding-right: 1rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    height:8em; 
+    overflow:auto;
+}
+
+.cal {
+    padding-top: 1rem;
+}
 .header-item {
     white-space: nowrap;
 }

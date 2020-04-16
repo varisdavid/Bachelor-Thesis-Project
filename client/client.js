@@ -17,15 +17,15 @@ function changeToRegisterCompany() {
 function changeToLandingPage() {
     $("#mainView").html($("#landingPage").html())
 
-    $(".becomeCustomerButton").click(function(e) {
+    $("#becomeCustomerButton").click(function(e) {
         e.preventDefault();
         changeToRegisterCompany()
     })
 }
 
-
 $(document).ready(function() {
-    changeToLandingPage();
+    $("#mainView").html($("#landingPage").html())
+
     $("#brandButton").click(function(e) {
         changeToLandingPage();
     })
@@ -50,5 +50,9 @@ $(document).ready(function() {
     $("#navEmployeeLink").click(function(e) {
         $("#mainView").html($("#employeeView").html())
         loadEmployees(); //In employee.js
+    })
+
+    $("#navProjectViewLink").click(function(e) {
+        changeToProjectView()
     })
 })

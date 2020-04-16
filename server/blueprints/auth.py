@@ -75,3 +75,5 @@ def signUpCompany():
         db.session.add(adm)
         db.session.commit()
         return Company.query.get(jsonData["companyOrgNumber"]).serialize()
+
+

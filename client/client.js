@@ -1,30 +1,13 @@
 /**
- * Function used for changing to the calendar view
- */
-function changeToCalendarView() {
-    $("#mainView").html($("#calendarView").html())
-    console.log("asdS")
-
-    $("#addActivityButton").click(function (e) {
-        spawnAddActivityModal()
-    })
-
-    $("#viewCalendarsButton").click(function (e) {
-        spawnViewCalendarsModal();
-    })
-    createCalendar();
-}
-
-/**
  * Function used for changing view to the "Register Company" view. 
  */
 function changeToRegisterCompany() {
     $("#mainView").html($("#signUpView").html());
 
-    $("#signUpButton").click(function (e) {
+    $("#signUpButton").click(function(e) {
         signUpCompany()
     })
-    $("#cancelSignUpButton").click(function (e) {
+    $("#cancelSignUpButton").click(function(e) {
         changeToLandingPage()
     })
 }
@@ -33,16 +16,21 @@ function changeToRegisterCompany() {
  */
 function changeToLandingPage() {
     $("#mainView").html($("#landingPage").html())
-
-    $(".becomeCustomerButton").click(function (e) {
+    $("#becomeCustomerButton").click(function(e) {
         e.preventDefault();
         changeToRegisterCompany()
     })
 }
 
-$( document ).ready(function() {
-    changeToLandingPage();
-    $("#brandButton").click(function (e) {
+$(document).ready(function() {
+    $("#mainView").html($("#landingPage").html())
+
+    $("#becomeCustomerButton").click(function(e) {
+        e.preventDefault();
+        changeToRegisterCompany()
+    })
+
+    $("#brandButton").click(function(e) {
         changeToLandingPage();
     })
     
@@ -51,19 +39,28 @@ $( document ).ready(function() {
         changeToCalendarView()
     })
     
-    $("#navAboutLink").click(function (e) {
+    $("#navAboutLink").click(function(e) {
         $("#mainView").html($("#aboutView").html())
     })
 
-    $("#navPriceLink").click(function (e) {
+    $("#navPriceLink").click(function(e) {
         $("#mainView").html($("#priceView").html())
     })
 
-    $("#navContactLink").click(function (e) {
+    $("#navContactLink").click(function(e) {
         $("#mainView").html($("#contactView").html())
     })
 
-    $("#navSupportLink").click(function (e) {
+    $("#navSupportLink").click(function(e) {
         $("#mainView").html($("#supportView").html())
+    })
+
+    $("#navEmployeeLink").click(function(e) {
+        $("#mainView").html($("#employeeView").html())
+        loadEmployees(); //In employee.js
+    })
+
+    $("#navProjectViewLink").click(function(e) {
+        changeToProjectView()
     })
 })

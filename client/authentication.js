@@ -4,7 +4,7 @@
  * @param {boolean} signedIn Determines what should be shown or hidden depending on if the user is signed in or out.
  */
 function updatePageLoggedIn(signedIn) {
-    if(signedIn) {
+    if (signedIn) {
         $(".signInButton").hide()
         $(".signOutButton").show()
         $("#navbarScheduleLink").show()
@@ -23,18 +23,18 @@ function updatePageLoggedIn(signedIn) {
  */
 function spawnChangePasswordDialogue() {
     $.ajax({
-        url:'/auth/default-password',
+        url: '/auth/default-password',
         type: 'GET',
-        headers: { "Authorization": "Bearer " + JSON.parse(sessionStorage.getItem('auth')).access_token},
-        success: function (response) {
-            if(response.usingDefaultPassword) {
+        headers: { "Authorization": "Bearer " + JSON.parse(sessionStorage.getItem('auth')).access_token },
+        success: function(response) {
+            if (response.usingDefaultPassword) {
                 $('#changePasswordModal').modal('show');
-            } 
+            }
         }
     })
 }
 
-$( document ).ready(function() {
+$(document).ready(function() {
     var auth = sessionStorage.getItem('auth');
     var signedIn = false;
     if (!(auth === null)) {
@@ -58,13 +58,13 @@ function signIn() {
         dataType: 'json',
         contentType: 'application/json',
         data: user_data,
-        success: function (loginResponse) {
+        success: function(loginResponse) {
             sessionStorage.setItem('auth', JSON.stringify(loginResponse))
             $("#signInModal").modal("hide");
             spawnAlert("Inloggningen lyckades!", "success")
             updatePageLoggedIn(true);
             spawnChangePasswordDialogue()
-            failure=false;
+            failure = false;
         },
         error: function(loginResponse) {
             document.getElementById("signInFailureAlert").hidden = false;
@@ -86,7 +86,7 @@ function signOut() {
  * Used for signing up companies.
  */
 function signUpCompany() {
-    var companyName=document.getElementById("signUpCompanyName").value;
+    var companyName = document.getElementById("signUpCompanyName").value;
     var companyOrgNumber = document.getElementById("signUpCompanyOrgNumber").value;
     var adminName = document.getElementById("signUpAdminName").value;
     var adminPid = document.getElementById("signUpAdminPid").value;
@@ -117,9 +117,9 @@ function signUpCompany() {
  * Adds an employee to the database.
  */
 function addEmployee() {
-    var name=document.getElementById("addEmployeeName").value
-    var email=document.getElementById("addEmployeeEmail").value
-    var personID=document.getElementById("addEmployeePid").value
+    var name = document.getElementById("addEmployeeName").value
+    var email = document.getElementById("addEmployeeEmail").value
+    var personID = document.getElementById("addEmployeePid").value
     var employeeData = `
     {
         "name":"${name}",
@@ -128,11 +128,11 @@ function addEmployee() {
     }
     `
     $.ajax({
-        url: 'auth/employee',
+        url: 'employee/all',
         type: 'POST',
         dataType: 'json',
         contentType: 'application/json',
-        headers: { "Authorization": "Bearer " + JSON.parse(sessionStorage.getItem('auth')).access_token},
+        headers: { "Authorization": "Bearer " + JSON.parse(sessionStorage.getItem('auth')).access_token },
         data: employeeData,
         success: function(response) {
             $("#addEmployeeModal").modal("hide");
@@ -149,7 +149,7 @@ function changePassword() {
     var currentPassword = document.getElementById("currentPassword").value
     var newPassword = document.getElementById("newPassword").value
     var newPasswordRepeated = document.getElementById("newPasswordRepeated").value
-    if(newPassword !== newPasswordRepeated) {
+    if (newPassword !== newPasswordRepeated) {
         document.getElementById("wrongNewPasswordAlert").hidden = false;
         document.getElementById("wrongOldPasswordAlert").hidden = true;
     } else {
@@ -164,7 +164,7 @@ function changePassword() {
             type: 'PUT',
             dataType: 'json',
             contentType: 'application/json',
-            headers: { "Authorization": "Bearer " + JSON.parse(sessionStorage.getItem('auth')).access_token},
+            headers: { "Authorization": "Bearer " + JSON.parse(sessionStorage.getItem('auth')).access_token },
             data: passwordData,
             success: function(response) {
                 $("#changePasswordModal").modal("hide");

@@ -13,6 +13,22 @@ var calendar;
 let colorsArray = ["lightsalmon", "lightskyblue", "tomato", "papayawhip", "greenyellow", "lightskyblue", "navajowhite"];
 
 /**
+ * Function used for changing to the calendar view
+ */
+function changeToCalendarView() {
+    $("#mainView").html($("#calendarView").html())
+
+    $("#addActivityButton").click(function (e) {
+        spawnAddActivityModal()
+    })
+
+    $("#viewCalendarsButton").click(function (e) {
+        spawnViewCalendarsModal();
+    })
+    createCalendar();
+    populateEmployeeMap();
+}
+/**
  * Adds the ability to hide and show the employee selector based on which employees are chosen.
  */
 $( document ).ready(function () {
@@ -25,7 +41,6 @@ $( document ).ready(function () {
     $("#addActivityEveryoneButton").click(function () {
         $("#addActivityWholeEmpSelector").hide("fast")
     })
-
 })
 /**
  * Creates the calendar, needs a html element with a 'calendar' id for it to work.
@@ -55,6 +70,7 @@ function createCalendar() {
             }],
             eventClick: function(info) {
                 info.jsEvent.preventDefault();
+                console.log("asd")
                 spawnActivityInfoModal(info.event.id)
             },
             customButtons: {
@@ -217,34 +233,41 @@ function populateProjectsDropdown() {
     //Currently using stub
     //Populating projects
     $("#addActivityProjectSelector").html("");
-    var projects = [
-        {
-            name: "Bygga hus",
-            id: 1
-        },
-        {
-            name: "Lägg golv",
-            id: 5
-        },
-        {
-            name: "Bygg veranda",
-            id: 6
+    $.ajax({
+        url: "project_view/projects",
+        type: "GET",
+        headers: { "Authorization": "Bearer " + JSON.parse(sessionStorage.getItem('auth')).access_token },
+        success: function (response) {
+            response.forEach(function (project) {
+                $("#addActivityProjectSelector").append(`<option value="${project.id}">${project.name}</option>`)
+            })
         }
-    ]
-    projects.forEach(project => $("#addActivityProjectSelector").append(`<option value="${project.id}">${project.name}</option>`));
+    })
+    
 }
 
 //Global variable for keeping track of what employees are currently selected.
 var employeeMap = new Map()
-employeeMap.set("199403010000", {
-    name: "Anders Andersson",
-    selected: false
-});
-employeeMap.set("199001010000", {
-    name: "Pelle Svensson",
-    selected: false
-});
 
+function populateEmployeeMap() {
+    employeeMap = new Map();
+    $.ajax({
+        url: "employee/all",
+        type: "GET",
+        headers: { "Authorization": "Bearer " + JSON.parse(sessionStorage.getItem('auth')).access_token },
+        success: function (response) {
+            console.log(response);
+            response.forEach(function(employee) {
+                console.log("employee", employee)
+                employeeMap.set(employee.personID, {
+                    name: employee.name,
+                    selected: false
+                });
+            })
+        }
+
+    })
+}
 /**
  * Helper function for populating the employee selector
  * 

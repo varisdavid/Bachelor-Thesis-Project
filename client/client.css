@@ -1,13 +1,27 @@
-pp {
-    position: absolute;
-    left: 40px;
-    top:200px;
+
+
+.my-list-item { 
+    animation: fadeInAnimation ease 2s; 
+    animation-iteration-count: 1; 
+    animation-fill-mode: forwards; 
+} 
+@keyframes fadeInAnimation { 
+    0% { 
+        opacity: 0; 
+    } 
+    100% { 
+        opacity: 1; 
+    } 
+} 
+
+.list-group-item-action.active{
+    border-color: lightgray;
 }
 
+.list-group-item-action:hover{
+    background-color: lightgray;
+}
 .landingPageHeading {
-    position: absolute;
-    left: 40px;
-    top:100px;
     font-weight: bold;
 }
 
@@ -34,4 +48,7 @@ h2 {
 
 .cal {
     padding-top: 1rem;
+}
+.header-item {
+    white-space: nowrap;
 }

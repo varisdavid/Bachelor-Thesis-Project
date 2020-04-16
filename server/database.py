@@ -10,6 +10,7 @@ class Project(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String, nullable=False)
     companyOrgNumber = db.Column(db.String, db.ForeignKey('companies.orgNumber'), nullable=False)
+    
     def __repr__(self):
         return '<Project {}: {} {}>'.format(self.id, self.name, self.companyOrgNumber)
 
@@ -49,7 +50,7 @@ class Employee(db.Model):
     passwordHash = db.Column(db.String, nullable=True)
     usingDefaultPassword = db.Column(db.Boolean, nullable=False)
     company = db.Column(db.String, db.ForeignKey('companies.orgNumber'), nullable=False)
-    
+
     def __repr__(self):
         return '<Employee {}: {} {} {} {} {}>'.format(self.personID, self.email, self.name, self.isAdmin, self.isBoss, self.company)
 

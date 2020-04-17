@@ -10,19 +10,12 @@ from server.database import db, Employee, Project, LoggedWork, Company
 
 
 #imports the blueprint from package blueprints
-<<<<<<< HEAD
-from server.blueprints import auth, time_report, employee
-#Adds all the defined routes in auth
-app.register_blueprint(auth.bp)
-app.register_blueprint(time_report.bp)
-app.register_blueprint(employee.bp)
-=======
-from server.blueprints import auth, time_report, project_view
+from server.blueprints import auth, time_report, project_view, employee
 #Adds all the defined routes in auth
 app.register_blueprint(auth.bp)
 app.register_blueprint(time_report.bp)
 app.register_blueprint(project_view.bp)
->>>>>>> origin
+app.register_blueprint(employee.bp)
 
 @app.route("/")
 def client():

@@ -67,10 +67,10 @@ function createTimeChart(employee){
                 "var myChart = new Chart(ctx, {" +
                     "type: 'bar'," +
                     "data: {" +
-                        "labels: ['förra månaden', 'den här månaden']," +
+                        "labels: [" + getDates() + "]," +
                         "datasets: [{" +
                             "label: 'Arbetad tid'," +
-                            "data: [" + time[0] + "," + time[1] + "]," +
+                            "data: [" + time[0] + "," + time[1] + "," + time[2] + "," + time[3] + "," + time[4] + "," + time[5] + "]," +
                         "}]" +
                     "}," +
                     "options: {scales: {" +
@@ -83,4 +83,21 @@ function createTimeChart(employee){
             "</script>");
         }
         })
+}
+
+function getDates(){
+    var d = new Date();
+    var months = [];
+    var n = d.getMonth();
+    months.unshift(n);
+    for (let i=1; i<6; i++){
+        var x = n-i;
+        if (x<1){
+            var y = x + 12;
+            months.unshift(y);
+        }else{
+            months.unshift(x);
+        }        
+    }
+    return months;
 }

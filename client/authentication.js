@@ -7,20 +7,23 @@ function updatePageLoggedIn(signedIn) {
     if(signedIn) {
         $(".signInButton").hide()
         $(".signOutButton").show()
-        $("#navTimeReportLink1").show()
-        $("#timeReport").show()
+        $("#navTimeReportLink").show()
+        $("#navTimeOverviewLink").show()
         $("#navPriceLink").hide()
         $("#navAboutLink").hide()
         $("#navContactLink").hide()
+        $("#navProjectViewLink").show()
     } else {
         $(".signInButton").show()
         $(".signOutButton").hide()
-        $("#navTimeReportLink1").hide()
-        $("#timeReport").hide()
+        $("#navTimeReportLink").hide()
+        $("#navTimeOverviewLink").hide()
         $("#navPriceLink").show()
         $("#navAboutLink").show()
         $("#navContactLink").show()
+        $("#navProjectViewLink").hide()
     }
+    changeToLandingPage()
 }
 
 /**

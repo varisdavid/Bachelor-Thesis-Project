@@ -15,18 +15,24 @@ function changeToRegisterCompany() {
  * Function used for changing view to the "Landing page" view
  */
 function changeToLandingPage() {
-    $("#mainView").html($("#landingPage").html())
+    var auth = sessionStorage.getItem('auth');
+    if (!(auth === null)) {
+        $("#mainView").html($("#dashboardView").html())
+    }else{
+        $("#mainView").html($("#landingPage").html())
 
-    $(".becomeCustomerButton").click(function (e) {
-        e.preventDefault();
-        changeToRegisterCompany()
-    })
+        $(".becomeCustomerButton").click(function (e) {
+            e.preventDefault();
+            changeToRegisterCompany()
+        })
+    }
 }
 
 function changeToTimeOverview(){
     $("#mainView").html($("#timeOverviewView").html())
     getEmployees()
 }
+
 $( document ).ready(function() {
     $("#mainView").html($("#landingPage").html())
     $("#brandButton").click(function (e) {
@@ -52,10 +58,6 @@ $( document ).ready(function() {
 
     $("#navSupportLink").click(function (e) {
         $("#mainView").html($("#supportView").html())
-    })
-
-    $("#navTimeReportLink").click(function (e) {
-        $("#mainView").html($("#timeReportView").html())
     })
 
     $("#navTimeOverviewLink").click(function (e) {

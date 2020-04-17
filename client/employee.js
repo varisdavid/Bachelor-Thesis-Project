@@ -31,7 +31,7 @@ $('#editEmployeeModal').on('hidden.bs.modal', function(event) {
 function loadEmployees() {
     $.ajax({
         headers: { "Authorization": "Bearer " + JSON.parse(sessionStorage.getItem('auth')).access_token },
-        url: 'http://localhost:5000/employee/all',
+        url: '/employee/all',
         type: 'GET',
         dataType: 'json',
         contentType: 'application/json',

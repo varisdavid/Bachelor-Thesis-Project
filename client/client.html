@@ -628,19 +628,46 @@
         <table id="employee-table" class="table">
           <thead>
             <tr>
-              <th scope="col">ID</th>
-              <th scpoe="col">Name</th>
-              <th scope="col">Admin</th>
-              <th scope="col">Chef</th>
-              <th scope="col">Projekt</th>
-              <th scope="col">Arbetad tid</th>
+              <th scope="col" id="employee-table-ID">ID 
+                  <div class="form-group"></div>
+                <input type="text" class="form-control" id="employeeTableSearchID" placeholder="Sök ID">
+            </div></th>
+              <th scpoe="col">Namn <div class="form-group"></div>
+                <input type="text" class="form-control" id="employeeTableSearchName" placeholder="Sök Namn">
+            </div></th>
+              <th scope="col">Roll <div class="form-group"></div>
+                  <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Välj roll
+                </button>
+                <div class="dropdown-menu" id="employeeTableDropDownRole" aria-labelledby="dropdownMenuButton">
+                  <a class="dropdown-item" href="#">Alla</a>
+                  <a class="dropdown-item" href="#">Chef</a>
+                  <a class="dropdown-item" href="#">Medarbetare</a>
+                </div>
+              </div></th>
+              <th scope="col">Projekt <div class="form-group"></div>
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      Välj Projekt
+                    </button>
+                    <div class="dropdown-menu" id="employeeTableDropDownProject" aria-labelledby="dropdownMenuButton">
+                      <a class="dropdown-item" href="#">Projekt#1</a>
+                      <a class="dropdown-item" href="#">Projekt#2</a>
+                      <a class="dropdown-item" href="#">Projekt#3</a>
+                    </div>
+                  </div>
+            </div></th>
+              <th scope="col">Arbetad tid <div class="form-group"></div>
+                <input type="text" class="form-control" id="employeeTableSearchArbetadTid" placeholder="Sök Arbetad tid">
+            </div></th>
               <th scope="col"> </th>
             </tr>
           </thead>
           <tbody id="employee-data">
           </tbody>
         </table>
-        <div>
+        <div id="emolpyeeAddEmployeeButtonDiv">
           <div class="car-list-button">
             <button type="button" id="updateCarList" class="btn btn-info btn-lg" data-toggle="modal"
               data-target="#addEmployeeModal">Lägg till medarbetare</button>

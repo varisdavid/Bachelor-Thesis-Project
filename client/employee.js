@@ -30,13 +30,54 @@ function loadEmployees() {
         dataType: 'json',
         contentType: 'application/json',
         success: function(employees) {
-            $('#employee-data').html('');
+            $("#employeeTableSearchID").on("keyup", function() {
+                var value = $(this).val().toLowerCase();
+                $("#employee-data tr").filter(function() {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
+            });
+
+            $("#employeeTableSearchName").on("keyup", function() {
+                var value = $(this).val().toLowerCase();
+                $("#employee-data tr").filter(function() {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
+            });
+
+            $("#employeeTableSearchAdmin").on("keyup", function() {
+                var value = $(this).val().toLowerCase();
+                $("#employee-data tr").filter(function() {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
+            });
+
+            $("#employeeTableSearchBoss").on("keyup", function() {
+                var value = $(this).val().toLowerCase();
+                $("#employee-data tr").filter(function() {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
+            });
+
+            $("#employeeTableSearchProjekt").on("keyup", function() {
+                var value = $(this).val().toLowerCase();
+                $("#employee-data tr").filter(function() {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
+            });
+
+            $("#employeeTableSearchArbetadTid").on("keyup", function() {
+                var value = $(this).val().toLowerCase();
+                $("#employee-data tr").filter(function() {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
+            });
+
             for (employee of employees) {
                 $('#employee-data').append("<tr><td>" +
                     employee.personID + "</td><td>" +
                     employee.name + "</td><td>" +
                     employee.isAdmin + "</td><td>" +
-                    employee.isBoss + "</td><td>" +
+                    "</td><td>" +
                     "</td><td>" +
                     "</td><td>" +
                     "<button id= 'editEmployeeButton' value= 'employee.personID' class = 'btn btn-secondary' type = 'button' data-toggle='modal' data-target='#editEmployeeModal' data-personID='" + employee.personID + "'>Redigera </button>" +

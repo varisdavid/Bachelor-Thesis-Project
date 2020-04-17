@@ -21,8 +21,11 @@ def employees():
     user_id = get_jwt_identity()
     employee = Employee.query.get_or_404(user_id)
     if request.method == 'GET':
-        serializedEmployeeList = [emp.serialize() for emp in Employee.query.all()]
-        return jsonify(serializedEmployeeList)
+        if employee:
+            serializedEmployeeList = [emp.serialize() for emp in Employee.query.all()]
+            return jsonify(serializedEmployeeList)
+        else:
+            return {"msg": "Not authorized"}, 401
     if request.method == 'POST':
         if employee.isAdmin:
             jsonData = request.get_json()

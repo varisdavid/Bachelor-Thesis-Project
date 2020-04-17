@@ -4,10 +4,10 @@
 function changeToRegisterCompany() {
     $("#mainView").html($("#signUpView").html());
 
-    $("#signUpButton").click(function (e) {
+    $("#signUpButton").click(function(e) {
         signUpCompany()
     })
-    $("#cancelSignUpButton").click(function (e) {
+    $("#cancelSignUpButton").click(function(e) {
         changeToLandingPage()
     })
 }
@@ -16,39 +16,51 @@ function changeToRegisterCompany() {
  */
 function changeToLandingPage() {
     $("#mainView").html($("#landingPage").html())
-
-    $(".becomeCustomerButton").click(function (e) {
+    $("#becomeCustomerButton").click(function(e) {
         e.preventDefault();
         changeToRegisterCompany()
     })
 }
 
-$( document ).ready(function() {
+$(document).ready(function() {
     $("#mainView").html($("#landingPage").html())
-    $("#brandButton").click(function (e) {
-        changeToLandingPage();
+
+    $("#becomeCustomerButton").click(function(e) {
+        e.preventDefault();
+        changeToRegisterCompany()
     })
 
+    $("#brandButton").click(function(e) {
+        changeToLandingPage();
+    })
+    
     //Navbar links:
-    $("#navAboutLink").click(function (e) {
+    $("#navbarScheduleLink").click(function (e) {
+        changeToCalendarView()
+    })
+    
+    $("#navAboutLink").click(function(e) {
         $("#mainView").html($("#aboutView").html())
     })
 
-    $("#navPriceLink").click(function (e) {
+    $("#navPriceLink").click(function(e) {
         $("#mainView").html($("#priceView").html())
     })
 
-    $("#navContactLink").click(function (e) {
+    $("#navContactLink").click(function(e) {
         $("#mainView").html($("#contactView").html())
     })
 
-    $("#navSupportLink").click(function (e) {
+    $("#navSupportLink").click(function(e) {
         $("#mainView").html($("#supportView").html())
     })
 
-    $("#navProjectViewLink").click(function (e) {
-       changeToProjectView()
+    $("#navEmployeeLink").click(function(e) {
+        $("#mainView").html($("#employeeView").html())
+        loadEmployees(); //In employee.js
+    })
+
+    $("#navProjectViewLink").click(function(e) {
+        changeToProjectView()
     })
 })
-
-

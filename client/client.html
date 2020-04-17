@@ -9,419 +9,736 @@
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
     integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
+    integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+  <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/css/tempusdominus-bootstrap-4.min.css" />
+
   <link rel="stylesheet" type="text/css" href="client.css">
+
+  <!-- Fullcalendar, for more info see https://fullcalendar.io/ -->
+
+  <link href='https://unpkg.com/@fullcalendar/core@4.4.0/main.css' rel='stylesheet' />
+  <link href='https://unpkg.com/@fullcalendar/daygrid@4.4.0/main.css' rel='stylesheet' />
+  <link href='https://unpkg.com/@fullcalendar/timegrid@4.4.0/main.css' rel='stylesheet' />
+  <link href='https://unpkg.com/@fullcalendar/bootstrap@4.4.0/main.css' rel='stylesheet' />
 
   <title>ERP</title>
 </head>
 
 <body>
+  <!-- NAVBAR -->
   <nav class="navbar navbar-expand-md navbar-light bg-light">
     <div class="container">
-      <div class="row">
-        <div class="col">
-          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
-            aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-            <h2 id="brandButton"><a class="navbar-brand" href="#">ERP</a></h2>
-            <div class="navbar-nav">
-              <a class="nav-item nav-link" id="navPriceLink" href="#">PRIS</a>
-              <a class="nav-item nav-link" id="navAboutLink" href="#">OM OSS</a>
-              <a class="nav-item nav-link" id="navSupportLink" href="#">SUPPORT</a>
-              <a class="nav-item nav-link" id="navContactLink" href="#">KONTAKT</a>
-              <a class="nav-item nav-link" id="navTimeReportLink" data-toggle="modal"
-                href="#time-report-modal">TIDSRAPPORTERING </a>
-              <a class="nav-item nav-link" id="navProjectViewLink" href="#">PROJEKTÖVERSIKT</a>
-              
-            </div>
-          </div>
-          <ul class="nav navbar-nav navbar-right">
-            
-          </ul>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
+        aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <h2 id="brandButton"><a class="navbar-brand" href="#">ERP</a></h2>
+        <div class="navbar-nav">
+          <a class="nav-item nav-link header-item" id="navPriceLink" href="#">PRIS</a>
+          <a class="nav-item nav-link header-item" id="navAboutLink" href="#">OM OSS</a>
+          <a class="nav-item nav-link header-item" id="navSupportLink" href="#">SUPPORT</a>
+          <a class="nav-item nav-link header-item" id="navContactLink" href="#">KONTAKT</a>
+          <a class="nav-item nav-link header-item" id="navTimeReportLink" data-toggle="modal"
+            href="#time-report-modal">TIDSRAPPORTERING </a>
+          <a class="nav-item nav-link header-item" id="navEmployeeLink" href="#">MEDARBETARE</a>
+          <a class="nav-item nav-link header-item" id="navbarScheduleLink" href="#"><i class="fa fa-calendar"></i>
+            Schema</a>
+          <a class="nav-item nav-link header-item" id="navProjectViewLink" href="#">PROJEKTÖVERSIKT</a>
         </div>
+        <ul class="nav navbar-nav navbar-right ml-auto">
+          <button type="button" class="btn btn-outline-dark signInButton header-item" data-toggle="modal"
+            data-target="#signInModal" style="display:none;">Logga in</button>
+          <button type="button" class="btn btn-outline-dark signOutButton header-item" onclick="signOut()"
+            style="display:none;">Logga ut</button>
+        </ul>
       </div>
-      <button type="button" class="btn btn-outline-dark signInButton float-right" data-toggle="modal"
-      data-target="#signInModal">Logga in</button>
-    <button type="button" class="btn btn-outline-dark signOutButton" onclick="signOut()">Logga ut</button>
     </div>
-   
   </nav>
+
 
   <!-- Placeholder for placing bootstrap alerts, see alerts.js -->
   <div class="container" id="main-alert-holder"></div>
 
   <!-- Container for holding the main view. -->
   <div class="container" id="mainView"></div>
-  
 
-  <!-- Optional JavaScript -->
-  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-  <script src="https://code.jquery.com/jquery-3.4.1.min.js"
-    integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
-    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
-    crossorigin="anonymous"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
-    integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
-    crossorigin="anonymous"></script>
-
-
-  <!-- Our scripts -->
-  <script src="alerts.js"></script>
-  <script src="authentication.js"></script>
-  <script src="client.js"></script>
-  <script src="time_report.js"></script>
-  <script src="project_view.js"></script>
-</body>
-
-<!-- Sign-in Modal-->
-<div class="modal fade" id="signInModal" tabindex="-1" role="dialog" aria-labelledby="signInModal" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="signInModalTitle">Inloggning</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Stäng">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <div class="alert alert-warning" id="signInFailureAlert" hidden="true" role="alert">
-          Lösenordet eller personnummret var fel, testa att logga in igen.
+  <!-- 
+    Edit employee modal, would be shown from some kind of employee management page. 
+  -->
+  <div class="modal fade" id="editEmployeeModal" tabindex="-1" role="dialog" aria-labelledby="editEmployeeModal"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="editEmployeeModalTitle">Redigera anställda</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Stäng">
+            <span aria-hidden="true">&times;</span>
+          </button>
         </div>
-        <form id="signInForm">
-          <div class="form-group">
-            <label for="signInPid">Personnummer</label>
-            <input class="form-control" id="signInPid" placeholder="Personnummer">
-            <small id="pidhelp" class="form-text text-muted">10 eller 12 siffror</small>
-          </div>
-          <div class="form-group">
-            <label for="signInPassword">Lösenord</label>
-            <input type="password" class="form-control" id="signInPassword" placeholder="Lösenord">
-          </div>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Stäng</button>
-        <button type="button" class="btn btn-primary" onclick="signIn()">Logga in</button>
+        <div class="modal-body">
+          <form id="editEmployeeForm">
+            <div class="form-group">
+              <label for="editEmployeePid">Personnummer</label>
+              <input class="form-control" id="editEmployeePid-input" placeholder="ÅÅMMDD-xxxx" readonly>
+              <small id="10 eller 12 siffror" class="form-text text-muted"></small>
+            </div>
+            <div class="form-group">
+              <label for="editEmployeeName">Namn</label>
+              <input class="form-control" id="editEmployeeName-input" placeholder="Den anställdes namn">
+            </div>
+            <div class="form-group">
+              <label for="editEmployeeEmail">Epost</label>
+              <input class="form-control" id="editEmployeeEmail-input" placeholder="namn@domän.com">
+              <small id="" class="form-text text-muted"></small>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Stäng</button>
+          <button type="button" id="editEmployeeSubmitButton" class="btn btn-primary" data-dismiss="modal"
+            onclick="editEmployee(this.value)">Slutför</button>
+        </div>
       </div>
     </div>
   </div>
-</div>
 
-<!-- 
+
+  <!-- Sign-in Modal-->
+  <div class="modal fade" id="signInModal" tabindex="-1" role="dialog" aria-labelledby="signInModal" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="signInModalTitle">Inloggning</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Stäng">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="alert alert-warning" id="signInFailureAlert" hidden="true" role="alert">
+            Lösenordet eller personnummret var fel, testa att logga in igen.
+          </div>
+          <form id="signInForm">
+            <div class="form-group">
+              <label for="signInPid">Personnummer</label>
+              <input class="form-control" id="signInPid" placeholder="Personnummer">
+              <small id="pidhelp" class="form-text text-muted">10 eller 12 siffror</small>
+            </div>
+            <div class="form-group">
+              <label for="signInPassword">Lösenord</label>
+              <input type="password" class="form-control" id="signInPassword" placeholder="Lösenord">
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Stäng</button>
+          <button type="button" class="btn btn-primary" onclick="signIn()">Logga in</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 
     Add employee modal, would be shown from some kind of employee management page. 
   -->
-<div class="modal fade" id="addEmployeeModal" tabindex="-1" role="dialog" aria-labelledby="addEmployeeModal"
-  aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="addEmployeeModalTitle">Lägg till anställd</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Stäng">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <form id="addEmployeeForm">
-          <div class="form-group">
-            <label for="addEmployeeName">Namn</label>
-            <input class="form-control" id="addEmployeeName" placeholder="Den anställdes namn">
-          </div>
-          <div class="form-group">
-            <label for="addEmployeeEmail">Epost</label>
-            <input class="form-control" id="addEmployeeEmail" placeholder="namn@domän.com">
-            <small id="" class="form-text text-muted"></small>
-          </div>
-          <div class="form-group">
-            <label for="addEmployeePid">Personnummer</label>
-            <input class="form-control" id="addEmployeePid" placeholder="ÅÅMMDD-xxxx">
-            <small id="10 eller 12 siffror" class="form-text text-muted"></small>
-          </div>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Stäng</button>
-        <button type="button" class="btn btn-primary" onclick="addEmployee()">Lägg till</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- Change password modal -->
-<div class="modal fade" id="changePasswordModal" tabindex="-1" role="dialog" aria-labelledby="changePasswordModal"
-  aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="changePasswordModalTitle">Byt lösenord</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Stäng">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <p>Du använder för närvarande det lösenord som gavs till dig när kontot skapades. Var god byt det snarast för
-          kontots säkerhets skull.</p>
-        <div class="alert alert-warning" id="wrongOldPasswordAlert" hidden="true" role="alert">
-          Ditt gamla lösenord stämmer inte
+  <div class="modal fade" id="addEmployeeModal" tabindex="-1" role="dialog" aria-labelledby="addEmployeeModal"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="addEmployeeModalTitle">Lägg till anställd</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Stäng">
+            <span aria-hidden="true">&times;</span>
+          </button>
         </div>
-        <div class="alert alert-warning" id="wrongNewPasswordAlert" hidden="true" role="alert">
-          De nya lösenorden matchar inte
+        <div class="modal-body">
+          <form id="addEmployeeForm">
+            <div class="form-group">
+              <label for="addEmployeeName">Namn</label>
+              <input class="form-control" id="addEmployeeName" placeholder="Den anställdes namn">
+            </div>
+            <div class="form-group">
+              <label for="addEmployeeEmail">Epost</label>
+              <input class="form-control" id="addEmployeeEmail" placeholder="namn@domän.com">
+              <small id="" class="form-text text-muted"></small>
+            </div>
+            <div class="form-group">
+              <label for="addEmployeePid">Personnummer</label>
+              <input class="form-control" id="addEmployeePid" placeholder="ÅÅMMDD-xxxx">
+              <small id="10 eller 12 siffror" class="form-text text-muted"></small>
+            </div>
+          </form>
         </div>
-        <form id="changePasswordForm">
-          <div class="form-group">
-            <label for="newPassword">Nytt lösenord</label>
-            <input class="form-control" type='password' id="newPassword" placeholder="Nytt lösenord">
-          </div>
-          <div class="form-group">
-            <label for="newPasswordRepeated">Upprepa nytt lösenord</label>
-            <input class="form-control" type='password' id="newPasswordRepeated" placeholder="Nytt lösenord">
-          </div>
-          <div class="form-group">
-            <label for="currentPassword">Nuvarande lösenord</label>
-            <input class="form-control" type='password' id="currentPassword" placeholder="Nuvarande lösenord">
-          </div>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Stäng</button>
-        <button type="button" class="btn btn-primary" onclick="changePassword()">Byt lösenord</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- New Project Modal-->
-<div class="modal fadeInDownBig" tabindex="-1" role="dialog" id="newProjectModal">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Nytt Projekt</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <form id="newProjectForm">
-          <div class="form-group">
-            <label for="newProjectNameInput">Projektnamn</label>
-            <input type="name" class="form-control" id="formNewProjectName">
-          </div>
-          <div class="form-group">
-            <label for="newProjectOrgInput">Organisationsnummer</label>
-            <input type="name" class="form-control" id="formNewProjectOrg">
-          </div>
-
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary rounded-0" data-dismiss="modal">Stäng</button>
-            <button type="button" class="btn btn-primary rounded-0" id="modalNewProjectButton">Skapa
-              Projekt</button>
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>
-</div>
-
-
-<!-- Edit Project Modal-->
-<div class="modal fade" tabindex="-1" role="dialog" id="modalEditProject">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Redigera Projekt</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <form>
-          <div class="form-group">
-            <label for="orgId">ID</label>
-            <input type="name" readonly class="form-control" id="modalProjectId">
-          </div>
-          <div class="form-group">
-            <label for="projectNameInput">Projektnamn</label>
-            <input type="name" class="form-control" id="modalEditProjectName">
-          </div>
-          <div class="form-group">
-            <label for="projectOrgNrInput">Organisationsnummer</label>
-            <input type="name" class="form-control" id="modalEditProjectOrgNr">
-          </div>
-
-          <div class="modal-footer">
-            <button type="button" class="btn btn-danger rounded-0" id="modalRemoveConfirmBtn" data-dismiss="modal">Ta bort
-              projekt</button>
-            <button type="button" class="btn btn-secondary rounded-0" data-dismiss="modal">Stäng</button>
-            <button type="button" class="btn btn-primary rounded-0"
-              id="modalEditProjectButtonSubmit">Spara ändringar</button>
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- Remove Project Modal-->
-<div class="modal" tabindex="-1" role="dialog" id="areYouSureModal">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Ta Bort Projekt</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <p>Är du säker på att du vill ta bort projektet?</p>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary rounded-0" data-dismiss="modal">Avbryt</button>
-          <button type="button" class="btn btn-danger rounded-0" data-dismiss="modal" id="modalRemoveProject">Bekräfta</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Stäng</button>
+          <button type="button" class="btn btn-primary" onclick="addEmployee()">Lägg till</button>
         </div>
       </div>
     </div>
   </div>
-</div>
-
-<!-- Sign-up page -->
-<template id="signUpView">
-  <div class="container-sm">
-    <form id="signUpForm">
-      <h2>Registrera företag</h2>
-      <div class="form-group">
-        <label for="signUpCompanyName">Namn på företag</label>
-        <input type="text" class="form-control" id="signUpCompanyName" placeholder="Bygg AB">
-      </div>
-      <div class="form-group">
-        <label for="signUpCompanyOrgNumber">Organisationsnummer</label>
-        <input type="text" class="form-control" id="signUpCompanyOrgNumber" placeholder="xxxxxx-xxxx">
-      </div>
-      <h2>Ansvarig för kontot</h2>
-      <p>Personen som har ansvar för kontot. Den som kommer ha fulla privilegier. Kommer kunna lägga till och ta bort
-        medarbetare.</p>
-      <div class="form-group">
-        <label for="signUpAdminName">Namn</label>
-        <input type="text" class="form-control" id="signUpAdminName" placeholder="">
-      </div>
-      <div class="form-group">
-        <label for="signUpAdminPid">Personnummer</label>
-        <input type="text" class="form-control" id="signUpAdminPid" placeholder="ÅÅMMDD-xxxx">
-        <small id="" class="form-text text-muted">10 eller 12 siffror</small>
-      </div>
-      <div class="form-group">
-        <label for="signUpAdminEmail">E-mail</label>
-        <input type="text" class="form-control" id="signUpAdminEmail" placeholder="namn@foretag.com">
-      </div>
-      <div class="form-group">
-        <label for="signUpAdminPassword">Lösenord</label>
-        <input type="password" class="form-control" id="signUpAdminPassword" placeholder="Lösenord">
-        <small id="" class="form-text text-muted">Någon schysst mening om säkert lösenord.</small>
-      </div>
-      <button type="button" id="cancelSignUpButton" class="btn btn-outline-dark">Avbryt</button>
-      <button type="button" id="signUpButton" class="btn btn-primary">Registrera</button>
-    </form>
   </div>
-</template>
-
-<!-- Thank you view -->
-<template id="thankYouView">
-  <div>
-    <h2>Tack för att du registrerade dig</h2>
-    <p>Du kan nu logga in med knappen längst upp till höger och börja lägga till anställda.</p>
-  </div>
-</template>
-
-<!-- The template for the landing page for not logged in visitors -->
-<template id="landingPage">
-  <div class="row">
-    <div class="col">
-      <h1 class="landingPageHeading">ERP- Snickeri <br> TDDD83</h1>
-      <pp>
-        För den moderna snickaren <br><br>
-        <button type="button" class="btn btn-primary">Logga in</button>
-        <button type="button" class="btn btn-outline-dark becomeCustomerButton">Bli kund</button>
-      </pp>
-    </div>
   </div>
 
-</template>
+  <!-- View other calendars modal -->
+  <div class="modal fade" id="viewCalendarsModal" tabindex="-1" role="dialog" aria-labelledby="viewCalendarsModal"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Välj anställda att visa schemat för</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Stäng">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
 
-<div class="modal" id="time-report-modal" tabindex="-1" role="dialog">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Rapportera tid</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <p>Här kan du rapportera in din arbetstid!</p>
-        <form>
-          <div class="form-group">
-            <label for="projekt">Projekt</label>
-            <input type="text" class="form-control" id="projectID">
+          <label for="viewCalendarsEmpSelGroup">Vilka medarbetare</label>
+          <div class="row" id="viewCalendarsEmpSelGroup" style="display: none">
+            <div class="col">
+              <div class="form-group">
+                <select class="form-control" id="viewCalendarsEmployeeSelector">
+                </select>
+              </div>
+            </div>
+            <div class="col-2">
+              <button type="button" class="btn btn-secondary" onclick="addEmployeeToSelectedEmployeesCal()"><i
+                  class="fa fa-user-plus"></i></button>
+            </div>
           </div>
-          <div class="form-group">
-            <label for="starttid">Började klockan</label>
-            <input type="time" class="form-control" id="startTime">
+          <div class="empHolder border rounded" id="viewCalendarsEmpHolder">
+            <ul class="list-group h-25" id="viewCalendarsSelectedEmployeeList" style="display:none">
+              <li class="list-group-item active">Valda medarbetare</li>
+            </ul>
+            <p class="text-center text-muted" id="viewCalendarsEmpHolderText">Valda medarbetare kommer att
+              hamna här</p>
           </div>
-          <div class="form-group">
-            <label for="sluttid">Slutade klockan</label>
-            <input type="time" class="form-control" id="endTime">
-          </div>
-          <div class="form-group">
-            <label for="sluttid">Kommentarer</label>
-            <input type="text" class="form-control" id="comments">
-          </div>
-          <button type="submit" data-dismiss="modal" class="btn btn-primary" onclick=reportTime()>Skicka in</button>
-        </form>
-      </div>
-    </div>
-  </div>
-</div>
 
-
-<!-- Project View-->
-<template id="projectView">
-  <div class="row mt-5">
-    <div class="col">
-      <h1 class="float-left">Projektöversikt</h1>
-      <button type="button" class="btn btn-primary rounded-0 float-right mt-2" data-toggle='modal'
-        data-target='#newProjectModal' id="newProjectButton">Nytt Projekt</button>
-    </div>
-  </div>
-  <hr>
-
-  <div class="row">
-    <div class="col">
-      <div class="list-group animated fadeInDownBig" id="projectListTab" role="tablist">
-        <!-- List of projects appear here-->
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Stäng</button>
+          <button type="button" class="btn btn-primary" onclick="viewCalendars()"
+            id="viewSchedulesConfirmButton">Välj</button>
+        </div>
       </div>
     </div>
   </div>
 
-</template>
+  <!-- Add activity modal -->
+  <div class="modal fade" id="addActivityModal" tabindex="-1" role="dialog" aria-labelledby="addActivityModal"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="addActivityModalTitle">Lägg till aktivitet</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Stäng">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form id="addActivityForm">
+            <div class="form-group">
+              <label for="addActivityName">Namn</label>
+              <input class="form-control" id="addActivityName" placeholder="Namn på aktiviteten">
+            </div>
 
-<template id="aboutView">
-  <h1>Om oss</h1>
-  <p>Vi erbjuder en lösning för schemaläggning och tidsrapportering i form av en webbapplikation.</p>
-</template>
+            <div class="form-group">
+              <label for="addActivityLocation">Plats</label>
+              <input class="form-control" id="addActivityLocation" placeholder="Plats där den sker">
+            </div>
 
-<template id="priceView">
-  <h1>Pris</h1>
-  <p>Tjänsten kostar 200 kr i månaden.</p>
-</template>
+            <div class="form-group">
+              <label for="addActivityDescription">Beskrivning</label>
+              <textarea class="form-control" id="addActivityDescription" rows="4"
+                placeholder="Övriga upplysningar eller beskrivning"></textarea>
+            </div>
 
-<template id="contactView">
-  <h1>Kontakt</h1>
-  <p>Kontakta oss på denna <a href="mailto:mail@mail.com">mailaddress</a> eller fyll i formuläret nedan som inte är där
-    än.</p>
-</template>
+            <div class="form-group">
+              <label for="addActivityProjectSelector">Vilket projekt gäller detta</label>
+              <select class="form-control" id="addActivityProjectSelector">
+                <option value="0">Inget projekt</option>
 
-<template id="supportView">
-  <h1>Support</h1>
-  <p>Här kommer det att finnas hjälp någon gång i framtiden</p>
-</template>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="addActivityButtonGroup">Vilka medarbetare</label>
+              <br>
+              <div id="addActivityButtonGroup" class="btn-group btn-group-toggle" data-toggle="buttons">
+                <label class="btn btn-outline-secondary active">
+                  <input type="radio" name="options" id="addActivityOnlyMeButton" autocomplete="off" checked> Mig
+                </label>
+                <label class="btn btn-outline-secondary">
+                  <input type="radio" name="options" id="addActivitySomeButton" autocomplete="off">
+                  Vissa anställda
+                </label>
+                <label class="btn btn-outline-secondary">
+                  <input type="radio" name="options" id="addActivityEveryoneButton" autocomplete="off"
+                    style="display:none;"> Alla
+                  anställda
+                </label>
+              </div>
+            </div>
+
+            <div id="addActivityWholeEmpSelector" style="display:none;">
+              <div class="row" id="addActivityEmpSelGroup">
+                <div class="col">
+                  <div class="form-group">
+                    <select class="form-control" id="addActivityEmployeeSelector">
+                    </select>
+                  </div>
+                </div>
+                <div class="col-2">
+                  <button type="button" class="btn btn-secondary" onclick="addEmployeeToSelectedEmployeesAct()"><i
+                      class="fa fa-user-plus"></i></button>
+                </div>
+              </div>
+              <div class="empHolder rounded border" id="addActivityEmpHolder">
+                <ul class="list-group h-25" id="addActivitySelectedEmployeeList">
+                  <li class="list-group-item active">Valda medarbetare</li>
+                </ul>
+                <p class="text-center text-muted" id="addActivityEmpHolderText">Valda medarbetare kommer
+                  att hamna här</p>
+              </div>
+            </div>
+            <hr>
+            <div class="alert alert-warning" id="addActivityWrongDateAlert" style="display:none;" role="alert">
+              Avslutstiden måste ligga efter den första
+            </div>
+
+            <label for="addActivityStartPickers">Starttid</label>
+            <div class="row" id="addActivityStartPickers">
+              <div class="col">
+                <div class="form-group">
+                  <div class="input-group date" id="addActivityStartDatePicker" data-target-input="nearest">
+                    <input type="text" class="form-control datetimepicker-input"
+                      data-target="#addActivityStartDatePicker" />
+                    <div class="input-group-append" data-target="#addActivityStartDatePicker"
+                      data-toggle="datetimepicker">
+                      <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col">
+                <div class="form-group">
+                  <div class="input-group date" id="addActivityStartTimePicker" data-target-input="nearest">
+                    <input type="text" class="form-control datetimepicker-input"
+                      data-target="#addActivityStartTimePicker" />
+                    <div class="input-group-append" data-target="#addActivityStartTimePicker"
+                      data-toggle="datetimepicker">
+                      <div class="input-group-text"><i class="fa fa-clock-o"></i></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <label for="addActivityStopPickers">Sluttid</label>
+            <div class="row" id="addActivityStopPickers">
+              <div class="col">
+                <div class="form-group">
+                  <div class="input-group date" id="addActivityStopDatePicker" data-target-input="nearest">
+                    <input type="text" class="form-control datetimepicker-input"
+                      data-target="#addActivityStopDatePicker" />
+                    <div class="input-group-append" data-target="#addActivityStopDatePicker"
+                      data-toggle="datetimepicker">
+                      <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col">
+                <div class="form-group">
+                  <div class="input-group date" id="addActivityStopTimePicker" data-target-input="nearest">
+                    <input type="text" class="form-control datetimepicker-input"
+                      data-target="#addActivityStopTimePicker" />
+                    <div class="input-group-append" data-target="#addActivityStopTimePicker"
+                      data-toggle="datetimepicker">
+                      <div class="input-group-text"><i class="fa fa-clock-o"></i></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Stäng</button>
+          <button type="button" class="btn btn-primary" onclick="addActivity()" id="addActivitySubmitButton">Lägg
+            till</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Activity info modal -->
+  <div class="modal fade" id="activityInfoModal" tabindex="-1" role="dialog" aria-labelledby="changePasswordModal"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="activityInfoTitle"></h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Stäng">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body" id="activityInfoBody">
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" id="activityInfoRemoveActivityButton" value="" class="btn btn-danger"
+            onclick="removeActivity(this.value)">Ta bort aktivitet</button>
+          <button type="button" class="btn btn-primary" data-dismiss="modal">Klar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Change password modal -->
+  <div class="modal fade" id="changePasswordModal" tabindex="-1" role="dialog" aria-labelledby="changePasswordModal"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="changePasswordModalTitle">Byt lösenord</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Stäng">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>Du använder för närvarande det lösenord som gavs till dig när kontot skapades. Var god byt det
+            snarast för kontots säkerhets skull.</p>
+          <div class="alert alert-warning" id="wrongOldPasswordAlert" hidden="true" role="alert">
+            Ditt gamla lösenord stämmer inte
+          </div>
+          <div class="alert alert-warning" id="wrongNewPasswordAlert" hidden="true" role="alert">
+            De nya lösenorden matchar inte
+          </div>
+          <form id="changePasswordForm">
+            <div class="form-group">
+              <label for="newPassword">Nytt lösenord</label>
+              <input class="form-control" type='password' id="newPassword" placeholder="Nytt lösenord">
+            </div>
+            <div class="form-group">
+              <label for="newPasswordRepeated">Upprepa nytt lösenord</label>
+              <input class="form-control" type='password' id="newPasswordRepeated" placeholder="Nytt lösenord">
+            </div>
+            <div class="form-group">
+              <label for="currentPassword">Nuvarande lösenord</label>
+              <input class="form-control" type='password' id="currentPassword" placeholder="Nuvarande lösenord">
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Stäng</button>
+          <button type="button" class="btn btn-primary" onclick="changePassword()">Byt lösenord</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- New Project Modal-->
+  <div class="modal fadeInDownBig" tabindex="-1" role="dialog" id="newProjectModal">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Nytt Projekt</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form id="newProjectForm">
+            <div class="form-group">
+              <label for="newProjectNameInput">Projektnamn</label>
+              <input type="name" class="form-control" id="formNewProjectName">
+            </div>
+            <div class="form-group">
+              <label for="newProjectOrgInput">Organisationsnummer</label>
+              <input type="name" class="form-control" id="formNewProjectOrg">
+            </div>
+
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary rounded-0" data-dismiss="modal">Stäng</button>
+              <button type="button" class="btn btn-primary rounded-0" id="modalNewProjectButton">Skapa
+                Projekt</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- Edit Project Modal-->
+  <div class="modal fade" tabindex="-1" role="dialog" id="modalEditProject">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Redigera Projekt</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="form-group">
+              <label for="orgId">ID</label>
+              <input type="name" readonly class="form-control" id="modalProjectId">
+            </div>
+            <div class="form-group">
+              <label for="projectNameInput">Projektnamn</label>
+              <input type="name" class="form-control" id="modalEditProjectName">
+            </div>
+            <div class="form-group">
+              <label for="projectOrgNrInput">Organisationsnummer</label>
+              <input type="name" class="form-control" id="modalEditProjectOrgNr">
+            </div>
+
+            <div class="modal-footer">
+              <button type="button" class="btn btn-danger rounded-0" id="modalRemoveConfirmBtn" data-dismiss="modal">Ta
+                bort
+                projekt</button>
+              <button type="button" class="btn btn-secondary rounded-0" data-dismiss="modal">Stäng</button>
+              <button type="button" class="btn btn-primary rounded-0" id="modalEditProjectButtonSubmit">Spara
+                ändringar</button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- Remove Project Modal-->
+      <div class="modal" tabindex="-1" role="dialog" id="areYouSureModal">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Ta Bort Projekt</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <p>Är du säker på att du vill ta bort projektet?</p>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary rounded-0" data-dismiss="modal">Avbryt</button>
+                <button type="button" class="btn btn-danger rounded-0" data-dismiss="modal"
+                  id="modalRemoveProject">Bekräfta</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- Sign-up page -->
+      <template id="signUpView">
+        <div class="container-sm">
+          <form id="signUpForm">
+            <h2>Registrera företag</h2>
+            <div class="form-group">
+              <label for="signUpCompanyName">Namn på företag</label>
+              <input type="text" class="form-control" id="signUpCompanyName" placeholder="Bygg AB">
+            </div>
+            <div class="form-group">
+              <label for="signUpCompanyOrgNumber">Organisationsnummer</label>
+              <input type="text" class="form-control" id="signUpCompanyOrgNumber" placeholder="xxxxxx-xxxx">
+            </div>
+            <h2>Ansvarig för kontot</h2>
+            <p>Personen som har ansvar för kontot. Den som kommer ha fulla privilegier. Kommer kunna lägga till och
+              ta bort
+              medarbetare.</p>
+            <div class="form-group">
+              <label for="signUpAdminName">Namn</label>
+              <input type="text" class="form-control" id="signUpAdminName" placeholder="">
+            </div>
+            <div class="form-group">
+              <label for="signUpAdminPid">Personnummer</label>
+              <input type="text" class="form-control" id="signUpAdminPid" placeholder="ÅÅMMDD-xxxx">
+              <small id="" class="form-text text-muted">10 eller 12 siffror</small>
+            </div>
+            <div class="form-group">
+              <label for="signUpAdminEmail">E-mail</label>
+              <input type="text" class="form-control" id="signUpAdminEmail" placeholder="namn@foretag.com">
+            </div>
+            <div class="form-group">
+              <label for="signUpAdminPassword">Lösenord</label>
+              <input type="password" class="form-control" id="signUpAdminPassword" placeholder="Lösenord">
+              <small id="" class="form-text text-muted">Någon schysst mening om säkert lösenord.</small>
+            </div>
+            <button type="button" id="cancelSignUpButton" class="btn btn-outline-dark">Avbryt</button>
+            <button type="button" id="signUpButton" class="btn btn-primary">Registrera</button>
+          </form>
+        </div>
+      </template>
+
+      <!-- Thank you view -->
+      <template id="thankYouView">
+        <div>
+          <h2>Tack för att du registrerade dig</h2>
+          <p>Du kan nu logga in med knappen längst upp till höger och börja lägga till anställda.</p>
+        </div>
+      </template>
+
+      <!-- The template for the landing page for not logged in visitors -->
+      <template id="landingPage">
+        <h1 class="landingPageHeading">ERP- Snickeri <br> TDDD83</h1>
+        <pp>
+          För den moderna snickaren <br><br>
+          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#signInModal">Logga
+            in</button>
+          <button type="button" class="btn btn-outline-dark" id="becomeCustomerButton">Bli kund</button>
+        </pp>
+      </template>
+
+      <template id="calendarView">
+        <div class="cal">
+          <div id='calendar'></div>
+        </div>
+      </template>
+
+      <!-- TIME REPORT MODAL -->
+      <div class="modal" id="time-report-modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Rapportera tid</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <p>Här kan du rapportera in din arbetstid!</p>
+              <form>
+                <div class="form-group">
+                  <label for="projekt">Projekt</label>
+                  <input type="text" class="form-control" id="projectID">
+                </div>
+                <div class="form-group">
+                  <label for="starttid">Började klockan</label>
+                  <input type="time" class="form-control" id="startTime">
+                </div>
+                <div class="form-group">
+                  <label for="sluttid">Slutade klockan</label>
+                  <input type="time" class="form-control" id="endTime">
+                </div>
+                <div class="form-group">
+                  <label for="sluttid">Kommentarer</label>
+                  <input type="text" class="form-control" id="comments">
+                </div>
+                <button type="submit" data-dismiss="modal" class="btn btn-primary" onclick=reportTime()>Skicka
+                  in</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- Project View-->
+      <template id="projectView">
+        <div class="row mt-5">
+          <div class="col">
+            <h1 class="float-left">Projektöversikt</h1>
+            <button type="button" class="btn btn-primary rounded-0 float-right mt-2" data-toggle='modal'
+              data-target='#newProjectModal' id="newProjectButton">Nytt Projekt</button>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <div class="list-group animated fadeInDownBig" id="projectListTab" role="tablist">
+              <!-- List of projects appear here-->
+            </div>
+          </div>
+        </div>
+      </template>
+
+      <!-- Employee View -->
+      <template id="employeeView" type="text/html">
+        <div>
+          <table id="employee-table" class="table">
+            <thead>
+              <tr>
+                <th scope="col">ID</th>
+                <th scpoe="col">Name</th>
+                <th scope="col">Admin</th>
+                <th scope="col">Chef</th>
+                <th scope="col">Projekt</th>
+                <th scope="col">Arbetad tid</th>
+                <th scope="col"> </th>
+              </tr>
+            </thead>
+            <tbody id="employee-data">
+            </tbody>
+          </table>
+          <div>
+            <div class="car-list-button">
+              <button type="button" id="updateCarList" class="btn btn-info btn-lg" data-toggle="modal"
+                data-target="#addEmployeeModal">Lägg till medarbetare</button>
+            </div>
+          </div>
+        </div>
+      </template>
+
+      <template id="aboutView">
+        <h1>Om oss</h1>
+        <p>Vi erbjuder en lösning för schemaläggning och tidsrapportering i form av en webbapplikation.</p>
+      </template>
+
+      <template id="priceView">
+        <h1>Pris</h1>
+        <p>Tjänsten kostar 200 kr i månaden.</p>
+      </template>
+
+      <template id="contactView">
+        <h1>Kontakt</h1>
+        <p>Kontakta oss på denna <a href="mailto:mail@mail.com">mailaddress</a> eller fyll i formuläret nedan som inte
+          är där än.</p>
+      </template>
+
+      <template id="supportView">
+        <h1>Support</h1>
+        <p>Här kommer det att finnas hjälp någon gång i framtiden</p>
+      </template>
+
+      <!-- Optional JavaScript -->
+      <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+      <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+      <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
+
+
+      <!-- Tempus Dominus, adds time-picking, for more info see https://tempusdominus.github.io/bootstrap-4/ -->
+      <script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment-with-locales.min.js"></script>
+      <script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/js/tempusdominus-bootstrap-4.min.js"></script>
+
+      <!-- fullcalendar -->
+      <script src='https://unpkg.com/@fullcalendar/core@4.4.0/main.js'></script>
+      <script src='https://unpkg.com/@fullcalendar/daygrid@4.4.0/main.js'></script>
+      <script src='https://unpkg.com/@fullcalendar/timegrid@4.4.0/main.js'></script>
+      <script src='https://unpkg.com/@fullcalendar/core@4.4.0/locales/sv.js'></script>
+      <script src='https://unpkg.com/@fullcalendar/bootstrap@4.4.0/main.js'></script>
+
+      <!-- Our scripts -->
+      <script src="calendar.js"></script>
+      <script src="alerts.js"></script>
+      <script src="authentication.js"></script>
+      <script src="employee.js"></script>
+      <script src="client.js"></script>
+      <script src="time_report.js"></script>
+      <script src="project_view.js"></script>
+</body>
 
 </html>

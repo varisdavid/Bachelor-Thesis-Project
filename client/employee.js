@@ -1,5 +1,6 @@
 $('#editEmployeeModal').on('show.bs.modal', function(event) {
     console.log("NU KÖRS DEN HÄR SKITEN");
+    console.log("Det här är ett kristet projekt!")
     var personID = event.relatedTarget.dataset['personid'];
     var modal = $(this);
     console.log("PERSON-ID: " + personID)
@@ -30,7 +31,7 @@ $('#editEmployeeModal').on('hidden.bs.modal', function(event) {
 function loadEmployees() {
     $.ajax({
         headers: { "Authorization": "Bearer " + JSON.parse(sessionStorage.getItem('auth')).access_token },
-        url: 'http://127.0.0.1:5000/employee/all',
+        url: 'http://localhost:5000/employee/all',
         type: 'GET',
         dataType: 'json',
         contentType: 'application/json',
@@ -67,7 +68,7 @@ function editEmployee(personID) {
     console.log(employeeData);
     $.ajax({
         headers: { "Authorization": "Bearer " + JSON.parse(sessionStorage.getItem('auth')).access_token },
-        url: 'http://127.0.0.1:5000/employee/' + personID,
+        url: '/employee/' + personID,
         type: 'PUT',
         dataType: 'json',
         data: employeeData,

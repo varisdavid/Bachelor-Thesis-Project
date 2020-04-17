@@ -97,9 +97,7 @@ function editProject(project_id) {
 }
 
 
-function areYouSureFunc(){
-    project_id = document.getElementById('modalProjectId').value
-    console.log(project_id)
+function areYouSureFunc(project_id){
     $('#modalEditProject').modal('hide');
     $('#areYouSureModal').modal('show');
     $("#modalRemoveProject").click(function (e) {
@@ -107,7 +105,11 @@ function areYouSureFunc(){
      })
 }
 
+var count = 0
+
 function removeProject(project_id) {
+    console.log("Kördes" + count)
+    count += 1;
     $.ajax({
         url: 'http://localhost:5000/project_view/projects/' + project_id,
         type: 'DELETE',
@@ -116,3 +118,17 @@ function removeProject(project_id) {
         }
     })
 }
+
+$( document ).ready(function() {
+    $("#modalEditProjectButtonSubmit").click(function (e) {
+        modalProjectUpdate();
+    })
+
+    $("#modalRemoveConfirmBtn").click(function (e) {
+        project_id = document.getElementById('modalProjectId').value
+        areYouSureFunc(project_id);
+    })
+    $("#modalNewProjectButton").click(function (e) {
+        createNewProject();
+    })
+})

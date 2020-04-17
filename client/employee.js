@@ -1,9 +1,6 @@
 $('#editEmployeeModal').on('show.bs.modal', function(event) {
-    console.log("NU KÖRS DEN HÄR SKITEN");
-    console.log("Det här är ett kristet projekt!")
     var personID = event.relatedTarget.dataset['personid'];
     var modal = $(this);
-    console.log("PERSON-ID: " + personID)
 
     $.ajax({
         headers: { "Authorization": "Bearer " + JSON.parse(sessionStorage.getItem('auth')).access_token },
@@ -13,9 +10,6 @@ $('#editEmployeeModal').on('show.bs.modal', function(event) {
             modal.find('#editEmployeePid-input').val(personID);
             modal.find('#editEmployeeName-input').val(employee.name);
             modal.find('#editEmployeeEmail-input').val(employee.email);
-            console.log(personID);
-            console.log(employee.name);
-            console.log(employee.email);
             $('#editEmployeeSubmitButton').attr('onclick', 'editEmployee("' + personID + '")')
         }
     });
@@ -36,7 +30,6 @@ function loadEmployees() {
         dataType: 'json',
         contentType: 'application/json',
         success: function(employees) {
-            console.log("EMPLOYEE/ALL SUCCESS");
             $('#employee-data').html('');
             for (employee of employees) {
                 $('#employee-data').append("<tr><td>" +

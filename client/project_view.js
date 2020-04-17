@@ -96,15 +96,8 @@ function editProject(project_id) {
     })
 }
 
-
-function areYouSureFunc(project_id){
-    
-  
-}
-
 function removeProject() {
     project_id = document.getElementById('modalProjectId').value
-    console.log(project_id)
     $.ajax({
         url: 'http://localhost:5000/project_view/projects/' + project_id,
         type: 'DELETE',

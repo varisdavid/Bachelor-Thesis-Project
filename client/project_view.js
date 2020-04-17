@@ -99,7 +99,7 @@ function editProject(project_id) {
 function removeProject() {
     project_id = document.getElementById('modalProjectId').value
     $.ajax({
-        url: 'http://localhost:5000/project_view/projects/' + project_id,
+        url: '/project_view/projects/' + project_id,
         type: 'DELETE',
         success: function (project) {
             changeToProjectView()       

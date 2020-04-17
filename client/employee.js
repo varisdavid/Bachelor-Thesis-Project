@@ -10,6 +10,8 @@ $('#editEmployeeModal').on('show.bs.modal', function(event) {
             modal.find('#editEmployeePid-input').val(personID);
             modal.find('#editEmployeeName-input').val(employee.name);
             modal.find('#editEmployeeEmail-input').val(employee.email);
+            $('#editEmployeeisBoss-input').prop('checked', employee.isBoss);
+            $('#editEmployeeisAdmin-input').prop('checked', employee.isAdmin);
             $('#editEmployeeSubmitButton').attr('onclick', 'editEmployee("' + personID + '")')
         }
     });
@@ -30,6 +32,7 @@ function loadEmployees() {
         dataType: 'json',
         contentType: 'application/json',
         success: function(employees) {
+            $('#employee-data').html('');
             $("#employeeTableSearchID").on("keyup", function() {
                 var value = $(this).val().toLowerCase();
                 $("#employee-data tr").filter(function() {
@@ -90,14 +93,16 @@ function loadEmployees() {
 function editEmployee(personID) {
     var name = document.getElementById("editEmployeeName-input").value;
     var email = document.getElementById("editEmployeeEmail-input").value;
-    console.log("name: " + name + "; email: " + email);
+    var isAdmin = document.getElementById("editEmployeeisAdmin-input").checked;
+    var isBoss = document.getElementById("editEmployeeisBoss-input").checked;
+    console.log("name: " + name + "; email: " + email + "; Admin: " + isAdmin + "; Boss: " + isBoss);
     var employeeData = `
     {
         "name":"${name}",
         "email":"${email}",
         "personID":"${personID}",
-        "isBoss": true,
-        "isAdmin": true
+        "isBoss": ${isAdmin},
+        "isAdmin": ${isBoss}
     }`
     console.log(employeeData);
     $.ajax({

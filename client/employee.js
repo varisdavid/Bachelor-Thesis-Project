@@ -53,6 +53,36 @@ function loadEmployees() {
     })
 }
 
+/**
+ * Adds an employee to the database.
+ */
+function addEmployee() {
+    var name = document.getElementById("addEmployeeName").value
+    var email = document.getElementById("addEmployeeEmail").value
+    var personID = document.getElementById("addEmployeePid").value
+    var employeeData = `
+    {
+        "name":"${name}",
+        "email":"${email}",
+        "personID":"${personID}"
+    }
+    `
+    $.ajax({
+        url: 'employee/all',
+        type: 'POST',
+        dataType: 'json',
+        contentType: 'application/json',
+        headers: { "Authorization": "Bearer " + JSON.parse(sessionStorage.getItem('auth')).access_token },
+        data: employeeData,
+        success: function(response) {
+            $('#addEmployeeModal').find('#addEmployeeForm')[0].reset();
+            $("#addEmployeeModal").modal("hide");
+            spawnAlert("Medarbetaren har lagts till", "success")
+            loadEmployees()
+        }
+    })
+}
+
 function editEmployee(personID) {
     var name = document.getElementById("editEmployeeName-input").value;
     var email = document.getElementById("editEmployeeEmail-input").value;

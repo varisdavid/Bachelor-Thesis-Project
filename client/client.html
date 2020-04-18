@@ -178,8 +178,6 @@
       </div>
     </div>
   </div>
-  </div>
-  </div>
 
   <!-- View other calendars modal -->
   <div class="modal fade" id="viewCalendarsModal" tabindex="-1" role="dialog" aria-labelledby="viewCalendarsModal"
@@ -472,6 +470,8 @@
   </div>
 
 
+
+
   <!-- Edit Project Modal-->
   <div class="modal fade" tabindex="-1" role="dialog" id="modalEditProject">
     <div class="modal-dialog" role="document">
@@ -518,6 +518,7 @@
         </form>
       </div>
     </div>
+  </div>
 
     <!-- Remove Project Confirmation Message-->
     <template id="areYouSureConfirm">
@@ -640,11 +641,22 @@
             data-target='#newProjectModal' id="newProjectButton">Nytt Projekt</button>
         </div>
       </div>
+      <hr>
       <div class="row">
         <div class="col">
+          <h3>Aktiva Projekt</h3>
+          <hr>
           <div class="list-group animated fadeInDownBig" id="projectListTab" role="tablist">
             <!-- List of projects appear here-->
           </div>
+        </div>
+        <div class="col">
+          <h3>Alla Projekt</h3>
+          <hr>
+          <ul>
+            <li>Temporär 1</li>
+            <li>Temporär 2</li>
+          </ul>
         </div>
       </div>
     </template>

@@ -54,3 +54,10 @@ h2 {
 .header-item {
     white-space: nowrap;
 }
+
+.landingPageImages {
+    background: #B2E0FF;
+    width: 100vw;
+    position:relative;
+    left: calc(-1 * (100vw - 100%) / 2);
+}

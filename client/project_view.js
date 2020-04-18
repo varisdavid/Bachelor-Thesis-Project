@@ -6,7 +6,7 @@
 function changeToProjectView(){
     $("#projectListTab").empty()
     $.ajax({
-        url: 'http://localhost:5000/project_view/projects',
+        url: '/project_view/projects',
         type: 'GET',
         success: function (projects_json) {
             $("#projectListTab").empty()
@@ -25,7 +25,7 @@ function createNewProject(){
         companyOrgNumber: newProjectOrg
     }
     $.ajax({
-        url: 'http://localhost:5000/project_view/projects',
+        url: '/project_view/projects',
         type: 'POST',
         contentType: 'application/json',
         data: JSON.stringify(newProject),
@@ -48,7 +48,7 @@ function modalProjectUpdate(){
         'companyOrgNumber' : projectOrgNr
     }
     $.ajax({
-        url: 'http://localhost:5000/project_view/projects/' + projectId,
+        url: '/project_view/projects/' + projectId,
         type: 'PUT',
         contentType: 'application/json',
         data: JSON.stringify(newProject),
@@ -85,7 +85,7 @@ function displayProjects(projects_json){
 
 function editProject(project_id) {
     $.ajax({
-        url: 'http://localhost:5000/project_view/projects/' + project_id,
+        url: '/project_view/projects/' + project_id,
         type: 'GET',
         success: function (project) {
             $('#modalEditProject').find('#modalEditProjectName').val(project.name)
@@ -96,23 +96,36 @@ function editProject(project_id) {
     })
 }
 
-
-function areYouSureFunc(){
+function removeProject() {
     project_id = document.getElementById('modalProjectId').value
-    console.log(project_id)
-    $('#modalEditProject').modal('hide');
-    $('#areYouSureModal').modal('show');
-    $("#modalRemoveProject").click(function (e) {
-        removeProject(project_id)
-     })
-}
-
-function removeProject(project_id) {
     $.ajax({
-        url: 'http://localhost:5000/project_view/projects/' + project_id,
+        url: '/project_view/projects/' + project_id,
         type: 'DELETE',
         success: function (project) {
             changeToProjectView()       
         }
     })
 }
+
+function areYouSureCancel(){
+    $('#areYouSureContainer').empty()
+}
+
+$( document ).ready(function() {
+    $("#modalEditProjectButtonSubmit").click(function (e) {
+        modalProjectUpdate();
+    })
+
+    $("#modalRemoveProjectBtn").click(function (e) {
+        $("#areYouSureContainer").html($("#areYouSureConfirm").html())
+    })
+
+    $("#modalNewProjectButton").click(function (e) {
+        createNewProject();
+    })
+
+    //Removes are you sure message on close
+    $('#modalEditProject').on('hidden.bs.modal', function () {
+        $('#areYouSureContainer').empty()
+      })
+})

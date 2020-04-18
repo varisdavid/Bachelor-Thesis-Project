@@ -11,7 +11,7 @@ function reportTime(){
     }
 
     $.ajax({
-        url: 'http://localhost:5000' + '/time-report' + '/report_time',
+        url: '/time-report/report_time',
         type: 'POST',
         headers: { "Authorization": "Bearer " + JSON.parse(sessionStorage.getItem('auth')).access_token},
         contentType: 'application/json',

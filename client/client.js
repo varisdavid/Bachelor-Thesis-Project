@@ -4,10 +4,10 @@
 function changeToRegisterCompany() {
     $("#mainView").html($("#signUpView").html());
 
-    $("#signUpButton").click(function (e) {
+    $("#signUpButton").click(function(e) {
         signUpCompany()
     })
-    $("#cancelSignUpButton").click(function (e) {
+    $("#cancelSignUpButton").click(function(e) {
         changeToLandingPage()
     })
 }
@@ -17,14 +17,28 @@ function changeToRegisterCompany() {
 function changeToLandingPage() {
     var auth = sessionStorage.getItem('auth');
     if (!(auth === null)) {
-        $("#mainView").html($("#dashboardView").html())
+        $.ajax({
+            url: 'http://localhost:5000' + '/employee/getUser',
+            type: 'GET',
+            headers: { "Authorization": "Bearer " + JSON.parse(sessionStorage.getItem('auth')).access_token},
+            success: function(user){
+                if (user.isAdmin){
+                    $("#mainView").html($("#adminHomepageView").html())
+                } 
+                else if (user.isBoss) {
+                    $("#mainView").html($("#bossHomepageView").html())
+                } 
+                else {
+                    $("#mainView").html($("#workerHomepageView").html())
+                }
+            }
+        })
     }else{
         $("#mainView").html($("#landingPage").html())
-
-        $(".becomeCustomerButton").click(function (e) {
-            e.preventDefault();
-            changeToRegisterCompany()
-        })
+        $("#becomeCustomerButton").click(function(e) {
+        e.preventDefault();
+        changeToRegisterCompany()
+    })
     }
 }
 
@@ -33,14 +47,24 @@ function changeToTimeOverview(){
     getEmployees()
 }
 
-$( document ).ready(function() {
+$(document).ready(function() {
     $("#mainView").html($("#landingPage").html())
-    $("#brandButton").click(function (e) {
-        changeToLandingPage();
+
+    $("#becomeCustomerButton").click(function(e) {
+        e.preventDefault();
+        changeToRegisterCompany()
     })
 
+    $("#brandButton").click(function(e) {
+        changeToLandingPage();
+    })
+    
     //Navbar links:
-    $("#navAboutLink").click(function (e) {
+    $("#navbarScheduleLink").click(function (e) {
+        changeToCalendarView()
+    })
+    
+    $("#navAboutLink").click(function(e) {
         $("#mainView").html($("#aboutView").html())
     })
 
@@ -52,16 +76,20 @@ $( document ).ready(function() {
         $("#mainView").html($("#priceView").html())
     })
 
-    $("#navContactLink").click(function (e) {
+    $("#navContactLink").click(function(e) {
         $("#mainView").html($("#contactView").html())
     })
 
-    $("#navSupportLink").click(function (e) {
+    $("#navSupportLink").click(function(e) {
         $("#mainView").html($("#supportView").html())
     })
 
     $("#navTimeOverviewLink").click(function (e) {
         changeToTimeOverview()
+    })
+
+    $("#navTimeReportLink").click(function (e) {
+        $("#timeReportModal").modal('show');
     })
 
     $("#dashboardViewLink").click(function (e) {
@@ -70,6 +98,12 @@ $( document ).ready(function() {
     $("#navProjectViewLink").click(function (e) {
        changeToProjectView()
     })
+    $("#navEmployeeLink").click(function(e) {
+        $("#mainView").html($("#employeeView").html())
+        loadEmployees(); //In employee.js
+    })
+
+    $("#navProjectViewLink").click(function(e) {
+        changeToProjectView()
+    })
 })
-
-

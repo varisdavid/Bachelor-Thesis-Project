@@ -1,7 +1,7 @@
 from flask_sqlalchemy import SQLAlchemy
 from flask import current_app as app
 from server import app
-import datetime
+from datetime import date, datetime
 
 db = SQLAlchemy(app)
 
@@ -10,6 +10,7 @@ class Project(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String, nullable=False)
     companyOrgNumber = db.Column(db.String, db.ForeignKey('companies.orgNumber'), nullable=False)
+    
     def __repr__(self):
         return '<Project {}: {} {}>'.format(self.id, self.name, self.companyOrgNumber)
 
@@ -33,9 +34,11 @@ class Activity(db.Model):
         return '<Activity {} : {} {} {} {} {} {} {}>'.format(self.id, self.date, self.name, self.startTime, self.stopTime, self.location, self.description, self.project_id)
 
     def serialize(self):
-        return dict(id=self.id, date=self.date, name=self.name, startTime=self.startTime,
-                    stopTime=self.stopTime, location=self.location, description=self.description, project_id=self.project_id)
-
+        return dict(id=self.id, date=self.date, name=self.name, startTime=self.startTime.isoformat(),
+                    stopTime=self.stopTime.isoformat(), location=self.location, description=self.description, project_id=self.project_id)
+    
+    def serializeForCalendar(self):
+        return dict(id=self.id, start=self.startTime.isoformat(), end=self.stopTime.isoformat(), title=self.name)
 
 class Employee(db.Model):
     __tablename__ = 'employees'
@@ -47,7 +50,7 @@ class Employee(db.Model):
     passwordHash = db.Column(db.String, nullable=True)
     usingDefaultPassword = db.Column(db.Boolean, nullable=False)
     company = db.Column(db.String, db.ForeignKey('companies.orgNumber'), nullable=False)
-    
+
     def __repr__(self):
         return '<Employee {}: {} {} {} {} {}>'.format(self.personID, self.email, self.name, self.isAdmin, self.isBoss, self.company)
 

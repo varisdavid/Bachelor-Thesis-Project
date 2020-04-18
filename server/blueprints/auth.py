@@ -8,6 +8,7 @@ from server import app
 
 # random string
 app.config['JWT_SECRET_KEY'] = "GwzrtfCta1xDHgwfBVo0"
+app.config['JWT_ACCESS_TOKEN_EXPIRES'] = False
 bcrypt = Bcrypt(app)
 jwt = JWTManager(app)
 

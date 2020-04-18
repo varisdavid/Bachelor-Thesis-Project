@@ -6,11 +6,6 @@ from flask_jwt_extended import JWTManager, jwt_required, create_access_token, ge
 from server.database import db, Employee, Company, Project
 from server import app
 
-# random string
-app.config['JWT_SECRET_KEY'] = "GwzrtfCta1xDHgwfBVo0"
-bcrypt = Bcrypt(app)
-jwt = JWTManager(app)
-
 # Creates the blueprint
 bp = Blueprint('employee', __name__, url_prefix='/employee')
 

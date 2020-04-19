@@ -9,6 +9,7 @@ function updatePageLoggedIn(signedIn) {
         $(".signOutButton").show()
         $("#navbarScheduleLink").show()
         $("#tidsrapportering").show()
+        $("#navEmployeeLink").show()
         $("#navProjectViewLink").show()
 
     } else {
@@ -16,6 +17,7 @@ function updatePageLoggedIn(signedIn) {
         $(".signOutButton").hide()
         $("#navbarScheduleLink").hide()
         $("#tidsrapportering").hide()
+        $("#navEmployeeLink").hide()
         $("#navProjectViewLink").hide()
     }
 }
@@ -23,10 +25,10 @@ function updatePageLoggedIn(signedIn) {
 
 /**
  * Adds the ability to press enter to log in.
-*/
- $( document ).ready(function() {
+ */
+$(document).ready(function() {
     $("#signInModal").keyup(function(event) {
-        if (event.key=="Enter") {
+        if (event.key == "Enter") {
             signIn();
         }
     })

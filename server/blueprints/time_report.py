@@ -26,3 +26,16 @@ def report_time():
         db.session.commit()
         response = Response(200)
         return "hej"
+
+@bp.route('/<string:pID>', methods=['GET'])
+@jwt_required
+def get_time():
+    employee = Employee.query.filter_by(personID=pID)
+    if request.method == 'GET':
+        totTime=0
+        serializedLoggedWorkList = [work.serialize() for work in LoggedWork.query.all()]
+        for work in serializedLoggedWorkList:
+            if work.employeeID==employee.personID:
+                totTime = totTime + (work.endTime-work.startTime)
+        print(totTime)
+        return totTime, 200

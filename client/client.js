@@ -47,6 +47,11 @@ function changeToTimeOverview(){
     getEmployees()
 }
 
+function changeToTimeReport(){
+    $("#mainView").html($("#timeReportView").html())
+    getMyWork()
+}
+
 $(document).ready(function() {
     $("#mainView").html($("#landingPage").html())
 
@@ -89,7 +94,7 @@ $(document).ready(function() {
     })
 
     $("#navTimeReportLink").click(function (e) {
-        $("#timeReportModal").modal('show');
+        changeToTimeReport()
     })
 
     $("#dashboardViewLink").click(function (e) {
@@ -106,4 +111,5 @@ $(document).ready(function() {
     $("#navProjectViewLink").click(function(e) {
         changeToProjectView()
     })
+
 })

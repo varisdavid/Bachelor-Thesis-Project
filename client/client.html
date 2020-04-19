@@ -611,72 +611,73 @@
             <p>Här kan du rapportera in din arbetstid!</p>
             <form>
               <div class="form-group">
-                <label for="addActivityProjectSelector">Vilket projekt gäller detta</label>
-                <select class="form-control" id="addActivityProjectSelector">
+                <label for="addProjectSelector">Vilket projekt gäller detta</label>
+                <select class="form-control" id="addProjectSelector">
                   <option value="0">Inget projekt</option>
                 </select>
               </div>
 
-              <label for="addActivityStartPickers">Starttid</label>
-              <div class="row" id="addActivityStartPickers">
-                <div class="col">
-                  <div class="form-group">
-                    <div class="input-group date" id="addActivityStartDatePicker" data-target-input="nearest">
-                      <input type="text" class="form-control datetimepicker-input"
-                        data-target="#addActivityStartDatePicker" />
-                      <div class="input-group-append" data-target="#addActivityStartDatePicker"
-                        data-toggle="datetimepicker">
-                        <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-  
-                <div class="col">
-                  <div class="form-group">
-                    <div class="input-group date" id="addActivityStartTimePicker" data-target-input="nearest">
-                      <input type="text" class="form-control datetimepicker-input"
-                        data-target="#addActivityStartTimePicker" />
-                      <div class="input-group-append" data-target="#addActivityStartTimePicker"
-                        data-toggle="datetimepicker">
-                        <div class="input-group-text"><i class="fa fa-clock-o"></i></div>
-                      </div>
+              <label for="addTimeReportStartPickers">Starttid</label>
+            <div class="row" id="addTimeReportStartPickers">
+              <div class="col">
+                <div class="form-group">
+                  <div class="input-group date" id="addTimeReportStartDatePicker" data-target-input="nearest">
+                    <input type="text" class="form-control datetimepicker-input"
+                      data-target="#addTimeReportStartDatePicker" />
+                    <div class="input-group-append" data-target="#addTimeReportStartDatePicker"
+                      data-toggle="datetimepicker">
+                      <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                     </div>
                   </div>
                 </div>
               </div>
-  
-              <label for="addActivityStopPickers">Sluttid</label>
-              <div class="row" id="addActivityStopPickers">
-                <div class="col">
-                  <div class="form-group">
-                    <div class="input-group date" id="addActivityStopDatePicker" data-target-input="nearest">
-                      <input type="text" class="form-control datetimepicker-input"
-                        data-target="#addActivityStopDatePicker" />
-                      <div class="input-group-append" data-target="#addActivityStopDatePicker"
-                        data-toggle="datetimepicker">
-                        <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-  
-                <div class="col">
-                  <div class="form-group">
-                    <div class="input-group date" id="addActivityStopTimePicker" data-target-input="nearest">
-                      <input type="text" class="form-control datetimepicker-input"
-                        data-target="#addActivityStopTimePicker" />
-                      <div class="input-group-append" data-target="#addActivityStopTimePicker"
-                        data-toggle="datetimepicker">
-                        <div class="input-group-text"><i class="fa fa-clock-o"></i></div>
-                      </div>
+
+              <div class="col">
+                <div class="form-group">
+                  <div class="input-group date" id="addTimeReportStartTimePicker" data-target-input="nearest">
+                    <input type="text" class="form-control datetimepicker-input"
+                      data-target="#addTimeReportStartTimePicker" />
+                    <div class="input-group-append" data-target="#addTimeReportStartTimePicker"
+                      data-toggle="datetimepicker">
+                      <div class="input-group-text"><i class="fa fa-clock-o"></i></div>
                     </div>
                   </div>
                 </div>
               </div>
+            </div>
+
+            <label for="addTimeReportStopPickers">Sluttid</label>
+            <div class="row" id="addTimeReportStopPickers">
+              <div class="col">
+                <div class="form-group">
+                  <div class="input-group date" id="addTimeReportStopDatePicker" data-target-input="nearest">
+                    <input type="text" class="form-control datetimepicker-input"
+                      data-target="#addTimeReportStopDatePicker" />
+                    <div class="input-group-append" data-target="#addTimeReportStopDatePicker"
+                      data-toggle="datetimepicker">
+                      <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col">
+                <div class="form-group">
+                  <div class="input-group date" id="addTimeReportStopTimePicker" data-target-input="nearest">
+                    <input type="text" class="form-control datetimepicker-input"
+                      data-target="#addTimeReportStopTimePicker" />
+                    <div class="input-group-append" data-target="#addTimeReportStopTimePicker"
+                      data-toggle="datetimepicker">
+                      <div class="input-group-text"><i class="fa fa-clock-o"></i></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
               <div class="form-group">
                 <label for="sluttid">Kommentarer</label>
-                <input type="text" class="form-control" id="comments">
+                <textarea class="form-control" id="comments"></textarea>
               </div>
               <button type="submit" data-dismiss="modal" class="btn btn-primary" onclick=reportTime()>Skicka in</button>
             </form>
@@ -685,6 +686,7 @@
       </div>
       </div>
 
+    
 
     <!-- TIME OVERVIEW -->    
       <template id="timeOverviewView">
@@ -713,6 +715,31 @@
           </div>
         </div>     
       </template>
+
+      <!-- TIME Report Page-->  
+
+    <template id="timeReportView">
+      <div class="row">
+        <div class="col">
+          <h1>Tidsrapportering</h1>
+        </div>
+        <div class="col">
+          <button class="btn btn-primary" onclick=spawnTimeReportModal()>
+            Rapportera tid
+          </button>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col" id="timeChart">
+          <div class="col" id="timeChart">
+          </div>
+        </div>
+        <div class="col" id="loggedJobs">
+
+        </div>
+      </div>
+
+    </template>
 
       <!-- HOMEPAGE ADMIN -->
       <template id="adminHomepageView">

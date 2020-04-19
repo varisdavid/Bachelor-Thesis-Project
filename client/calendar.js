@@ -440,8 +440,14 @@ function populateEmployeeSelectorCal() {
 
     if (selectedHTML == "") {
         $("#viewCalendarsEmpHolderText").show()
+        $("#viewSchedulesConfirmButton").addClass('disabled')
+        $("#viewSchedulesConfirmButton").tooltip('enable')
+
     } else {
         $("#viewCalendarsEmpHolderText").hide()
+        $("#viewSchedulesConfirmButton").removeClass('disabled')
+        $("#viewSchedulesConfirmButton").tooltip('disable')
+
     }
     $("#viewCalendarsSelectedEmployeeList").html(selectedHTML)
     $("#viewCalendarsEmployeeSelector").html(selectHTML)
@@ -481,26 +487,29 @@ function spawnViewCalendarsModal() {
  * Uses global variable employeeMap for determining what employees are currently selected.
  */
 function viewCalendars() {
-    calendar.getEventSources().forEach(s => s.remove());
-    var colorIndex = 0;
-    employeeMap.forEach(function (value, key, map) {
-        if (value.selected) {
-            calendar.addEventSource({
-                events: function (info, callback) {
-                    $.ajax({
-                        url: `/activity/${key}/feed?start=${info.startStr}&end=${info.endStr}`,
-                        type: 'GET',
-                        headers: { "Authorization": "Bearer " + JSON.parse(sessionStorage.getItem('auth')).access_token },
-                        success: function (response) {
-                            callback(response);
-                        }
-                    });
-                },
-                color: colorsArray[colorIndex++]
-            });
-        }
-    })
-    $("#viewCalendarsModal").modal("hide")
+    if (!$("#viewSchedulesConfirmButton").hasClass('disabled')) {
+        calendar.getEventSources().forEach(s => s.remove());
+        var colorIndex = 0;
+        employeeMap.forEach(function (value, key, map) {
+            if (value.selected) {
+                calendar.addEventSource({
+                    events: function (info, callback) {
+                        $.ajax({
+                            url: `/activity/${key}/feed?start=${info.startStr}&end=${info.endStr}`,
+                            type: 'GET',
+                            headers: { "Authorization": "Bearer " + JSON.parse(sessionStorage.getItem('auth')).access_token },
+                            success: function (response) {
+                                callback(response);
+                            }
+                        });
+                    },
+                    color: colorsArray[colorIndex++]
+                });
+            }
+        })
+        $("#viewCalendarsModal").modal("hide")
+
+    }
 }
 
 /**

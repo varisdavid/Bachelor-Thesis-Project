@@ -29,7 +29,7 @@ def signIn():
         emp = Employee.query.get_or_404(jsonData['personID'])
         if bcrypt.check_password_hash(emp.passwordHash, jsonData['password']):
             token = create_access_token(emp.personID)
-            return {"access_token": token}, 200
+            return {"access_token": token, "person_id": jsonData["personID"]}, 200
         else:
             return {"msg": "Wrong PID or password"}, 401
 

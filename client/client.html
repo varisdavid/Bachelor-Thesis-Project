@@ -35,15 +35,15 @@
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                 <h2 id="brandButton"><a class="navbar-brand" href="#">ERP</a></h2>
                 <div class="navbar-nav" id="navBar">
-                    <a class="nav-item nav-link header-item" id="navPriceLink" href="#">PRIS</a>
-                    <a class="nav-item nav-link header-item" id="navAboutLink" href="#">OM OSS</a>
-                    <a class="nav-item nav-link header-item" id="navSupportLink" href="#">SUPPORT</a>
-                    <a class="nav-item nav-link header-item" id="navContactLink" href="#">KONTAKT</a>
-                    <a class="nav-item nav-link header-item" id="navTimeReportLink" data-toggle="modal" href="#time-report-modal">TIDSRAPPORTERING </a>
-                    <a class="nav-item nav-link header-item" id="navEmployeeLink" href="#">MEDARBETARE</a>
+                    <a class="nav-item nav-link header-item" id="navPriceLink" href="#"><i class="fa fa-usd" aria-hidden="true"></i> Pris</a>
+                    <a class="nav-item nav-link header-item" id="navAboutLink" href="#"><i class="fa fa-info-circle" aria-hidden="true"></i> Om oss</a>
+                    <a class="nav-item nav-link header-item" id="navSupportLink" href="#"><i class="fa fa-handshake-o" aria-hidden="true"></i> Support</a>
+                    <a class="nav-item nav-link header-item" id="navContactLink" href="#"><i class="fa fa-phone" aria-hidden="true"></i> Kontakt</a>
+                    <a class="nav-item nav-link header-item" id="navTimeReportLink" data-toggle="modal" href="#time-report-modal"><i class="fa fa-clock-o" aria-hidden="true"></i> Tidsrapportering </a>
+                    <a class="nav-item nav-link header-item" id="navEmployeeLink" href="#"><i class="fa fa-address-book-o" aria-hidden="true"></i> Medarbetare</a>
                     <a class="nav-item nav-link header-item" id="navbarScheduleLink" href="#"><i class="fa fa-calendar"></i>
             Schema</a>
-                    <a class="nav-item nav-link header-item" id="navProjectViewLink" href="#">PROJEKTÖVERSIKT</a>
+                    <a class="nav-item nav-link header-item" id="navProjectViewLink" href="#"><i class="fa fa-briefcase" aria-hidden="true"></i> Projektöversikt</a>
                 </div>
                 <ul class="nav navbar-nav navbar-right ml-auto">
                     <button type="button" class="btn btn-outline-dark signInButton header-item" data-toggle="modal" data-target="#signInModal" style="display:none;">Logga in</button>
@@ -99,8 +99,9 @@
                     </form>
                 </div>
                 <div class="modal-footer">
+                    <button type="button" id="deleteEmployeeButton" class="btn btn-danger" data-dismiss="modal">Radera anställd</button>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Stäng</button>
-                    <button type="button" id="editEmployeeSubmitButton" class="btn btn-primary" data-dismiss="modal" onclick="editEmployee(this.value)">Slutför</button>
+                    <button type="button" id="editEmployeeSubmitButton" class="btn btn-primary" data-dismiss="modal">Slutför</button>
                 </div>
             </div>
         </div>
@@ -168,6 +169,14 @@
                             <label for="addEmployeePid">Personnummer</label>
                             <input class="form-control" id="addEmployeePid" placeholder="ÅÅMMDD-xxxx">
                             <small id="10 eller 12 siffror" class="form-text text-muted"></small>
+                        </div>
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="addEmployeeisAdmin-input">
+                            <label class="form-check-label" for="addEmployeeisAdmin-input">Admin</label>
+                        </div>
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="addEmployeeisBoss-input">
+                            <label class="form-check-label" for="addEmployeeisBoss-input">Chef</label>
                         </div>
                     </form>
                 </div>
@@ -819,9 +828,12 @@
               <th scpoe="col">Namn <div class="form-group"></div>
                 <input type="text" class="form-control" id="employeeTableSearchName" placeholder="Sök Namn">
             </div></th>
+            <th scope="col">Epost <div class="form-group"></div>
+                <input type="text" class="form-control" id="employeeTableSearchMail" placeholder="Sök epost">
+            </div></th>
               <th scope="col">Roll <div class="form-group"></div>
                 <div class="dropdown" id="roleDropDown">
-                    <button class="btn btn-secondary dropdown-toggle" type="button" id="roleButton"data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                    <button class="btn btn-primary dropdown-toggle" type="button" id="roleButton"data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                       Välj roll
                       <span class="caret"></span>
                     </button>
@@ -832,28 +844,13 @@
                     </ul>
                   </div>
               </div></th>
-              <th scope="col">Projekt <div class="form-group"></div>
-                <div class="dropdown">
-                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      Välj Projekt
-                    </button>
-                    <div class="dropdown-menu" id="employeeTableDropDownProject" aria-labelledby="dropdownMenuButton">
-                      <a class="dropdown-item" href="#">Projekt#1</a>
-                      <a class="dropdown-item" href="#">Projekt#2</a>
-                      <a class="dropdown-item" href="#">Projekt#3</a>
-                    </div>
-                  </div>
-            </div></th>
-              <th scope="col">Arbetad tid <div class="form-group"></div>
-                <input type="text" class="form-control" id="employeeTableSearchArbetadTid" placeholder="Sök Arbetad tid">
-            </div></th>
-              <th scope="col"> </th>
             </tr>
           </thead>
           <tbody id="employee-data">
           </tbody>
         </table>
-
+        <button type="submit" class="btn btn-primary" data-toggle='modal'
+            data-target='#addEmployeeModal' id="addEmployeeButton">Lägg till medarbetare</button>
       </div>
     </template>
 

@@ -68,19 +68,55 @@ function getLoggedJobs(employee) {
         type: 'GET',
         headers: { "Authorization": "Bearer " + JSON.parse(sessionStorage.getItem('auth')).access_token},
         success: function(jobs){
+                $("#loggedJobs").append("<table class='table table-sm' id='workTable'>" +
+                "<thead><tr>" +
+                    "<th scope='col'>Projekt</th>" +
+                    "<th scope='col'>Datum</th>" +
+                    "<th scope='col'>Tid</th>" +
+                  "</tr></thead>" +
+                "<tbody></tbody></table>");
+                for (i in jobs) {
+                    getLoggedWork(jobs[i]);
+                }
+            createTimeChart();
+        }
+    }) }
+
+function getMyWork() {
+    $("#mainView").html($("#timeReportView").html())
+    $.ajax({
+        url: 'http://localhost:5000' + '/time-report/myWork',
+        type: 'GET',
+        headers: { "Authorization": "Bearer " + JSON.parse(sessionStorage.getItem('auth')).access_token},
+        success: function(jobs){
+            $("#loggedJobs").append("<table class='table table-sm' id='workTable'>" +
+            "<thead><tr>" +
+                "<th scope='col'>Projekt</th>" +
+                "<th scope='col'>Datum</th>" +
+                "<th scope='col'>Tid</th>" +
+              "</tr></thead>" +
+            "<tbody></tbody></table>");
             for (i in jobs) {
-                $("#loggedJobs").append("<div class='card bg-light mb-3' style='width: 18rem;'>" +
-                "<div class='card-body' id='loggedJobs'>" +
-                "<h5 class='card-title'>" +"Medarbetare " + jobs[i].employeeID+ "</h5>" +
-                "<p class='card-subtitle'>" + "Projekt: " + jobs[i].projectID + "</p>" +
-                "<p class='card-text'>" + "Tid: " + jobs[i].startTime + "-" + jobs[i].endTime + "</p></div>");
+                getLoggedWork(jobs[i]);
             }
             createTimeChart();
         }
     })
 }
 
-function getMyWork() {
+function getLoggedWork(work){
+    $.ajax({
+        url: '/time-report/getWorkedTime/' + work.id,
+        type: 'GET',
+        headers: { "Authorization": "Bearer " + JSON.parse(sessionStorage.getItem('auth')).access_token},
+        success: function(time){
+            $("#workTable").append("<tr><th scope='row'>" + work.projectID + "</th>" +
+            "<td>" + work.startTime.substring(5,11) + "</td>" +
+            "<td>"+ time + "</td></tr>");
+}})
+}
+
+function getMyWork2() {
     $("#mainView").html($("#timeReportView").html())
     $.ajax({
         url: 'http://localhost:5000' + '/time-report/myWork',

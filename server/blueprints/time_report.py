@@ -80,6 +80,14 @@ def getEmployeeLoggedWorks(employeeID):
             time = divmod((i.endTime-i.startTime).total_seconds(), 3600)[0]
     return jsonify(loggedWorks)
 
+@bp.route('/getWorkedTime/<loggedWorkID>', methods=['GET'])
+@jwt_required
+def getWorkedTime(loggedWorkID):
+    loggedwork = LoggedWork.query.get(loggedWorkID)
+    time = divmod((loggedwork.endTime-loggedwork.startTime).total_seconds(), 3600)[0]
+    print(time)
+    return jsonify(time)
+
 @bp.route('/time', methods=['GET'])
 @jwt_required
 def getLoggedTime():

@@ -71,9 +71,11 @@ def act(activityID):
                     setattr(activity, key, d.fromisoformat(jsonData[key]))
                 else:
                     setattr(activity, key, jsonData[key])
-        
+                    
         for p_a in Person_Activity.query.filter_by(id = activityID):
             db.session.delete(p_a)
+
+        db.session.commit()
 
         for employee in jsonData['employees']:
             db.session.add(Person_Activity(personID = employee, id = activityID))

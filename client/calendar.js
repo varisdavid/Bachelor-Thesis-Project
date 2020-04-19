@@ -248,7 +248,8 @@ function populateProjectsDropdown(projectSelector, defaultID = 0) {
 }
 
 //Global variable for keeping track of what employees are currently selected.
-var employeeMap = new Map()
+var employeeMap = new Map();
+var viewCalendarsEmployeeMap = new Map();
 
 function populateEmployeeMap() {
     employeeMap = new Map();
@@ -259,6 +260,11 @@ function populateEmployeeMap() {
         success: function (response) {
             response.forEach(function (employee) {
                 employeeMap.set(employee.personID, {
+                    name: employee.name,
+                    selected: false
+                });
+
+                viewCalendarsEmployeeMap.set(employee.personID, {
                     name: employee.name,
                     selected: false
                 });
@@ -420,7 +426,7 @@ function addActivity() {
 /**
  * Helper function for populating the employee selector for the view calendar modal. 
  * 
- * Reads from global variable employeeMap
+ * Reads from global variable viewCalendarsEmployeeMap
  */
 
 function populateEmployeeSelectorCal() {
@@ -429,7 +435,7 @@ function populateEmployeeSelectorCal() {
     var selectHTML = ""
     var selectedHTML = ""
 
-    employeeMap.forEach(function (value, key, map) {
+    viewCalendarsEmployeeMap.forEach(function (value, key, map) {
 
         if (value.selected) {
             selectedHTML = selectedHTML + `<li class="list-group-item selected-emp">${value.name}<button style="float: right;" type="button" class="close" value="${key}" onclick="removeFromSelEmployeesCal(this.value)"><i class="fa fa-times"></i></button></li>`
@@ -455,26 +461,26 @@ function populateEmployeeSelectorCal() {
 /**
  * Function for adding employees to the selected employees. Should only be called from the add employee button
  * 
- * Reads from global variable employeeMap
+ * Reads from global variable viewCalendarsEmployeeMap
  */
 function addEmployeeToSelectedEmployeesCal() {
-    employeeMap.get($("#viewCalendarsEmployeeSelector").val()).selected = true;
+    viewCalendarsEmployeeMap.get($("#viewCalendarsEmployeeSelector").val()).selected = true;
     populateEmployeeSelectorCal();
 }
 /**
  * Removes an employee from the selected employees. Should only be called from the remove employee button.
  * 
- * Changes global variable employeeMap
+ * Changes global variable viewCalendarsEmployeeMap
  * @param {string} id The id of the employee
  */
 function removeFromSelEmployeesCal(id) {
-    employeeMap.get(id).selected = false;
+    viewCalendarsEmployeeMap.get(id).selected = false;
     populateEmployeeSelectorCal();
 }
 /**
  * Spawns a modal for selecting what employees caledars should be viewed.
  * 
- * Changes global variable employeeMap
+ * Changes global variable viewCalendarsEmployeeMap
  */
 function spawnViewCalendarsModal() {
     $("#viewCalendarsModal").modal("show")
@@ -484,13 +490,13 @@ function spawnViewCalendarsModal() {
 /**
  * Changed the calendars eventSources to the selected employees. 
  * 
- * Uses global variable employeeMap for determining what employees are currently selected.
+ * Uses global variable viewCalendarsEmployeeMap for determining what employees are currently selected.
  */
 function viewCalendars() {
     if (!$("#viewSchedulesConfirmButton").hasClass('disabled')) {
         calendar.getEventSources().forEach(s => s.remove());
         var colorIndex = 0;
-        employeeMap.forEach(function (value, key, map) {
+        viewCalendarsEmployeeMap.forEach(function (value, key, map) {
             if (value.selected) {
                 calendar.addEventSource({
                     events: function (info, callback) {

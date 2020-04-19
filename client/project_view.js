@@ -3,7 +3,7 @@
  * Function used for viewing the Projects page
  */
 
-function changeToProjectView(){
+function changeToProjectView() {
     $("#projectListTab").empty()
     $.ajax({
         headers: { "Authorization": "Bearer " + JSON.parse(sessionStorage.getItem('auth')).access_token },
@@ -17,7 +17,7 @@ function changeToProjectView(){
     $("#mainView").html($("#projectView").html())
 }
 
-function createNewProject(){
+function createNewProject() {
     var newProjectName = document.getElementById("formNewProjectName").value;
     var newProject = {
         name: newProjectName,
@@ -29,22 +29,22 @@ function createNewProject(){
         contentType: 'application/json',
         data: JSON.stringify(newProject),
         dataType: 'json',
-        success: function() {
+        success: function () {
             $('#newProjectModal').find('#newProjectForm')[0].reset();
-            $('#newProjectModal').modal('hide')   
+            $('#newProjectModal').modal('hide')
             changeToProjectView()
         }
     })
 }
 
-function modalProjectUpdate(){
+function modalProjectUpdate() {
     projectName = document.getElementById('modalEditProjectName').value
     projectOrgNr = document.getElementById('modalEditProjectOrgNr').value
     projectId = document.getElementById('modalProjectId').value
 
     var newProject = {
-        'name' : projectName,
-        'companyOrgNumber' : projectOrgNr
+        'name': projectName,
+        'companyOrgNumber': projectOrgNr
     }
     $.ajax({
         headers: { "Authorization": "Bearer " + JSON.parse(sessionStorage.getItem('auth')).access_token },
@@ -53,7 +53,7 @@ function modalProjectUpdate(){
         contentType: 'application/json',
         data: JSON.stringify(newProject),
         dataType: 'json',
-        success: function() {
+        success: function () {
             $('#modalEditProject').modal('toggle')
             changeToProjectView()
         }
@@ -61,7 +61,7 @@ function modalProjectUpdate(){
 }
 
 
-function displayProjects(projects_json){
+function displayProjects(projects_json) {
     $("#projectListTab").empty()
     var projectList = projects_json
     var fadeSpeed = 0
@@ -71,13 +71,13 @@ function displayProjects(projects_json){
         projectCompanyOrgNr = project.companyOrgNumber
         //Adds items to list
         $("#projectListTab").append('<span data-toggle="modal" data-target="#modalEditProject">'
-        +'<a class="list-group-item list-group-item-action rounded-0 my-list-item"'
-        + 'onclick=editProject(' + project.id + ') '
-        + 'id=' + projectName + '>'
-        + '<h4>'
-        + projectName
-        + '</h4></a>'
-        +'</span>')
+            + '<a class="list-group-item list-group-item-action rounded-0 my-list-item"'
+            + 'onclick=editProject(' + project.id + ') '
+            + 'id=' + projectName + '>'
+            + '<h4>'
+            + projectName
+            + '</h4></a>'
+            + '</span>')
         //Fades in list
         $('#' + projectName).fadeIn(fadeSpeed);
     }
@@ -89,12 +89,33 @@ function editProject(project_id) {
         url: '/project_view/projects/' + project_id,
         type: 'GET',
         success: function (project) {
+
+            $("#activityListTab").empty()
             $('#modalEditProject').find('#modalEditProjectName').val(project.name)
             $('#modalEditProject').find('#modalEditProjectOrgNr').val(project.companyOrgNumber)
-            $('#modalEditProject').find('#modalProjectId').val(project.id)  
+            $('#modalEditProject').find('#modalProjectId').val(project.id)
+            loadActivities(project.id)
+        }
+    })
+}
+
+function loadActivities(project_id) {
+    $.ajax({
+        url: '/project_view/projects/' + project_id + '/activities',
+        type: 'GET',
+        success: function (activityList) {
+            for (activity of activityList) {
+                $("#emptyList").empty()
+                //Adds items to list
+                $("#activityListTab").append('<a class="list-group-item list-group-item-action rounded-0 my-list-item"'
+                    + '<h4>'
+                    + activity.name
+                    + '</h4>')
+            }
 
         }
     })
+
 }
 
 function removeProject() {
@@ -104,16 +125,16 @@ function removeProject() {
         url: '/project_view/projects/' + project_id,
         type: 'DELETE',
         success: function (project) {
-            changeToProjectView()       
+            changeToProjectView()
         }
     })
 }
 
-function areYouSureCancel(){
+function areYouSureCancel() {
     $('#areYouSureContainer').empty()
 }
 
-$( document ).ready(function() {
+$(document).ready(function () {
     $("#modalEditProjectButtonSubmit").click(function (e) {
         modalProjectUpdate();
     })
@@ -129,5 +150,5 @@ $( document ).ready(function() {
     //Removes are you sure message on close
     $('#modalEditProject').on('hidden.bs.modal', function () {
         $('#areYouSureContainer').empty()
-      })
+    })
 })

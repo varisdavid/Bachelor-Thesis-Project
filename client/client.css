@@ -33,10 +33,15 @@ h2 {
 
 #main-alert-holder {
     position:fixed;
-    margin:auto;
-    left: 0;
-    right: 0;
+    top:50px;
+    right:0;
     z-index:1035;
+    padding:1rem;
+}
+
+.custom-alert {
+    width: 10em;
+
 }
 
 .empHolder {

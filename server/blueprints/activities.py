@@ -84,7 +84,7 @@ def act(activityID):
         return jsonify(Activity.query.get(activityID).serialize())
     elif request.method == "DELETE":
         emp = Employee.query.get(user_id)
-        companyOrgNumber = db.session.query(Project).join(Activity).filter(Activity.project_id == Project.id).filter(Project.companyOrgNumber == emp.company).filter(Activity.id == id).first().companyOrgNumber
+        companyOrgNumber = db.session.query(Project).join(Activity).filter(Activity.project_id == Project.id).filter(Project.companyOrgNumber == emp.company).filter(Activity.id == activityID).first().companyOrgNumber
         if (emp.isAdmin or emp.isBoss) and (emp.company == companyOrgNumber):
             act = Activity.query.get(activityID)
             serializedActivity = act.serialize()

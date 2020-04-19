@@ -41,6 +41,10 @@ $(document).ready(function () {
     $("#addActivityEveryoneButton").click(function () {
         $("#addActivityWholeEmpSelector").hide("fast")
     })
+
+    //Activating date and time pickers
+    activateDateAndTimePickers("#changeActivityStartDatePicker", "#changeActivityStartTimePicker", "#changeActivityStopDatePicker", "#changeActivityStopTimePicker", "#changeActivityWrongDateAlert", false)
+    activateDateAndTimePickers("#addActivityStartDatePicker", "#addActivityStartTimePicker", "#addActivityStopDatePicker", "#addActivityStopTimePicker", "#addActivityWrongDateAlert", true);
 })
 /**
  * Creates the calendar, needs a html element with a 'calendar' id for it to work.
@@ -146,6 +150,11 @@ function spawnActivityInfoModal(activityID) {
         }
     })
 }
+
+function updateDateOrTimePicker(picker, time = moment()) {
+    $(picker).datetimepicker('date', time);
+}
+
 /**
  * Helper function for making the datepicker and timepicker fields work properly. Should be called from a $( document ).ready()
  * 
@@ -157,7 +166,7 @@ function spawnActivityInfoModal(activityID) {
  * @param {string} startTime Sets the defaultDate property of the start time and date pickers
  * @param {string} stopTime Sets the defaultDate property of the stop time and date pickers
  */
-function activateDateAndTimePickers(startDatePicker, startTimePicker, stopDatePicker, stopTimePicker, wrongDateAlert, startTime = moment(), stopTime = moment()) {
+function activateDateAndTimePickers(startDatePicker, startTimePicker, stopDatePicker, stopTimePicker, wrongDateAlert, autoChange = true, startTime = moment(), stopTime = moment()) {
     $(startDatePicker).datetimepicker({
         format: "L",
         locale: "sv",
@@ -179,19 +188,19 @@ function activateDateAndTimePickers(startDatePicker, startTimePicker, stopDatePi
         locale: "sv",
         date: stopTime
     })
+    if (autoChange) {
+        //TODO: Eventuellt implementera automatisk datumväxlig när tid ändras. Även lägga till global offset som sätts när slutdatum ändras.
+        $(startDatePicker).on("change.datetimepicker", function (e) {
+            $(stopDatePicker).datetimepicker('minDate', e.date)
+            $(stopDatePicker).datetimepicker('date', e.date)
+        })
 
-
-    //TODO: Eventuellt implementera automatisk datumväxlig när tid ändras. Även lägga till global offset som sätts när slutdatum ändras.
-    $(startDatePicker).on("change.datetimepicker", function (e) {
-        $(stopDatePicker).datetimepicker('minDate', e.date)
-        $(stopDatePicker).datetimepicker('date', e.date)
-    })
-
-    $(startTimePicker).on("change.datetimepicker", function (e) {
-        var newDate = e.date;
-        newDate.hour(newDate.hour() + 1)
-        $(stopTimePicker).datetimepicker('date', newDate)
-    });
+        $(startTimePicker).on("change.datetimepicker", function (e) {
+            var newDate = e.date;
+            newDate.hour(newDate.hour() + 1)
+            $(stopTimePicker).datetimepicker('date', newDate)
+        });
+    }
 
 
     function checkWrongDate() {
@@ -248,7 +257,8 @@ function populateProjectsDropdown(projectSelector, defaultID = 0) {
 }
 
 //Global variable for keeping track of what employees are currently selected.
-var employeeMap = new Map()
+var employeeMap = new Map();
+var viewCalendarsEmployeeMap = new Map();
 
 function populateEmployeeMap() {
     employeeMap = new Map();
@@ -259,6 +269,11 @@ function populateEmployeeMap() {
         success: function (response) {
             response.forEach(function (employee) {
                 employeeMap.set(employee.personID, {
+                    name: employee.name,
+                    selected: false
+                });
+
+                viewCalendarsEmployeeMap.set(employee.personID, {
                     name: employee.name,
                     selected: false
                 });
@@ -326,9 +341,13 @@ function spawnAddActivityModal() {
         value.selected = false;
     })
     $("#addActivityModal").modal("show")
-    $(activateDateAndTimePickers("#addActivityStartDatePicker", "#addActivityStartTimePicker", "#addActivityStopDatePicker", "#addActivityStopTimePicker", "#addActivityWrongDateAlert"));
     populateProjectsDropdown("#addActivityProjectSelector");
     populateEmployeeSelector("#addActivityEmployeeSelector", "#addActivitySelectedEmployeeList");
+
+    updateDateOrTimePicker("#addActivityStartDatePicker");
+    updateDateOrTimePicker("#addActivityStartTimePicker");
+    updateDateOrTimePicker("#addActivityStopDatePicker");
+    updateDateOrTimePicker("#addActivityStopTimePicker");
 }
 
 /**
@@ -420,7 +439,7 @@ function addActivity() {
 /**
  * Helper function for populating the employee selector for the view calendar modal. 
  * 
- * Reads from global variable employeeMap
+ * Reads from global variable viewCalendarsEmployeeMap
  */
 
 function populateEmployeeSelectorCal() {
@@ -429,7 +448,7 @@ function populateEmployeeSelectorCal() {
     var selectHTML = ""
     var selectedHTML = ""
 
-    employeeMap.forEach(function (value, key, map) {
+    viewCalendarsEmployeeMap.forEach(function (value, key, map) {
 
         if (value.selected) {
             selectedHTML = selectedHTML + `<li class="list-group-item selected-emp">${value.name}<button style="float: right;" type="button" class="close" value="${key}" onclick="removeFromSelEmployeesCal(this.value)"><i class="fa fa-times"></i></button></li>`
@@ -440,8 +459,14 @@ function populateEmployeeSelectorCal() {
 
     if (selectedHTML == "") {
         $("#viewCalendarsEmpHolderText").show()
+        $("#viewSchedulesConfirmButton").addClass('disabled')
+        $("#viewSchedulesConfirmButton").tooltip('enable')
+
     } else {
         $("#viewCalendarsEmpHolderText").hide()
+        $("#viewSchedulesConfirmButton").removeClass('disabled')
+        $("#viewSchedulesConfirmButton").tooltip('disable')
+
     }
     $("#viewCalendarsSelectedEmployeeList").html(selectedHTML)
     $("#viewCalendarsEmployeeSelector").html(selectHTML)
@@ -449,26 +474,26 @@ function populateEmployeeSelectorCal() {
 /**
  * Function for adding employees to the selected employees. Should only be called from the add employee button
  * 
- * Reads from global variable employeeMap
+ * Reads from global variable viewCalendarsEmployeeMap
  */
 function addEmployeeToSelectedEmployeesCal() {
-    employeeMap.get($("#viewCalendarsEmployeeSelector").val()).selected = true;
+    viewCalendarsEmployeeMap.get($("#viewCalendarsEmployeeSelector").val()).selected = true;
     populateEmployeeSelectorCal();
 }
 /**
  * Removes an employee from the selected employees. Should only be called from the remove employee button.
  * 
- * Changes global variable employeeMap
+ * Changes global variable viewCalendarsEmployeeMap
  * @param {string} id The id of the employee
  */
 function removeFromSelEmployeesCal(id) {
-    employeeMap.get(id).selected = false;
+    viewCalendarsEmployeeMap.get(id).selected = false;
     populateEmployeeSelectorCal();
 }
 /**
  * Spawns a modal for selecting what employees caledars should be viewed.
  * 
- * Changes global variable employeeMap
+ * Changes global variable viewCalendarsEmployeeMap
  */
 function spawnViewCalendarsModal() {
     $("#viewCalendarsModal").modal("show")
@@ -478,29 +503,33 @@ function spawnViewCalendarsModal() {
 /**
  * Changed the calendars eventSources to the selected employees. 
  * 
- * Uses global variable employeeMap for determining what employees are currently selected.
+ * Uses global variable viewCalendarsEmployeeMap for determining what employees are currently selected.
  */
 function viewCalendars() {
-    calendar.getEventSources().forEach(s => s.remove());
-    var colorIndex = 0;
-    employeeMap.forEach(function (value, key, map) {
-        if (value.selected) {
-            calendar.addEventSource({
-                events: function (info, callback) {
-                    $.ajax({
-                        url: `/activity/${key}/feed?start=${info.startStr}&end=${info.endStr}`,
-                        type: 'GET',
-                        headers: { "Authorization": "Bearer " + JSON.parse(sessionStorage.getItem('auth')).access_token },
-                        success: function (response) {
-                            callback(response);
-                        }
-                    });
-                },
-                color: colorsArray[colorIndex++]
-            });
-        }
-    })
-    $("#viewCalendarsModal").modal("hide")
+    if (!$("#viewSchedulesConfirmButton").hasClass('disabled')) {
+        calendar.getEventSources().forEach(s => s.remove());
+        var colorIndex = 0;
+        viewCalendarsEmployeeMap.forEach(function (value, key, map) {
+            if (value.selected) {
+                calendar.addEventSource({
+                    events: function (info, callback) {
+                        $.ajax({
+                            url: `/activity/${key}/feed?start=${info.startStr}&end=${info.endStr}`,
+                            type: 'GET',
+                            headers: { "Authorization": "Bearer " + JSON.parse(sessionStorage.getItem('auth')).access_token },
+                            success: function (response) {
+                                response.forEach(element => element.url = "#")
+                                callback(response);
+                            }
+                        });
+                    },
+                    color: colorsArray[colorIndex++]
+                });
+            }
+        })
+        $("#viewCalendarsModal").modal("hide")
+
+    }
 }
 
 /**
@@ -543,8 +572,13 @@ function spawnChangeActivityModal(activityID) {
             populateProjectsDropdown("#changeActivityProjectSelector", response.project.id);
             populateEmployeeSelector("#changeActivityEmployeeSelector", "#changeActivitySelectedEmployeeList");
 
-            activateDateAndTimePickers("#changeActivityStartDatePicker", "#changeActivityStartTimePicker", "#changeActivityStopDatePicker", "#changeActivityStopTimePicker", "#changeActivityWrongDateAlert", response.startTime, response.stopTime)
             $("#changeActivitySubmitButton").val(activityID);
+            updateDateOrTimePicker("#changeActivityStartDatePicker", moment(response.startTime));
+            updateDateOrTimePicker("#changeActivityStartTimePicker", moment(response.startTime));
+            updateDateOrTimePicker("#changeActivityStopDatePicker", moment(response.stopTime));
+            updateDateOrTimePicker("#changeActivityStopTimePicker", moment(response.stopTime));
+
+            console.log(response.startTime, response.stopTime);
         }
     });
 }

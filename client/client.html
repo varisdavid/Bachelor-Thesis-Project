@@ -55,7 +55,7 @@
 
 
     <!-- Placeholder for placing bootstrap alerts, see alerts.js -->
-    <div class="container" id="main-alert-holder"></div>
+    <div id="main-alert-holder"></div>
 
     <!-- Container for holding the main view. -->
     <div class="container" id="mainView"></div>
@@ -229,6 +229,11 @@
                 </div>
             </div>
         </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Stäng</button>
+            <button type="button" class="btn btn-primary" onclick="viewCalendars()" id="viewSchedulesConfirmButton" data-toggle="tooltip" data-placement="top" title="Välj anställda först">Välj</button>
+        </div>
+    </div>
     </div>
 
     <!-- Add activity modal -->
@@ -486,9 +491,65 @@
 
                     </form>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Stäng</button>
-                    <button type="button" class="btn btn-warning" value="" onclick="changeActivity(this.value)" id="changeActivitySubmitButton">Ändra</button>
+            </div>
+            <div class="empHolder rounded border" id="changeActivityEmpHolder">
+                <ul class="list-group h-25" id="changeActivitySelectedEmployeeList">
+                    <li class="list-group-item active">Valda medarbetare</li>
+                </ul>
+                <p class="text-center text-muted" id="changeActivityEmpHolderText">Valda medarbetare kommer att hamna här</p>
+            </div>
+        </div>
+        <hr>
+        <div class="alert alert-warning" id="changeActivityWrongDateAlert" style="display:none;" role="alert">
+            Avslutstiden måste ligga efter den första
+        </div>
+
+        <label for="changeActivityStartPickers">Starttid</label>
+        <div class="row" id="changeActivityStartPickers">
+            <div class="col">
+                <div class="form-group">
+                    <div class="input-group date" id="changeActivityStartDatePicker" data-target-input="nearest">
+                        <input type="text" class="form-control datetimepicker-input" data-target="#changeActivityStartDatePicker" />
+                        <div class="input-group-append" data-target="#changeActivityStartDatePicker" data-toggle="datetimepicker">
+                            <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col">
+                <div class="form-group">
+                    <div class="input-group date" id="changeActivityStartTimePicker" data-target-input="nearest">
+                        <input type="text" class="form-control datetimepicker-input" data-target="#changeActivityStartTimePicker" />
+                        <div class="input-group-append" data-target="#changeActivityStartTimePicker" data-toggle="datetimepicker">
+                            <div class="input-group-text"><i class="fa fa-clock-o"></i></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <label for="changeActivityStopPickers">Sluttid</label>
+        <div class="row" id="changeActivityStopPickers">
+            <div class="col">
+                <div class="form-group">
+                    <div class="input-group date" id="changeActivityStopDatePicker" data-target-input="nearest">
+                        <input type="text" class="form-control datetimepicker-input" data-target="#changeActivityStopDatePicker" />
+                        <div class="input-group-append" data-target="#changeActivityStopDatePicker" data-toggle="datetimepicker">
+                            <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col">
+                <div class="form-group">
+                    <div class="input-group date" id="changeActivityStopTimePicker" data-target-input="nearest">
+                        <input type="text" class="form-control datetimepicker-input" data-target="#changeActivityStopTimePicker" />
+                        <div class="input-group-append" data-target="#changeActivityStopTimePicker" data-toggle="datetimepicker">
+                            <div class="input-group-text"><i class="fa fa-clock-o"></i></div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -707,7 +768,7 @@
         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#signInModal">Logga
             in</button>
         <button type="button" class="btn btn-outline-dark" id="becomeCustomerButton">Bli kund</button>
-        
+
         <svg xmlns="http://www.w3.org/2000/svg" style="position:relative;width:100vw;left: calc(-1 * (100vw - 100%) / 2);"viewBox="0 0 1440 320"><path fill="#B2E0FF" fill-opacity="1" d="M0,256L48,266.7C96,277,192,299,288,288C384,277,480,235,576,229.3C672,224,768,256,864,256C960,256,1056,224,1152,192C1248,160,1344,128,1392,112L1440,96L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>
         <div class="landingPageImages">
             <div class="container">

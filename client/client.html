@@ -476,7 +476,7 @@
 
   <!-- Edit Project Modal-->
   <div class="modal fade" tabindex="-1" role="dialog" id="modalEditProject">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog modal-xl" role="document">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title">Redigera Projekt</h5>
@@ -484,32 +484,40 @@
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <div class="modal-body">
-          <form>
-            <div class="form-group">
-              <label for="orgId">Projekt ID</label>
-              <input type="name" readonly class="form-control" id="modalProjectId">
-            </div>
-            <div class="form-group">
-              <label for="projectOrgNrInput">Organisationsnummer</label>
-              <input type="name" readonly class="form-control" id="modalEditProjectOrgNr">
-            </div>
-            <div class="form-group">
-              <label for="projectNameInput">Projektnamn</label>
-              <input type="name" class="form-control" id="modalEditProjectName">
-            </div>
-            <div class="form-group">
-              <h5>Aktiviteter</h5><hr>
-              <div class="list-group animated fadeInDownBig" id="activityListTab" role="tablist">
-                <div id="emptyList">
-                </p>Det finns inga aktiviteter på det här projektet</p>
+        <div class="container">
+          <div class="row">
+            <div class="col">
+              <form>
+                <div class="form-group">
+                  <label class="pt-2 mt-2" for="orgId"><h5>Projekt ID</h5></label>
+                  <input type="name" readonly class="form-control" id="modalProjectId">
                 </div>
-                
-                <!-- List of activities appear here-->
-                
+                <div class="form-group">
+                  <label for="projectOrgNrInput"><h5>Organisationsnummer</h5></label>
+                  <input type="name" readonly class="form-control" id="modalEditProjectOrgNr">
+                </div>
+                <div class="form-group">
+                  <label for="projectNameInput"><h5>Projektnamn</h5></label>
+                  <input type="name" class="form-control" id="modalEditProjectName">
+                </div>
+                <div class="form-group">
+                  <h5>Aktiviteter</h5><hr>
+                  <div class="list-group animated fadeInDownBig" id="activityListTab" role="tablist">
+                    <div id="emptyList">
+                    </p>Det finns inga aktiviteter på det här projektet</p>
+                    </div>
+                    <!-- List of activities appear here-->
+                  </div>
+                </div>
+                </form>
+            </div>
+            <div class="col">
+              <div id="projectActivityInfo">
               </div>
             </div>
-            
+          </div>
+        </div>
+        <div class="modal-body">
             <div class="form-group">
               <div class="modal-footer">
               </div>
@@ -528,7 +536,25 @@
               </div>
             </div>
         </div>
-        </form>
+      </div>
+    </div>
+  </div>
+
+   <!-- Employee Reported Time Modal-->
+   <div class="modal fadeInDownBig" tabindex="-1" role="dialog" id="reportedTimeModal">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Rapporterad Tid</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div id="reportedTimeContents">
+
+          </div>
+        </div>
       </div>
     </div>
   </div>

@@ -41,6 +41,10 @@ $(document).ready(function () {
     $("#addActivityEveryoneButton").click(function () {
         $("#addActivityWholeEmpSelector").hide("fast")
     })
+
+    //Activating date and time pickers
+    activateDateAndTimePickers("#changeActivityStartDatePicker", "#changeActivityStartTimePicker", "#changeActivityStopDatePicker", "#changeActivityStopTimePicker", "#changeActivityWrongDateAlert", false)
+    activateDateAndTimePickers("#addActivityStartDatePicker", "#addActivityStartTimePicker", "#addActivityStopDatePicker", "#addActivityStopTimePicker", "#addActivityWrongDateAlert", true);
 })
 /**
  * Creates the calendar, needs a html element with a 'calendar' id for it to work.
@@ -146,6 +150,11 @@ function spawnActivityInfoModal(activityID) {
         }
     })
 }
+
+function updateDateOrTimePicker(picker, time = moment()) {
+    $(picker).datetimepicker('date', time);
+}
+
 /**
  * Helper function for making the datepicker and timepicker fields work properly. Should be called from a $( document ).ready()
  * 
@@ -157,7 +166,7 @@ function spawnActivityInfoModal(activityID) {
  * @param {string} startTime Sets the defaultDate property of the start time and date pickers
  * @param {string} stopTime Sets the defaultDate property of the stop time and date pickers
  */
-function activateDateAndTimePickers(startDatePicker, startTimePicker, stopDatePicker, stopTimePicker, wrongDateAlert, startTime = moment(), stopTime = moment()) {
+function activateDateAndTimePickers(startDatePicker, startTimePicker, stopDatePicker, stopTimePicker, wrongDateAlert, autoChange = true, startTime = moment(), stopTime = moment()) {
     $(startDatePicker).datetimepicker({
         format: "L",
         locale: "sv",
@@ -179,19 +188,19 @@ function activateDateAndTimePickers(startDatePicker, startTimePicker, stopDatePi
         locale: "sv",
         date: stopTime
     })
+    if (autoChange) {
+        //TODO: Eventuellt implementera automatisk datumväxlig när tid ändras. Även lägga till global offset som sätts när slutdatum ändras.
+        $(startDatePicker).on("change.datetimepicker", function (e) {
+            $(stopDatePicker).datetimepicker('minDate', e.date)
+            $(stopDatePicker).datetimepicker('date', e.date)
+        })
 
-
-    //TODO: Eventuellt implementera automatisk datumväxlig när tid ändras. Även lägga till global offset som sätts när slutdatum ändras.
-    $(startDatePicker).on("change.datetimepicker", function (e) {
-        $(stopDatePicker).datetimepicker('minDate', e.date)
-        $(stopDatePicker).datetimepicker('date', e.date)
-    })
-
-    $(startTimePicker).on("change.datetimepicker", function (e) {
-        var newDate = e.date;
-        newDate.hour(newDate.hour() + 1)
-        $(stopTimePicker).datetimepicker('date', newDate)
-    });
+        $(startTimePicker).on("change.datetimepicker", function (e) {
+            var newDate = e.date;
+            newDate.hour(newDate.hour() + 1)
+            $(stopTimePicker).datetimepicker('date', newDate)
+        });
+    }
 
 
     function checkWrongDate() {
@@ -332,9 +341,13 @@ function spawnAddActivityModal() {
         value.selected = false;
     })
     $("#addActivityModal").modal("show")
-    $(activateDateAndTimePickers("#addActivityStartDatePicker", "#addActivityStartTimePicker", "#addActivityStopDatePicker", "#addActivityStopTimePicker", "#addActivityWrongDateAlert"));
     populateProjectsDropdown("#addActivityProjectSelector");
     populateEmployeeSelector("#addActivityEmployeeSelector", "#addActivitySelectedEmployeeList");
+
+    updateDateOrTimePicker("#addActivityStartDatePicker");
+    updateDateOrTimePicker("#addActivityStartTimePicker");
+    updateDateOrTimePicker("#addActivityStopDatePicker");
+    updateDateOrTimePicker("#addActivityStopTimePicker");
 }
 
 /**
@@ -559,8 +572,13 @@ function spawnChangeActivityModal(activityID) {
             populateProjectsDropdown("#changeActivityProjectSelector", response.project.id);
             populateEmployeeSelector("#changeActivityEmployeeSelector", "#changeActivitySelectedEmployeeList");
 
-            activateDateAndTimePickers("#changeActivityStartDatePicker", "#changeActivityStartTimePicker", "#changeActivityStopDatePicker", "#changeActivityStopTimePicker", "#changeActivityWrongDateAlert", response.startTime, response.stopTime)
             $("#changeActivitySubmitButton").val(activityID);
+            updateDateOrTimePicker("#changeActivityStartDatePicker", moment(response.startTime));
+            updateDateOrTimePicker("#changeActivityStartTimePicker", moment(response.startTime));
+            updateDateOrTimePicker("#changeActivityStopDatePicker", moment(response.stopTime));
+            updateDateOrTimePicker("#changeActivityStopTimePicker", moment(response.stopTime));
+
+            console.log(response.startTime, response.stopTime);
         }
     });
 }

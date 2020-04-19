@@ -6,6 +6,7 @@
 function changeToProjectView(){
     $("#projectListTab").empty()
     $.ajax({
+        headers: { "Authorization": "Bearer " + JSON.parse(sessionStorage.getItem('auth')).access_token },
         url: '/project_view/projects',
         type: 'GET',
         success: function (projects_json) {
@@ -18,13 +19,11 @@ function changeToProjectView(){
 
 function createNewProject(){
     var newProjectName = document.getElementById("formNewProjectName").value;
-    var newProjectOrg = document.getElementById("formNewProjectOrg").value;
-
     var newProject = {
         name: newProjectName,
-        companyOrgNumber: newProjectOrg
     }
     $.ajax({
+        headers: { "Authorization": "Bearer " + JSON.parse(sessionStorage.getItem('auth')).access_token },
         url: '/project_view/projects',
         type: 'POST',
         contentType: 'application/json',
@@ -48,6 +47,7 @@ function modalProjectUpdate(){
         'companyOrgNumber' : projectOrgNr
     }
     $.ajax({
+        headers: { "Authorization": "Bearer " + JSON.parse(sessionStorage.getItem('auth')).access_token },
         url: '/project_view/projects/' + projectId,
         type: 'PUT',
         contentType: 'application/json',
@@ -74,9 +74,9 @@ function displayProjects(projects_json){
         +'<a class="list-group-item list-group-item-action rounded-0 my-list-item"'
         + 'onclick=editProject(' + project.id + ') '
         + 'id=' + projectName + '>'
-        + '<h1 class="display-4">'
+        + '<h4>'
         + projectName
-        + '</h1></a>'
+        + '</h4></a>'
         +'</span>')
         //Fades in list
         $('#' + projectName).fadeIn(fadeSpeed);
@@ -85,6 +85,7 @@ function displayProjects(projects_json){
 
 function editProject(project_id) {
     $.ajax({
+        headers: { "Authorization": "Bearer " + JSON.parse(sessionStorage.getItem('auth')).access_token },
         url: '/project_view/projects/' + project_id,
         type: 'GET',
         success: function (project) {
@@ -99,6 +100,7 @@ function editProject(project_id) {
 function removeProject() {
     project_id = document.getElementById('modalProjectId').value
     $.ajax({
+        headers: { "Authorization": "Bearer " + JSON.parse(sessionStorage.getItem('auth')).access_token },
         url: '/project_view/projects/' + project_id,
         type: 'DELETE',
         success: function (project) {

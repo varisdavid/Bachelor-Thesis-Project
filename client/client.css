@@ -14,8 +14,10 @@
     } 
 } 
 
-.list-group-item-action.active{
-    border-color: lightgray;
+.active-link{
+    font-weight: bold;
+    border-bottom: 1px solid #000;
+    padding-bottom: 3px;
 }
 
 .list-group-item-action:hover{
@@ -31,10 +33,15 @@ h2 {
 
 #main-alert-holder {
     position:fixed;
-    margin:auto;
-    left: 0;
-    right: 0;
+    top:50px;
+    right:0;
     z-index:1035;
+    padding:1rem;
+}
+
+.custom-alert {
+    width: 10em;
+
 }
 
 .btn-square {
@@ -55,4 +62,11 @@ h2 {
 }
 .header-item {
     white-space: nowrap;
+}
+
+.landingPageImages {
+    background: #B2E0FF;
+    width: 100vw;
+    position:relative;
+    left: calc(-1 * (100vw - 100%) / 2);
 }

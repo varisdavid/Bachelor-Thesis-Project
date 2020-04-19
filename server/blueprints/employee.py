@@ -6,10 +6,7 @@ from flask_jwt_extended import JWTManager, jwt_required, create_access_token, ge
 from server.database import db, Employee, Company, Project
 from server import app
 
-# random string
-app.config['JWT_SECRET_KEY'] = "GwzrtfCta1xDHgwfBVo0"
 bcrypt = Bcrypt(app)
-jwt = JWTManager(app)
 
 # Creates the blueprint
 bp = Blueprint('employee', __name__, url_prefix='/employee')
@@ -78,5 +75,5 @@ def employee(pID):
 @jwt_required
 def getUser():
     user_id = get_jwt_identity()
-    employee = Employee.query.get_or_404(user_id)
+    employee = Employee.query.get(user_id)
     return jsonify(employee.serialize())

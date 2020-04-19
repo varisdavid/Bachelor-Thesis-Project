@@ -54,7 +54,9 @@ function getEmployees() {
         headers: { "Authorization": "Bearer " + JSON.parse(sessionStorage.getItem('auth')).access_token},
         success: function(employees){
             for (i in employees) {
-                $("#users").append("<a class='dropdown-item' onclick=getLoggedJobs(" + employees[i].personID + ") href='#'>" + employees[i].name + "</a>")
+                if (!employees[i].isAdmin){
+                    $("#users").append("<a class='dropdown-item' onclick=getLoggedJobs(" + employees[i].personID + ") href='#'>" + employees[i].name + "</a>")
+                }
             }
         }
     })
@@ -78,7 +80,7 @@ function getLoggedJobs(employee) {
                 for (i in jobs) {
                     getLoggedWork(jobs[i]);
                 }
-            createTimeChart();
+            createTimeChart(employee);
         }
     }) }
 
@@ -99,7 +101,7 @@ function getMyWork() {
             for (i in jobs) {
                 getLoggedWork(jobs[i]);
             }
-            createTimeChart();
+            createMyTimeChart();
         }
     })
 }
@@ -130,14 +132,44 @@ function getMyWork2() {
                 "<p class='card-subtitle'>" + "Projekt: " + jobs[i].projectID + "</p>" +
                 "<p class='card-text'>" + "Tid: " + jobs[i].startTime + "-" + jobs[i].endTime + "</p></div>");
             }
-            createTimeChart();
+            createMyChart();
         }
     })
 }
 
-function createTimeChart(){
+function createMyTimeChart(){
     $.ajax({
         url: 'http://localhost:5000' + '/time-report/time',
+        type: 'GET',
+        headers: { "Authorization": "Bearer " + JSON.parse(sessionStorage.getItem('auth')).access_token},
+        success: function(time){
+            $("#timeChart").append("<canvas id='myChart'></canvas>" +
+            "<script>" +
+                "var ctx = document.getElementById('myChart').getContext('2d');" +
+                "var myChart = new Chart(ctx, {" +
+                    "type: 'bar'," +
+                    "data: {" +
+                        "labels: [" + getDates() + "]," +
+                        "datasets: [{" +
+                            "label: 'Arbetad tid'," +
+                            "data: [" + time[0] + "," + time[1] + "," + time[2] + "," + time[3] + "," + time[4] + "," + time[5] + "]," +
+                        "}]" +
+                    "}," +
+                    "options: {scales: {" +
+                        "yAxes: [{" +
+                            "ticks: {" +
+                                "min: 0" +
+                            "}}]" +
+                    "}}" +
+                "});" +
+            "</script>");
+        }
+        })
+}
+
+function createTimeChart(employee){
+    $.ajax({
+        url: 'http://localhost:5000' + '/time-report/time/' + employee,
         type: 'GET',
         headers: { "Authorization": "Bearer " + JSON.parse(sessionStorage.getItem('auth')).access_token},
         success: function(time){

@@ -52,6 +52,8 @@ def employee(pID):
                 employee.personID=jsonData['personID']
             if jsonData['name'] != None and jsonData['name'] != "":
                 employee.name=jsonData['name']
+            if jsonData['email'] != None and jsonData['email'] != "":
+                employee.email=jsonData['email']
             if jsonData['isAdmin'] != None and jsonData['isAdmin'] != "":
                 employee.isAdmin=jsonData['isAdmin']
             if jsonData['isBoss'] != None and jsonData['isBoss'] != "":

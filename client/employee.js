@@ -71,7 +71,7 @@ function loadEmployees() {
                 });
             });
 
-            $("#employeeTableSearchArbetadTid").on("keyup", function() {
+            $("#employeeTableSearchEmail").on("keyup", function() {
                 var value = $(this).val().toLowerCase();
                 $("#employee-data tr").filter(function() {
                     $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)

@@ -820,15 +820,17 @@
                 <input type="text" class="form-control" id="employeeTableSearchName" placeholder="Sök Namn">
             </div></th>
               <th scope="col">Roll <div class="form-group"></div>
-                  <div class="dropdown">
-                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  Välj roll
-                </button>
-                <div class="dropdown-menu" id="employeeTableDropDownRole" aria-labelledby="dropdownMenuButton">
-                  <a class="dropdown-item" href="#">Alla</a>
-                  <a class="dropdown-item" href="#">Chef</a>
-                  <a class="dropdown-item" href="#">Medarbetare</a>
-                </div>
+                <div class="dropdown" id="roleDropDown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="roleButton"data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                      Välj roll
+                      <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                      <li><a href="#" data-value="Alla">Alla</a></li>
+                      <li><a href="#" data-value="Chef">Chef</a></li>
+                      <li><a href="#" data-value="Medarbetare">Medarbetare</a></li>
+                    </ul>
+                  </div>
               </div></th>
               <th scope="col">Projekt <div class="form-group"></div>
                 <div class="dropdown">

@@ -14,8 +14,10 @@
     } 
 } 
 
-.list-group-item-action.active{
-    border-color: lightgray;
+.active-link{
+    font-weight: bold;
+    border-bottom: 1px solid #000;
+    padding-bottom: 3px;
 }
 
 .list-group-item-action:hover{
@@ -51,4 +53,11 @@ h2 {
 }
 .header-item {
     white-space: nowrap;
+}
+
+.landingPageImages {
+    background: #B2E0FF;
+    width: 100vw;
+    position:relative;
+    left: calc(-1 * (100vw - 100%) / 2);
 }

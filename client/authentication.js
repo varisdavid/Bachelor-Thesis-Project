@@ -10,6 +10,7 @@ function updatePageLoggedIn(signedIn) {
         $("#navbarScheduleLink").show()
         $("#tidsrapportering").show()
         $("#navEmployeeLink").show()
+        $("#navProjectViewLink").show()
 
     } else {
         $(".signInButton").show()
@@ -17,6 +18,7 @@ function updatePageLoggedIn(signedIn) {
         $("#navbarScheduleLink").hide()
         $("#tidsrapportering").hide()
         $("#navEmployeeLink").hide()
+        $("#navProjectViewLink").hide()
     }
 }
 
@@ -123,34 +125,6 @@ function signUpCompany() {
         data: companyAndAdminData,
         success: function(response) {
             $("#mainView").html($("#thankYouView").html())
-        }
-    })
-}
-
-/**
- * Adds an employee to the database.
- */
-function addEmployee() {
-    var name = document.getElementById("addEmployeeName").value
-    var email = document.getElementById("addEmployeeEmail").value
-    var personID = document.getElementById("addEmployeePid").value
-    var employeeData = `
-    {
-        "name":"${name}",
-        "email":"${email}",
-        "personID":"${personID}"
-    }
-    `
-    $.ajax({
-        url: 'employee/all',
-        type: 'POST',
-        dataType: 'json',
-        contentType: 'application/json',
-        headers: { "Authorization": "Bearer " + JSON.parse(sessionStorage.getItem('auth')).access_token },
-        data: employeeData,
-        success: function(response) {
-            $("#addEmployeeModal").modal("hide");
-            spawnAlert("Medarbetaren har lagts till", "success")
         }
     })
 }

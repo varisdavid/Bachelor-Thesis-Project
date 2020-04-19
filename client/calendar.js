@@ -31,7 +31,7 @@ function changeToCalendarView() {
 /**
  * Adds the ability to hide and show the employee selector based on which employees are chosen.
  */
-$( document ).ready(function () {
+$(document).ready(function () {
     $("#addActivityOnlyMeButton").click(function () {
         $("#addActivityWholeEmpSelector").hide("fast")
     })
@@ -49,9 +49,9 @@ $( document ).ready(function () {
 function createCalendar() {
     $(function () {
         var calendarEl = document.getElementById('calendar');
-        
+
         calendar = new FullCalendar.Calendar(calendarEl, {
-            height:  $(window).height() - 100,
+            height: $(window).height() - 100,
             timeZone: 'local',
             plugins: ['timeGrid', 'bootstrap'],
             defaultView: 'timeGridWeek',
@@ -68,15 +68,14 @@ function createCalendar() {
                     },
                 });
             }],
-            eventClick: function(info) {
+            eventClick: function (info) {
                 info.jsEvent.preventDefault();
-                console.log("asd")
                 spawnActivityInfoModal(info.event.id)
             },
             customButtons: {
                 addActivityButton: {
                     text: "Lägg till aktivitet",
-                    click : spawnAddActivityModal
+                    click: spawnAddActivityModal
                 },
                 viewOtherCalendarsButton: {
                     text: "Visa andras kalendrar",
@@ -98,7 +97,7 @@ function createCalendar() {
             windowResize: function (view) {
                 calendar.setOption("height", $(window).height() - 100);
             }
-            
+
         });
         calendar.render();
     })
@@ -117,7 +116,7 @@ function spawnActivityInfoModal(activityID) {
             $("#activityInfoTitle").html(response.name);
 
             employeeString = "";
-            response.employees.forEach(function(emp) {
+            response.employees.forEach(function (emp) {
                 employeeString = employeeString + emp.name + "\n";
             })
             var startTime = response.startTime.split("T")[1] + ", " + response.startTime.split("T")[0]
@@ -138,7 +137,8 @@ function spawnActivityInfoModal(activityID) {
                 <h5>Anställda</h5>
                 <p>${employeeString}</p>
              </div>`);
-             $("#activityInfoRemoveActivityButton").val(response.id);
+            $("#activityInfoRemoveActivityButton").val(response.id);
+            $("#activityInfoChangeButton").val(response.id);
             $("#activityInfoModal").modal("show");
         },
         error: function (response) {
@@ -146,38 +146,38 @@ function spawnActivityInfoModal(activityID) {
         }
     })
 }
- /**
-  * Helper function for making the datepicker and timepicker fields work properly. Should be called from a $( document ).ready()
-  * 
-  * @param {string} startDatePicker the identifier of the time picker used for picking the start date 
-  * @param {string} startTimePicker the identifier of the time picker used for picking the start time
-  * @param {string} stopDatePicker the identifier of the time picker used for picking the stop date
-  * @param {string} stopTimePicker the identifier of the time picker used for picking the stop time
-  * @param {string} wrongDateAlert the identifier of the alert that is shown when the user picks a start date that is greater than the stop date, or vice versa
-  * @param {string} startTime Sets the defaultDate property of the start time and date pickers
-  * @param {string} stopTime Sets the defaultDate property of the stop time and date pickers
-  */
+/**
+ * Helper function for making the datepicker and timepicker fields work properly. Should be called from a $( document ).ready()
+ * 
+ * @param {string} startDatePicker the identifier of the time picker used for picking the start date 
+ * @param {string} startTimePicker the identifier of the time picker used for picking the start time
+ * @param {string} stopDatePicker the identifier of the time picker used for picking the stop date
+ * @param {string} stopTimePicker the identifier of the time picker used for picking the stop time
+ * @param {string} wrongDateAlert the identifier of the alert that is shown when the user picks a start date that is greater than the stop date, or vice versa
+ * @param {string} startTime Sets the defaultDate property of the start time and date pickers
+ * @param {string} stopTime Sets the defaultDate property of the stop time and date pickers
+ */
 function activateDateAndTimePickers(startDatePicker, startTimePicker, stopDatePicker, stopTimePicker, wrongDateAlert, startTime = moment(), stopTime = moment()) {
     $(startDatePicker).datetimepicker({
         format: "L",
         locale: "sv",
-        defaultDate: startTime
+        date: startTime
     });
     $(startTimePicker).datetimepicker({
         format: "LT",
         locale: "sv",
-        defaultDate: startTime
+        date: startTime
     })
 
     $(stopDatePicker).datetimepicker({
         format: "L",
         locale: "sv",
-        defaultDate: stopTime
+        date: stopTime
     });
     $(stopTimePicker).datetimepicker({
         format: "LT",
         locale: "sv",
-        defaultDate: stopTime
+        date: stopTime
     })
 
 
@@ -192,7 +192,8 @@ function activateDateAndTimePickers(startDatePicker, startTimePicker, stopDatePi
         newDate.hour(newDate.hour() + 1)
         $(stopTimePicker).datetimepicker('date', newDate)
     });
-    
+
+
     function checkWrongDate() {
         var startDate = $(startDatePicker).datetimepicker('date');
         var stopDate = $(stopDatePicker).datetimepicker('date')
@@ -206,7 +207,7 @@ function activateDateAndTimePickers(startDatePicker, startTimePicker, stopDatePi
         } else {
             if (startTime.hour() < stopTime.hour()) {
                 $(wrongDateAlert).hide();
-            } else if(startTime.hour() > stopTime.hour()) {
+            } else if (startTime.hour() > stopTime.hour()) {
                 $(wrongDateAlert).show()
             } else {
                 if (startTime.minute() <= stopTime.minute()) {
@@ -228,22 +229,22 @@ function activateDateAndTimePickers(startDatePicker, startTimePicker, stopDatePi
 /**
  * Helper function for populating the drop down menus
  */
-function populateProjectsDropdown() {
-    //Hämta alla projekt genom ett ajax-anrop
-    //Currently using stub
-    //Populating projects
-    $("#addActivityProjectSelector").html("");
+function populateProjectsDropdown(projectSelector, defaultID = 0) {
+    $(projectSelector).html("");
     $.ajax({
         url: "project_view/projects",
         type: "GET",
         headers: { "Authorization": "Bearer " + JSON.parse(sessionStorage.getItem('auth')).access_token },
         success: function (response) {
             response.forEach(function (project) {
-                $("#addActivityProjectSelector").append(`<option value="${project.id}">${project.name}</option>`)
+                $(projectSelector).append(`<option value="${project.id}">${project.name}</option>`)
             })
+            if (defaultID != 0) {
+                $("#changeActivityProjectSelector").val(defaultID);
+            }
         }
     })
-    
+
 }
 
 //Global variable for keeping track of what employees are currently selected.
@@ -256,9 +257,7 @@ function populateEmployeeMap() {
         type: "GET",
         headers: { "Authorization": "Bearer " + JSON.parse(sessionStorage.getItem('auth')).access_token },
         success: function (response) {
-            console.log(response);
-            response.forEach(function(employee) {
-                console.log("employee", employee)
+            response.forEach(function (employee) {
                 employeeMap.set(employee.personID, {
                     name: employee.name,
                     selected: false
@@ -274,36 +273,36 @@ function populateEmployeeMap() {
  * Reads from global variable employeeMap
  */
 
-function populateEmployeeSelectorAct() {
-    var selectHTML = ""
+function populateEmployeeSelector(optionsList, selectedList) {
+    var optionsHTML = ""
     var selectedHTML = ""
 
     employeeMap.forEach(function (value, key, map) {
 
         if (value.selected) {
-            selectedHTML = selectedHTML + `<li class="list-group-item selected-emp">${value.name}<button style="float: right;" type="button" class="close" value="${key}" onclick="removeFromSelEmployeesAct(this.value)"><i class="fa fa-times"></i></button></li>`
+            selectedHTML = selectedHTML + `<li class="list-group-item selected-emp">${value.name}<button style="float: right;" type="button" class="close" value="${key}" onclick="removeFromSelEmployees(this.value, '${optionsList}', '${selectedList}')"><i class="fa fa-times"></i></button></li>`
         } else {
-            selectHTML = selectHTML + `<option value="${key}">${value.name}</option>`
+            optionsHTML = optionsHTML + `<option value="${key}">${value.name}</option>`
         }
     })
-    
-    if (selectedHTML=="") {
+
+    if (selectedHTML == "") {
         $("#addActivityEmpHolderText").show()
     } else {
         $("#addActivityEmpHolderText").hide()
     }
 
-    $("#addActivitySelectedEmployeeList").html(selectedHTML)
-    $("#addActivityEmployeeSelector").html(selectHTML)
+    $(optionsList).html(optionsHTML)
+    $(selectedList).html(selectedHTML)
 }
 /**
  * Function for selecting employees. Is called from the add employee button
  * 
  * Changes global variable employeeMap
  */
-function addEmployeeToSelectedEmployeesAct() {
-    employeeMap.get($("#addActivityEmployeeSelector").val()).selected = true;
-    populateEmployeeSelectorAct();
+function addEmployeeToSelectedEmployees(optionsList, selectedList) {
+    employeeMap.get($(optionsList).val()).selected = true;
+    populateEmployeeSelector(optionsList, selectedList);
 }
 /**
  * Fucntion for un-selecting employees. Is called from the 'remove' button.
@@ -311,9 +310,9 @@ function addEmployeeToSelectedEmployeesAct() {
  * Changes global variable employeeMap
  * @param {string} id The affected employee 
  */
-function removeFromSelEmployeesAct(id) {
+function removeFromSelEmployees(id, optionsList, selectedList) {
     employeeMap.get(id).selected = false;
-    populateEmployeeSelectorAct();
+    populateEmployeeSelector(optionsList, selectedList);
 }
 /**
  * Spawns a modal prompting the user to add an activity.
@@ -323,13 +322,13 @@ function removeFromSelEmployeesAct(id) {
 
 // TODO: Skulle eventuellt kunna flyttas till en annan fil innehållande saker relaterade till aktiviterer.
 function spawnAddActivityModal() {
-    employeeMap.forEach(function(value) {
+    employeeMap.forEach(function (value) {
         value.selected = false;
     })
     $("#addActivityModal").modal("show")
     $(activateDateAndTimePickers("#addActivityStartDatePicker", "#addActivityStartTimePicker", "#addActivityStopDatePicker", "#addActivityStopTimePicker", "#addActivityWrongDateAlert"));
-    populateProjectsDropdown();
-    populateEmployeeSelectorAct();
+    populateProjectsDropdown("#addActivityProjectSelector");
+    populateEmployeeSelector("#addActivityEmployeeSelector", "#addActivitySelectedEmployeeList");
 }
 
 /**
@@ -342,7 +341,7 @@ function addActivity() {
     var notSelectedEmployees = [];
     var allEmployees = []
     employeeMap.forEach(function (value, key) {
-        if(value.selected == true) {
+        if (value.selected == true) {
             selectedEmployees.push(key);
         } else {
             notSelectedEmployees.push(key);
@@ -438,8 +437,8 @@ function populateEmployeeSelectorCal() {
             selectHTML = selectHTML + `<option value="${key}">${value.name}</option>`
         }
     })
-    
-    if (selectedHTML=="") {
+
+    if (selectedHTML == "") {
         $("#viewCalendarsEmpHolderText").show()
     } else {
         $("#viewCalendarsEmpHolderText").hide()
@@ -512,12 +511,90 @@ function removeActivity(id) {
     $.ajax({
         url: 'activity/' + id,
         type: 'DELETE',
-        headers: {"Authorization" : "Bearer " + JSON.parse(sessionStorage.getItem('auth')).access_token},
+        headers: { "Authorization": "Bearer " + JSON.parse(sessionStorage.getItem('auth')).access_token },
         success: function (response) {
             $("#activityInfoModal").modal("hide");
             spawnAlert("Aktiviteten togs bort", "warning")
             calendar.refetchEvents()
             //calendar.render()
+        }
+    })
+}
+
+function spawnChangeActivityModal(activityID) {
+    $("#activityInfoModal").modal("hide");
+    $("#changeActivityModal").modal("show");
+
+    $.ajax({
+        url: `activity/${activityID}`,
+        type: 'GET',
+        headers: { "Authorization": "Bearer " + JSON.parse(sessionStorage.getItem('auth')).access_token },
+        success: function (response) {
+            $("#changeActivityModalTitle").append(response.name);
+            employeeMap.forEach(function (val) {
+                val.selected = false;
+            })
+            response.employees.forEach(function (emp) {
+                employeeMap.get(emp.personID).selected = true;
+            })
+            $("#changeActivityName").val(response.name);
+            $("#changeActivityLocation").val(response.location);
+            $("#changeActivityDescription").val(response.description);
+            populateProjectsDropdown("#changeActivityProjectSelector", response.project.id);
+            populateEmployeeSelector("#changeActivityEmployeeSelector", "#changeActivitySelectedEmployeeList");
+
+            activateDateAndTimePickers("#changeActivityStartDatePicker", "#changeActivityStartTimePicker", "#changeActivityStopDatePicker", "#changeActivityStopTimePicker", "#changeActivityWrongDateAlert", response.startTime, response.stopTime)
+            $("#changeActivitySubmitButton").val(activityID);
+        }
+    });
+}
+
+function changeActivity(id) {
+    console.log(id);
+    var selectedEmployees = [];
+    employeeMap.forEach(function (value, key) {
+        if (value.selected == true) {
+            selectedEmployees.push(key);
+        }
+    })
+
+    var name = $("#changeActivityName").val();
+    var date = $("#changeActivityStartDatePicker").datetimepicker('date').toISOString(true).substring(0, 10)
+    var startTime = $("#changeActivityStartDatePicker").datetimepicker('date').toISOString(true).substring(0, 11) + $("#changeActivityStartTimePicker").datetimepicker('date').toISOString(true).substring(11, 19)
+    var stopTime = $("#changeActivityStopDatePicker").datetimepicker('date').toISOString(true).substring(0, 11) + $("#changeActivityStopTimePicker").datetimepicker('date').toISOString(true).substring(11, 19)
+    var loc = $("#changeActivityLocation").val()
+    var description = $("#changeActivityDescription").val()
+    //TODO: Ta fram projekt med en hashmap och populera den från servern med data.
+    //TODO: Samma sak med employees
+    var project_id = $("#changeActivityProjectSelector").val()
+    var activityData;
+
+    activityData = `
+    {
+        "date": "${date}",
+        "name": "${name}",
+        "startTime": "${startTime}",
+        "stopTime": "${stopTime}",
+        "location": "${loc}",
+        "description": "${description}",
+        "project_id": ${project_id},
+        "employees": ${JSON.stringify(selectedEmployees)}
+    }`
+
+    $.ajax({
+        url: 'activity/' + id,
+        type: 'PUT',
+        dataType: 'json',
+        contentType: 'application/json',
+        headers: { "Authorization": "Bearer " + JSON.parse(sessionStorage.getItem('auth')).access_token },
+        data: activityData,
+        success: function (response) {
+            $("#changeActivityModal").modal("hide");
+            spawnAlert("Aktiviteten har ändrats", "warning")
+            calendar.refetchEvents()
+        },
+        error: function (response) {
+            console.log("error")
         }
     })
 }

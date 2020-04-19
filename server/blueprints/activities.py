@@ -42,12 +42,12 @@ def addActivity():
 
         return newActivity.serialize()
 
-@bp.route("/<id>", methods=["GET", "PUT", "DELETE"])
+@bp.route("/<activityID>", methods=["GET", "PUT", "DELETE"])
 @jwt_required
-def act(id):
+def act(activityID):
     user_id = get_jwt_identity()
     if request.method == "GET":
-        activity = Activity.query.get_or_404(id)
+        activity = Activity.query.get_or_404(activityID)
         if Project.query.get(activity.project_id).companyOrgNumber == Employee.query.get(user_id).company:
             activityDict = activity.serialize()
             activityDict["project"] = Project.query.get(activity.project_id).serialize()
@@ -59,18 +59,34 @@ def act(id):
         else:
             return {"msg" : "not authorized"}, 401
     elif request.method == "PUT":
-        activity = Activity.query.get_or_404(id)
+        activity = Activity.query.get_or_404(activityID)
         jsonData = request.get_json()
         for key in request.get_json():
             # TODO: Filtrera bort alla attribut som inte ska gå att ändra.
             if(hasattr(activity, key) and (key != "id")):
-                setattr(activity, key, jsonData[key])
-        return jsonify(Activity.query.get(id).serialize())
+                if key == "startTime" or key == "stopTime":
+                    setattr(activity, key, datetime.fromisoformat(jsonData[key]))
+                    print("I specialfallet")
+                elif key == "date":
+                    setattr(activity, key, d.fromisoformat(jsonData[key]))
+                else:
+                    setattr(activity, key, jsonData[key])
+
+        for p_a in Person_Activity.query.filter_by(id = activityID).all():
+            db.session.delete(p_a)
+
+        db.session.commit()
+
+        for employee in jsonData['employees']:
+            db.session.add(Person_Activity(personID = employee, id = activityID))
+
+        db.session.commit()
+        return jsonify(Activity.query.get(activityID).serialize())
     elif request.method == "DELETE":
         emp = Employee.query.get(user_id)
         companyOrgNumber = db.session.query(Project).join(Activity).filter(Activity.project_id == Project.id).filter(Project.companyOrgNumber == emp.company).filter(Activity.id == id).first().companyOrgNumber
         if (emp.isAdmin or emp.isBoss) and (emp.company == companyOrgNumber):
-            act = Activity.query.get(id)
+            act = Activity.query.get(activityID)
             serializedActivity = act.serialize()
             for pa in Person_Activity.query.filter_by(id=act.id).all():
                 db.session.delete(pa)

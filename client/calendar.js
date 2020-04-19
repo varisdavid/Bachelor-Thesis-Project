@@ -70,7 +70,6 @@ function createCalendar() {
             }],
             eventClick: function (info) {
                 info.jsEvent.preventDefault();
-                console.log("asd")
                 spawnActivityInfoModal(info.event.id)
             },
             customButtons: {
@@ -162,23 +161,23 @@ function activateDateAndTimePickers(startDatePicker, startTimePicker, stopDatePi
     $(startDatePicker).datetimepicker({
         format: "L",
         locale: "sv",
-        defaultDate: startTime
+        date: startTime
     });
     $(startTimePicker).datetimepicker({
         format: "LT",
         locale: "sv",
-        defaultDate: startTime
+        date: startTime
     })
 
     $(stopDatePicker).datetimepicker({
         format: "L",
         locale: "sv",
-        defaultDate: stopTime
+        date: stopTime
     });
     $(stopTimePicker).datetimepicker({
         format: "LT",
         locale: "sv",
-        defaultDate: stopTime
+        date: stopTime
     })
 
 
@@ -193,7 +192,7 @@ function activateDateAndTimePickers(startDatePicker, startTimePicker, stopDatePi
         newDate.hour(newDate.hour() + 1)
         $(stopTimePicker).datetimepicker('date', newDate)
     });
-    
+
 
     function checkWrongDate() {
         var startDate = $(startDatePicker).datetimepicker('date');
@@ -258,9 +257,7 @@ function populateEmployeeMap() {
         type: "GET",
         headers: { "Authorization": "Bearer " + JSON.parse(sessionStorage.getItem('auth')).access_token },
         success: function (response) {
-            console.log(response);
             response.forEach(function (employee) {
-                console.log("employee", employee)
                 employeeMap.set(employee.personID, {
                     name: employee.name,
                     selected: false
@@ -533,13 +530,11 @@ function spawnChangeActivityModal(activityID) {
         type: 'GET',
         headers: { "Authorization": "Bearer " + JSON.parse(sessionStorage.getItem('auth')).access_token },
         success: function (response) {
-            console.log(response)
             $("#changeActivityModalTitle").append(response.name);
             employeeMap.forEach(function (val) {
                 val.selected = false;
             })
             response.employees.forEach(function (emp) {
-                console.log(emp.personID);
                 employeeMap.get(emp.personID).selected = true;
             })
             $("#changeActivityName").val(response.name);
@@ -547,6 +542,59 @@ function spawnChangeActivityModal(activityID) {
             $("#changeActivityDescription").val(response.description);
             populateProjectsDropdown("#changeActivityProjectSelector", response.project.id);
             populateEmployeeSelector("#changeActivityEmployeeSelector", "#changeActivitySelectedEmployeeList");
+
+            activateDateAndTimePickers("#changeActivityStartDatePicker", "#changeActivityStartTimePicker", "#changeActivityStopDatePicker", "#changeActivityStopTimePicker", "#changeActivityWrongDateAlert", response.startTime, response.stopTime)
+            $("#changeActivitySubmitButton").val(activityID);
         }
     });
+}
+
+function changeActivity(id) {
+    console.log(id);
+    var selectedEmployees = [];
+    employeeMap.forEach(function (value, key) {
+        if (value.selected == true) {
+            selectedEmployees.push(key);
+        }
+    })
+
+    var name = $("#changeActivityName").val();
+    var date = $("#changeActivityStartDatePicker").datetimepicker('date').toISOString(true).substring(0, 10)
+    var startTime = $("#changeActivityStartDatePicker").datetimepicker('date').toISOString(true).substring(0, 11) + $("#changeActivityStartTimePicker").datetimepicker('date').toISOString(true).substring(11, 19)
+    var stopTime = $("#changeActivityStopDatePicker").datetimepicker('date').toISOString(true).substring(0, 11) + $("#changeActivityStopTimePicker").datetimepicker('date').toISOString(true).substring(11, 19)
+    var loc = $("#changeActivityLocation").val()
+    var description = $("#changeActivityDescription").val()
+    //TODO: Ta fram projekt med en hashmap och populera den från servern med data.
+    //TODO: Samma sak med employees
+    var project_id = $("#changeActivityProjectSelector").val()
+    var activityData;
+
+    activityData = `
+    {
+        "date": "${date}",
+        "name": "${name}",
+        "startTime": "${startTime}",
+        "stopTime": "${stopTime}",
+        "location": "${loc}",
+        "description": "${description}",
+        "project_id": ${project_id},
+        "employees": ${JSON.stringify(selectedEmployees)}
+    }`
+
+    $.ajax({
+        url: 'activity/' + id,
+        type: 'PUT',
+        dataType: 'json',
+        contentType: 'application/json',
+        headers: { "Authorization": "Bearer " + JSON.parse(sessionStorage.getItem('auth')).access_token },
+        data: activityData,
+        success: function (response) {
+            $("#changeActivityModal").modal("hide");
+            spawnAlert("Aktiviteten har ändrats", "warning")
+            calendar.refetchEvents()
+        },
+        error: function (response) {
+            console.log("error")
+        }
+    })
 }

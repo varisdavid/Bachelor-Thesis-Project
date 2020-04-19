@@ -424,7 +424,7 @@
                   </div>
                 </div>
                 <div class="col-2">
-                  <button type="button" class="btn btn-secondary" onclick="addEmployeeToSelectedEmployeesAct()"><i
+                  <button type="button" class="btn btn-secondary" onclick="addEmployeeToSelectedEmployees('#changeActivityEmployeeSelector','#changeActivitySelectedEmployeeList')"><i
                       class="fa fa-user-plus"></i></button>
                 </div>
               </div>
@@ -503,7 +503,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Stäng</button>
-          <button type="button" class="btn btn-warning" onclick="changeActivity()" id="changeActivitySubmitButton">Ändra</button>
+          <button type="button" class="btn btn-warning" value="" onclick="changeActivity(this.value)" id="changeActivitySubmitButton">Ändra</button>
         </div>
       </div>
 

@@ -19,7 +19,6 @@ app.register_blueprint(employee.bp)
 app.register_blueprint(time_report.bp)
 app.register_blueprint(activities.bp)
 app.register_blueprint(project_view.bp)
-app.register_blueprint(employee.bp)
 
 @app.route("/")
 def client():

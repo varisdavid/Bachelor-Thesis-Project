@@ -5,21 +5,28 @@
  */
 function updatePageLoggedIn(signedIn) {
     if (signedIn) {
+        getUser()
         $(".signInButton").hide()
         $(".signOutButton").show()
-        $("#navbarScheduleLink").show()
-        $("#tidsrapportering").show()
-        $("#navEmployeeLink").show()
+        $("#navPriceLink").hide()
+        $("#navAboutLink").hide()
+        $("#navContactLink").hide()
         $("#navProjectViewLink").show()
-
+        $("#navbarScheduleLink").show()
+        $("#navEmployeeLink").show()
     } else {
         $(".signInButton").show()
         $(".signOutButton").hide()
-        $("#navbarScheduleLink").hide()
-        $("#tidsrapportering").hide()
-        $("#navEmployeeLink").hide()
+        $("#navTimeReportLink").hide()
+        $("#navTimeOverviewLink").hide()
+        $("#navPriceLink").show()
+        $("#navAboutLink").show()
+        $("#navContactLink").show()
         $("#navProjectViewLink").hide()
+        $("#navbarScheduleLink").hide()
+        $("#navEmployeeLink").hide()
     }
+    changeToLandingPage()
 }
 
 

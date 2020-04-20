@@ -1,7 +1,6 @@
 $('#editEmployeeModal').on('show.bs.modal', function(event) {
     var personID = event.relatedTarget.dataset['personid'];
     var modal = $(this);
-
     $.ajax({
         headers: { "Authorization": "Bearer " + JSON.parse(sessionStorage.getItem('auth')).access_token },
         url: '/employee/' + personID,
@@ -13,9 +12,28 @@ $('#editEmployeeModal').on('show.bs.modal', function(event) {
             $('#editEmployeeisAdmin-input').prop('checked', employee.isAdmin);
             $('#editEmployeeisBoss-input').prop('checked', employee.isBoss);
             $('#editEmployeeSubmitButton').attr('onclick', 'editEmployee("' + personID + '")');
-            $('#deleteEmployeeButton').attr('onclick', 'deleteEmployee("' + personID + '")');
         }
     });
+    $.ajax({
+        headers: { "Authorization": "Bearer " + JSON.parse(sessionStorage.getItem('auth')).access_token },
+        url: '/employee/getUser',
+        type: 'GET',
+        success: function(user) {
+            if (user.isAdmin) {
+                console.log("ADMIN");
+                if (user.personID == personID) {
+                    $("#isAdminCheckBox").hide();
+                } else {
+                    $("#isAdminCheckBox").show();
+                }
+                $("#isBossCheckBox").show();
+                $('#deleteEmployeeButton').attr('onclick', 'deleteEmployee("' + personID + '")');
+            } else {
+                $("#isAdminCheckBox").hide();
+                $("#isBossCheckBox").hide();
+            }
+        }
+    })
 });
 
 $('#editEmployeeModal').on('hidden.bs.modal', function(event) {
@@ -24,10 +42,25 @@ $('#editEmployeeModal').on('hidden.bs.modal', function(event) {
     $(this).find('#editEmployeeEmail-input').val('');
 });
 
-
-
+function changeToEmployeeView() {
+    $("#mainView").html($("#employeeView").html())
+    loadEmployees(); //In employee.js
+}
 
 function loadEmployees() {
+    $.ajax({
+        headers: { "Authorization": "Bearer " + JSON.parse(sessionStorage.getItem('auth')).access_token },
+        url: '/employee/getUser',
+        type: 'GET',
+        success: function(user) {
+            if (user.isAdmin || user.isBoss) {
+                $("#viewAddEmployeeButton").show();
+            } else {
+                $("#viewAddEmployeeButton").hide();
+            }
+        }
+    });
+
     $.ajax({
         headers: { "Authorization": "Bearer " + JSON.parse(sessionStorage.getItem('auth')).access_token },
         url: '/employee/all',
@@ -84,54 +117,107 @@ function loadEmployees() {
                 loadEmployees();
             });
 
-            for (employee of employees) {
-                if ($("#roleButton").val() == "Chef") {
-                    if (employee.isBoss) {
-                        $('#employee-data').append("<tr><td>" +
-                            employee.personID + "</td><td>" +
-                            employee.name + "</td><td>" +
-                            employee.email + "</td><td>" +
-                            "Chef" + "</td><td>" +
-                            "</td><td>" +
-                            "<button id= 'editEmployeeButton' value= 'employee.personID' class = 'btn btn-primary' type = 'button' data-toggle='modal' data-target='#editEmployeeModal' data-personID='" + employee.personID + "'>Redigera </button>" +
-                            "</td></tr>");
-                    }
-                } else if ($("#roleButton").val() == "Medarbetare") {
-                    if (!employee.isBoss) {
-                        $('#employee-data').append("<tr><td>" +
-                            employee.personID + "</td><td>" +
-                            employee.name + "</td><td>" +
-                            employee.email + "</td><td>" +
-                            "Medarbetare" + "</td><td>" +
-                            "</td><td>" +
-                            "<button id= 'editEmployeeButton' value= 'employee.personID' class = 'btn btn-primary' type = 'button' data-toggle='modal' data-target='#editEmployeeModal' data-personID='" + employee.personID + "'>Redigera </button>" +
-                            "</td></tr>");
-                    }
-                } else {
-                    if (employee.isBoss) {
-                        $('#employee-data').append("<tr><td>" +
-                            employee.personID + "</td><td>" +
-                            employee.name + "</td><td>" +
-                            employee.email + "</td><td>" +
-                            "Chef" + "</td><td>" +
-                            "</td><td>" +
-                            "<button id= 'editEmployeeButton' value= 'employee.personID' class = 'btn btn-primary'  type = 'button' data-toggle='modal' data-target='#editEmployeeModal' data-personID='" + employee.personID + "'>Redigera </button>" +
-                            "</td></tr>");
+            $.ajax({
+                headers: { "Authorization": "Bearer " + JSON.parse(sessionStorage.getItem('auth')).access_token },
+                url: '/employee/getUser',
+                type: 'GET',
+                success: function(user) {
+                    if (user.isAdmin || user.isBoss) {
+                        for (employee of employees) {
+                            if ($("#roleButton").val() == "Chef") {
+                                if (employee.isBoss) {
+                                    $('#employee-data').append("<tr><td>" +
+                                        employee.personID + "</td><td>" +
+                                        employee.name + "</td><td>" +
+                                        employee.email + "</td><td>" +
+                                        "Chef" + "</td><td>" +
+                                        "</td><td>" +
+                                        "<button id= 'editEmployeeButton' value= 'employee.personID' class = 'btn btn-primary' type = 'button' data-toggle='modal' data-target='#editEmployeeModal' data-personID='" + employee.personID + "'>Redigera </button>" +
+                                        "</td></tr>");
+                                }
+                            } else if ($("#roleButton").val() == "Medarbetare") {
+                                if (!employee.isBoss) {
+                                    $('#employee-data').append("<tr><td>" +
+                                        employee.personID + "</td><td>" +
+                                        employee.name + "</td><td>" +
+                                        employee.email + "</td><td>" +
+                                        "Medarbetare" + "</td><td>" +
+                                        "</td><td>" +
+                                        "<button id= 'editEmployeeButton' value= 'employee.personID' class = 'btn btn-primary' type = 'button' data-toggle='modal' data-target='#editEmployeeModal' data-personID='" + employee.personID + "'>Redigera </button>" +
+                                        "</td></tr>");
+                                }
+                            } else {
+                                if (employee.isBoss) {
+                                    $('#employee-data').append("<tr><td>" +
+                                        employee.personID + "</td><td>" +
+                                        employee.name + "</td><td>" +
+                                        employee.email + "</td><td>" +
+                                        "Chef" + "</td><td>" +
+                                        "</td><td>" +
+                                        "<button id= 'editEmployeeButton' value= 'employee.personID' class = 'btn btn-primary'  type = 'button' data-toggle='modal' data-target='#editEmployeeModal' data-personID='" + employee.personID + "'>Redigera </button>" +
+                                        "</td></tr>");
+                                } else {
+                                    $('#employee-data').append("<tr><td>" +
+                                        employee.personID + "</td><td>" +
+                                        employee.name + "</td><td>" +
+                                        employee.email + "</td><td>" +
+                                        "Medarbetare" + "</td><td>" +
+                                        "</td><td>" +
+                                        "<button id= 'editEmployeeButton' value= 'employee.personID' class = 'btn btn-primary'  type = 'button' data-toggle='modal' data-target='#editEmployeeModal' data-personID='" + employee.personID + "'>Redigera </button>" +
+                                        "</td></tr>");
+                                }
+                            }
+                        }
                     } else {
-                        $('#employee-data').append("<tr><td>" +
-                            employee.personID + "</td><td>" +
-                            employee.name + "</td><td>" +
-                            employee.email + "</td><td>" +
-                            "Medarbetare" + "</td><td>" +
-                            "</td><td>" +
-                            "<button id= 'editEmployeeButton' value= 'employee.personID' class = 'btn btn-primary'  type = 'button' data-toggle='modal' data-target='#editEmployeeModal' data-personID='" + employee.personID + "'>Redigera </button>" +
-                            "</td></tr>");
+                        for (employee of employees) {
+                            if ($("#roleButton").val() == "Chef") {
+                                if (employee.isBoss) {
+                                    $('#employee-data').append("<tr><td>" +
+                                        employee.personID + "</td><td>" +
+                                        employee.name + "</td><td>" +
+                                        employee.email + "</td><td>" +
+                                        "Chef" + "</td><td>" +
+                                        "</td><td>" +
+                                        "</td><td>" +
+                                        "</td></tr>");
+                                }
+                            } else if ($("#roleButton").val() == "Medarbetare") {
+                                if (!employee.isBoss) {
+                                    $('#employee-data').append("<tr><td>" +
+                                        employee.personID + "</td><td>" +
+                                        employee.name + "</td><td>" +
+                                        employee.email + "</td><td>" +
+                                        "Medarbetare" + "</td><td>" +
+                                        "</td><td>" +
+                                        "</td><td>" +
+                                        "</td></tr>");
+                                }
+                            } else {
+                                if (employee.isBoss) {
+                                    $('#employee-data').append("<tr><td>" +
+                                        employee.personID + "</td><td>" +
+                                        employee.name + "</td><td>" +
+                                        employee.email + "</td><td>" +
+                                        "Chef" + "</td><td>" +
+                                        "</td><td>" +
+                                        "</td><td>" +
+                                        "</td></tr>");
+                                } else {
+                                    $('#employee-data').append("<tr><td>" +
+                                        employee.personID + "</td><td>" +
+                                        employee.name + "</td><td>" +
+                                        employee.email + "</td><td>" +
+                                        "Medarbetare" + "</td><td>" +
+                                        "</td><td>" +
+                                        "</td><td>" +
+                                        "</td></tr>");
+                                }
+                            }
+
+                        }
                     }
                 }
-
-
-
-            }
+            })
         }
     })
 }
@@ -211,4 +297,21 @@ function deleteEmployee(personID) {
             loadEmployees();
         }
     });
+}
+
+function getUser() {
+    $.ajax({
+        headers: { "Authorization": "Bearer " + JSON.parse(sessionStorage.getItem('auth')).access_token },
+        url: '/employee/getUser',
+        type: 'GET',
+        success: function(user) {
+            if (user.isAdmin) {
+                $("#navTimeOverviewLink").show()
+                $("#navTimeReportLink").hide()
+            } else {
+                $("#navTimeOverviewLink").hide()
+                $("#navTimeReportLink").show()
+            }
+        }
+    })
 }

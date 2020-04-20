@@ -152,7 +152,7 @@ function createMyTimeChart(){
                 "var myChart = new Chart(ctx, {" +
                     "type: 'bar'," +
                     "data: {" +
-                        "labels: [" + getDates() + "]," +
+                        "labels: [" + JSON.stringify(getDates()[0]) + "," + JSON.stringify(getDates()[1]) + "," + JSON.stringify(getDates()[2]) + "," + JSON.stringify(getDates()[3]) + "," + JSON.stringify(getDates()[4]) + "," + JSON.stringify(getDates()[5]) + "]," +
                         "datasets: [{" +
                             "label: 'Arbetad tid'," +
                             "data: [" + time[0] + "," + time[1] + "," + time[2] + "," + time[3] + "," + time[4] + "," + time[5] + "]," +
@@ -182,7 +182,7 @@ function createTimeChart(employee){
                 "var myChart = new Chart(ctx, {" +
                     "type: 'bar'," +
                     "data: {" +
-                        "labels: [" + getDates() + "]," +
+                        "labels: [" + JSON.stringify(getDates()[0]) + "," + JSON.stringify(getDates()[1]) + "," + JSON.stringify(getDates()[2]) + "," + JSON.stringify(getDates()[3]) + "," + JSON.stringify(getDates()[4]) + "," + JSON.stringify(getDates()[5]) + "]," +
                         "datasets: [{" +
                             "label: 'Arbetad tid'," +
                             "data: [" + time[0] + "," + time[1] + "," + time[2] + "," + time[3] + "," + time[4] + "," + time[5] + "]," +
@@ -203,15 +203,28 @@ function createTimeChart(employee){
 function getDates(){
     var d = new Date();
     var months = [];
+    var month = new Array();
+    month[1] = "Januari";
+    month[2] = "Februari";
+    month[3] = "Mars";
+    month[4] = "April";
+    month[5] = "Maj";
+    month[6] = "Juni";
+    month[7] = "Juli";
+    month[8] = "Augusti";
+    month[9] = "September";
+    month[10] = "Oktober";
+    month[11] = "November";
+    month[12] = "December";
     var n = d.getMonth();
-    months.unshift(n);
+    months.unshift(month[n]);
     for (let i=1; i<6; i++){
         var x = n-i;
         if (x<1){
             var y = x + 12;
-            months.unshift(y);
+            months.unshift(month[y]);
         }else{
-            months.unshift(x);
+            months.unshift(month[x]);
         }        
     }
     console.log(months)

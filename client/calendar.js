@@ -166,7 +166,11 @@ function updateDateOrTimePicker(picker, time = moment()) {
  * @param {string} startTime Sets the defaultDate property of the start time and date pickers
  * @param {string} stopTime Sets the defaultDate property of the stop time and date pickers
  */
-function activateDateAndTimePickers(startDatePicker, startTimePicker, stopDatePicker, stopTimePicker, wrongDateAlert, autoChange = true, startTime = moment(), stopTime = moment()) {
+function activateDateAndTimePickers(startDatePicker, startTimePicker, stopDatePicker, stopTimePicker, wrongDateAlert, autoChange = true, startTime = "now", stopTime = "now") {
+    if (startTime == "now" && stopTime == "now") {
+        startTime = moment().toISOString(true);
+        stopTime = startTime;
+    }
     $(startDatePicker).datetimepicker({
         format: "L",
         locale: "sv",
@@ -209,22 +213,31 @@ function activateDateAndTimePickers(startDatePicker, startTimePicker, stopDatePi
         var startTime = $(startTimePicker).datetimepicker('date')
         var stopTime = $(stopTimePicker).datetimepicker('date')
 
-        if (startDate < stopDate) {
-            $(wrongDateAlert).hide();
-        } else if (startDate > stopDate) {
-            $(wrongDateAlert).show()
+        var ok = true;
+        if (startDate.dayOfYear() < stopDate.dayOfYear()) {
+            ok = true;
+        } else if (startDate.dayOfYear() > stopDate.dayOfYear()) {
+            ok = false;
         } else {
             if (startTime.hour() < stopTime.hour()) {
-                $(wrongDateAlert).hide();
+                ok = true;
             } else if (startTime.hour() > stopTime.hour()) {
-                $(wrongDateAlert).show()
+                ok = false;
             } else {
                 if (startTime.minute() <= stopTime.minute()) {
-                    $(wrongDateAlert).hide();
+                    ok = true;
                 } else {
-                    $(wrongDateAlert).show();
+                    ok = false;
                 }
             }
+        }
+
+        if(ok) {
+            $(wrongDateAlert).hide()
+            $(stopTimePicker).find(".datetimepicker-input").removeClass("is-invalid")
+        } else {
+            $(wrongDateAlert).show()
+            $(stopTimePicker).find(".datetimepicker-input").addClass("is-invalid")
         }
     }
 
@@ -340,6 +353,8 @@ function spawnAddActivityModal() {
     employeeMap.forEach(function (value) {
         value.selected = false;
     })
+    $("#addActivityForm").removeClass("was-validated")
+
     $("#addActivityModal").modal("show")
     populateProjectsDropdown("#addActivityProjectSelector");
     populateEmployeeSelector("#addActivityEmployeeSelector", "#addActivitySelectedEmployeeList");
@@ -356,32 +371,35 @@ function spawnAddActivityModal() {
  * Reads from global variable employeeMap
  */
 function addActivity() {
-    var selectedEmployees = [];
-    var notSelectedEmployees = [];
-    var allEmployees = []
-    employeeMap.forEach(function (value, key) {
-        if (value.selected == true) {
-            selectedEmployees.push(key);
-        } else {
-            notSelectedEmployees.push(key);
-        }
-        allEmployees.push(key);
-    })
+    if (document.getElementById("addActivityForm").checkValidity() == false) {
+        $("#addActivityForm").addClass("was-validated")
+    } else {
+        var selectedEmployees = [];
+        var notSelectedEmployees = [];
+        var allEmployees = []
+        employeeMap.forEach(function (value, key) {
+            if (value.selected == true) {
+                selectedEmployees.push(key);
+            } else {
+                notSelectedEmployees.push(key);
+            }
+            allEmployees.push(key);
+        })
 
 
-    var name = $("#addActivityName").val();
-    var date = $("#addActivityStartDatePicker").datetimepicker('date').toISOString(true).substring(0, 10)
-    var startTime = $("#addActivityStartDatePicker").datetimepicker('date').toISOString(true).substring(0, 11) + $("#addActivityStartTimePicker").datetimepicker('date').toISOString(true).substring(11, 19)
-    var stopTime = $("#addActivityStopDatePicker").datetimepicker('date').toISOString(true).substring(0, 11) + $("#addActivityStopTimePicker").datetimepicker('date').toISOString(true).substring(11, 19)
-    var loc = $("#addActivityLocation").val()
-    var description = $("#addActivityDescription").val()
-    //TODO: Ta fram projekt med en hashmap och populera den från servern med data.
-    //TODO: Samma sak med employees
-    var project_id = $("#addActivityProjectSelector").val()
-    var activityData;
+        var name = $("#addActivityName").val();
+        var date = $("#addActivityStartDatePicker").datetimepicker('date').toISOString(true).substring(0, 10)
+        var startTime = $("#addActivityStartDatePicker").datetimepicker('date').toISOString(true).substring(0, 11) + $("#addActivityStartTimePicker").datetimepicker('date').toISOString(true).substring(11, 19)
+        var stopTime = $("#addActivityStopDatePicker").datetimepicker('date').toISOString(true).substring(0, 11) + $("#addActivityStopTimePicker").datetimepicker('date').toISOString(true).substring(11, 19)
+        var loc = $("#addActivityLocation").val()
+        var description = $("#addActivityDescription").val()
+        //TODO: Ta fram projekt med en hashmap och populera den från servern med data.
+        //TODO: Samma sak med employees
+        var project_id = $("#addActivityProjectSelector").val()
+        var activityData;
 
-    if ($("#addActivitySomeButton:checked").val() && (selectedEmployees.length > 0)) {
-        activityData = `
+        if ($("#addActivitySomeButton:checked").val() && (selectedEmployees.length > 0)) {
+            activityData = `
         {
             "date": "${date}",
             "name": "${name}",
@@ -392,8 +410,8 @@ function addActivity() {
             "project_id": ${project_id},
             "employees": ${JSON.stringify(selectedEmployees)}
         }`
-    } else if ($("#addActivityEveryoneButton:checked").val()) {
-        activityData = `
+        } else if ($("#addActivityEveryoneButton:checked").val()) {
+            activityData = `
         {
             "date": "${date}",
             "name": "${name}",
@@ -404,8 +422,8 @@ function addActivity() {
             "project_id": ${project_id},
             "employees": ${JSON.stringify(allEmployees)}
         }`
-    } else {
-        var activityData = `
+        } else {
+            var activityData = `
         {
             "date": "${date}",
             "name": "${name}",
@@ -415,24 +433,25 @@ function addActivity() {
             "description": "${description}",
             "project_id": ${project_id}
         }`
-    }
-
-    $.ajax({
-        url: 'activity/add',
-        type: 'POST',
-        dataType: 'json',
-        contentType: 'application/json',
-        headers: { "Authorization": "Bearer " + JSON.parse(sessionStorage.getItem('auth')).access_token },
-        data: activityData,
-        success: function (response) {
-            $("#addActivityModal").modal("hide");
-            spawnAlert("Aktiviteten har lagts till")
-            calendar.refetchEvents()
-        },
-        error: function (response) {
-            console.log("error")
         }
-    })
+
+        $.ajax({
+            url: 'activity/add',
+            type: 'POST',
+            dataType: 'json',
+            contentType: 'application/json',
+            headers: { "Authorization": "Bearer " + JSON.parse(sessionStorage.getItem('auth')).access_token },
+            data: activityData,
+            success: function (response) {
+                $("#addActivityModal").modal("hide");
+                spawnAlert("Aktiviteten har lagts till")
+                calendar.refetchEvents()
+            },
+            error: function (response) {
+                console.log("error")
+            }
+        })
+    }
 }
 
 
@@ -552,6 +571,8 @@ function removeActivity(id) {
 
 function spawnChangeActivityModal(activityID) {
     $("#activityInfoModal").modal("hide");
+    $("#changeActivityForm").removeClass("was-validated")
+
     $("#changeActivityModal").modal("show");
 
     $.ajax({
@@ -584,26 +605,29 @@ function spawnChangeActivityModal(activityID) {
 }
 
 function changeActivity(id) {
-    console.log(id);
-    var selectedEmployees = [];
-    employeeMap.forEach(function (value, key) {
-        if (value.selected == true) {
-            selectedEmployees.push(key);
-        }
-    })
+    if (document.getElementById("changeActivityForm").checkValidity() == false) {
+        $("#changeActivityForm").addClass("was-validated")
+    } else {
+        console.log(id);
+        var selectedEmployees = [];
+        employeeMap.forEach(function (value, key) {
+            if (value.selected == true) {
+                selectedEmployees.push(key);
+            }
+        })
 
-    var name = $("#changeActivityName").val();
-    var date = $("#changeActivityStartDatePicker").datetimepicker('date').toISOString(true).substring(0, 10)
-    var startTime = $("#changeActivityStartDatePicker").datetimepicker('date').toISOString(true).substring(0, 11) + $("#changeActivityStartTimePicker").datetimepicker('date').toISOString(true).substring(11, 19)
-    var stopTime = $("#changeActivityStopDatePicker").datetimepicker('date').toISOString(true).substring(0, 11) + $("#changeActivityStopTimePicker").datetimepicker('date').toISOString(true).substring(11, 19)
-    var loc = $("#changeActivityLocation").val()
-    var description = $("#changeActivityDescription").val()
-    //TODO: Ta fram projekt med en hashmap och populera den från servern med data.
-    //TODO: Samma sak med employees
-    var project_id = $("#changeActivityProjectSelector").val()
-    var activityData;
+        var name = $("#changeActivityName").val();
+        var date = $("#changeActivityStartDatePicker").datetimepicker('date').toISOString(true).substring(0, 10)
+        var startTime = $("#changeActivityStartDatePicker").datetimepicker('date').toISOString(true).substring(0, 11) + $("#changeActivityStartTimePicker").datetimepicker('date').toISOString(true).substring(11, 19)
+        var stopTime = $("#changeActivityStopDatePicker").datetimepicker('date').toISOString(true).substring(0, 11) + $("#changeActivityStopTimePicker").datetimepicker('date').toISOString(true).substring(11, 19)
+        var loc = $("#changeActivityLocation").val()
+        var description = $("#changeActivityDescription").val()
+        //TODO: Ta fram projekt med en hashmap och populera den från servern med data.
+        //TODO: Samma sak med employees
+        var project_id = $("#changeActivityProjectSelector").val()
+        var activityData;
 
-    activityData = `
+        activityData = `
     {
         "date": "${date}",
         "name": "${name}",
@@ -615,20 +639,21 @@ function changeActivity(id) {
         "employees": ${JSON.stringify(selectedEmployees)}
     }`
 
-    $.ajax({
-        url: 'activity/' + id,
-        type: 'PUT',
-        dataType: 'json',
-        contentType: 'application/json',
-        headers: { "Authorization": "Bearer " + JSON.parse(sessionStorage.getItem('auth')).access_token },
-        data: activityData,
-        success: function (response) {
-            $("#changeActivityModal").modal("hide");
-            spawnAlert("Aktiviteten har ändrats", "warning")
-            calendar.refetchEvents()
-        },
-        error: function (response) {
-            console.log("error")
-        }
-    })
+        $.ajax({
+            url: 'activity/' + id,
+            type: 'PUT',
+            dataType: 'json',
+            contentType: 'application/json',
+            headers: { "Authorization": "Bearer " + JSON.parse(sessionStorage.getItem('auth')).access_token },
+            data: activityData,
+            success: function (response) {
+                $("#changeActivityModal").modal("hide");
+                spawnAlert("Aktiviteten har ändrats", "warning")
+                calendar.refetchEvents()
+            },
+            error: function (response) {
+                console.log("error")
+            }
+        })
+    }
 }

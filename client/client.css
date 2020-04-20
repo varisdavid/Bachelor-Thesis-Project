@@ -44,11 +44,13 @@ h2 {
 
 }
 
-.btn-square {
-    width: 350px;
-    height: 200px;
+.btn-sq-lg {
+    width: 25% !important;
+    height: 150px !important;
+    font-size:22px;
 }
-.empHolder {
+
+  .empHolder {
     padding-left: 1rem;
     padding-right: 1rem;
     padding-top: 0.5rem;
@@ -60,6 +62,7 @@ h2 {
 .cal {
     padding-top: 1rem;
 }
+
 .header-item {
     white-space: nowrap;
 }
@@ -69,4 +72,7 @@ h2 {
     width: 100vw;
     position:relative;
     left: calc(-1 * (100vw - 100%) / 2);
+}
+
+#brandButton{
 }

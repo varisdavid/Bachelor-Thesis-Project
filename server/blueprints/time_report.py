@@ -185,7 +185,6 @@ def getWorkerLoggedTime():
     time.append(fourth_month_time)
     time.append(fivth_month_time)
     time.append(this_month_time)
-    print(time)
     return jsonify(time)
 
 
@@ -286,7 +285,6 @@ def getLoggedTime(employeeID):
     time.append(fourth_month_time)
     time.append(fivth_month_time)
     time.append(this_month_time)
-    print(time)
     return jsonify(time)
 
     

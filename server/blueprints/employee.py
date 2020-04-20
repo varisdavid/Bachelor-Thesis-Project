@@ -72,11 +72,13 @@ def employee(pID):
             serializedEmployee = Employee.serialize(employee)
             db.session.delete(employee)
             db.session.commit()
-            print("DELETE DONE")
             return {"msg": "Employee deleted"}, 200
         else:
-            print("NOT ADMIN BITCH")
             return {"msg": "Not authorized"}, 401
 
-
-
+@bp.route("/getUser", methods=['GET'])
+@jwt_required
+def getUser():
+    user_id = get_jwt_identity()
+    employee = Employee.query.get(user_id)
+    return jsonify(employee.serialize())

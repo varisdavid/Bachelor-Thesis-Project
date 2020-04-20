@@ -10,6 +10,7 @@ function changeToProjectView() {
         url: '/project_view/projects',
         type: 'GET',
         success: function (projects_json) {
+            $("#activityListTab").empty()
             $("#projectListTab").empty()
             displayProjects(projects_json)
         }
@@ -62,24 +63,18 @@ function modalProjectUpdate() {
 
 
 function displayProjects(projects_json) {
-    $("#projectListTab").empty()
+    //$("#projectListTab").empty()
     var projectList = projects_json
-    var fadeSpeed = 0
+    var fadeSpeed = 1;
     for (project of projectList) {
-        fadeSpeed = fadeSpeed + 1000
-        projectName = project.name
-        projectCompanyOrgNr = project.companyOrgNumber
+        fadeSpeed += 1;
         //Adds items to list
-        $("#projectListTab").append('<span data-toggle="modal" data-target="#modalEditProject">'
-            + '<a class="list-group-item list-group-item-action rounded-0 my-list-item"'
-            + 'onclick=editProject(' + project.id + ') '
-            + 'id=' + projectName + '>'
-            + '<h4>'
-            + projectName
-            + '</h4></a>'
-            + '</span>')
-        //Fades in list
-        $('#' + projectName).fadeIn(fadeSpeed);
+        var html = `
+        <span data-toggle="modal" data-target="#modalEditProject">
+        <a class="list-group-item list-group-item-action rounded-0" onclick=editProject(${project.id}) id="${project.name}">
+        <h4>${project.name}</h4></a></span>`
+
+        $(html).appendTo("#projectListTab").hide().fadeIn(fadeSpeed * 130)
     }
 }
 
@@ -89,11 +84,11 @@ function editProject(project_id) {
         url: '/project_view/projects/' + project_id,
         type: 'GET',
         success: function (project) {
-
-            $("#activityListTab").empty()
+            $("#modalProjectInfoContainer").hide().fadeIn(200)
             $('#modalEditProject').find('#modalEditProjectName').val(project.name)
             $('#modalEditProject').find('#modalEditProjectOrgNr').val(project.companyOrgNumber)
             $('#modalEditProject').find('#modalProjectId').val(project.id)
+            $("#modalTimeReportInfoContainer").hide()
             displayActivities(project.id)
         }
     })
@@ -104,13 +99,16 @@ function displayActivities(project_id) {
         url: '/project_view/projects/' + project_id + '/activities',
         type: 'GET',
         success: function (activityList) {
+            var fadeSpeed = 1;
+            if (activityList.length > 0) {
+                $("#activityListTab").empty()
+            }
             for (activity of activityList) {
-                $("#emptyList").empty()
+                var html = `<a class="list-group-item list-group-item-action rounded-0" onclick=loadActivityInfo(${activity.id})>
+                <h6>${activity.name}</h6></a>`
                 //Adds items to list
-                $("#activityListTab").append('<a class="list-group-item list-group-item-action rounded-0 my-list-item" onclick=loadActivityInfo(' + activity.id + ')>'
-                    + '<h6>'
-                    + activity.name
-                    + '</h6></a>')
+                $(html).appendTo("#activityListTab").hide().fadeIn(fadeSpeed * 500)
+                fadeSpeed += 1;
             }
 
         }
@@ -126,7 +124,6 @@ function loadActivityInfo(activityID) {
 
             employeeString = "";
             response.employees.forEach(function (emp) {
-                loadEmployeeHours(response.project_id,emp.id)
                 employeeString = employeeString + emp.name + "\n";
                 console.log(employeeString)
             })
@@ -165,10 +162,10 @@ function loadActivityInfo(activityID) {
              <div class="modal-footer">
              </div>
              `);
-             response.employees.forEach(function (emp) {
-                $("#listOfEmployees").append('<a class="list-group-item list-group-item-action rounded-0 my-list-item" '
-                + 'data-toggle="modal" data-target="#reportedTimeModal">' 
-                + emp.name + '</a>')
+            response.employees.forEach(function (emp) {
+                $("#listOfEmployees").append('<a class="list-group-item list-group-item-action rounded-0" '
+                    + ' onclick=loadEmployeeHours(' + response.project_id + ',' + emp.personID + ')>'
+                    + emp.name + '</a>')
             })
         },
         error: function (response) {
@@ -177,13 +174,57 @@ function loadActivityInfo(activityID) {
     })
 }
 
-function loadEmployeeHours(project_id, employee_id){
+function loadEmployeeHours(project_id, employee_id) {
     $.ajax({
         headers: { "Authorization": "Bearer " + JSON.parse(sessionStorage.getItem('auth')).access_token },
         url: '/time-report/report_time/projects/' + project_id,
         type: 'GET',
         success: function (projectLoggedHours) {
-            
+            employeeTime = []
+            for (timeReport of projectLoggedHours) {
+                if (timeReport.employeeID == employee_id) {
+                    employeeTime.push(timeReport)
+                }
+            }
+            if (employeeTime == []) {
+                return " ";
+            }
+            $("#modalProjectInfoContainer").hide()
+            $("#modalTimeReportInfoContainer").html(`
+                <div class="row">
+                    <div class="col">
+                        <h5 class="mt-2 pt-2 float-left">Rapporterad tid</h5>
+                        <button class="btn btn-secondary mt-2 mr-0 float-right" onclick=editProject(${project_id})>Tillbaka</button>
+                    </div>
+                </div>
+                <hr>
+                <table class="table table-sm">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Starttid</th>
+                            <th scope="col">Sluttid</th>
+                            <th scope="col">Kommentar</th>
+                        </tr>
+                    </thead>
+                    <tbody id="reportTimeTableContents">
+                        
+                    </tbody>
+                </table>
+            `).hide().fadeIn(200);
+
+            var count = 1;
+            for (timeReport of employeeTime) {
+
+                var html = `<tr>
+                <th scope="row">${count}</th>
+                <td>${timeReport.startTime}</td>
+                <td>${timeReport.endTime}</td>
+                <td>${timeReport.comment}</td>
+                </tr>`
+                $(html).appendTo("#reportTimeTableContents").hide().fadeIn(count * 150)
+                count += 1;
+            }
         }
     })
 }
@@ -230,8 +271,16 @@ $(document).ready(function () {
         createNewProject();
     })
 
-    //Removes are you sure message on close
+    $("#modalTimeReportBackBtn").click(function (e) {
+        console.log("KÖöörd")
+        editProject(project_id)
+    });
+
     $('#modalEditProject').on('hidden.bs.modal', function () {
         $('#areYouSureContainer').empty()
+        $("#modalProjectInfoContainer").show()
+        $("#modalTimeReportInfoContainer").hide()
+        $("#activityListTab").html(`<p class="font-italic mt-auto mb-auto">Det finns inga aktiviteter på det här projektet</p>`);
+        $("#projectActivityInfo").html(`<p class="font-italic mt-2 pt-2">Klicka på en aktivitet för att visa information</p>`)
     })
 })

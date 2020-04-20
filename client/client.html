@@ -65,7 +65,7 @@
     Edit employee modal, would be shown from some kind of employee management page. 
   -->
     <div class="modal fade" id="editEmployeeModal" tabindex="-1" role="dialog" aria-labelledby="editEmployeeModal" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="editEmployeeModalTitle">Redigera anställda</h5>
@@ -380,13 +380,13 @@
 
     <!-- Change activity modal -->
     <div class="modal fade" id="changeActivityModal" tabindex="-1" role="dialog" aria-labelledby="changeActivityModal" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="changeActivityModalTitle">Ändra aktivitet: </h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Stäng">
-            <span aria-hidden="true">&times;</span>
-          </button>
+               <span aria-hidden="true">&times;</span>
+             </button>
                 </div>
                 <div class="modal-body">
                     <form id="changeActivityForm">
@@ -408,9 +408,9 @@
                         <div class="form-group">
                             <label for="changeActivityProjectSelector">Vilket projekt gäller detta</label>
                             <select class="form-control" id="changeActivityProjectSelector">
-                <option value="0">Inget projekt</option>
-
-              </select>
+                   <option value="0">Inget projekt</option>
+   
+                 </select>
                         </div>
 
                         <label for="changeActivityWholeEmpSelector">Vilka medarbetare?</label>
@@ -419,12 +419,12 @@
                                 <div class="col">
                                     <div class="form-group">
                                         <select class="form-control" id="changeActivityEmployeeSelector">
-                    </select>
+                       </select>
                                     </div>
                                 </div>
                                 <div class="col-2">
                                     <button type="button" class="btn btn-secondary" onclick="addEmployeeToSelectedEmployees('#changeActivityEmployeeSelector','#changeActivitySelectedEmployeeList')"><i
-                      class="fa fa-user-plus"></i></button>
+                         class="fa fa-user-plus"></i></button>
                                 </div>
                             </div>
                             <div class="empHolder rounded border" id="changeActivityEmpHolder">
@@ -491,70 +491,15 @@
 
                     </form>
                 </div>
-            </div>
-            <div class="empHolder rounded border" id="changeActivityEmpHolder">
-                <ul class="list-group h-25" id="changeActivitySelectedEmployeeList">
-                    <li class="list-group-item active">Valda medarbetare</li>
-                </ul>
-                <p class="text-center text-muted" id="changeActivityEmpHolderText">Valda medarbetare kommer att hamna här</p>
-            </div>
-        </div>
-        <hr>
-        <div class="alert alert-warning" id="changeActivityWrongDateAlert" style="display:none;" role="alert">
-            Avslutstiden måste ligga efter den första
-        </div>
-
-        <label for="changeActivityStartPickers">Starttid</label>
-        <div class="row" id="changeActivityStartPickers">
-            <div class="col">
-                <div class="form-group">
-                    <div class="input-group date" id="changeActivityStartDatePicker" data-target-input="nearest">
-                        <input type="text" class="form-control datetimepicker-input" data-target="#changeActivityStartDatePicker" />
-                        <div class="input-group-append" data-target="#changeActivityStartDatePicker" data-toggle="datetimepicker">
-                            <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col">
-                <div class="form-group">
-                    <div class="input-group date" id="changeActivityStartTimePicker" data-target-input="nearest">
-                        <input type="text" class="form-control datetimepicker-input" data-target="#changeActivityStartTimePicker" />
-                        <div class="input-group-append" data-target="#changeActivityStartTimePicker" data-toggle="datetimepicker">
-                            <div class="input-group-text"><i class="fa fa-clock-o"></i></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <label for="changeActivityStopPickers">Sluttid</label>
-        <div class="row" id="changeActivityStopPickers">
-            <div class="col">
-                <div class="form-group">
-                    <div class="input-group date" id="changeActivityStopDatePicker" data-target-input="nearest">
-                        <input type="text" class="form-control datetimepicker-input" data-target="#changeActivityStopDatePicker" />
-                        <div class="input-group-append" data-target="#changeActivityStopDatePicker" data-toggle="datetimepicker">
-                            <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col">
-                <div class="form-group">
-                    <div class="input-group date" id="changeActivityStopTimePicker" data-target-input="nearest">
-                        <input type="text" class="form-control datetimepicker-input" data-target="#changeActivityStopTimePicker" />
-                        <div class="input-group-append" data-target="#changeActivityStopTimePicker" data-toggle="datetimepicker">
-                            <div class="input-group-text"><i class="fa fa-clock-o"></i></div>
-                        </div>
-                    </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Stäng</button>
+                    <button type="button" class="btn btn-warning" value="" onclick="changeActivity(this.value)" id="changeActivitySubmitButton">Ändra</button>
                 </div>
             </div>
 
         </div>
     </div>
+
 
 
     <!-- Activity info modal -->
@@ -572,14 +517,10 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" id="activityInfoRemoveActivityButton" value="" class="btn btn-danger" onclick="removeActivity(this.value)">Ta bort aktivitet</button>
+                    <button type="button" id="activityInfoChangeButton" value="" class="btn btn-warning" onclick="spawnChangeActivityModal(this.value)">Ändra</button>
                     <button type="button" class="btn btn-primary" data-dismiss="modal">Klar</button>
                 </div>
             </div>
-        </div>
-        <div class="modal-footer">
-            <button type="button" id="activityInfoRemoveActivityButton" value="" class="btn btn-danger" onclick="removeActivity(this.value)">Ta bort aktivitet</button>
-            <button type="button" id="activityInfoChangeButton" value="" class="btn btn-warning" onclick="spawnChangeActivityModal(this.value)">Ändra</button>
-            <button type="button" class="btn btn-primary" data-dismiss="modal">Klar</button>
         </div>
     </div>
     </div>
@@ -1104,12 +1045,14 @@
                     <button type="button" class="close" data-dismiss="modal" aria-label="Stäng">
         <span aria-hidden="true">&times;</span>
       </button>
+
                 </div>
                 <div class="modal-body">
                     <form id="editLoggedWorkForm">
                         <div class="form-group">
                             <label for="addProjectSelector">Vilket projekt gäller detta</label>
-                            <select class="form-control" id="addProjectSelector">
+                            <select class="form-control" id="addProjectSelector2">
+
                         <option value="0">Inget projekt</option>
                       </select>
                         </div>
@@ -1168,12 +1111,14 @@
                             <label for="sluttid">Kommentarer</label>
                             <textarea class="form-control" id="comments"></textarea>
                         </div>
+
                 </div>
                 </form>
                 <div class="modal-footer">
                     <button type="button" id="deleteLoggedWorkButton" class="btn btn-danger" data-dismiss="modal">Radera tidsrapport</button>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Stäng</button>
                     <button type="button" id="editLoggedWorkSubmitButton" class="btn btn-primary" data-dismiss="modal">Slutför</button>
+
                 </div>
             </div>
         </div>

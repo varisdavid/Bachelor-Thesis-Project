@@ -4,10 +4,10 @@
 function changeToRegisterCompany() {
     $("#mainView").html($("#signUpView").html());
 
-    $("#signUpButton").click(function (e) {
+    $("#signUpButton").click(function(e) {
         signUpCompany()
     })
-    $("#cancelSignUpButton").click(function (e) {
+    $("#cancelSignUpButton").click(function(e) {
         changeToLandingPage()
     })
 }
@@ -15,6 +15,7 @@ function changeToRegisterCompany() {
  * Function used for changing view to the "Landing page" view
  */
 function changeToLandingPage() {
+<<<<<<< HEAD
     var auth = sessionStorage.getItem('auth');
     if (!(auth === null)) {
         $.ajax({
@@ -36,6 +37,10 @@ function changeToLandingPage() {
     }else{
         $("#mainView").html($("#landingPage").html())
         $("#becomeCustomerButton").click(function(e) {
+=======
+    $("#mainView").html($("#landingPage").html())
+    $("#becomeCustomerButton").click(function(e) {
+>>>>>>> origin
         e.preventDefault();
         changeToRegisterCompany()
     })
@@ -52,37 +57,37 @@ function changeToTimeReport(){
     getMyWork()
 }
 
-$(document).ready(function () {
+$(document).ready(function() {
     $("#mainView").html($("#landingPage").html())
 
 
-    $("#becomeCustomerButton").click(function (e) {
+    $("#becomeCustomerButton").click(function(e) {
         e.preventDefault();
         changeToRegisterCompany()
     })
 
-    $("#brandButton").click(function (e) {
+    $("#brandButton").click(function(e) {
         changeToLandingPage();
     })
 
     //Navbar links:
-    $("#navbarScheduleLink").click(function (e) {
+    $("#navbarScheduleLink").click(function(e) {
         changeToCalendarView()
     })
 
-    $("#navAboutLink").click(function (e) {
+    $("#navAboutLink").click(function(e) {
         $("#mainView").html($("#aboutView").html())
     })
 
-    $("#navPriceLink").click(function (e) {
+    $("#navPriceLink").click(function(e) {
         $("#mainView").html($("#priceView").html())
     })
 
-    $("#navContactLink").click(function (e) {
+    $("#navContactLink").click(function(e) {
         $("#mainView").html($("#contactView").html())
     })
 
-    $("#navSupportLink").click(function (e) {
+    $("#navSupportLink").click(function(e) {
         $("#mainView").html($("#supportView").html())
     })
 
@@ -105,16 +110,12 @@ $(document).ready(function () {
         loadEmployees(); //In employee.js
     })
 
-    $("#navProjectViewLink").click(function (e) {
-        changeToProjectView()
-    })
-
     // Marks current navbar selection
     var linkwrapper = document.getElementById("navbarNavAltMarkup");
     console.log(linkwrapper)
     var links = linkwrapper.getElementsByClassName("my-header-link");
     for (var i = 0; i < links.length; i++) {
-        links[i].addEventListener("click", function () {
+        links[i].addEventListener("click", function() {
             var current = document.getElementsByClassName("active-link");
             current[0].className = current[0].className.replace(" active-link", "");
             this.className += " active-link";

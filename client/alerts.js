@@ -16,12 +16,10 @@ function alertTimeout(wait, container){
 
 $(function() {
     $("#main-alert-holder").mouseenter(function () {
-        console.log("asd")
         $("#main-alert-holder").css("opacity", "50%");
     })
 
     $("#main-alert-holder").mouseleave(function () {
-        console.log("asd")
         $("#main-alert-holder").css("opacity", "100%");
     })
 })

@@ -32,10 +32,10 @@ function updatePageLoggedIn(signedIn) {
 
 /**
  * Adds the ability to press enter to log in.
-*/
- $( document ).ready(function() {
+ */
+$(document).ready(function() {
     $("#signInModal").keyup(function(event) {
-        if (event.key=="Enter") {
+        if (event.key == "Enter") {
             signIn();
         }
     })

@@ -288,6 +288,8 @@ def getLoggedTime(employeeID):
     time.append(this_month_time)
     print(time)
     return jsonify(time)
+
+    
 @bp.route('/totalTime/<string:pID>', methods=['GET'])
 @jwt_required
 def get_time():

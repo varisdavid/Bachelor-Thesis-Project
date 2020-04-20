@@ -33,18 +33,18 @@
         <span class="navbar-toggler-icon"></span>
       </button>
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-                <h2 id="brandButton"><a class="navbar-brand" href="#">ERP</a></h2>
+                <h2 id="brandButton"><a class="navbar-brand my-header-link active-link" href="#">ERP</a></h2>
                 <div class="navbar-nav" id="navBar">
-                    <a class="nav-item nav-link header-item" id="navPriceLink" href="#"><i class="fa fa-usd" aria-hidden="true"></i> Pris</a>
-                    <a class="nav-item nav-link header-item" id="navAboutLink" href="#"><i class="fa fa-info-circle" aria-hidden="true"></i> Om oss</a>
-                    <a class="nav-item nav-link header-item" id="navSupportLink" href="#"><i class="fa fa-handshake-o" aria-hidden="true"></i> Support</a>
-                    <a class="nav-item nav-link header-item" id="navContactLink" href="#"><i class="fa fa-phone" aria-hidden="true"></i> Kontakt</a>
+                    <a class="nav-item nav-link header-item my-header-link" id="navPriceLink" href="#"><i class="fa fa-usd" aria-hidden="true"></i> Pris</a>
+                    <a class="nav-item nav-link header-item my-header-link" id="navAboutLink" href="#"><i class="fa fa-info-circle" aria-hidden="true"></i> Om oss</a>
+                    <a class="nav-item nav-link header-item my-header-link" id="navSupportLink" href="#"><i class="fa fa-handshake-o" aria-hidden="true"></i> Support</a>
+                    <a class="nav-item nav-link header-item my-header-link" id="navContactLink" href="#"><i class="fa fa-phone" aria-hidden="true"></i> Kontakt</a>
                     <a class="nav-item nav-link header-item my-header-link" id ="navTimeReportLink" href="#">Tidsrapportering</a>
                     <a class="nav-item nav-link header-item my-header-link" id ="navTimeOverviewLink"href="#">Tidsöversikt</a> 
-                    <a class="nav-item nav-link header-item" id="navEmployeeLink" href="#"><i class="fa fa-address-book-o" aria-hidden="true"></i> Medarbetare</a>
-                    <a class="nav-item nav-link header-item" id="navbarScheduleLink" href="#"><i class="fa fa-calendar"></i>
+                    <a class="nav-item nav-link header-item my-header-link" id="navEmployeeLink" href="#"><i class="fa fa-address-book-o" aria-hidden="true"></i> Medarbetare</a>
+                    <a class="nav-item nav-link header-item my-header-link" id="navbarScheduleLink" href="#"><i class="fa fa-calendar"></i>
             Schema</a>
-                    <a class="nav-item nav-link header-item" id="navProjectViewLink" href="#"><i class="fa fa-briefcase" aria-hidden="true"></i> Projektöversikt</a>
+                    <a class="nav-item nav-link header-item my-header-link" id="navProjectViewLink" href="#"><i class="fa fa-briefcase" aria-hidden="true"></i> Projektöversikt</a>
                 </div>
                 <ul class="nav navbar-nav navbar-right ml-auto">
                     <button type="button" class="btn btn-outline-dark signInButton header-item" data-toggle="modal" data-target="#signInModal" style="display:none;">Logga in</button>
@@ -913,7 +913,9 @@
             <div class="btn-group">
               <button type="button" class="btn btn-outline-dark dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 Anställd
+                <span class="caret"></span>
               </button>
+              
               <div class="dropdown-menu" id="users"> 
               </div>
             </div>
@@ -1098,6 +1100,100 @@
             data-target='#addEmployeeModal' id="addEmployeeButton">Lägg till medarbetare</button>
       </div>
     </template>
+
+        <!-- 
+    Edit LoggedWork modal, would be shown from some kind of employee management page. 
+  -->
+  <div class="modal fade" id="editLoggedWorkModal" tabindex="-1" role="dialog" aria-labelledby="editLoggedWorkModal" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editLoggedWorkTitle">Redigera tidsrapport</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Stäng">
+        <span aria-hidden="true">&times;</span>
+      </button>
+            </div>
+            <div class="modal-body">
+                <form id="editLoggedWorkForm">
+                    <div class="form-group">
+                      <label for="addProjectSelector">Vilket projekt gäller detta</label>
+                      <select class="form-control" id="addProjectSelector">
+                        <option value="0">Inget projekt</option>
+                      </select>
+                    </div>
+      
+                    <label for="addTimeReportStartPickers">Starttid</label>
+                  <div class="row" id="addTimeReportStartPickers">
+                    <div class="col">
+                      <div class="form-group">
+                        <div class="input-group date" id="addTimeReportStartDatePicker" data-target-input="nearest">
+                          <input type="text" class="form-control datetimepicker-input"
+                            data-target="#addTimeReportStartDatePicker" />
+                          <div class="input-group-append" data-target="#addTimeReportStartDatePicker"
+                            data-toggle="datetimepicker">
+                            <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+      
+                    <div class="col">
+                      <div class="form-group">
+                        <div class="input-group date" id="addTimeReportStartTimePicker" data-target-input="nearest">
+                          <input type="text" class="form-control datetimepicker-input"
+                            data-target="#addTimeReportStartTimePicker" />
+                          <div class="input-group-append" data-target="#addTimeReportStartTimePicker"
+                            data-toggle="datetimepicker">
+                            <div class="input-group-text"><i class="fa fa-clock-o"></i></div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+      
+                  <label for="addTimeReportStopPickers">Sluttid</label>
+                  <div class="row" id="addTimeReportStopPickers">
+                    <div class="col">
+                      <div class="form-group">
+                        <div class="input-group date" id="addTimeReportStopDatePicker" data-target-input="nearest">
+                          <input type="text" class="form-control datetimepicker-input"
+                            data-target="#addTimeReportStopDatePicker" />
+                          <div class="input-group-append" data-target="#addTimeReportStopDatePicker"
+                            data-toggle="datetimepicker">
+                            <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+      
+                    <div class="col">
+                      <div class="form-group">
+                        <div class="input-group date" id="addTimeReportStopTimePicker" data-target-input="nearest">
+                          <input type="text" class="form-control datetimepicker-input"
+                            data-target="#addTimeReportStopTimePicker" />
+                          <div class="input-group-append" data-target="#addTimeReportStopTimePicker"
+                            data-toggle="datetimepicker">
+                            <div class="input-group-text"><i class="fa fa-clock-o"></i></div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+      
+                    <div class="form-group">
+                      <label for="sluttid">Kommentarer</label>
+                      <textarea class="form-control" id="comments"></textarea>
+                    </div>
+            </div>
+          </form>
+            <div class="modal-footer">
+                <button type="button" id="deleteLoggedWorkButton" class="btn btn-danger" data-dismiss="modal">Radera tidsrapport</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Stäng</button>
+                <button type="button" id="editLoggedWorkSubmitButton" class="btn btn-primary" data-dismiss="modal">Slutför</button>
+            </div>
+        </div>
+    </div>
+</div>
 
     <template id="aboutView">
       <h1>Om oss</h1>

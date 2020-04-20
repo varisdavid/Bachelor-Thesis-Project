@@ -114,7 +114,10 @@ function getLoggedWork(work){
         success: function(time){
             $("#workTable").append("<tr><th scope='row'>" + work.projectID + "</th>" +
             "<td>" + work.startTime.substring(5,11) + "</td>" +
-            "<td>"+ time + "</td></tr>");
+            "<td>"+ time +  
+            "</td><td>" +
+            "<button id= 'editLoggedWorkButton' value= 'work.id' class = 'btn btn-primary'  type = 'button' data-toggle='modal' data-target='#editLoggedWorkModal' data-workID='" + work.id + "'>Redigera </button>" + 
+            "</td></tr>" );
 }})
 }
 

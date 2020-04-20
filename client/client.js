@@ -15,7 +15,6 @@ function changeToRegisterCompany() {
  * Function used for changing view to the "Landing page" view
  */
 function changeToLandingPage() {
-<<<<<<< HEAD
     var auth = sessionStorage.getItem('auth');
     if (!(auth === null)) {
         $.ajax({
@@ -37,10 +36,6 @@ function changeToLandingPage() {
     }else{
         $("#mainView").html($("#landingPage").html())
         $("#becomeCustomerButton").click(function(e) {
-=======
-    $("#mainView").html($("#landingPage").html())
-    $("#becomeCustomerButton").click(function(e) {
->>>>>>> origin
         e.preventDefault();
         changeToRegisterCompany()
     })

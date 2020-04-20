@@ -42,11 +42,6 @@ $('#editEmployeeModal').on('hidden.bs.modal', function(event) {
     $(this).find('#editEmployeeEmail-input').val('');
 });
 
-function changeToEmployeeView() {
-    $("#mainView").html($("#employeeView").html())
-    loadEmployees(); //In employee.js
-}
-
 function loadEmployees() {
     $.ajax({
         headers: { "Authorization": "Bearer " + JSON.parse(sessionStorage.getItem('auth')).access_token },
@@ -313,5 +308,6 @@ function getUser() {
                 $("#navTimeReportLink").show()
             }
         }
-    })
+    });
+
 }

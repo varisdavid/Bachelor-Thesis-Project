@@ -42,22 +42,16 @@ function changeToLandingPage() {
 
 function changeToTimeOverview() {
     $("#mainView").html($("#timeOverviewView").html())
-    getEmployees()
+    getEmployees();
 }
 
 function changeToTimeReport() {
     $("#mainView").html($("#timeReportView").html())
-    getMyWork()
+    getMyWork();
 }
 
 $(document).ready(function() {
-    $("#mainView").html($("#landingPage").html())
-
-
-    $("#becomeCustomerButton").click(function(e) {
-        e.preventDefault();
-        changeToRegisterCompany()
-    })
+    changeToLandingPage();
 
     $("#brandButton").click(function(e) {
         changeToLandingPage();
@@ -102,6 +96,10 @@ $(document).ready(function() {
         loadEmployees(); //In employee.js
     })
 
+    $("#navProjectViewLink").click(function(e) {
+        changeToProjectView()
+    })
+
     // Marks current navbar selection
     var linkwrapper = document.getElementById("navbarNavAltMarkup");
     console.log(linkwrapper)
@@ -113,5 +111,4 @@ $(document).ready(function() {
             this.className += " active-link";
         });
     }
-
 })

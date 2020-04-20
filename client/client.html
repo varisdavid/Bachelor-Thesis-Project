@@ -916,7 +916,82 @@
 
     <template id="aboutView">
       <h1>Om oss</h1>
-      <p>Vi erbjuder en lösning för schemaläggning och tidsrapportering i form av en webbapplikation.</p>
+  <p>Vi erbjuder en webbapplikation för schemaläggning och tidsrapportering för företag verksamma inom hantverkarindustrin.</p>
+</div>
+
+<h2 style="text-align:center">Team</h2>
+<div class="row">
+  <div class="column">
+    <div class="card">
+      <img src="images/pic.png" alt="Isac" style="width:100%">
+      <div class="container">
+        <h2>Isac Almquist</h2>
+        <p class="title">Developer</p>
+      
+      </div>
+    </div>
+  </div>
+
+  <div class="column">
+    <div class="card">
+      <img src="images/pic.png" alt="Philip" style="width:100%">
+      <div class="container">
+        <h2>Philip Lindell</h2>
+        <p class="title">Developer</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="column">
+    <div class="card">
+      <img src="images/pic.png" alt="Stefan" style="width:100%">
+      <div class="container">
+        <h2>Stefan Phung</h2>
+        <p class="title">Developer</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="column">
+    <div class="card">
+      <img src="images/pic.png" alt="Mattis" style="width:100%">
+      <div class="container">
+        <h2>Mattis Bark</h2>
+        <p class="title">Developer</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="column">
+    <div class="card">
+      <img src="images/pic.png" alt="Sara" style="width:100%">
+      <div class="container">
+        <h2>Sara Lindholm</h2>
+        <p class="title">Developer</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="column">
+    <div class="card">
+      <img src="images/pic.png" alt="Christoffer" style="width:100%">
+      <div class="container">
+        <h2>Christoffer Johansson</h2>
+        <p class="title">Developer</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="column">
+    <div class="card">
+      <img src="images/pic.png" alt="David" style="width:100%">
+      <div class="container">
+        <h2>David Varis</h2>
+        <p class="title">Developer</p>
+      </div>
+    </div>
+  </div>
+
     </template>
 
     <template id="priceView">
@@ -925,9 +1000,28 @@
     </template>
 
     <template id="contactView">
-      <h1>Kontakt</h1>
-      <p>Kontakta oss på denna <a href="mailto:mail@mail.com">mailaddress</a> eller fyll i formuläret nedan som inte
-        är där än.</p>
+      <div class="container">
+        <div style="text-align:center">
+          <h2>Kontakta oss</h2>
+          <p>Här kan du skicka in en fråga till oss</p>
+        </div>
+        <div class="row">
+          <div class="column">
+          </div>
+          <div class="column">
+            <form action="/action_page.php">
+              <label for="fname">Förnamn</label>
+              <input type="text" id="fname" name="firstname" placeholder="Your name..">
+              <label for="lname">Efternamn</label>
+              <input type="text" id="lname" name="lastname" placeholder="Your last name..">
+             
+              <label for="subject">Fråga</label>
+              <textarea id="subject" name="subject" placeholder="Write something.." style="height:170px"></textarea>
+              <input type="submit" value="Submit">
+            </form>
+          </div>
+        </div>
+      </div>
     </template>
 
     <template id="supportView">

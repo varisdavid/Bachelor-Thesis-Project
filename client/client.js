@@ -18,36 +18,34 @@ function changeToLandingPage() {
     var auth = sessionStorage.getItem('auth');
     if (!(auth === null)) {
         $.ajax({
-            url: 'http://localhost:5000' + '/employee/getUser',
+            url: '/employee/getUser',
             type: 'GET',
-            headers: { "Authorization": "Bearer " + JSON.parse(sessionStorage.getItem('auth')).access_token},
-            success: function(user){
-                if (user.isAdmin){
-                    $("#mainView").html($("#adminHomepageView").html())
-                } 
-                else if (user.isBoss) {
-                    $("#mainView").html($("#bossHomepageView").html())
-                } 
-                else {
-                    $("#mainView").html($("#workerHomepageView").html())
+            headers: { "Authorization": "Bearer " + JSON.parse(sessionStorage.getItem('auth')).access_token },
+            success: function(user) {
+                if (user.isAdmin) {
+                    $("#mainView").html($("#adminHomepageView").html());
+                } else if (user.isBoss) {
+                    $("#mainView").html($("#bossHomepageView").html());
+                } else {
+                    $("#mainView").html($("#workerHomepageView").html());
                 }
             }
-        })
-    }else{
-        $("#mainView").html($("#landingPage").html())
+        });
+    } else {
+        $("#mainView").html($("#landingPage").html());
         $("#becomeCustomerButton").click(function(e) {
-        e.preventDefault();
-        changeToRegisterCompany()
-    })
+            e.preventDefault();
+            changeToRegisterCompany();
+        });
     }
 }
 
-function changeToTimeOverview(){
+function changeToTimeOverview() {
     $("#mainView").html($("#timeOverviewView").html())
     getEmployees()
 }
 
-function changeToTimeReport(){
+function changeToTimeReport() {
     $("#mainView").html($("#timeReportView").html())
     getMyWork()
 }
@@ -65,7 +63,6 @@ $(document).ready(function() {
         changeToLandingPage();
     })
 
-    //Navbar links:
     $("#navbarScheduleLink").click(function(e) {
         changeToCalendarView()
     })
@@ -86,19 +83,19 @@ $(document).ready(function() {
         $("#mainView").html($("#supportView").html())
     })
 
-    $("#navTimeOverviewLink").click(function (e) {
+    $("#navTimeOverviewLink").click(function(e) {
         changeToTimeOverview()
     })
 
-    $("#navTimeReportLink").click(function (e) {
+    $("#navTimeReportLink").click(function(e) {
         changeToTimeReport()
     })
 
-    $("#dashboardViewLink").click(function (e) {
+    $("#dashboardViewLink").click(function(e) {
         $("#mainView").html($("#dashboardView").html())
     })
-    $("#navProjectViewLink").click(function (e) {
-       changeToProjectView()
+    $("#navProjectViewLink").click(function(e) {
+        changeToProjectView()
     })
     $("#navEmployeeLink").click(function(e) {
         $("#mainView").html($("#employeeView").html())

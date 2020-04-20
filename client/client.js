@@ -18,7 +18,7 @@ function changeToLandingPage() {
     var auth = sessionStorage.getItem('auth');
     if (!(auth === null)) {
         $.ajax({
-            url: '/employee/getUser',
+            url: 'http://localhost:5000' + '/employee/getUser',
             type: 'GET',
             headers: { "Authorization": "Bearer " + JSON.parse(sessionStorage.getItem('auth')).access_token},
             success: function(user){

@@ -49,7 +49,7 @@ function spawnTimeReportModal(){
 
 function getEmployees() {
     $.ajax({
-        url: '/employee/all',
+        url: 'http://localhost:5000' + '/employee/all',
         type: 'GET',
         headers: { "Authorization": "Bearer " + JSON.parse(sessionStorage.getItem('auth')).access_token},
         success: function(employees){
@@ -66,7 +66,7 @@ function getLoggedJobs(employee) {
     $("#mainView").html($("#timeOverviewView").html())
     getEmployees()
     $.ajax({
-        url: '/time-report/' + employee,
+        url: 'http://localhost:5000' + '/time-report/' + employee,
         type: 'GET',
         headers: { "Authorization": "Bearer " + JSON.parse(sessionStorage.getItem('auth')).access_token},
         success: function(jobs){
@@ -87,7 +87,7 @@ function getLoggedJobs(employee) {
 function getMyWork() {
     $("#mainView").html($("#timeReportView").html())
     $.ajax({
-        url: '/time-report/myWork',
+        url: 'http://localhost:5000' + '/time-report/myWork',
         type: 'GET',
         headers: { "Authorization": "Bearer " + JSON.parse(sessionStorage.getItem('auth')).access_token},
         success: function(jobs){
@@ -124,7 +124,7 @@ function getLoggedWork(work){
 function getMyWork2() {
     $("#mainView").html($("#timeReportView").html())
     $.ajax({
-        url: '/time-report/myWork',
+        url: 'http://localhost:5000' + '/time-report/myWork',
         type: 'GET',
         headers: { "Authorization": "Bearer " + JSON.parse(sessionStorage.getItem('auth')).access_token},
         success: function(jobs){
@@ -142,7 +142,7 @@ function getMyWork2() {
 
 function createMyTimeChart(){
     $.ajax({
-        url: '/time-report/time',
+        url: 'http://localhost:5000' + '/time-report/time',
         type: 'GET',
         headers: { "Authorization": "Bearer " + JSON.parse(sessionStorage.getItem('auth')).access_token},
         success: function(time){
@@ -172,7 +172,7 @@ function createMyTimeChart(){
 
 function createTimeChart(employee){
     $.ajax({
-        url: '/time-report/time/' + employee,
+        url: 'http://localhost:5000' + '/time-report/time/' + employee,
         type: 'GET',
         headers: { "Authorization": "Bearer " + JSON.parse(sessionStorage.getItem('auth')).access_token},
         success: function(time){

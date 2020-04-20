@@ -187,8 +187,6 @@
             </div>
         </div>
     </div>
-    </div>
-    </div>
 
     <!-- View other calendars modal -->
     <div class="modal fade" id="viewCalendarsModal" tabindex="-1" role="dialog" aria-labelledby="viewCalendarsModal" aria-hidden="true">
@@ -233,7 +231,6 @@
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Stäng</button>
             <button type="button" class="btn btn-primary" onclick="viewCalendars()" id="viewSchedulesConfirmButton" data-toggle="tooltip" data-placement="top" title="Välj anställda först">Välj</button>
         </div>
-    </div>
     </div>
 
     <!-- Add activity modal -->
@@ -375,7 +372,6 @@
             </div>
 
         </div>
-    </div>
     </div>
 
     <!-- Change activity modal -->
@@ -571,17 +567,12 @@
 
                 </div>
                 <div class="modal-footer">
-                    <button type="button" id="activityInfoRemoveActivityButton" value="" class="btn btn-danger" onclick="removeActivity(this.value)">Ta bort aktivitet</button>
-                    <button type="button" class="btn btn-primary" data-dismiss="modal">Klar</button>
-                </div>
+                  <button type="button" id="activityInfoRemoveActivityButton" value="" class="btn btn-danger" onclick="removeActivity(this.value)">Ta bort aktivitet</button>
+                  <button type="button" id="activityInfoChangeButton" value="" class="btn btn-warning" onclick="spawnChangeActivityModal(this.value)">Ändra</button>
+                  <button type="button" class="btn btn-primary" data-dismiss="modal">Klar</button>
+              </div>
             </div>
         </div>
-        <div class="modal-footer">
-            <button type="button" id="activityInfoRemoveActivityButton" value="" class="btn btn-danger" onclick="removeActivity(this.value)">Ta bort aktivitet</button>
-            <button type="button" id="activityInfoChangeButton" value="" class="btn btn-warning" onclick="spawnChangeActivityModal(this.value)">Ändra</button>
-            <button type="button" class="btn btn-primary" data-dismiss="modal">Klar</button>
-        </div>
-    </div>
     </div>
 
     <!-- Change password modal -->

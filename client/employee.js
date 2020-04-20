@@ -24,6 +24,10 @@ $('#editEmployeeModal').on('hidden.bs.modal', function(event) {
     $(this).find('#editEmployeeEmail-input').val('');
 });
 
+function changeToEmployeeView(){
+    $("#mainView").html($("#employeeView").html())
+    loadEmployees(); //In employee.js
+}
 
 
 
@@ -211,4 +215,21 @@ function deleteEmployee(personID) {
             loadEmployees();
         }
     });
+}
+
+function getUser(){
+    $.ajax({
+        headers: { "Authorization": "Bearer " + JSON.parse(sessionStorage.getItem('auth')).access_token },
+        url: '/employee/getUser',
+        type: 'GET',
+        success: function(user){
+            if (user.isAdmin){
+                $("#navTimeOverviewLink").show()
+                $("#navTimeReportLink").hide()
+            }else{
+                $("#navTimeOverviewLink").hide()
+                $("#navTimeReportLink").show()
+            }
+        }
+    })
 }

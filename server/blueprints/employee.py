@@ -87,4 +87,9 @@ def employee(pID):
             return {"msg": "Not authorized"}, 401
 
 
-
+@bp.route("/getUser", methods=['GET'])
+@jwt_required
+def getUser():
+    user_id = get_jwt_identity()
+    employee = Employee.query.get(user_id)
+    return jsonify(employee.serialize())

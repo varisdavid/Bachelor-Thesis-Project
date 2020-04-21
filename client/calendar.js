@@ -249,7 +249,7 @@ function populateProjectsDropdown(projectSelector, defaultID = 0) {
                 $(projectSelector).append(`<option value="${project.id}">${project.name}</option>`)
             })
             if (defaultID != 0) {
-                $("#changeActivityProjectSelector").val(defaultID);
+                $(projectSelector).val(defaultID);
             }
         }
     })

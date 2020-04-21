@@ -22,6 +22,7 @@ function reportTime(){
         }
     })
 }
+
 function getProjectsDropdown() {
     //Hämta alla projekt genom ett ajax-anrop
     //Currently using stub
@@ -40,24 +41,35 @@ function getProjectsDropdown() {
     
 }
 
+
+$(document).ready(function () {
+    //Activating date and time pickers
+    activateDateAndTimePickers("#addTimeReportStartDatePicker", "#addTimeReportStartTimePicker", "#addTimeReportStopDatePicker", "#addTimeReportStopTimePicker", "#addTimeReportWrongDateAlert", false);
+    activateDateAndTimePickers("#changeLoggedWorkStartDatePicker", "#changeLoggedWorkStartTimePicker", "#changeLoggedWorkStopDatePicker", "#changeLoggedWorkStopTimePicker", "#changeLoggedWorkWrongDateAlert", true);
+})
+
 function spawnTimeReportModal(){
     $("#timeReportModal").modal("show")
-    $(activateDateAndTimePickers("#addTimeReportStartDatePicker", "#addTimeReportStartTimePicker", "#addTimeReportStopDatePicker", "#addTimeReportStopTimePicker", "#addTimeReportWrongDateAlert"));
     getProjectsDropdown()
 
 }
 
 function getEmployees() {
     $.ajax({
-        url: 'http://localhost:5000' + '/employee/all',
+        url: '/employee/all',
         type: 'GET',
         headers: { "Authorization": "Bearer " + JSON.parse(sessionStorage.getItem('auth')).access_token},
         success: function(employees){
             for (i in employees) {
                 if (!employees[i].isAdmin){
-                    $("#users").append("<a class='dropdown-item' onclick=getLoggedJobs(" + employees[i].personID + ") href='#'>" + employees[i].name + "</a>")
-                }
+                    $("#users").append("<a class='dropdown-item' onclick=getLoggedJobs(" + employees[i].personID + ") data-value= " + employees[i].name + " href='#'>" + employees[i].name + "</a>")
             }
+            }
+            $("#users").click(function() {
+                $(this).parents(".dropdown").find('.btn').html($(this).text() + ' <span class="caret"></span>');
+                $(this).parents(".dropdown").find('.btn').val($(this).data('value'));
+                getEmployees();
+            });
         }
     })
 }
@@ -66,7 +78,7 @@ function getLoggedJobs(employee) {
     $("#mainView").html($("#timeOverviewView").html())
     getEmployees()
     $.ajax({
-        url: '/time-report/' + employee,
+        url: '/time-report/employee/' + employee,
         type: 'GET',
         headers: { "Authorization": "Bearer " + JSON.parse(sessionStorage.getItem('auth')).access_token},
         success: function(jobs){
@@ -116,28 +128,9 @@ function getLoggedWork(work){
             "<td>" + work.startTime.substring(5,11) + "</td>" +
             "<td>"+ time +  
             "</td><td>" +
-            "<button id= 'editLoggedWorkButton' value= 'work.id' class = 'btn btn-primary'  type = 'button' data-toggle='modal' data-target='#editLoggedWorkModal' data-workID='" + work.id + "'>Redigera </button>" + 
+            "<button id= 'editLoggedWorkButton' value= 'work.id' class = 'btn btn-primary'  type = 'button' data-toggle='modal' data-target='#editLoggedWorkModal' onclick=spawnChangeLoggedWorkModal(" + work.id + ") data-workID='" + work.id + "'>Redigera </button>" + 
             "</td></tr>" );
 }})
-}
-
-function getMyWork2() {
-    $("#mainView").html($("#timeReportView").html())
-    $.ajax({
-        url: '/time-report/myWork',
-        type: 'GET',
-        headers: { "Authorization": "Bearer " + JSON.parse(sessionStorage.getItem('auth')).access_token},
-        success: function(jobs){
-            for (i in jobs) {
-                $("#loggedJobs").append("<div class='card bg-light mb-3' style='width: 18rem;'>" +
-                "<div class='card-body' id='loggedJobs'>" +
-                "<h5 class='card-title'>" +"Medarbetare " + jobs[i].employeeID+ "</h5>" +
-                "<p class='card-subtitle'>" + "Projekt: " + jobs[i].projectID + "</p>" +
-                "<p class='card-text'>" + "Tid: " + jobs[i].startTime + "-" + jobs[i].endTime + "</p></div>");
-            }
-            createMyChart();
-        }
-    })
 }
 
 function createMyTimeChart(){
@@ -216,7 +209,7 @@ function getDates(){
     month[10] = "Oktober";
     month[11] = "November";
     month[12] = "December";
-    var n = d.getMonth();
+    var n = d.getMonth() + 1;
     months.unshift(month[n]);
     for (let i=1; i<6; i++){
         var x = n-i;
@@ -227,16 +220,34 @@ function getDates(){
             months.unshift(month[x]);
         }        
     }
-    console.log(months)
     return months;
 }
 
 function editLoggedWork(loggedWorkID){
+    var projectID = document.getElementById('changeLoggedWorkProjectSelector').value;
+    var startTime = $("#changeLoggedWorkStartDatePicker").datetimepicker('date').toISOString(true).substring(0, 11) + $("#changeLoggedWorkStartTimePicker").datetimepicker('date').toISOString(true).substring(11, 19)
+    var endTime = $("#changeLoggedWorkStopDatePicker").datetimepicker('date').toISOString(true).substring(0, 11) + $("#changeLoggedWorkStopTimePicker").datetimepicker('date').toISOString(true).substring(11, 19)
+    var comments = document.getElementById('changeLoggedWorkComments').value;
+    var changedReportdata = {
+        projectID : projectID,
+        startTime :startTime,
+        endTime : endTime,
+        comments : comments}
     $.ajax({
         url: '/time-report/' + loggedWorkID,
         type: 'PUT',
         headers: { "Authorization": "Bearer " + JSON.parse(sessionStorage.getItem('auth')).access_token},
-        success: function(){
+        contentType: 'application/json',
+        data: JSON.stringify(changedReportdata),
+        datatype: 'json',
+        success: function(response){
+            $("#editLoggedWorkModal").modal("hide");
+            if (response[0].isAdmin){
+                getLoggedJobs(response[1].personID);
+                console.log("tjenare mannen")
+            }else{
+                getMyWork();
+            }
         }
     })
 }
@@ -246,7 +257,39 @@ function deleteLoggedWork(loggedWorkID){
         url: '/time-report/' + loggedWorkID,
         type: 'DELETE',
         headers: { "Authorization": "Bearer " + JSON.parse(sessionStorage.getItem('auth')).access_token},
-        success: function(){
+        success: function(response){
+            $("#editLoggedWorkModal").modal("hide");
+            if (response[0].isAdmin){
+                getLoggedJobs(response[1].personID);
+                console.log("tjenare mannen")
+            }else{
+                getMyWork();
+            }
         }
     })
+}
+
+
+function spawnChangeLoggedWorkModal(workID) {
+    $("#editLoggedWorkModal").modal("show");
+    console.log("tjena")
+    console.log(workID)
+    $.ajax({
+        url: 'time-report/' + workID,
+        type: 'GET',
+        headers: { "Authorization": "Bearer " + JSON.parse(sessionStorage.getItem('auth')).access_token },
+        success: function (response) {
+            populateProjectsDropdown("#changeLoggedWorkProjectSelector", response.projectID);
+            $("#editLoggedWorkSubmitButton").val(response.id);
+            $("#deleteLoggedWorkButton").val(response.id);
+            updateDateOrTimePicker("#changeLoggedWorkStartDatePicker", moment(response.startTime));
+            updateDateOrTimePicker("#changeLoggedWorkStartTimePicker", moment(response.startTime));
+            updateDateOrTimePicker("#changeLoggedWorkStopDatePicker", moment(response.endTime));
+            updateDateOrTimePicker("#changeLoggedWorkStopTimePicker", moment(response.endTime));
+            $("#changeLoggedWorkComments").val(response.comment);
+            console.log(response.startTime);
+            console.log(response.endTime);
+            console.log(response.comment)
+        }
+    });
 }

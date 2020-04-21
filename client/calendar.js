@@ -232,7 +232,7 @@ function activateDateAndTimePickers(startDatePicker, startTimePicker, stopDatePi
         content: "Avslutstiden måste ligga efter starttiden 🤔",
         title: "",
         trigger: 'manual', 
-        position: 'right'
+        placement: 'right'
     })
     if (autoChange) {
         //TODO: Eventuellt implementera automatisk datumväxlig när tid ändras. Även lägga till global offset som sätts när slutdatum ändras.
@@ -252,10 +252,12 @@ function activateDateAndTimePickers(startDatePicker, startTimePicker, stopDatePi
     function checkWrongDate() {
         if (verifyDates(startDatePicker, stopDatePicker, startTimePicker, stopTimePicker)) {
             $(stopTimePicker).find(".datetimepicker-input").removeClass("is-invalid")
-            $(stopTimePicker).popover("hide");
+            $(wrongDateAlert).hide()
+            //$(stopTimePicker).popover("hide");
         } else {
             $(stopTimePicker).find(".datetimepicker-input").addClass("is-invalid")
-            $(stopTimePicker).popover("show");
+            $(wrongDateAlert).show()
+            //$(stopTimePicker).popover("show");
 
         }
     }

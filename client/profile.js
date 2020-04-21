@@ -121,8 +121,8 @@ function updateProfileInformation() {
 function changePasswordProfile(currentPassword, newPassword, newPasswordRepeated) {
     // console.log("asd")
     if (newPassword !== newPasswordRepeated) {
-        // document.getElementById("wrongNewPasswordAlert").hidden = false;
-        // document.getElementById("wrongOldPasswordAlert").hidden = true;
+        document.getElementById("wrongNewPasswordAlertProfile").hidden = false;
+        document.getElementById("wrongOldPasswordAlertProfile").hidden = true;
     } else {
         var passwordData = `
         {
@@ -142,8 +142,8 @@ function changePasswordProfile(currentPassword, newPassword, newPasswordRepeated
                 spawnAlert("Lösenordet har ändrats")
             },
             error: function () {
-                // document.getElementById("wrongNewPasswordAlert").hidden = true;
-                // document.getElementById("wrongOldPasswordAlert").hidden = false;
+                document.getElementById("wrongNewPasswordAlertProfile").hidden = true;
+                document.getElementById("wrongOldPasswordAlertProfile").hidden = false;
             }
         })
     }

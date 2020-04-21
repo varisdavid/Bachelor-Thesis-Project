@@ -49,7 +49,7 @@ function changeToProfileView() {
     isPersonID = checkIfPersonID(personID);
     if (isPersonID) {
         personID = formatPersonID(personID)
-        console.log("profileview personID: "+ personID);
+        // console.log("profileview personID: "+ personID);
     }
     $.ajax({
         headers: { "Authorization": "Bearer " + JSON.parse(sessionStorage.getItem('auth')).access_token },
@@ -85,7 +85,7 @@ function updateProfileInformation() {
     isPersonID = checkIfPersonID(personID);
     if (isPersonID) {
         personID = formatPersonID(personID)
-        console.log("personID: " + personID);
+        // console.log("personID: " + personID);
     }
     var name = (document.getElementById("form-namn").value).toString();
     var email = (document.getElementById("changeEmail").value).toString();

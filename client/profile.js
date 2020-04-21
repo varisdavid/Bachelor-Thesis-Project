@@ -102,7 +102,6 @@ function updateProfileInformation() {
         "isBoss": ${isBoss},
         "isAdmin": ${isAdmin}
     }`;
-    console.log();
     $.ajax({
         headers: { "Authorization": "Bearer " + JSON.parse(sessionStorage.getItem('auth')).access_token },
         url: '/employee/' + personID,

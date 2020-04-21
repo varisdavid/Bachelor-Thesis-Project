@@ -102,8 +102,8 @@ def act(activityID):
 @bp.route("/feed")
 @jwt_required
 def activityFeed():
-    start = request.args.get("start")
-    end = request.args.get("end")
+    start = datetime.fromisoformat(request.args.get("start")[0:19])
+    end = datetime.fromisoformat(request.args.get("end")[0:19])
     user_id = get_jwt_identity()
     if(request.get_json() is not None):
         if("employeeID" in request.get_json()):
@@ -125,8 +125,8 @@ def activityFeed():
 @bp.route("/<id>/feed")
 @jwt_required
 def activityFeedID(id):
-    start = request.args.get("start")
-    end = request.args.get("end")
+    start = datetime.fromisoformat(request.args.get("start")[0:19])
+    end = datetime.fromisoformat(request.args.get("end")[0:19])
     user_id = get_jwt_identity()
     emp = Employee.query.get(user_id)
     if(not(emp.isAdmin or emp.isBoss)):

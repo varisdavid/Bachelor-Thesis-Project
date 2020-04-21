@@ -75,13 +75,13 @@ class Person_Activity(db.Model):
 class LoggedWork(db.Model):
     __tablename__ = 'logged_work'
     id = db.Column(db.Integer, primary_key=True)
-    employeeID = db.Column(db.Integer, db.ForeignKey(
+    employeeID = db.Column(db.String, db.ForeignKey(
         'employees.personID'), nullable=False)
     projectID = db.Column(db.Integer, db.ForeignKey(
         'projects.id'), nullable=False)
     approved = db.Column(db.Boolean, default=True)
-    startTime = db.Column(db.Integer, nullable=False)
-    endTime = db.Column(db.Integer, nullable=False)
+    startTime = db.Column(db.DateTime, nullable=False)
+    endTime = db.Column(db.DateTime, nullable=False)
     comment = db.Column(db.String, nullable=True)
     petrolCost = db.Column(db.Integer, nullable=True)
     otherCost = db.Column(db.Integer, nullable=True)

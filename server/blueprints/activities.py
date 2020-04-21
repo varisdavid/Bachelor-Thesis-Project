@@ -129,14 +129,11 @@ def activityFeedID(id):
     end = dt.fromisoformat(request.args.get("end")[0:19])
     user_id = get_jwt_identity()
     emp = Employee.query.get(user_id)
-    if(not(emp.isAdmin or emp.isBoss)):
-        return {"msg": "not authorized"}, 401
-    else:
-        activities = db.session.query(Activity).\
-            join(Person_Activity, Person_Activity.id == Activity.id).\
-            filter(Person_Activity.personID == id).\
-            filter(Activity.startTime >= start).\
-            filter(Activity.startTime <= end).\
-            all()
+    activities = db.session.query(Activity).\
+        join(Person_Activity, Person_Activity.id == Activity.id).\
+        filter(Person_Activity.personID == id).\
+        filter(Activity.startTime >= start).\
+        filter(Activity.startTime <= end).\
+        all()
 
-        return jsonify([activity.serializeForCalendar() for activity in activities]), 200
+    return jsonify([activity.serializeForCalendar() for activity in activities]), 200

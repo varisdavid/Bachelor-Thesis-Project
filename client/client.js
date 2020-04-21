@@ -18,11 +18,7 @@ function changeToLandingPage() {
     var auth = sessionStorage.getItem('auth');
     if (!(auth === null)) {
         $.ajax({
-<<<<<<< HEAD
-            url:  '/employee/getUser',
-=======
             url: '/employee/getUser',
->>>>>>> origin
             type: 'GET',
             headers: { "Authorization": "Bearer " + JSON.parse(sessionStorage.getItem('auth')).access_token },
             success: function(user) {
@@ -43,6 +39,13 @@ function changeToLandingPage() {
         });
     }
 }
+
+function changeToEmployeeView() {
+    $("#mainView").html($("#employeeView").html())
+    loadEmployees(); //In employee.js
+}
+
+
 
 function changeToSupportView(){
     $("#mainView").html($("#supportView").html())

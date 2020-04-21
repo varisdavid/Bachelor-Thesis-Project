@@ -1,6 +1,6 @@
 from flask import Blueprint, request, jsonify
 from datetime import date as d
-from datetime import datetime
+from datetime import datetime as dt
 from flask_jwt_extended import jwt_required, get_jwt_identity
 
 
@@ -26,8 +26,8 @@ def addActivity():
     elif Project.query.get(jsonData["project_id"]).companyOrgNumber != Employee.query.get(get_jwt_identity()).company:
         return {"msg": "Wrong project id"}, 401
     else:
-        newActivity = Activity(date=d.fromisoformat(jsonData['date']), name=jsonData['name'], startTime=datetime.fromisoformat(jsonData['startTime']),
-                               stopTime=datetime.fromisoformat(jsonData['stopTime']), location=jsonData['location'],
+        newActivity = Activity(date=d.fromisoformat(jsonData['date']), name=jsonData['name'], startTime=dt.fromisoformat(jsonData['startTime']),
+                               stopTime=dt.fromisoformat(jsonData['stopTime']), location=jsonData['location'],
                                description=jsonData['description'], project_id=jsonData['project_id'])
         db.session.add(newActivity)
         db.session.commit()
@@ -65,7 +65,7 @@ def act(activityID):
             # TODO: Filtrera bort alla attribut som inte ska gå att ändra.
             if(hasattr(activity, key) and (key != "id")):
                 if key == "startTime" or key == "stopTime":
-                    setattr(activity, key, datetime.fromisoformat(jsonData[key]))
+                    setattr(activity, key, dt.fromisoformat(jsonData[key]))
                     print("I specialfallet")
                 elif key == "date":
                     setattr(activity, key, d.fromisoformat(jsonData[key]))
@@ -102,8 +102,8 @@ def act(activityID):
 @bp.route("/feed")
 @jwt_required
 def activityFeed():
-    start = datetime.fromisoformat(request.args.get("start")[0:19])
-    end = datetime.fromisoformat(request.args.get("end")[0:19])
+    start = dt.fromisoformat(request.args.get("start")[0:19])
+    end = dt.fromisoformat(request.args.get("end")[0:19])
     user_id = get_jwt_identity()
     if(request.get_json() is not None):
         if("employeeID" in request.get_json()):
@@ -125,8 +125,8 @@ def activityFeed():
 @bp.route("/<id>/feed")
 @jwt_required
 def activityFeedID(id):
-    start = datetime.fromisoformat(request.args.get("start")[0:19])
-    end = datetime.fromisoformat(request.args.get("end")[0:19])
+    start = dt.fromisoformat(request.args.get("start")[0:19])
+    end = dt.fromisoformat(request.args.get("end")[0:19])
     user_id = get_jwt_identity()
     emp = Employee.query.get(user_id)
     if(not(emp.isAdmin or emp.isBoss)):

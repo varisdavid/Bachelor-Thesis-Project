@@ -1,6 +1,6 @@
 from flask import Blueprint, request, jsonify, Response
 from flask_jwt_extended import JWTManager, jwt_required, get_jwt_identity
-from datetime import datetime
+from datetime import datetime, timedelta
 import calendar
 
 #You can import the database from a blueprint
@@ -31,28 +31,46 @@ def report_time():
         response = Response(200)
         return "hej"
 
-@bp.route('/<loggedWorkID>', methods=['PUT', 'DELETE'])
+@bp.route('/<loggedWorkID>', methods=['GET', 'PUT', 'DELETE'])
 @jwt_required
 def editLoggedWork(loggedWorkID):
+    users = []
     user = Employee.query.get(get_jwt_identity())
-    loggedWork = LoggedWork.get(loggedWorkID)
-    if request.method == 'PUT' and user.id == loggedWork.employeeID:
+    users.append(user.serialize())
+    loggedWork = LoggedWork.query.get(loggedWorkID)
+    employee = Employee.query.get(loggedWork.employeeID)
+    users.append(employee.serialize())
+    print("hej")
+    print(loggedWork)
+    if request.method == 'GET':
+        if user.isAdmin:
+            loggedWork.startTime= loggedWork.startTime - timedelta(hours = 1) 
+            loggedWork.endTime= loggedWork.endTime - timedelta(hours = 1) 
+            return jsonify(loggedWork.serialize())
+        if user.personID == loggedWork.employeeID:
+            loggedWork.startTime= loggedWork.startTime - timedelta(hours = 1) 
+            loggedWork.endTime= loggedWork.endTime - timedelta(hours = 1) 
+            print("tja")
+            print(loggedWork)
+            return jsonify(loggedWork.serialize())
+    if request.method == 'PUT' and user.personID == loggedWork.employeeID or request.method == 'PUT' and user.isAdmin:
         loggedWork_data = request.get_json()
+        startTime = datetime.fromisoformat(loggedWork_data['startTime'])
+        endTime = datetime.fromisoformat(loggedWork_data['endTime'])
         if 'projectID' in loggedWork_data:
             setattr(loggedWork, 'projectID', loggedWork_data['projectID'])
         if 'startTime' in loggedWork_data:
-            setattr(loggedWork, 'startTime', loggedWork_data['startTime'])
+            setattr(loggedWork, 'startTime', startTime)
         if 'endTime' in loggedWork_data:
-            setattr(loggedWork, 'endTime', loggedWork_data['endTime'])
+            setattr(loggedWork, 'endTime', endTime)
         if 'comments' in loggedWork_data:
-            setattr(loggedWork, 'comments', loggedWork_data['comments'])
-        db.session.commit()    
-        return jsonify(loggedWork.serialize())
-    if request.method == 'DELETE' and user.id == loggedWork.employeeID or user.isAdmin:
+            setattr(loggedWork, 'comment', loggedWork_data['comments'])
+        db.session.commit() 
+        return jsonify(users)  
+    if request.method == 'DELETE' and user.personID == loggedWork.employeeID or request.method == 'DELETE' and user.isAdmin:
         db.session.delete(loggedWork)
         db.session.commit()
-        response = Response(200)
-        return response
+        return jsonify(users)
 
 
 @bp.route('/myWork', methods=['GET'])
@@ -68,16 +86,14 @@ def getMyLoggedWork():
             time = divmod((i.endTime-i.startTime).total_seconds(), 3600)[0]
     return jsonify(loggedWorks)
 
-@bp.route('/<employeeID>', methods=['GET'])
+@bp.route('/employee/<employeeID>', methods=['GET'])
 @jwt_required
 def getEmployeeLoggedWorks(employeeID):
     works = LoggedWork.query.all()
     loggedWorks = []
-    time = 0
     for i in works:
         if i.employeeID == employeeID:
             loggedWorks.append(i.serialize())
-            time = divmod((i.endTime-i.startTime).total_seconds(), 3600)[0]
     return jsonify(loggedWorks)
 
 @bp.route('/getWorkedTime/<loggedWorkID>', methods=['GET'])

@@ -1124,15 +1124,44 @@
   <template id="employeeView" type="text/html">
     <div>
       <table id="employee-table" class="table">
-        <thead>
-          <tr>
-            <th scope="col" id="employee-table-ID">ID
-              <div class="form-group"></div>
-              <input type="text" class="form-control" id="employeeTableSearchID" placeholder="Sök ID">
-    </div>
-    </th>
-    <th scpoe="col">Namn <div class="form-group"></div>
-      <input type="text" class="form-control" id="employeeTableSearchName" placeholder="Sök Namn">
+            <thead>                
+              <tr>
+                <th scope="col" id="employee-table-ID">ID 
+                    <div class="form-group"></div>
+                  <input type="text" class="form-control" id="employeeTableSearchID" placeholder="Sök ID">
+              </div></th>
+                <th scpoe="col">Namn <div class="form-group"></div>
+                  <input type="text" class="form-control" id="employeeTableSearchName" placeholder="Sök Namn">
+              </div></th>
+              <th scope="col">Epost <div class="form-group"></div>
+                  <input type="text" class="form-control" id="employeeTableSearchEmail" placeholder="Sök epost">
+              </div></th>
+                <th scope="col">Roll <div class="form-group"></div>
+                  <div class="dropdown" id="roleDropDown">
+                      <button class="btn btn-primary dropdown-toggle" type="button" id="roleButton"data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                        Välj roll
+                        <span class="caret"></span>
+                      </button>
+                      <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                        <li><a href="#" data-value="Alla">Alla</a></li>
+                        <li><a href="#" data-value="Chef">Chef</a></li>
+                        <li><a href="#" data-value="Medarbetare">Medarbetare</a></li>
+                      </ul>
+                    </div>
+                </div></th>
+              </tr>
+            </thead>
+            <tbody id="employee-data">
+            </tbody>
+          </table>
+        </thead>
+        <tbody id="employee-data">
+        </tbody>
+      </table>
+      
+      <div>
+        <button type="submit" class="btn btn-primary" id="viewAddEmployeeButton"data-toggle='modal'
+            data-target='#addEmployeeModal' id="addEmployeeButton">Lägg till medarbetare</button>
       </div>
     </th>
     <th scope="col">Epost <div class="form-group"></div>
@@ -1184,117 +1213,106 @@
   <!-- 
     Edit LoggedWork modal, would be shown from some kind of employee management page. 
   -->
-  <div class="modal fade" id="editLoggedWorkModal" tabindex="-1" role="dialog" aria-labelledby="editLoggedWorkModal"
-    aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="editLoggedWorkTitle">Redigera tidsrapport</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Stäng">
-            <span aria-hidden="true">&times;</span>
-          </button>
+    <div class="modal fade" id="editLoggedWorkModal" tabindex="-1" role="dialog" aria-labelledby="editLoggedWorkModal" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editLoggedWorkTitle">Redigera tidsrapport</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Stäng">
+        <span aria-hidden="true">&times;</span>
+      </button>
+                </div>
+                <div class="modal-body">
+                    <form id="editLoggedWorkForm">
+                        <div class="form-group">
+                            <label for="changeLoggedWorkProjectSelector">Vilket projekt gäller detta</label>
+                            <select class="form-control" id="changeLoggedWorkProjectSelector">
+                        <option value="0">Inget projekt</option>
+                      </select>
+                        </div>
+
+
+                        <label for="changeLoggedWorkStartPickers">Starttid</label>
+                        <div class="row" id="changeLoggedWorkStartPickers">
+                            <div class="col">
+                                <div class="form-group">
+                                    <div class="input-group date" id="changeLoggedWorkStartDatePicker" data-target-input="nearest">
+                                        <input type="text" class="form-control datetimepicker-input" data-target="#changeLoggedWorkStartDatePicker" />
+                                        <div class="input-group-append" data-target="#changeLoggedWorkStartDatePicker" data-toggle="datetimepicker">
+                                            <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col">
+                                <div class="form-group">
+                                    <div class="input-group date" id="changeLoggedWorkStartTimePicker" data-target-input="nearest">
+                                        <input type="text" class="form-control datetimepicker-input" data-target="#changeLoggedWorkStartTimePicker" />
+                                        <div class="input-group-append" data-target="#changeLoggedWorkStartTimePicker" data-toggle="datetimepicker">
+                                            <div class="input-group-text"><i class="fa fa-clock-o"></i></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <label for="changeLoggedWorkStopPickers">Sluttid</label>
+                        <div class="row" id="changeLoggedWorkStopPickers">
+                            <div class="col">
+                                <div class="form-group">
+                                    <div class="input-group date" id="changeLoggedWorkStopDatePicker" data-target-input="nearest">
+                                        <input type="text" class="form-control datetimepicker-input" data-target="#changeLoggedWorkStopDatePicker" />
+                                        <div class="input-group-append" data-target="#changeLoggedWorkStopDatePicker" data-toggle="datetimepicker">
+                                            <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col">
+                                <div class="form-group">
+                                    <div class="input-group date" id="changeLoggedWorkStopTimePicker" data-target-input="nearest">
+                                        <input type="text" class="form-control datetimepicker-input" data-target="#changeLoggedWorkStopTimePicker" />
+                                        <div class="input-group-append" data-target="#changeLoggedWorkStopTimePicker" data-toggle="datetimepicker">
+                                            <div class="input-group-text"><i class="fa fa-clock-o"></i></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="changeLoggedWorkComments">Kommentarer</label>
+                            <textarea class="form-control" id="changeLoggedWorkComments"></textarea>
+                        </div>
+                </div>
+                </form>
+                <div class="modal-footer">
+                    <button type="button" id="deleteLoggedWorkButton" class="btn btn-danger" value="" data-dismiss="modal" onclick="deleteLoggedWork(this.value)">Radera tidsrapport</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Stäng</button>
+                    <button type="button" id="editLoggedWorkSubmitButton" class="btn btn-primary" value="" onclick="editLoggedWork(this.value)" data-dismiss="modal">Slutför</button>
+                </div>
+            </div>
         </div>
-        <div class="modal-body">
-          <form id="editLoggedWorkForm">
-            <div class="form-group">
-              <label for="changeLoggedWorkProjectSelector">Vilket projekt gäller detta</label>
-              <select class="form-control" id="changeLoggedWorkProjectSelector">
-                <option value="0">Inget projekt</option>
-              </select>
-            </div>
 
-
-            <label for="changeLoggedWorkStartPickers">Starttid</label>
-            <div class="row" id="changeLoggedWorkStartPickers">
-              <div class="col">
-                <div class="form-group">
-                  <div class="input-group date" id="changeLoggedWorkStartDatePicker" data-target-input="nearest">
-                    <input type="text" class="form-control datetimepicker-input"
-                      data-target="#changeLoggedWorkStartDatePicker" />
-                    <div class="input-group-append" data-target="#changeLoggedWorkStartDatePicker"
-                      data-toggle="datetimepicker">
-                      <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div class="col">
-                <div class="form-group">
-                  <div class="input-group date" id="changeLoggedWorkStartTimePicker" data-target-input="nearest">
-                    <input type="text" class="form-control datetimepicker-input"
-                      data-target="#changeLoggedWorkStartTimePicker" />
-                    <div class="input-group-append" data-target="#changeLoggedWorkStartTimePicker"
-                      data-toggle="datetimepicker">
-                      <div class="input-group-text"><i class="fa fa-clock-o"></i></div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <label for="changeLoggedWorkStopPickers">Sluttid</label>
-            <div class="row" id="changeLoggedWorkStopPickers">
-              <div class="col">
-                <div class="form-group">
-                  <div class="input-group date" id="changeLoggedWorkStopDatePicker" data-target-input="nearest">
-                    <input type="text" class="form-control datetimepicker-input"
-                      data-target="#changeLoggedWorkStopDatePicker" />
-                    <div class="input-group-append" data-target="#changeLoggedWorkStopDatePicker"
-                      data-toggle="datetimepicker">
-                      <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div class="col">
-                <div class="form-group">
-                  <div class="input-group date" id="changeLoggedWorkStopTimePicker" data-target-input="nearest">
-                    <input type="text" class="form-control datetimepicker-input"
-                      data-target="#changeLoggedWorkStopTimePicker" />
-                    <div class="input-group-append" data-target="#changeLoggedWorkStopTimePicker"
-                      data-toggle="datetimepicker">
-                      <div class="input-group-text"><i class="fa fa-clock-o"></i></div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="form-group">
-              <label for="changeLoggedWorkComments">Kommentarer</label>
-              <textarea class="form-control" id="changeLoggedWorkComments"></textarea>
-            </div>
-        </div>
-        </form>
-        <div class="modal-footer">
-          <button type="button" id="deleteLoggedWorkButton" class="btn btn-danger" value="" data-dismiss="modal"
-            onclick="deleteLoggedWork(this.value)">Radera tidsrapport</button>
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Stäng</button>
-          <button type="button" id="editLoggedWorkSubmitButton" class="btn btn-primary" value=""
-            onclick="editLoggedWork(this.value)" data-dismiss="modal">Slutför</button>
-        </div>
-      </div>
-    </div>
-
-    <template id="aboutView">
+        <template id="aboutView">
       <h1>Om oss</h1>
       <p>Vi erbjuder en lösning för schemaläggning och tidsrapportering i form av en webbapplikation.</p>
     </template>
 
-    <template id="priceView">
+        <template id="priceView">
       <h1>Pris</h1>
       <p>Tjänsten kostar 200 kr i månaden.</p>
     </template>
 
-    <template id="contactView">
+        <template id="contactView">
       <h1>Kontakt</h1>
       <p>Kontakta oss på denna <a href="mailto:mail@mail.com">mailaddress</a> eller fyll i formuläret nedan som inte
         är där än.</p>
     </template>
 
-    <template id="supportView">
+        <template id="supportView">
       <h1>Support</h1>
       <p>Här kommer det att finnas hjälp någon gång i framtiden</p>
     </template>

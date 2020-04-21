@@ -17,7 +17,8 @@ bp = Blueprint('employee', __name__, url_prefix='/employee')
 @bp.route("/all", methods=['GET', 'POST'])
 @jwt_required
 def employees():
-    user_id = get_jwt_identity()
+    user_id = personID.format(get_jwt_identity())
+    print("user_id: " + user_id)
     user = Employee.query.get_or_404(user_id)
     if request.method == 'GET':
         employeeList = Employee.query.all()
@@ -47,9 +48,12 @@ def employees():
 @bp.route("/<string:pID>", methods=['GET', 'PUT', 'DELETE'])
 @jwt_required
 def employee(pID):
-    user_id = get_jwt_identity()
+    user_id = personID.format(get_jwt_identity())
+    print("user_id2: " + user_id)
     user = Employee.query.get_or_404(user_id)
-
+    pID = personID.format(pID)
+    print("user.personID: " + user.personID)
+    print("pID: " + pID)
     if request.method == 'GET':
         employee = Employee.query.filter_by(personID=pID).first_or_404()
         if user.company == employee.company:
@@ -73,6 +77,16 @@ def employee(pID):
                 user.isBoss=jsonData['isBoss']
             db.session.commit()
             return Employee.query.get_or_404(jsonData['personID']).serialize()
+        elif (user.personID == pID):
+            print("ska ändra sin egen mejl (ev.namn)")
+            user = Employee.query.filter_by(personID=pID).first_or_404()
+            jsonData = request.get_json()
+            if jsonData['name'] != None and jsonData['name'] != "":
+                user.name=jsonData['name']
+            if jsonData['email'] != None and jsonData['email'] != "":
+                user.email=jsonData['email']
+            db.session.commit()
+            return Employee.query.get_or_404(jsonData['personID']).serialize()
         else: 
             return {"msg": "Not authorized"}, 401
 
@@ -93,6 +107,6 @@ def employee(pID):
 @bp.route("/getUser", methods=['GET'])
 @jwt_required
 def getUser():
-    user_id = get_jwt_identity()
+    user_id = personID.format(get_jwt_identity())
     employee = Employee.query.get(user_id)
     return jsonify(employee.serialize())

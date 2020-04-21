@@ -576,17 +576,21 @@ function viewCalendars() {
  * Front end functionality for removing an activity.
  * @param {number} id id of the activity to be removed.
  */
-function removeActivity(id) {
+function removeActivityCal(id) {
+    console.log("inne i rema")
     $.ajax({
         url: 'activity/' + id,
         type: 'DELETE',
         headers: { "Authorization": "Bearer " + JSON.parse(sessionStorage.getItem('auth')).access_token },
         success: function (response) {
+            console.log("Tog bort aktivitet")
             $("#activityInfoModal").modal("hide");
+            console.log("modal bör ha gömts")
             spawnAlert("Aktiviteten togs bort", "warning")
             calendar.refetchEvents()
             //calendar.render()
-        }
+        },
+        error: console.log("ERROR")
     })
 }
 

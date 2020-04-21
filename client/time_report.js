@@ -1,23 +1,23 @@
-function reportTime(){
+function reportTime() {
     var projectID = document.getElementById('addProjectSelector').value;
     var startTime = $("#addTimeReportStartDatePicker").datetimepicker('date').toISOString(true).substring(0, 11) + $("#addTimeReportStartTimePicker").datetimepicker('date').toISOString(true).substring(11, 19)
     var endTime = $("#addTimeReportStopDatePicker").datetimepicker('date').toISOString(true).substring(0, 11) + $("#addTimeReportStopTimePicker").datetimepicker('date').toISOString(true).substring(11, 19)
     var comments = document.getElementById('comments').value;
     var reportdata = {
-        projectID : projectID,
-        startTime :startTime,
-        endTime : endTime,
-        comments : comments
+        projectID: projectID,
+        startTime: startTime,
+        endTime: endTime,
+        comments: comments
     }
 
     $.ajax({
         url: '/time-report/report_time',
         type: 'POST',
-        headers: { "Authorization": "Bearer " + JSON.parse(sessionStorage.getItem('auth')).access_token},
+        headers: { "Authorization": "Bearer " + JSON.parse(sessionStorage.getItem('auth')).access_token },
         contentType: 'application/json',
         data: JSON.stringify(reportdata),
         datatype: 'json',
-        success: function(){
+        success: function() {
             getMyWork()
         }
     })
@@ -32,13 +32,13 @@ function getProjectsDropdown() {
         url: "project_view/projects",
         type: "GET",
         headers: { "Authorization": "Bearer " + JSON.parse(sessionStorage.getItem('auth')).access_token },
-        success: function (response) {
-            response.forEach(function (project) {
+        success: function(response) {
+            response.forEach(function(project) {
                 $("#addProjectSelector").append(`<option value="${project.id}">${project.name}</option>`)
             })
         }
     })
-    
+
 }
 
 
@@ -58,8 +58,8 @@ function getEmployees() {
     $.ajax({
         url: '/employee/all',
         type: 'GET',
-        headers: { "Authorization": "Bearer " + JSON.parse(sessionStorage.getItem('auth')).access_token},
-        success: function(employees){
+        headers: { "Authorization": "Bearer " + JSON.parse(sessionStorage.getItem('auth')).access_token },
+        success: function(employees) {
             for (i in employees) {
                 if (!employees[i].isAdmin){
                     $("#users").append("<a class='dropdown-item' onclick=getLoggedJobs(" + employees[i].personID + ") data-value= " + employees[i].name + " href='#'>" + employees[i].name + "</a>")
@@ -80,36 +80,37 @@ function getLoggedJobs(employee) {
     $.ajax({
         url: '/time-report/employee/' + employee,
         type: 'GET',
-        headers: { "Authorization": "Bearer " + JSON.parse(sessionStorage.getItem('auth')).access_token},
-        success: function(jobs){
-                $("#loggedJobs").append("<table class='table table-sm' id='workTable'>" +
+        headers: { "Authorization": "Bearer " + JSON.parse(sessionStorage.getItem('auth')).access_token },
+        success: function(jobs) {
+            $("#loggedJobs").append("<table class='table table-sm' id='workTable'>" +
                 "<thead><tr>" +
-                    "<th scope='col'>Projekt</th>" +
-                    "<th scope='col'>Datum</th>" +
-                    "<th scope='col'>Tid</th>" +
-                  "</tr></thead>" +
+                "<th scope='col'>Projekt</th>" +
+                "<th scope='col'>Datum</th>" +
+                "<th scope='col'>Tid</th>" +
+                "</tr></thead>" +
                 "<tbody></tbody></table>");
-                for (i in jobs) {
-                    getLoggedWork(jobs[i]);
-                }
+            for (i in jobs) {
+                getLoggedWork(jobs[i]);
+            }
             createTimeChart(employee);
         }
-    }) }
+    })
+}
 
 function getMyWork() {
     $("#mainView").html($("#timeReportView").html())
     $.ajax({
         url: '/time-report/myWork',
         type: 'GET',
-        headers: { "Authorization": "Bearer " + JSON.parse(sessionStorage.getItem('auth')).access_token},
-        success: function(jobs){
+        headers: { "Authorization": "Bearer " + JSON.parse(sessionStorage.getItem('auth')).access_token },
+        success: function(jobs) {
             $("#loggedJobs").append("<table class='table table-sm' id='workTable'>" +
-            "<thead><tr>" +
+                "<thead><tr>" +
                 "<th scope='col'>Projekt</th>" +
                 "<th scope='col'>Datum</th>" +
                 "<th scope='col'>Tid</th>" +
-              "</tr></thead>" +
-            "<tbody></tbody></table>");
+                "</tr></thead>" +
+                "<tbody></tbody></table>");
             for (i in jobs) {
                 getLoggedWork(jobs[i]);
             }
@@ -118,12 +119,12 @@ function getMyWork() {
     })
 }
 
-function getLoggedWork(work){
+function getLoggedWork(work) {
     $.ajax({
         url: '/time-report/getWorkedTime/' + work.id,
         type: 'GET',
-        headers: { "Authorization": "Bearer " + JSON.parse(sessionStorage.getItem('auth')).access_token},
-        success: function(time){
+        headers: { "Authorization": "Bearer " + JSON.parse(sessionStorage.getItem('auth')).access_token },
+        success: function(time) {
             $("#workTable").append("<tr><th scope='row'>" + work.projectID + "</th>" +
             "<td>" + work.startTime.substring(5,11) + "</td>" +
             "<td>"+ time +  
@@ -137,13 +138,13 @@ function createMyTimeChart(){
     $.ajax({
         url: '/time-report/time',
         type: 'GET',
-        headers: { "Authorization": "Bearer " + JSON.parse(sessionStorage.getItem('auth')).access_token},
-        success: function(time){
+        headers: { "Authorization": "Bearer " + JSON.parse(sessionStorage.getItem('auth')).access_token },
+        success: function(time) {
             $("#timeChart").append("<canvas id='myChart'></canvas>" +
-            "<script>" +
+                "<script>" +
                 "var ctx = document.getElementById('myChart').getContext('2d');" +
                 "var myChart = new Chart(ctx, {" +
-                    "type: 'bar'," +
+                "type: 'bar'," +
                     "data: {" +
                         "labels: [" + JSON.stringify(getDates()[0]) + "," + JSON.stringify(getDates()[1]) + "," + JSON.stringify(getDates()[2]) + "," + JSON.stringify(getDates()[3]) + "," + JSON.stringify(getDates()[4]) + "," + JSON.stringify(getDates()[5]) + "]," +
                         "datasets: [{" +
@@ -158,42 +159,42 @@ function createMyTimeChart(){
                             "}}]" +
                     "}}" +
                 "});" +
-            "</script>");
+                "</script>");
         }
-        })
+    })
 }
 
-function createTimeChart(employee){
+function createTimeChart(employee) {
     $.ajax({
         url: '/time-report/time/' + employee,
         type: 'GET',
-        headers: { "Authorization": "Bearer " + JSON.parse(sessionStorage.getItem('auth')).access_token},
-        success: function(time){
+        headers: { "Authorization": "Bearer " + JSON.parse(sessionStorage.getItem('auth')).access_token },
+        success: function(time) {
             $("#timeChart").append("<canvas id='myChart'></canvas>" +
-            "<script>" +
+                "<script>" +
                 "var ctx = document.getElementById('myChart').getContext('2d');" +
                 "var myChart = new Chart(ctx, {" +
                     "type: 'bar'," +
                     "data: {" +
-                        "labels: [" + JSON.stringify(getDates()[0]) + "," + JSON.stringify(getDates()[1]) + "," + JSON.stringify(getDates()[2]) + "," + JSON.stringify(getDates()[3]) + "," + JSON.stringify(getDates()[4]) + "," + JSON.stringify(getDates()[5]) + "]," +
-                        "datasets: [{" +
-                            "label: 'Arbetad tid'," +
-                            "data: [" + time[0] + "," + time[1] + "," + time[2] + "," + time[3] + "," + time[4] + "," + time[5] + "]," +
-                        "}]" +
+                    "labels: [" + JSON.stringify(getDates()[0]) + "," + JSON.stringify(getDates()[1]) + "," + JSON.stringify(getDates()[2]) + "," + JSON.stringify(getDates()[3]) + "," + JSON.stringify(getDates()[4]) + "," + JSON.stringify(getDates()[5]) + "]," +
+                    "datasets: [{" +
+                    "label: 'Arbetad tid'," +
+                    "data: [" + time[0] + "," + time[1] + "," + time[2] + "," + time[3] + "," + time[4] + "," + time[5] + "]," +
+                    "}]" +
                     "}," +
                     "options: {scales: {" +
-                        "yAxes: [{" +
-                            "ticks: {" +
-                                "min: 0" +
-                            "}}]" +
+                    "yAxes: [{" +
+                    "ticks: {" +
+                    "min: 0" +
+                    "}}]" +
                     "}}" +
                 "});" +
-            "</script>");
+                "</script>");
         }
-        })
+    })
 }
 
-function getDates(){
+function getDates() {
     var d = new Date();
     var months = [];
     var month = new Array();
@@ -252,7 +253,7 @@ function editLoggedWork(loggedWorkID){
     })
 }
 
-function deleteLoggedWork(loggedWorkID){
+function deleteLoggedWork(loggedWorkID) {
     $.ajax({
         url: '/time-report/' + loggedWorkID,
         type: 'DELETE',

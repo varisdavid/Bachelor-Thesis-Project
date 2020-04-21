@@ -91,9 +91,6 @@ function updateProfileInformation() {
     var email = (document.getElementById("changeEmail").value).toString();
     var isAdmin = document.getElementById("profileIsAdmin").checked;
     var isBoss = document.getElementById("profileIsBoss").checked;
-    var currentPassword = document.getElementById("currentPassword3").value
-    var newPassword = document.getElementById("newPassword3").value
-    var newPasswordRepeated = document.getElementById("repeatPassword3").value
     var employeeData = `
         {
         "name":"${name}",
@@ -110,15 +107,19 @@ function updateProfileInformation() {
         data: employeeData,
         contentType: 'application/json',
         success: function () {
-            if (newPassword) {
-                changePasswordProfile(currentPassword, newPassword, newPasswordRepeated);
-            }
+            // if (newPassword) {
+            //     changePasswordProfile(currentPassword, newPassword, newPasswordRepeated);
+            // }
             spawnAlert("Medarbetaren har redigerats", "success");
         }
     });
 }
 
-function changePasswordProfile(currentPassword, newPassword, newPasswordRepeated) {
+
+function changePasswordProfile() {
+    var currentPassword = document.getElementById("currentPassword3").value
+    var newPassword = document.getElementById("newPassword3").value
+    var newPasswordRepeated = document.getElementById("repeatPassword3").value
     // console.log("asd")
     if (newPassword !== newPasswordRepeated) {
         document.getElementById("wrongNewPasswordAlertProfile").hidden = false;
@@ -138,7 +139,8 @@ function changePasswordProfile(currentPassword, newPassword, newPasswordRepeated
             headers: { "Authorization": "Bearer " + JSON.parse(sessionStorage.getItem('auth')).access_token },
             data: passwordData,
             success: function (response) {
-                // $("#changePasswordModal").modal("hide");
+                document.getElementById("wrongNewPasswordAlertProfile").hidden = true;
+                document.getElementById("wrongOldPasswordAlertProfile").hidden = true;  
                 spawnAlert("Lösenordet har ändrats")
             },
             error: function () {

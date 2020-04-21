@@ -61,20 +61,17 @@ function getEmployees() {
         headers: { "Authorization": "Bearer " + JSON.parse(sessionStorage.getItem('auth')).access_token },
         success: function(employees) {
             for (i in employees) {
+                console.log(employees[i].personID)
                 if (!employees[i].isAdmin){
-                    $("#users").append("<a class='dropdown-item' onclick=getLoggedJobs(" + employees[i].personID + ") data-value= " + employees[i].name + " href='#'>" + employees[i].name + "</a>")
+                    $("#users").append("<a class='dropdown-item' onclick=getLoggedJobs('" + employees[i].personID + "') data-value= " + employees[i].name + " href='#'>" + employees[i].name + "</a>")
             }
             }
-            $("#users").click(function() {
-                $(this).parents(".dropdown").find('.btn').html($(this).text() + ' <span class="caret"></span>');
-                $(this).parents(".dropdown").find('.btn').val($(this).data('value'));
-                getEmployees();
-            });
         }
     })
 }
 
 function getLoggedJobs(employee) {
+    console.log(employee)
     $("#mainView").html($("#timeOverviewView").html())
     getEmployees()
     $.ajax({

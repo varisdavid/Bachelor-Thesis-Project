@@ -2,7 +2,7 @@ from flask import Blueprint, request, jsonify, Response
 from flask_jwt_extended import JWTManager, jwt_required, get_jwt_identity
 
 #You can import the database from a blueprint
-from server.database import db, Employee, LoggedWork
+from server.database import db, Employee, LoggedWork, Project
 from server import app
 
 jwt = JWTManager(app)
@@ -39,3 +39,17 @@ def get_time():
                 totTime = totTime + (work.endTime-work.startTime)
         print(totTime)
         return totTime, 200
+        
+# Returns all logged work on a specific project
+@bp.route('/report_time/projects/<int:project_id>', methods=['GET'])
+#@jwt_required
+def time_report(project_id):
+    #user = Employee.query.get(get_jwt_identity())
+    loggedworkList = LoggedWork.query.all()
+    projectName = Project.query.get(project_id).name
+    filteredLoggedWorkList = []
+    for i in range(len(loggedworkList)):
+        if loggedworkList[i].projectID == projectName:
+            loggedworkList[i] = LoggedWork.serialize(loggedworkList[i])
+            filteredLoggedWorkList.append(loggedworkList[i])
+    return jsonify(filteredLoggedWorkList)

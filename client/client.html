@@ -2,27 +2,30 @@
 <html lang="en">
 
 <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
+    integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
 
-    <!-- tempus-dominus css -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/css/tempusdominus-bootstrap-4.min.css" />
+  <!-- tempus-dominus css -->
+  <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/css/tempusdominus-bootstrap-4.min.css" />
 
-    <link rel="stylesheet" type="text/css" href="client.css">
+  <link rel="stylesheet" type="text/css" href="client.css">
 
-    <!-- Fullcalendar, for more info see https://fullcalendar.io/ -->
+  <!-- Fullcalendar, for more info see https://fullcalendar.io/ -->
 
-    <link href='https://unpkg.com/@fullcalendar/core@4.4.0/main.css' rel='stylesheet' />
-    <link href='https://unpkg.com/@fullcalendar/daygrid@4.4.0/main.css' rel='stylesheet' />
-    <link href='https://unpkg.com/@fullcalendar/timegrid@4.4.0/main.css' rel='stylesheet' />
-    <link href='https://unpkg.com/@fullcalendar/bootstrap@4.4.0/main.css' rel='stylesheet' />
+  <link href='https://unpkg.com/@fullcalendar/core@4.4.0/main.css' rel='stylesheet' />
+  <link href='https://unpkg.com/@fullcalendar/daygrid@4.4.0/main.css' rel='stylesheet' />
+  <link href='https://unpkg.com/@fullcalendar/timegrid@4.4.0/main.css' rel='stylesheet' />
+  <link href='https://unpkg.com/@fullcalendar/bootstrap@4.4.0/main.css' rel='stylesheet' />
 
-    <title>ERP</title>
+  <title>ERP</title>
 </head>
 
 <body>
@@ -32,16 +35,18 @@
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
-            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-                <h2 id="brandButton"><a class="navbar-brand" href="#">ERP</a></h2>
-                <div class="navbar-nav" id="navBar">
-                    <a class="nav-item nav-link header-item" id="navPriceLink" href="#"><i class="fa fa-usd" aria-hidden="true"></i> Pris</a>
-                    <a class="nav-item nav-link header-item" id="navAboutLink" href="#"><i class="fa fa-info-circle" aria-hidden="true"></i> Om oss</a>
-                    <a class="nav-item nav-link header-item" id="navSupportLink" href="#"><i class="fa fa-handshake-o" aria-hidden="true"></i> Support</a>
-                    <a class="nav-item nav-link header-item" id="navContactLink" href="#"><i class="fa fa-phone" aria-hidden="true"></i> Kontakt</a>
-                    <a class="nav-item nav-link header-item" id="navTimeReportLink" data-toggle="modal" href="#time-report-modal"><i class="fa fa-clock-o" aria-hidden="true"></i> Tidsrapportering </a>
-                    <a class="nav-item nav-link header-item" id="navEmployeeLink" href="#"><i class="fa fa-address-book-o" aria-hidden="true"></i> Medarbetare</a>
-                    <a class="nav-item nav-link header-item" id="navbarScheduleLink" href="#"><i class="fa fa-calendar"></i>
+      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <h2 id="brandButton"><a class="navbar-brand my-header-link" href="#">ERP</a></h2>
+        <div class="navbar-nav">
+          <a class="nav-item nav-link header-item my-header-link active-link" id="navPriceLink" href="#">PRIS</a>
+          <a class="nav-item nav-link header-item my-header-link" id="navAboutLink" href="#">OM OSS</a>
+          <a class="nav-item nav-link header-item my-header-link" id="navSupportLink" href="#">SUPPORT</a>
+          <a class="nav-item nav-link header-item my-header-link" id="navContactLink" href="#">KONTAKT</a>
+          <a class="nav-item nav-link header-item my-header-link" id="navTimeReportLink" data-toggle="modal"
+            href="#time-report-modal">TIDSRAPPORTERING </a>
+          <a class="nav-item nav-link header-item my-header-link" id="navEmployeeLink" href="#">MEDARBETARE</a>
+          <a class="nav-item nav-link header-item my-header-link" id="navbarScheduleLink" href="#"><i
+              class="fa fa-calendar"></i>
             Schema</a>
                     <a class="nav-item nav-link header-item" id="navProjectViewLink" href="#"><i class="fa fa-briefcase" aria-hidden="true"></i> Projektöversikt</a>
                 </div>
@@ -655,311 +660,361 @@
 
 
 
-    <!-- Edit Project Modal-->
-    <div class="modal fade" tabindex="-1" role="dialog" id="modalEditProject">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Redigera Projekt</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+  <!-- Edit Project Modal-->
+  <div class="modal fade" tabindex="-1" role="dialog" id="modalEditProject">
+    <div class="modal-dialog modal-xl" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Redigera Projekt</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
-                </div>
-                <div class="modal-body">
-                    <form>
-                        <div class="form-group">
-                            <label for="orgId">Projekt ID</label>
-                            <input type="name" readonly class="form-control" id="modalProjectId">
-                        </div>
-                        <div class="form-group">
-                            <label for="projectOrgNrInput">Organisationsnummer</label>
-                            <input type="name" readonly class="form-control" id="modalEditProjectOrgNr">
-                        </div>
-                        <div class="form-group">
-                            <label for="projectNameInput">Projektnamn</label>
-                            <input type="name" class="form-control" id="modalEditProjectName">
-                        </div>
-
-                        <div class="form-group">
-                            <div class="modal-footer">
-                            </div>
-                            <button type="button" class="btn btn-danger  mr-auto" id="modalRemoveProjectBtn">Ta
-                bort
-                projekt</button>
-                            <button type="submit" class="btn btn-primary  float-right mr-1" id="modalEditProjectButtonSubmit">Spara
-                ändringar</button>
-                            <button type="button" class="btn btn-secondary  float-right mr-1" data-dismiss="modal">Stäng</button>
-                        </div>
-                        <div class="form-group">
-                            <div id="areYouSureContainer">
-                                <!-- Are you sure message goes here-->
-                            </div>
-                        </div>
-                </div>
-                </form>
-            </div>
         </div>
-    </div>
-
-    <!-- Remove Project Confirmation Message-->
-    <template id="areYouSureConfirm">
-      <p>Är du säker på att du vill ta bort projektet?</p>
-      <button type="button" class="btn btn-secondary " onclick=areYouSureCancel()>Avbryt</button>
-      <button type="button" class="btn btn-danger " data-dismiss="modal" onclick=removeProject()
-        id="removeProjectBtn">Bekräfta</button>
-    </template>
-
-    <!-- Sign-up page -->
-    <template id="signUpView">
-      <div class="container-sm">
-        <form id="signUpForm">
-          <h2>Registrera företag</h2>
-          <div class="form-group">
-            <label for="signUpCompanyName">Namn på företag</label>
-            <input type="text" class="form-control" id="signUpCompanyName" placeholder="Bygg AB">
-          </div>
-          <div class="form-group">
-            <label for="signUpCompanyOrgNumber">Organisationsnummer</label>
-            <input type="text" class="form-control" id="signUpCompanyOrgNumber" placeholder="xxxxxx-xxxx">
-          </div>
-          <h2>Ansvarig för kontot</h2>
-          <p>Personen som har ansvar för kontot. Den som kommer ha fulla privilegier. Kommer kunna lägga till och
-            ta bort
-            medarbetare.</p>
-          <div class="form-group">
-            <label for="signUpAdminName">Namn</label>
-            <input type="text" class="form-control" id="signUpAdminName" placeholder="">
-          </div>
-          <div class="form-group">
-            <label for="signUpAdminPid">Personnummer</label>
-            <input type="text" class="form-control" id="signUpAdminPid" placeholder="ÅÅMMDD-xxxx">
-            <small id="" class="form-text text-muted">10 eller 12 siffror</small>
-          </div>
-          <div class="form-group">
-            <label for="signUpAdminEmail">E-mail</label>
-            <input type="text" class="form-control" id="signUpAdminEmail" placeholder="namn@foretag.com">
-          </div>
-          <div class="form-group">
-            <label for="signUpAdminPassword">Lösenord</label>
-            <input type="password" class="form-control" id="signUpAdminPassword" placeholder="Lösenord">
-            <small id="" class="form-text text-muted">Någon schysst mening om säkert lösenord.</small>
-          </div>
-          <button type="button" id="cancelSignUpButton" class="btn btn-outline-dark">Avbryt</button>
-          <button type="button" id="signUpButton" class="btn btn-primary">Registrera</button>
-        </form>
-      </div>
-    </template>
-
-    <!-- Thank you view -->
-    <template id="thankYouView">
-      <div>
-        <h2>Tack för att du registrerade dig</h2>
-        <p>Du kan nu logga in med knappen längst upp till höger och börja lägga till anställda.</p>
-      </div>
-    </template>
-
-    <!-- The template for the landing page for not logged in visitors -->
-    <template id="landingPage">
-        <h1 class="landingPageHeading">ERP - Snickeri</h1>
-        <p>
-            Tidsrapportering och schemaläggning för den moderna snickaren
-        </p>
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#signInModal">Logga
-            in</button>
-        <button type="button" class="btn btn-outline-dark" id="becomeCustomerButton">Bli kund</button>
-
-        <svg xmlns="http://www.w3.org/2000/svg" style="position:relative;width:100vw;left: calc(-1 * (100vw - 100%) / 2);"viewBox="0 0 1440 320"><path fill="#B2E0FF" fill-opacity="1" d="M0,256L48,266.7C96,277,192,299,288,288C384,277,480,235,576,229.3C672,224,768,256,864,256C960,256,1056,224,1152,192C1248,160,1344,128,1392,112L1440,96L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>
-        <div class="landingPageImages">
-            <div class="container">
-                <div class="row">
-                    <div class="col-4">
-                        <img class="img-fluid" src="images/landing-page/time-report.png">
-                    </div>
-                    <div class="col-8">
-                        <h4>Rapportera tid enkelt</h4>
-                        <p>Du kan enkelt rapportera tid med verktyget tidsrapportering.</p>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-4">
-                        <h4>Visa ditt schema</h4>
-                        <p>Visa de saker du ska arbeta på idag eller under veckan</p>
-                    </div>
-                    <div class="col-8">
-                        <img class="img-fluid" src="images/landing-page/Apple-Macbook-Space-Grey.png">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-4">
-                        <img class="img-fluid" src="images/landing-page/support.png">
-                    </div>
-                    <div class="col-8">
-                        <h4>Support</h4>
-                        <p>Få hjälp från vår supportsida i världsklass<p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </template>
-
-    <template id="calendarView">
-      <div class="cal">
-        <div id='calendar'></div>
-      </div>
-    </template>
-
-    <!-- TIME REPORT MODAL -->
-    <div class="modal" id="time-report-modal" tabindex="-1" role="dialog">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Rapportera tid</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-                </div>
-                <div class="modal-body">
-                    <p>Här kan du rapportera in din arbetstid!</p>
-                    <form>
-                        <div class="form-group">
-                            <label for="projekt">Projekt</label>
-                            <input type="text" class="form-control" id="projectID">
-                        </div>
-                        <div class="form-group">
-                            <label for="starttid">Började klockan</label>
-                            <input type="time" class="form-control" id="startTime">
-                        </div>
-                        <div class="form-group">
-                            <label for="sluttid">Slutade klockan</label>
-                            <input type="time" class="form-control" id="endTime">
-                        </div>
-                        <div class="form-group">
-                            <label for="sluttid">Kommentarer</label>
-                            <input type="text" class="form-control" id="comments">
-                        </div>
-                        <button type="submit" data-dismiss="modal" class="btn btn-primary" onclick=reportTime()>Skicka
-                in</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-    <!-- Project View-->
-    <template id="projectView">
-      <div class="row mt-5">
-        <div class="col">
-          <h1 class="float-left">Projektöversikt</h1>
-          <button type="submit" class="btn btn-primary  float-right mt-2" data-toggle='modal'
-            data-target='#newProjectModal' id="newProjectButton">Nytt Projekt</button>
-        </div>
-      </div>
-      <hr>
-      <div class="row">
-        <div class="col">
-          <h3>Aktiva Projekt</h3>
-          <hr>
-          <div class="list-group animated fadeInDownBig" id="projectListTab" role="tablist">
-            <!-- List of projects appear here-->
-          </div>
-        </div>
-        <div class="col">
-          <h3>Alla Projekt</h3>
-          <hr>
-          <ul>
-            <li>Temporär 1</li>
-            <li>Temporär 2</li>
-          </ul>
-        </div>
-      </div>
-    </template>
-
-    <!-- Employee View -->
-    <template id="employeeView" type="text/html">
-      <div>
-        <table id="employee-table" class="table">
-          <thead>
-            <tr>
-              <th scope="col" id="employee-table-ID">ID 
-                  <div class="form-group"></div>
-                <input type="text" class="form-control" id="employeeTableSearchID" placeholder="Sök ID">
-            </div></th>
-              <th scpoe="col">Namn <div class="form-group"></div>
-                <input type="text" class="form-control" id="employeeTableSearchName" placeholder="Sök Namn">
-            </div></th>
-            <th scope="col">Epost <div class="form-group"></div>
-                <input type="text" class="form-control" id="employeeTableSearchEmail" placeholder="Sök epost">
-            </div></th>
-              <th scope="col">Roll <div class="form-group"></div>
-                <div class="dropdown" id="roleDropDown">
-                    <button class="btn btn-primary dropdown-toggle" type="button" id="roleButton"data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                      Välj roll
-                      <span class="caret"></span>
-                    </button>
-                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                      <li><a href="#" data-value="Alla">Alla</a></li>
-                      <li><a href="#" data-value="Chef">Chef</a></li>
-                      <li><a href="#" data-value="Medarbetare">Medarbetare</a></li>
-                    </ul>
+        <div class="container">
+          <div class="row">
+            <div class="col">
+              <div id="modalProjectInfoContainer">
+                <form>
+                  <div class="form-group">
+                    <label class="pt-2 mt-2" for="orgId">
+                      <h5>Projekt ID</h5>
+                    </label>
+                    <input type="name" readonly class="form-control" id="modalProjectId">
                   </div>
-              </div></th>
-            </tr>
-          </thead>
-          <tbody id="employee-data">
-          </tbody>
-        </table>
-        <button type="submit" class="btn btn-primary" data-toggle='modal'
-            data-target='#addEmployeeModal' id="addEmployeeButton">Lägg till medarbetare</button>
+                  <div class="form-group">
+                    <label for="projectOrgNrInput">
+                      <h5>Organisationsnummer</h5>
+                    </label>
+                    <input type="name" readonly class="form-control" id="modalEditProjectOrgNr">
+                  </div>
+                  <div class="form-group">
+                    <label for="projectNameInput">
+                      <h5>Projektnamn</h5>
+                    </label>
+                    <input type="name" class="form-control" id="modalEditProjectName">
+                  </div>
+                  <div class="form-group">
+                    <h5>Aktiviteter</h5>
+                    <hr>
+                    <div class="list-group animated fadeInDownBig" id="activityListTab" role="tablist">
+                        <p class="font-italic mt-auto mb-auto">Det finns inga aktiviteter på det här projektet</p>
+                      <!-- List of activities appear here-->
+                    </div>
+                  </div>
+                </form>
+              </div>
+              <div id="modalTimeReportInfoContainer">
+                  <!-- Employee time reports appear here-->
+              </div>
+            </div>
+
+            <div class="col">
+              <div id="projectActivityInfo">
+                <!-- Info about an activity appears here-->
+                <p class="font-italic mt-2 pt-2">Klicka på en aktivitet för att visa information</p>
+                <hr>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <div class="modal-footer">
+            </div>
+            <button type="button" class="btn btn-danger  mr-auto" id="modalRemoveProjectBtn">Ta
+              bort
+              projekt</button>
+            <button type="submit" class="btn btn-primary  float-right mr-1" id="modalEditProjectButtonSubmit">Spara
+              ändringar</button>
+            <button type="button" class="btn btn-secondary  float-right mr-1" data-dismiss="modal">Stäng</button>
+          </div>
+          <div class="form-group">
+            <div id="areYouSureContainer">
+              <!-- Are you sure message goes here-->
+            </div>
+          </div>
+        </div>
       </div>
-    </template>
+    </div>
+  </div>
 
-    <template id="aboutView">
-      <h1>Om oss</h1>
-      <p>Vi erbjuder en lösning för schemaläggning och tidsrapportering i form av en webbapplikation.</p>
-    </template>
+  <!-- Employee Reported Time Modal-->
+  <div class="modal fadeInDownBig" tabindex="-1" role="dialog" id="reportedTimeModal">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Rapporterad Tid</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div id="reportedTimeContents">
 
-    <template id="priceView">
-      <h1>Pris</h1>
-      <p>Tjänsten kostar 200 kr i månaden.</p>
-    </template>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
-    <template id="contactView">
-      <h1>Kontakt</h1>
-      <p>Kontakta oss på denna <a href="mailto:mail@mail.com">mailaddress</a> eller fyll i formuläret nedan som inte
-        är där än.</p>
-    </template>
+  <!-- Remove Project Confirmation Message-->
+  <template id="areYouSureConfirm">
+    <p>Är du säker på att du vill ta bort projektet?</p>
+    <button type="button" class="btn btn-secondary " onclick=areYouSureCancel()>Avbryt</button>
+    <button type="button" class="btn btn-danger " data-dismiss="modal" onclick=removeProject()
+      id="removeProjectBtn">Bekräfta</button>
+  </template>
 
-    <template id="supportView">
-      <h1>Support</h1>
-      <p>Här kommer det att finnas hjälp någon gång i framtiden</p>
-    </template>
+  <!-- Sign-up page -->
+  <template id="signUpView">
+    <div class="container-sm">
+      <form id="signUpForm">
+        <h2>Registrera företag</h2>
+        <div class="form-group">
+          <label for="signUpCompanyName">Namn på företag</label>
+          <input type="text" class="form-control" id="signUpCompanyName" placeholder="Bygg AB">
+        </div>
+        <div class="form-group">
+          <label for="signUpCompanyOrgNumber">Organisationsnummer</label>
+          <input type="text" class="form-control" id="signUpCompanyOrgNumber" placeholder="xxxxxx-xxxx">
+        </div>
+        <h2>Ansvarig för kontot</h2>
+        <p>Personen som har ansvar för kontot. Den som kommer ha fulla privilegier. Kommer kunna lägga till och
+          ta bort
+          medarbetare.</p>
+        <div class="form-group">
+          <label for="signUpAdminName">Namn</label>
+          <input type="text" class="form-control" id="signUpAdminName" placeholder="">
+        </div>
+        <div class="form-group">
+          <label for="signUpAdminPid">Personnummer</label>
+          <input type="text" class="form-control" id="signUpAdminPid" placeholder="ÅÅMMDD-xxxx">
+          <small id="" class="form-text text-muted">10 eller 12 siffror</small>
+        </div>
+        <div class="form-group">
+          <label for="signUpAdminEmail">E-mail</label>
+          <input type="text" class="form-control" id="signUpAdminEmail" placeholder="namn@foretag.com">
+        </div>
+        <div class="form-group">
+          <label for="signUpAdminPassword">Lösenord</label>
+          <input type="password" class="form-control" id="signUpAdminPassword" placeholder="Lösenord">
+          <small id="" class="form-text text-muted">Någon schysst mening om säkert lösenord.</small>
+        </div>
+        <button type="button" id="cancelSignUpButton" class="btn btn-outline-dark">Avbryt</button>
+        <button type="button" id="signUpButton" class="btn btn-primary">Registrera</button>
+      </form>
+    </div>
+  </template>
 
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+  <!-- Thank you view -->
+  <template id="thankYouView">
+    <div>
+      <h2>Tack för att du registrerade dig</h2>
+      <p>Du kan nu logga in med knappen längst upp till höger och börja lägga till anställda.</p>
+    </div>
+  </template>
+
+  <!-- The template for the landing page for not logged in visitors -->
+  <template id="landingPage">
+    <h1 class="landingPageHeading">ERP - Snickeri</h1>
+    <p>
+      Tidsrapportering och schemaläggning för den moderna snickaren
+    </p>
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#signInModal">Logga
+      in</button>
+    <button type="button" class="btn btn-outline-dark" id="becomeCustomerButton">Bli kund</button>
+
+    <svg xmlns="http://www.w3.org/2000/svg" style="position:relative;width:100vw;left: calc(-1 * (100vw - 100%) / 2);"
+      viewBox="0 0 1440 320">
+      <path fill="#B2E0FF" fill-opacity="1"
+        d="M0,256L48,266.7C96,277,192,299,288,288C384,277,480,235,576,229.3C672,224,768,256,864,256C960,256,1056,224,1152,192C1248,160,1344,128,1392,112L1440,96L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z">
+      </path>
+    </svg>
+    <div class="landingPageImages">
+      <div class="container">
+        <div class="row">
+          <div class="col-4">
+            <img class="img-fluid" src="images/landing-page/time-report.png">
+          </div>
+          <div class="col-8">
+            <h4>Rapportera tid enkelt</h4>
+            <p>Du kan enkelt rapportera tid med verktyget tidsrapportering.</p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-4">
+            <h4>Visa ditt schema</h4>
+            <p>Visa de saker du ska arbeta på idag eller under veckan</p>
+          </div>
+          <div class="col-8">
+            <img class="img-fluid" src="images/landing-page/Apple-Macbook-Space-Grey.png">
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-4">
+            <img class="img-fluid" src="images/landing-page/support.png">
+          </div>
+          <div class="col-8">
+            <h4>Support</h4>
+            <p>Få hjälp från vår supportsida i världsklass<p>
+          </div>
+        </div>
+    </div>
+  </template>
+
+  <template id="calendarView">
+    <div class="cal">
+      <div id='calendar'></div>
+    </div>
+  </template>
+
+  <!-- TIME REPORT MODAL -->
+  <div class="modal" id="time-report-modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Rapportera tid</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>Här kan du rapportera in din arbetstid!</p>
+          <form>
+            <div class="form-group">
+              <label for="projekt">Projekt</label>
+              <input type="text" class="form-control" id="projectID">
+            </div>
+            <div class="form-group">
+              <label for="starttid">Började klockan</label>
+              <input type="time" class="form-control" id="startTime">
+            </div>
+            <div class="form-group">
+              <label for="sluttid">Slutade klockan</label>
+              <input type="time" class="form-control" id="endTime">
+            </div>
+            <div class="form-group">
+              <label for="sluttid">Kommentarer</label>
+              <input type="text" class="form-control" id="comments">
+            </div>
+            <button type="submit" data-dismiss="modal" class="btn btn-primary" onclick=reportTime()>Skicka
+              in</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
 
 
-    <!-- Tempus Dominus, adds time-picking, for more info see https://tempusdominus.github.io/bootstrap-4/ -->
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment-with-locales.min.js"></script>
-    <script type="text/javascript" src="tempus-dominus/tempusdominus-bootstrap-4.js"></script>
-    <!-- fullcalendar -->
-    <script src='https://unpkg.com/@fullcalendar/core@4.4.0/main.js'></script>
-    <script src='https://unpkg.com/@fullcalendar/daygrid@4.4.0/main.js'></script>
-    <script src='https://unpkg.com/@fullcalendar/timegrid@4.4.0/main.js'></script>
-    <script src='https://unpkg.com/@fullcalendar/core@4.4.0/locales/sv.js'></script>
-    <script src='https://unpkg.com/@fullcalendar/bootstrap@4.4.0/main.js'></script>
+  <!-- Project View-->
+  <template id="projectView">
+    <div class="row mt-5">
+      <div class="col">
+        <h1 class="float-left">Projektöversikt</h1>
+        <button type="submit" class="btn btn-primary  float-right mt-2" data-toggle='modal'
+          data-target='#newProjectModal' id="newProjectButton">Nytt Projekt</button>
+      </div>
+    </div>
+    <hr>
+    <div class="row">
+      <div class="col">
+        <h3>Aktiva Projekt</h3>
+        <hr>
+        <div class="list-group animated fadeInDownBig" id="projectListTab" role="tablist">
+          <!-- List of projects appear here-->
+        </div>
+      </div>
+      <div class="col">
+        <h3>Alla Projekt</h3>
+        <hr>
+        <ul>
+          <li>Temporär 1</li>
+          <li>Temporär 2</li>
+        </ul>
+      </div>
+    </div>
+  </template>
 
-    <!-- Our scripts -->
-    <script src="calendar.js"></script>
-    <script src="alerts.js"></script>
-    <script src="authentication.js"></script>
-    <script src="employee.js"></script>
-    <script src="client.js"></script>
-    <script src="time_report.js"></script>
-    <script src="project_view.js"></script>
+  <!-- Employee View -->
+  <template id="employeeView" type="text/html">
+    <div>
+      <table id="employee-table" class="table">
+        <thead>
+          <tr>
+            <th scope="col">ID</th>
+            <th scpoe="col">Name</th>
+            <th scope="col">Admin</th>
+            <th scope="col">Chef</th>
+            <th scope="col">Projekt</th>
+            <th scope="col">Arbetad tid</th>
+            <th scope="col"> </th>
+          </tr>
+        </thead>
+        <tbody id="employee-data">
+        </tbody>
+      </table>
+      <div>
+        <!-- INTRESSANT NAMN-->
+        <div class="car-list-button">
+          <button type="button" id="updateCarList" class="btn btn-primary btn-lg" data-toggle="modal"
+            data-target="#addEmployeeModal">Lägg till medarbetare</button>
+        </div>
+      </div>
+    </div>
+  </template>
+
+  <template id="aboutView">
+    <h1>Om oss</h1>
+    <p>Vi erbjuder en lösning för schemaläggning och tidsrapportering i form av en webbapplikation.</p>
+  </template>
+
+  <template id="priceView">
+    <h1>Pris</h1>
+    <p>Tjänsten kostar 200 kr i månaden.</p>
+  </template>
+
+  <template id="contactView">
+    <h1>Kontakt</h1>
+    <p>Kontakta oss på denna <a href="mailto:mail@mail.com">mailaddress</a> eller fyll i formuläret nedan som inte
+      är där än.</p>
+  </template>
+
+  <template id="supportView">
+    <h1>Support</h1>
+    <p>Här kommer det att finnas hjälp någon gång i framtiden</p>
+  </template>
+
+  <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+    integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+    integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+    crossorigin="anonymous"></script>
+
+
+  <!-- Tempus Dominus, adds time-picking, for more info see https://tempusdominus.github.io/bootstrap-4/ -->
+  <script type="text/javascript"
+    src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment-with-locales.min.js"></script>
+  <script type="text/javascript" src="tempus-dominus/tempusdominus-bootstrap-4.js"></script>
+  <!-- fullcalendar -->
+  <script src='https://unpkg.com/@fullcalendar/core@4.4.0/main.js'></script>
+  <script src='https://unpkg.com/@fullcalendar/daygrid@4.4.0/main.js'></script>
+  <script src='https://unpkg.com/@fullcalendar/timegrid@4.4.0/main.js'></script>
+  <script src='https://unpkg.com/@fullcalendar/core@4.4.0/locales/sv.js'></script>
+  <script src='https://unpkg.com/@fullcalendar/bootstrap@4.4.0/main.js'></script>
+
+  <!-- Our scripts -->
+  <script src="calendar.js"></script>
+  <script src="alerts.js"></script>
+  <script src="authentication.js"></script>
+  <script src="employee.js"></script>
+  <script src="client.js"></script>
+  <script src="time_report.js"></script>
+  <script src="project_view.js"></script>
 </body>
 
 </html>

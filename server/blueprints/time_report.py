@@ -307,10 +307,10 @@ def get_time():
 def time_report(project_id):
     #user = Employee.query.get(get_jwt_identity())
     loggedworkList = LoggedWork.query.all()
-    projectName = Project.query.get(project_id).name
+    
     filteredLoggedWorkList = []
     for i in range(len(loggedworkList)):
-        if loggedworkList[i].projectID == projectName:
+        if loggedworkList[i].projectID == project_id:
             loggedworkList[i] = LoggedWork.serialize(loggedworkList[i])
             filteredLoggedWorkList.append(loggedworkList[i])
     return jsonify(filteredLoggedWorkList)

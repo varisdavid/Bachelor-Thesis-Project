@@ -185,7 +185,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Stäng</button>
-                    <button type="button" class="btn btn-primary" onclick="addEmployee()">Lägg till</button>
+                    <button type="submit" class="btn btn-primary" onclick="addEmployee()">Lägg till</button>
                 </div>
             </div>
         </div>
@@ -692,15 +692,15 @@
           </div>
         </div>
         <div class="modal-body">
-          <div class="form-group">
+          <div class="form-group" id="modalProjectButtonsFooter">
             <div class="modal-footer">
             </div>
             <button type="button" class="btn btn-danger  mr-auto" id="modalRemoveProjectBtn">Ta
               bort
               projekt</button>
+              <button class="btn btn-warning mr-auto" id="removeActivityBtn")>Ta bort aktivitet</button>
             <button type="submit" class="btn btn-primary  float-right mr-1" id="modalEditProjectButtonSubmit">Spara
               ändringar</button>
-            <button type="button" class="btn btn-secondary  float-right mr-1" data-dismiss="modal">Stäng</button>
           </div>
           <div class="form-group">
             <div id="areYouSureContainer">
@@ -920,13 +920,7 @@
                     </form>
                 </div>
             </div>
-            <div class="form-group">
-              <label for="sluttid">Kommentarer</label>
-              <input type="text" class="form-control" id="comments">
-            </div>
-            <button type="submit" data-dismiss="modal" class="btn btn-primary" onclick=reportTime()>Skicka
-              in</button>
-          </form>
+          
         </div>
       </div>
     </div>
@@ -937,7 +931,6 @@
     <!-- TIME OVERVIEW -->
     <template id="timeOverviewView">
         <div class="row">
-
         </div>
         <div class="row">
           <div class="col">
@@ -1080,19 +1073,18 @@
     <hr>
     <div class="row">
       <div class="col">
-        <h3>Aktiva Projekt</h3>
+        <h3>Alla Projekt</h3>
         <hr>
-        <div class="list-group animated fadeInDownBig" id="projectListTab" role="tablist">
-          <!-- List of projects appear here-->
+        <div class="list-group animated fadeInDownBig allProjects" id="projectListTab" role="tablist">
+          <!-- List of all projects appear here-->
         </div>
       </div>
       <div class="col">
-        <h3>Alla Projekt</h3>
+        <h3>Aktiva Projekt</h3>
         <hr>
-        <ul>
-          <li>Temporär 1</li>
-          <li>Temporär 2</li>
-        </ul>
+        <div class="list-group animated fadeInDownBig activeProjects" id="projectListTabActive" role="tablist">
+          <!-- List of active projects appear here-->
+        </div>
       </div>
     </div>
   </template>
@@ -1103,50 +1095,51 @@
       <table id="employee-table" class="table">
         <thead>
           <tr>
-            <th scope="col">ID</th>
-            <th scpoe="col">Name</th>
-            <th scope="col">Admin</th>
-            <th scope="col">Chef</th>
-            <th scope="col">Projekt</th>
-            <th scope="col">Arbetad tid</th>
-            <th scope="col"> </th>
+            <th scope="col" id="employee-table-ID">ID 
+                <div class="form-group"></div>
+              <input type="text" class="form-control" id="employeeTableSearchID" placeholder="Sök ID">
+          </div></th>
+            <th scpoe="col">Namn <div class="form-group"></div>
+              <input type="text" class="form-control" id="employeeTableSearchName" placeholder="Sök Namn">
+          </div></th>
+          <th scope="col">Epost <div class="form-group"></div>
+              <input type="text" class="form-control" id="employeeTableSearchEmail" placeholder="Sök epost">
+          </div></th>
+            <th scope="col">Roll <div class="form-group"></div>
+              <div class="dropdown" id="roleDropDown">
+                  <button class="btn btn-primary dropdown-toggle" type="button" id="roleButton"data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                    Välj roll
+                    <span class="caret"></span>
+                  </button>
+                  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                    <li><a href="#" data-value="Alla">Alla</a></li>
+                    <li><a href="#" data-value="Chef">Chef</a></li>
+                    <li><a href="#" data-value="Medarbetare">Medarbetare</a></li>
+                  </ul>
+                </div>
+            </div></th>
           </tr>
+          <table id="employee-table" class="table">
+            <thead>
+              <tr>
+                <th scope="col">ID</th>
+                <th scpoe="col">Name</th>
+                <th scope="col">Admin</th>
+                <th scope="col">Chef</th>
+                <th scope="col">Projekt</th>
+                <th scope="col">Arbetad tid</th>
+                <th scope="col"> </th>
+              </tr>
+            </thead>
+            <tbody id="employee-data">
+            </tbody>
+          </table>
         </thead>
         <tbody id="employee-data">
         </tbody>
       </table>
+      
       <div>
-        <table id="employee-table" class="table">
-          <thead>
-            <tr>
-              <th scope="col" id="employee-table-ID">ID 
-                  <div class="form-group"></div>
-                <input type="text" class="form-control" id="employeeTableSearchID" placeholder="Sök ID">
-            </div></th>
-              <th scpoe="col">Namn <div class="form-group"></div>
-                <input type="text" class="form-control" id="employeeTableSearchName" placeholder="Sök Namn">
-            </div></th>
-            <th scope="col">Epost <div class="form-group"></div>
-                <input type="text" class="form-control" id="employeeTableSearchEmail" placeholder="Sök epost">
-            </div></th>
-              <th scope="col">Roll <div class="form-group"></div>
-                <div class="dropdown" id="roleDropDown">
-                    <button class="btn btn-primary dropdown-toggle" type="button" id="roleButton"data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                      Välj roll
-                      <span class="caret"></span>
-                    </button>
-                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                      <li><a href="#" data-value="Alla">Alla</a></li>
-                      <li><a href="#" data-value="Chef">Chef</a></li>
-                      <li><a href="#" data-value="Medarbetare">Medarbetare</a></li>
-                    </ul>
-                  </div>
-              </div></th>
-            </tr>
-          </thead>
-          <tbody id="employee-data">
-          </tbody>
-        </table>
         <button type="submit" class="btn btn-primary" id="viewAddEmployeeButton"data-toggle='modal'
             data-target='#addEmployeeModal' id="addEmployeeButton">Lägg till medarbetare</button>
       </div>

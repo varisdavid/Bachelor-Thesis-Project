@@ -13,6 +13,10 @@ function changeToProjectView() {
             $("#activityListTab").empty()
             $("#projectListTab").empty()
             displayProjects(projects_json)
+            $(".list-group-item").click(function () {
+                $(".list-group-item").removeClass("active");
+                $(this).addClass("active");   
+                });
         }
     })
     $("#mainView").html($("#projectView").html())
@@ -84,6 +88,7 @@ function editProject(project_id) {
         url: '/project_view/projects/' + project_id,
         type: 'GET',
         success: function (project) {
+            $("#removeActivityBtn").hide()
             $("#modalProjectInfoContainer").hide().fadeIn(200)
             $('#modalEditProject').find('#modalEditProjectName').val(project.name)
             $('#modalEditProject').find('#modalEditProjectOrgNr').val(project.companyOrgNumber)
@@ -110,6 +115,10 @@ function displayActivities(project_id) {
                 $(html).appendTo("#activityListTab").hide().fadeIn(fadeSpeed * 500)
                 fadeSpeed += 1;
             }
+            $(".list-group-item").click(function () {
+                $(".list-group-item").removeClass("active");
+                $(this).addClass("active");   
+                });
 
         }
     })
@@ -125,7 +134,6 @@ function loadActivityInfo(activityID) {
             employeeString = "";
             response.employees.forEach(function (emp) {
                 employeeString = employeeString + emp.name + "\n";
-                console.log(employeeString)
             })
             var startTime = response.startTime.split("T")[1] + ", " + "<br>" + response.startTime.split("T")[0]
             var stopTime = response.stopTime.split("T")[1] + ", " + "<br>" + response.stopTime.split("T")[0]
@@ -135,7 +143,6 @@ function loadActivityInfo(activityID) {
                 <div class="row">
                     <div class="col">
                         <h5 class="mt-2 pt-2 float-left">Aktivitet: ${response.name}</h5>
-                        <button class="btn btn-danger mt-2 mr-0 float-right" onclick=removeActivity(${response.id, response.project_id})>Ta bort aktivitet</button>
                     </div>
                 </div>
                 <hr>
@@ -162,16 +169,42 @@ function loadActivityInfo(activityID) {
              <div class="modal-footer">
              </div>
              `);
+
+             $("#removeActivityBtn").show()
+             $("#removeActivityBtn").click(function (e) {
+                removeActivityConfirm(response.id,response.project_id)
+            });
+            
+
             response.employees.forEach(function (emp) {
                 $("#listOfEmployees").append('<a class="list-group-item list-group-item-action rounded-0" '
                     + ' onclick=loadEmployeeHours(' + response.project_id + ',' + emp.personID + ')>'
                     + emp.name + '</a>')
             })
+            $(".list-group-item").click(function () {
+                $(".list-group-item").removeClass("active");
+                $(this).addClass("active");   
+                });
         },
         error: function (response) {
             console.log("error")
         }
     })
+}
+
+function removeActivityConfirm(activity_id, project_id){
+    $("#areYouSureContainer").hide()
+    $("#areYouSureContainer").html(`
+    <p>Är du säker på att du vill ta bort aktiviteten?</p>
+    <button type="button" class="btn btn-secondary " onclick=areYouSureCancel()>Avbryt</button>
+    <button type="button" class="btn btn-danger " id="removeActivityConfirmBtn">Bekräfta</button>
+    `).fadeIn(400)
+      $("#removeActivityConfirmBtn").click(function (e) {
+        $('#areYouSureContainer').hide()
+        removeActivity(activity_id,project_id)
+    });
+
+    
 }
 
 function loadEmployeeHours(project_id, employee_id) {
@@ -194,7 +227,7 @@ function loadEmployeeHours(project_id, employee_id) {
                 <div class="row">
                     <div class="col">
                         <h5 class="mt-2 pt-2 float-left">Rapporterad tid</h5>
-                        <button class="btn btn-secondary mt-2 mr-0 float-right" onclick=editProject(${project_id})>Tillbaka</button>
+                        <button class="btn btn-secondary mt-2 mr-0 float-right" onclick=showProjectInfoContainer()>Tillbaka</button>
                     </div>
                 </div>
                 <hr>
@@ -213,9 +246,10 @@ function loadEmployeeHours(project_id, employee_id) {
                 </table>
             `).hide().fadeIn(200);
 
+            
+
             var count = 1;
             for (timeReport of employeeTime) {
-
                 var html = `<tr>
                 <th scope="row">${count}</th>
                 <td>${timeReport.startTime}</td>
@@ -227,6 +261,13 @@ function loadEmployeeHours(project_id, employee_id) {
             }
         }
     })
+}
+
+function showProjectInfoContainer(){
+    $(".list-group-item").removeClass("active");
+    $("#removeActivityBtn").hide()
+    $("#modalProjectInfoContainer").fadeIn(400)
+    $("#modalTimeReportInfoContainer").empty()
 }
 
 function removeProject() {
@@ -244,6 +285,7 @@ function removeProject() {
 function areYouSureCancel() {
     $('#areYouSureContainer').empty()
 }
+
 
 function removeActivity(activity_id, project_id) {
     $.ajax({
@@ -264,7 +306,7 @@ $(document).ready(function () {
     })
 
     $("#modalRemoveProjectBtn").click(function (e) {
-        $("#areYouSureContainer").html($("#areYouSureConfirm").html())
+        $("#areYouSureContainer").html($("#areYouSureConfirm").html()).fadeIn(400)
     })
 
     $("#modalNewProjectButton").click(function (e) {
@@ -272,12 +314,12 @@ $(document).ready(function () {
     })
 
     $("#modalTimeReportBackBtn").click(function (e) {
-        console.log("KÖöörd")
         editProject(project_id)
     });
+    
 
     $('#modalEditProject').on('hidden.bs.modal', function () {
-        $('#areYouSureContainer').empty()
+        $('#areYouSureContainer').hide()
         $("#modalProjectInfoContainer").show()
         $("#modalTimeReportInfoContainer").hide()
         $("#activityListTab").html(`<p class="font-italic mt-auto mb-auto">Det finns inga aktiviteter på det här projektet</p>`);

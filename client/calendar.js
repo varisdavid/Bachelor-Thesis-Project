@@ -558,6 +558,7 @@ function viewCalendars() {
                             headers: { "Authorization": "Bearer " + JSON.parse(sessionStorage.getItem('auth')).access_token },
                             success: function (response) {
                                 response.forEach(element => element.url = "#")
+                                response.forEach(element => element.title = value.name + " - " + element.title)
                                 callback(response);
                             }
                         });

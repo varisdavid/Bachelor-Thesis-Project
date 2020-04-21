@@ -20,7 +20,6 @@ $('#editEmployeeModal').on('show.bs.modal', function(event) {
         type: 'GET',
         success: function(user) {
             if (user.isAdmin) {
-                console.log("ADMIN");
                 if (user.personID == personID) {
                     $("#isAdminCheckBox").hide();
                 } else {
@@ -42,25 +41,7 @@ $('#editEmployeeModal').on('hidden.bs.modal', function(event) {
     $(this).find('#editEmployeeEmail-input').val('');
 });
 
-function changeToEmployeeView() {
-    $("#mainView").html($("#employeeView").html())
-    loadEmployees(); //In employee.js
-}
-
 function loadEmployees() {
-    $.ajax({
-        headers: { "Authorization": "Bearer " + JSON.parse(sessionStorage.getItem('auth')).access_token },
-        url: '/employee/getUser',
-        type: 'GET',
-        success: function(user) {
-            if (user.isAdmin || user.isBoss) {
-                $("#viewAddEmployeeButton").show();
-            } else {
-                $("#viewAddEmployeeButton").hide();
-            }
-        }
-    });
-
     $.ajax({
         headers: { "Authorization": "Bearer " + JSON.parse(sessionStorage.getItem('auth')).access_token },
         url: '/employee/all',
@@ -69,6 +50,7 @@ function loadEmployees() {
         contentType: 'application/json',
         success: function(employees) {
             $('#employee-data').html('');
+
             $("#employeeTableSearchID").on("keyup", function() {
                 var value = $(this).val().toLowerCase();
                 $("#employee-data tr").filter(function() {
@@ -123,6 +105,7 @@ function loadEmployees() {
                 type: 'GET',
                 success: function(user) {
                     if (user.isAdmin || user.isBoss) {
+                        $("#viewAddEmployeeButton").show();
                         for (employee of employees) {
                             if ($("#roleButton").val() == "Chef") {
                                 if (employee.isBoss) {
@@ -169,6 +152,7 @@ function loadEmployees() {
                             }
                         }
                     } else {
+                        $("#viewAddEmployeeButton").hide();
                         for (employee of employees) {
                             if ($("#roleButton").val() == "Chef") {
                                 if (employee.isBoss) {

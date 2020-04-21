@@ -14,6 +14,7 @@ function updatePageLoggedIn(signedIn) {
         $("#navProjectViewLink").show()
         $("#navbarScheduleLink").show()
         $("#navEmployeeLink").show()
+        $("#navProfileLink").show()
     } else {
         $(".signInButton").show()
         $(".signOutButton").hide()
@@ -25,6 +26,7 @@ function updatePageLoggedIn(signedIn) {
         $("#navProjectViewLink").hide()
         $("#navbarScheduleLink").hide()
         $("#navEmployeeLink").hide()
+        $("#navProfileLink").hide()
     }
     changeToLandingPage()
 }

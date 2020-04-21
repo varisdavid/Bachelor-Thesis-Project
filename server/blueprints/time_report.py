@@ -1,6 +1,6 @@
 from flask import Blueprint, request, jsonify, Response
 from flask_jwt_extended import JWTManager, jwt_required, get_jwt_identity
-from datetime import datetime
+from datetime import datetime, timedelta
 import calendar
 
 #You can import the database from a blueprint
@@ -40,13 +40,18 @@ def editLoggedWork(loggedWorkID):
     loggedWork = LoggedWork.query.get(loggedWorkID)
     employee = Employee.query.get(loggedWork.employeeID)
     users.append(employee.serialize())
-    print(user.isAdmin)
+    print("hej")
+    print(loggedWork)
     if request.method == 'GET':
         if user.isAdmin:
-            print("hola")
+            loggedWork.startTime= loggedWork.startTime - timedelta(hours = 1) 
+            loggedWork.endTime= loggedWork.endTime - timedelta(hours = 1) 
             return jsonify(loggedWork.serialize())
         if user.personID == loggedWork.employeeID:
-            print("tjena")
+            loggedWork.startTime= loggedWork.startTime - timedelta(hours = 1) 
+            loggedWork.endTime= loggedWork.endTime - timedelta(hours = 1) 
+            print("tja")
+            print(loggedWork)
             return jsonify(loggedWork.serialize())
     if request.method == 'PUT' and user.personID == loggedWork.employeeID or request.method == 'PUT' and user.isAdmin:
         loggedWork_data = request.get_json()

@@ -38,16 +38,15 @@
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                 <h2 id="brandButton"><a class="navbar-brand my-header-link active-link" href="#">ERP</a></h2>
                 <div class="navbar-nav" id="navBar">
-                    <a class="nav-item nav-link header-item my-header-link" id="navPriceLink" href="#"><i class="fa fa-usd" aria-hidden="true"></i> Pris</a>
-                    <a class="nav-item nav-link header-item my-header-link" id="navAboutLink" href="#"><i class="fa fa-info-circle" aria-hidden="true"></i> Om oss</a>
-                    <a class="nav-item nav-link header-item my-header-link" id="navSupportLink" href="#"><i class="fa fa-handshake-o" aria-hidden="true"></i> Support</a>
                     <a class="nav-item nav-link header-item my-header-link" id="navContactLink" href="#"><i class="fa fa-phone" aria-hidden="true"></i> Kontakt</a>
-                    <a class="nav-item nav-link header-item my-header-link" id="navTimeReportLink" href="#">Tidsrapportering</a>
-                    <a class="nav-item nav-link header-item my-header-link" id="navTimeOverviewLink" href="#">Tidsöversikt</a>
                     <a class="nav-item nav-link header-item my-header-link" id="navEmployeeLink" href="#"><i class="fa fa-address-book-o" aria-hidden="true"></i> Medarbetare</a>
-                    <a class="nav-item nav-link header-item my-header-link" id="navbarScheduleLink" href="#"><i class="fa fa-calendar"></i>
-            Schema</a>
+                    <a class="nav-item nav-link header-item my-header-link" id="navAboutLink" href="#"><i class="fa fa-info-circle" aria-hidden="true"></i> Om oss</a>
+                    <a class="nav-item nav-link header-item my-header-link" id="navPriceLink" href="#"><i class="fa fa-usd" aria-hidden="true"></i> Pris</a>
                     <a class="nav-item nav-link header-item my-header-link" id="navProjectViewLink" href="#"><i class="fa fa-briefcase" aria-hidden="true"></i> Projektöversikt</a>
+                    <a class="nav-item nav-link header-item my-header-link" id="navbarScheduleLink" href="#"><i class="fa fa-calendar"></i> Schema</a>
+                    <a class="nav-item nav-link header-item my-header-link" id="navSupportLink" href="#"><i class="fa fa-handshake-o" aria-hidden="true"></i> Support</a>
+                    <a class="nav-item nav-link header-item my-header-link" id ="navTimeReportLink" href="#">Tidsrapportering</a>
+                    <a class="nav-item nav-link header-item my-header-link" id ="navTimeOverviewLink"href="#">Tidsöversikt</a> 
                 </div>
                 <ul class="nav navbar-nav navbar-right ml-auto">
                     <button type="button" class="btn btn-outline-dark signInButton header-item" data-toggle="modal" data-target="#signInModal" style="display:none;">Logga in</button>
@@ -792,11 +791,18 @@
   <template id="landingPage">
     <h1 class="landingPageHeading">ERP - Snickeri</h1>
     <p>
-      Tidsrapportering och schemaläggning för den moderna snickaren
-    </p>
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#signInModal">Logga
-      in</button>
-    <button type="button" class="btn btn-outline-dark" id="becomeCustomerButton">Bli kund</button>
+        Tidsrapportering och schemaläggning för den moderna snickaren
+    </p>     
+    
+    <div class="row">
+      <div class="col-lg-12">
+        <p> <br><br>
+          <button type="button" class="btn btn-sq-lg btn-primary" data-toggle="modal" data-target="#signInModal">Logga
+          in</button>
+          <button type="button" class="btn btn-sq-lg btn-info" id="becomeCustomerButton">Bli kund</button>
+        </p>
+      </div>
+    </div>
 
     <svg xmlns="http://www.w3.org/2000/svg" style="position:relative;width:100vw;left: calc(-1 * (100vw - 100%) / 2);"
       viewBox="0 0 1440 320">
@@ -985,29 +991,20 @@
     <!-- HOMEPAGE ADMIN -->
     <template id="adminHomepageView">
         <div class="row">
-          <div class="col">
-            <a href=# class="btn btn-square btn-primary" onclick=changeToProjectView()>Projekt</a>    
-          </div>
-          <div class="col">
-            <a href=# class="btn btn-square btn-primary" onclick=changeToCalendarView()>Schemaläggning</a>     
-          </div>
-          <div class="col">
-            <a href=# class="btn btn-square btn-primary" onclick=changeToTimeOverview()>Tidsöversikt</a>     
+          <div class="col-lg-12">
+            <p> <br><br>
+              <a href=# class="btn btn-sq-lg btn-primary" onclick=changeToEmployeeView()> <i class="fa fa-address-book-o fa-4x"></i></br>Medarbetare</a>    
+              <a href=# class="btn btn-sq-lg btn-success" onclick=changeToProjectView()> <i class="fa fa-briefcase fa-4x"></i></br>Projektöversikt</a>      
+              <a href=# class="btn btn-sq-lg btn-info" onclick=changeToCalendarView()> <i class="fa fa-calendar fa-4x"></i></br>Schema</a>    
+            </p>
           </div>
         </div>
         <div class="row">
-          <p>   
-          </p>
-        </div>
-        <div class="row">
-          <div class="col">
-            <a href=# class="btn btn-square btn-primary" onclick=changeToEmployeeView()>Medarbetare</a>  
-          </div>
-          <div class="col">
-            <a href=# class="btn btn-square btn-primary">Betalningar</a>     
-          </div>
-          <div class="col">
-            <a href=# class="btn btn-square btn-primary" onclick=changeToSupportView()>Support</a>    
+          <div class="col-lg-12">
+            <p>
+              <a href=# class="btn btn-sq-lg btn-secondary" onclick=changeToSupportView()> <i class="fa fa-handshake-o fa-4x"></i></br>Support</a>       
+              <a href=# class="btn btn-sq-lg btn-danger" onclick=changeToTimeOverview()> <i class="fa fa-clock-o fa-4x"></i></br>Tidsöversikt</a>   
+            </p>
           </div>
         </div>
       </template>
@@ -1015,23 +1012,20 @@
     <!-- HOMEPAGE BOSS -->
     <template id="bossHomepageView">
         <div class="row">
-          <div class="col">
-            <a href=# class="btn btn-square btn-primary" onclick=changeToEmployeeView()>Medarbetare</a>  
-          </div>
-          <div class="col">
-            <a href=# class="btn btn-square btn-primary" onclick=changeToProjectView()>Projekt</a>    
+          <div class="col-lg-12">
+            <p> <br><br>
+              <a href=# class="btn btn-sq-lg btn-primary" onclick=changeToEmployeeView()> <i class="fa fa-address-book-o fa-4x"></i></br>Medarbetare</a>    
+              <a href=# class="btn btn-sq-lg btn-success" onclick=changeToProjectView()> <i class="fa fa-briefcase fa-4x"></i></br>Projektöversikt</a>      
+              <a href=# class="btn btn-sq-lg btn-info" onclick=changeToCalendarView()> <i class="fa fa-calendar fa-4x"></i></br>Schema</a>    
+            </p>
           </div>
         </div>
         <div class="row">
-          <p>   
-          </p>
-        </div>
-        <div class="row">
-          <div class="col">
-            <a href=# class="btn btn-square btn-primary" onclick=changeToCalendarView()>Schemaläggning</a>   
-          </div>
-          <div class="col">
-            <a href=# class="btn btn-square btn-primary" onclick=changeToTimeOverview()>Tidsöversikt</a>     
+          <div class="col-lg-12">
+            <p>
+              <a href=# class="btn btn-sq-lg btn-secondary" onclick=changeToSupportView()> <i class="fa fa-handshake-o fa-4x"></i></br>Support</a>       
+              <a href=# class="btn btn-sq-lg btn-danger" onclick=changeToTimeOverview()> <i class="fa fa-clock-o fa-4x"></i></br>Tidsöversikt</a>    
+            </p>
           </div>
         </div>
       </template>
@@ -1039,23 +1033,20 @@
     <!-- HOMEPAGE WORKER -->
     <template id="workerHomepageView">
         <div class="row">
+          <div class="col-lg-12">
+            <p> <br><br>
+              <a href=# class="btn btn-sq-lg btn-primary" onclick=changeToEmployeeView()> <i class="fa fa-address-book-o fa-4x"></i></br>Medarbetare</a>    
+              <a href=# class="btn btn-sq-lg btn-success" onclick=changeToProjectView()> <i class="fa fa-briefcase fa-4x"></i></br>Projektöversikt</a>      
+              <a href=# class="btn btn-sq-lg btn-info" onclick=changeToCalendarView()> <i class="fa fa-calendar fa-4x"></i></br>Schema</a>    
+            </p>
+          </div>
         </div>
         <div class="row">
-          <div class="col">
-            <a href=# class="btn btn-square btn-primary" onclick=changeToCalendarView()>Mitt Schema</a>    
-          </div>
-          <div class="col">
-            <a href=# class="btn btn-square btn-primary" onclick=changeToTimeReport()>Rapportera Tid</a>     
-          </div>
-        </div>
-        <p>   
-        </p>
-        <div class="row">
-          <div class="col">
-            <a href=# class="btn btn-square btn-primary" onclick=changeToEmployeeView()>Medarbetare</a> 
-          </div>
-          <div class="col">
-            <a href=# class="btn btn-square btn-primary" onclick=changeToProjectView()>Projekt</a>    
+          <div class="col-lg-12">
+            <p>
+              <a href=# class="btn btn-sq-lg btn-secondary" onclick=changeToSupportView()> <i class="fa fa-handshake-o fa-4x"></i></br>Support</a>
+              <a href=# class="btn btn-sq-lg btn-danger" onclick=changeToTimeOverview()> <i class="fa fa-clock-o fa-4x"></i></br>Tidsöversikt</a>    
+            </p>
           </div>
         </div>
       </template>

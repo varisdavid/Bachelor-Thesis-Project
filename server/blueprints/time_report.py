@@ -4,7 +4,7 @@ from datetime import datetime
 import calendar
 
 #You can import the database from a blueprint
-from server.database import db, Employee, LoggedWork
+from server.database import db, Employee, LoggedWork, Project
 from server import app
 
 jwt = JWTManager(app)
@@ -300,3 +300,17 @@ def get_time():
                 totTime = totTime + (work.endTime-work.startTime)
         print(totTime)
         return totTime, 200
+        
+# Returns all logged work on a specific project
+@bp.route('/report_time/projects/<int:project_id>', methods=['GET'])
+#@jwt_required
+def time_report(project_id):
+    #user = Employee.query.get(get_jwt_identity())
+    loggedworkList = LoggedWork.query.all()
+    
+    filteredLoggedWorkList = []
+    for i in range(len(loggedworkList)):
+        if loggedworkList[i].projectID == project_id:
+            loggedworkList[i] = LoggedWork.serialize(loggedworkList[i])
+            filteredLoggedWorkList.append(loggedworkList[i])
+    return jsonify(filteredLoggedWorkList)

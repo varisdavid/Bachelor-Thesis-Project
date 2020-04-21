@@ -1,7 +1,7 @@
 from flask import Blueprint, request, jsonify, Response, abort
 from flask_bcrypt import Bcrypt
 from flask_jwt_extended import JWTManager, jwt_required, get_jwt_identity
-from server.database import db, Project, Employee
+from server.database import db, Project, Employee, Activity
 from server import app
 
 
@@ -64,3 +64,16 @@ def projectIndex(project_id):
         db.session.delete(project)
         db.session.commit()
         return "200 (Success)"
+
+#Finds all activities associated with the project ID
+@bp.route('/projects/<int:project_id>' + '/activities', methods=['GET'])
+#@jwt_required
+def projectActivities(project_id):
+    #user = Employee.query.get_or_404(get_jwt_identity())
+    activityList = Activity.query.all()
+    filteredActivityList = []
+    for i in range(len(activityList)):
+        if activityList[i].project_id == project_id:
+            activityList[i] = Activity.serialize(activityList[i])
+            filteredActivityList.append(activityList[i])
+    return jsonify(filteredActivityList)

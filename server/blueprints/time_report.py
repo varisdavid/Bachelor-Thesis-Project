@@ -121,78 +121,78 @@ def getWorkerLoggedTime():
             if user == i.employeeID and i.startTime.month == datetime.today().month -5 and i.startTime.year == datetime.today().year:
                 first_month_time = first_month_time + divmod((i.endTime-i.startTime).total_seconds(), 3600)[0]
             if user == i.employeeID and i.startTime.month == datetime.today().month -4 and i.startTime.year == datetime.today().year:
-                second_month_time = first_month_time + divmod((i.endTime-i.startTime).total_seconds(), 3600)[0]
+                second_month_time = second_month_time + divmod((i.endTime-i.startTime).total_seconds(), 3600)[0]
             if user == i.employeeID and i.startTime.month == datetime.today().month -3 and i.startTime.year == datetime.today().year:
-                third_month_time = first_month_time + divmod((i.endTime-i.startTime).total_seconds(), 3600)[0]
+                third_month_time = third_month_time + divmod((i.endTime-i.startTime).total_seconds(), 3600)[0]
             if user == i.employeeID and i.startTime.month == datetime.today().month -2 and i.startTime.year == datetime.today().year:
-                fourth_month_time = first_month_time + divmod((i.endTime-i.startTime).total_seconds(), 3600)[0]
+                fourth_month_time = fourth_month_time + divmod((i.endTime-i.startTime).total_seconds(), 3600)[0]
             if user == i.employeeID and i.startTime.month == datetime.today().month -1 and i.startTime.year == datetime.today().year:
-                fivth_month_time = first_month_time + divmod((i.endTime-i.startTime).total_seconds(), 3600)[0]
+                fivth_month_time = fivth_month_time + divmod((i.endTime-i.startTime).total_seconds(), 3600)[0]
             if user == i.employeeID and i.startTime.month == datetime.today().month and i.startTime.year == datetime.today().year:
                 this_month_time = this_month_time + divmod((i.endTime-i.startTime).total_seconds(), 3600)[0]
         if datetime.today().month == 5:
             if user == i.employeeID and i.startTime.month == datetime.today().month -5+12 and i.startTime.year == datetime.today().year-1:
                 first_month_time = first_month_time + divmod((i.endTime-i.startTime).total_seconds(), 3600)[0]
             if user == i.employeeID and i.startTime.month == datetime.today().month -4 and i.startTime.year == datetime.today().year:
-                second_month_time = first_month_time + divmod((i.endTime-i.startTime).total_seconds(), 3600)[0]
+                second_month_time = second_month_time + divmod((i.endTime-i.startTime).total_seconds(), 3600)[0]
             if user == i.employeeID and i.startTime.month == datetime.today().month -3 and i.startTime.year == datetime.today().year:
-                third_month_time = first_month_time + divmod((i.endTime-i.startTime).total_seconds(), 3600)[0]
+                third_month_time = third_month_time + divmod((i.endTime-i.startTime).total_seconds(), 3600)[0]
             if user == i.employeeID and i.startTime.month == datetime.today().month -2 and i.startTime.year == datetime.today().year:
-                fourth_month_time = first_month_time + divmod((i.endTime-i.startTime).total_seconds(), 3600)[0]
+                fourth_month_time = fourth_month_time + divmod((i.endTime-i.startTime).total_seconds(), 3600)[0]
             if user == i.employeeID and i.startTime.month == datetime.today().month -1 and i.startTime.year == datetime.today().year:
-                fivth_month_time = first_month_time + divmod((i.endTime-i.startTime).total_seconds(), 3600)[0]
+                fivth_month_time = fivth_month_time + divmod((i.endTime-i.startTime).total_seconds(), 3600)[0]
             if user == i.employeeID and i.startTime.month == datetime.today().month and i.startTime.year == datetime.today().year:
                 this_month_time = this_month_time + divmod((i.endTime-i.startTime).total_seconds(), 3600)[0]
         if datetime.today().month == 4:
             if user == i.employeeID and i.startTime.month == datetime.today().month -5+12 and i.startTime.year == datetime.today().year-1:
                 first_month_time = first_month_time + divmod((i.endTime-i.startTime).total_seconds(), 3600)[0]
             if user == i.employeeID and i.startTime.month == datetime.today().month -4+12 and i.startTime.year == datetime.today().year-1:
-                second_month_time = first_month_time + divmod((i.endTime-i.startTime).total_seconds(), 3600)[0]
+                second_month_time = second_month_time + divmod((i.endTime-i.startTime).total_seconds(), 3600)[0]
             if user == i.employeeID and i.startTime.month == datetime.today().month -3 and i.startTime.year == datetime.today().year:
-                third_month_time = first_month_time + divmod((i.endTime-i.startTime).total_seconds(), 3600)[0]
+                third_month_time = third_month_time + divmod((i.endTime-i.startTime).total_seconds(), 3600)[0]
             if user == i.employeeID and i.startTime.month == datetime.today().month -2 and i.startTime.year == datetime.today().year:
-                fourth_month_time = first_month_time + divmod((i.endTime-i.startTime).total_seconds(), 3600)[0]
+                fourth_month_time = fourth_month_time + divmod((i.endTime-i.startTime).total_seconds(), 3600)[0]
             if user == i.employeeID and i.startTime.month == datetime.today().month -1 and i.startTime.year == datetime.today().year:
-                fivth_month_time = first_month_time + divmod((i.endTime-i.startTime).total_seconds(), 3600)[0]
+                fivth_month_time = fivth_month_time + divmod((i.endTime-i.startTime).total_seconds(), 3600)[0]
             if user == i.employeeID and i.startTime.month == datetime.today().month and i.startTime.year == datetime.today().year:
                 this_month_time = this_month_time + divmod((i.endTime-i.startTime).total_seconds(), 3600)[0]
         if datetime.today().month == 3:
             if user == i.employeeID and i.startTime.month == datetime.today().month -5+12 and i.startTime.year == datetime.today().year-1:
                 first_month_time = first_month_time + divmod((i.endTime-i.startTime).total_seconds(), 3600)[0]
             if user == i.employeeID and i.startTime.month == datetime.today().month -4+12 and i.startTime.year == datetime.today().year-1:
-                second_month_time = first_month_time + divmod((i.endTime-i.startTime).total_seconds(), 3600)[0]
+                second_month_time = second_month_time + divmod((i.endTime-i.startTime).total_seconds(), 3600)[0]
             if user == i.employeeID and i.startTime.month == datetime.today().month -3+12 and i.startTime.year == datetime.today().year-1:
-                third_month_time = first_month_time + divmod((i.endTime-i.startTime).total_seconds(), 3600)[0]
+                third_month_time = third_month_time + divmod((i.endTime-i.startTime).total_seconds(), 3600)[0]
             if user == i.employeeID and i.startTime.month == datetime.today().month -2 and i.startTime.year == datetime.today().year:
-                fourth_month_time = first_month_time + divmod((i.endTime-i.startTime).total_seconds(), 3600)[0]
+                fourth_month_time = fourth_month_time + divmod((i.endTime-i.startTime).total_seconds(), 3600)[0]
             if user == i.employeeID and i.startTime.month == datetime.today().month -1 and i.startTime.year == datetime.today().year:
-                fivth_month_time = first_month_time + divmod((i.endTime-i.startTime).total_seconds(), 3600)[0]
+                fivth_month_time = fivth_month_time + divmod((i.endTime-i.startTime).total_seconds(), 3600)[0]
             if user == i.employeeID and i.startTime.month == datetime.today().month and i.startTime.year == datetime.today().year:
                 this_month_time = this_month_time + divmod((i.endTime-i.startTime).total_seconds(), 3600)[0]
         if datetime.today().month == 2:
             if user == i.employeeID and i.startTime.month == datetime.today().month -5+12 and i.startTime.year == datetime.today().year-1:
                 first_month_time = first_month_time + divmod((i.endTime-i.startTime).total_seconds(), 3600)[0]
             if user == i.employeeID and i.startTime.month == datetime.today().month -4+12 and i.startTime.year == datetime.today().year-1:
-                second_month_time = first_month_time + divmod((i.endTime-i.startTime).total_seconds(), 3600)[0]
+                second_month_time = second_month_time + divmod((i.endTime-i.startTime).total_seconds(), 3600)[0]
             if user == i.employeeID and i.startTime.month == datetime.today().month -3+12 and i.startTime.year == datetime.today().year-1:
-                third_month_time = first_month_time + divmod((i.endTime-i.startTime).total_seconds(), 3600)[0]
+                third_month_time = third_month_time + divmod((i.endTime-i.startTime).total_seconds(), 3600)[0]
             if user == i.employeeID and i.startTime.month == datetime.today().month -2+12 and i.startTime.year == datetime.today().year-1:
-                fourth_month_time = first_month_time + divmod((i.endTime-i.startTime).total_seconds(), 3600)[0]
+                fourth_month_time = fourth_month_time + divmod((i.endTime-i.startTime).total_seconds(), 3600)[0]
             if user == i.employeeID and i.startTime.month == datetime.today().month -1 and i.startTime.year == datetime.today().year:
-                fivth_month_time = first_month_time + divmod((i.endTime-i.startTime).total_seconds(), 3600)[0]
+                fivth_month_time = fivth_month_time + divmod((i.endTime-i.startTime).total_seconds(), 3600)[0]
             if user == i.employeeID and i.startTime.month == datetime.today().month and i.startTime.year == datetime.today().year:
                 this_month_time = this_month_time + divmod((i.endTime-i.startTime).total_seconds(), 3600)[0]
         if datetime.today().month == 1:
             if user == i.employeeID and i.startTime.month == datetime.today().month -5+12 and i.startTime.year == datetime.today().year-1:
                 first_month_time = first_month_time + divmod((i.endTime-i.startTime).total_seconds(), 3600)[0]
             if user == i.employeeID and i.startTime.month == datetime.today().month -4+12 and i.startTime.year == datetime.today().year-1:
-                second_month_time = first_month_time + divmod((i.endTime-i.startTime).total_seconds(), 3600)[0]
+                second_month_time = second_month_time + divmod((i.endTime-i.startTime).total_seconds(), 3600)[0]
             if user == i.employeeID and i.startTime.month == datetime.today().month -3+12 and i.startTime.year == datetime.today().year-1:
-                third_month_time = first_month_time + divmod((i.endTime-i.startTime).total_seconds(), 3600)[0]
+                third_month_time = third_month_time + divmod((i.endTime-i.startTime).total_seconds(), 3600)[0]
             if user == i.employeeID and i.startTime.month == datetime.today().month -2+12 and i.startTime.year == datetime.today().year-1:
-                fourth_month_time = first_month_time + divmod((i.endTime-i.startTime).total_seconds(), 3600)[0]
+                fourth_month_time = fourth_month_time + divmod((i.endTime-i.startTime).total_seconds(), 3600)[0]
             if user == i.employeeID and i.startTime.month == datetime.today().month -1+12 and i.startTime.year == datetime.today().year-1:
-                fivth_month_time = first_month_time + divmod((i.endTime-i.startTime).total_seconds(), 3600)[0]
+                fivth_month_time = fivth_month_time + divmod((i.endTime-i.startTime).total_seconds(), 3600)[0]
             if user == i.employeeID and i.startTime.month == datetime.today().month and i.startTime.year == datetime.today().year:
                 this_month_time = this_month_time + divmod((i.endTime-i.startTime).total_seconds(), 3600)[0]
     time.append(first_month_time)
@@ -201,10 +201,11 @@ def getWorkerLoggedTime():
     time.append(fourth_month_time)
     time.append(fivth_month_time)
     time.append(this_month_time)
+    print(time)
     return jsonify(time)
 
 
-@bp.route('/time/<employeeID>', methods=['GET'])
+@bp.route('/time/<string:employeeID>', methods=['GET'])
 @jwt_required
 def getLoggedTime(employeeID):
     user = employeeID
@@ -221,78 +222,78 @@ def getLoggedTime(employeeID):
             if user == i.employeeID and i.startTime.month == datetime.today().month -5 and i.startTime.year == datetime.today().year:
                 first_month_time = first_month_time + divmod((i.endTime-i.startTime).total_seconds(), 3600)[0]
             if user == i.employeeID and i.startTime.month == datetime.today().month -4 and i.startTime.year == datetime.today().year:
-                second_month_time = first_month_time + divmod((i.endTime-i.startTime).total_seconds(), 3600)[0]
+                second_month_time = second_month_time + divmod((i.endTime-i.startTime).total_seconds(), 3600)[0]
             if user == i.employeeID and i.startTime.month == datetime.today().month -3 and i.startTime.year == datetime.today().year:
-                third_month_time = first_month_time + divmod((i.endTime-i.startTime).total_seconds(), 3600)[0]
+                third_month_time = third_month_time + divmod((i.endTime-i.startTime).total_seconds(), 3600)[0]
             if user == i.employeeID and i.startTime.month == datetime.today().month -2 and i.startTime.year == datetime.today().year:
-                fourth_month_time = first_month_time + divmod((i.endTime-i.startTime).total_seconds(), 3600)[0]
+                fourth_month_time = fourth_month_time + divmod((i.endTime-i.startTime).total_seconds(), 3600)[0]
             if user == i.employeeID and i.startTime.month == datetime.today().month -1 and i.startTime.year == datetime.today().year:
-                fivth_month_time = first_month_time + divmod((i.endTime-i.startTime).total_seconds(), 3600)[0]
+                fivth_month_time = fivth_month_time + divmod((i.endTime-i.startTime).total_seconds(), 3600)[0]
             if user == i.employeeID and i.startTime.month == datetime.today().month and i.startTime.year == datetime.today().year:
                 this_month_time = this_month_time + divmod((i.endTime-i.startTime).total_seconds(), 3600)[0]
         if datetime.today().month == 5:
             if user == i.employeeID and i.startTime.month == datetime.today().month -5+12 and i.startTime.year == datetime.today().year-1:
                 first_month_time = first_month_time + divmod((i.endTime-i.startTime).total_seconds(), 3600)[0]
             if user == i.employeeID and i.startTime.month == datetime.today().month -4 and i.startTime.year == datetime.today().year:
-                second_month_time = first_month_time + divmod((i.endTime-i.startTime).total_seconds(), 3600)[0]
+                second_month_time = second_month_time + divmod((i.endTime-i.startTime).total_seconds(), 3600)[0]
             if user == i.employeeID and i.startTime.month == datetime.today().month -3 and i.startTime.year == datetime.today().year:
-                third_month_time = first_month_time + divmod((i.endTime-i.startTime).total_seconds(), 3600)[0]
+                third_month_time = third_month_time + divmod((i.endTime-i.startTime).total_seconds(), 3600)[0]
             if user == i.employeeID and i.startTime.month == datetime.today().month -2 and i.startTime.year == datetime.today().year:
-                fourth_month_time = first_month_time + divmod((i.endTime-i.startTime).total_seconds(), 3600)[0]
+                fourth_month_time = fourth_month_time + divmod((i.endTime-i.startTime).total_seconds(), 3600)[0]
             if user == i.employeeID and i.startTime.month == datetime.today().month -1 and i.startTime.year == datetime.today().year:
-                fivth_month_time = first_month_time + divmod((i.endTime-i.startTime).total_seconds(), 3600)[0]
+                fivth_month_time = fivth_month_time + divmod((i.endTime-i.startTime).total_seconds(), 3600)[0]
             if user == i.employeeID and i.startTime.month == datetime.today().month and i.startTime.year == datetime.today().year:
                 this_month_time = this_month_time + divmod((i.endTime-i.startTime).total_seconds(), 3600)[0]
         if datetime.today().month == 4:
             if user == i.employeeID and i.startTime.month == datetime.today().month -5+12 and i.startTime.year == datetime.today().year-1:
                 first_month_time = first_month_time + divmod((i.endTime-i.startTime).total_seconds(), 3600)[0]
             if user == i.employeeID and i.startTime.month == datetime.today().month -4+12 and i.startTime.year == datetime.today().year-1:
-                second_month_time = first_month_time + divmod((i.endTime-i.startTime).total_seconds(), 3600)[0]
+                second_month_time = second_month_time + divmod((i.endTime-i.startTime).total_seconds(), 3600)[0]
             if user == i.employeeID and i.startTime.month == datetime.today().month -3 and i.startTime.year == datetime.today().year:
-                third_month_time = first_month_time + divmod((i.endTime-i.startTime).total_seconds(), 3600)[0]
+                third_month_time = third_month_time + divmod((i.endTime-i.startTime).total_seconds(), 3600)[0]
             if user == i.employeeID and i.startTime.month == datetime.today().month -2 and i.startTime.year == datetime.today().year:
-                fourth_month_time = first_month_time + divmod((i.endTime-i.startTime).total_seconds(), 3600)[0]
+                fourth_month_time = fourth_month_time + divmod((i.endTime-i.startTime).total_seconds(), 3600)[0]
             if user == i.employeeID and i.startTime.month == datetime.today().month -1 and i.startTime.year == datetime.today().year:
-                fivth_month_time = first_month_time + divmod((i.endTime-i.startTime).total_seconds(), 3600)[0]
+                fivth_month_time = fivth_month_time + divmod((i.endTime-i.startTime).total_seconds(), 3600)[0]
             if user == i.employeeID and i.startTime.month == datetime.today().month and i.startTime.year == datetime.today().year:
                 this_month_time = this_month_time + divmod((i.endTime-i.startTime).total_seconds(), 3600)[0]
         if datetime.today().month == 3:
             if user == i.employeeID and i.startTime.month == datetime.today().month -5+12 and i.startTime.year == datetime.today().year-1:
                 first_month_time = first_month_time + divmod((i.endTime-i.startTime).total_seconds(), 3600)[0]
             if user == i.employeeID and i.startTime.month == datetime.today().month -4+12 and i.startTime.year == datetime.today().year-1:
-                second_month_time = first_month_time + divmod((i.endTime-i.startTime).total_seconds(), 3600)[0]
+                second_month_time = second_month_time + divmod((i.endTime-i.startTime).total_seconds(), 3600)[0]
             if user == i.employeeID and i.startTime.month == datetime.today().month -3+12 and i.startTime.year == datetime.today().year-1:
-                third_month_time = first_month_time + divmod((i.endTime-i.startTime).total_seconds(), 3600)[0]
+                third_month_time = third_month_time + divmod((i.endTime-i.startTime).total_seconds(), 3600)[0]
             if user == i.employeeID and i.startTime.month == datetime.today().month -2 and i.startTime.year == datetime.today().year:
-                fourth_month_time = first_month_time + divmod((i.endTime-i.startTime).total_seconds(), 3600)[0]
+                fourth_month_time = fourth_month_time + divmod((i.endTime-i.startTime).total_seconds(), 3600)[0]
             if user == i.employeeID and i.startTime.month == datetime.today().month -1 and i.startTime.year == datetime.today().year:
-                fivth_month_time = first_month_time + divmod((i.endTime-i.startTime).total_seconds(), 3600)[0]
+                fivth_month_time = fivth_month_time + divmod((i.endTime-i.startTime).total_seconds(), 3600)[0]
             if user == i.employeeID and i.startTime.month == datetime.today().month and i.startTime.year == datetime.today().year:
                 this_month_time = this_month_time + divmod((i.endTime-i.startTime).total_seconds(), 3600)[0]
         if datetime.today().month == 2:
             if user == i.employeeID and i.startTime.month == datetime.today().month -5+12 and i.startTime.year == datetime.today().year-1:
                 first_month_time = first_month_time + divmod((i.endTime-i.startTime).total_seconds(), 3600)[0]
             if user == i.employeeID and i.startTime.month == datetime.today().month -4+12 and i.startTime.year == datetime.today().year-1:
-                second_month_time = first_month_time + divmod((i.endTime-i.startTime).total_seconds(), 3600)[0]
+                second_month_time = second_month_time + divmod((i.endTime-i.startTime).total_seconds(), 3600)[0]
             if user == i.employeeID and i.startTime.month == datetime.today().month -3+12 and i.startTime.year == datetime.today().year-1:
-                third_month_time = first_month_time + divmod((i.endTime-i.startTime).total_seconds(), 3600)[0]
+                third_month_time = third_month_time + divmod((i.endTime-i.startTime).total_seconds(), 3600)[0]
             if user == i.employeeID and i.startTime.month == datetime.today().month -2+12 and i.startTime.year == datetime.today().year-1:
-                fourth_month_time = first_month_time + divmod((i.endTime-i.startTime).total_seconds(), 3600)[0]
+                fourth_month_time = fourth_month_time + divmod((i.endTime-i.startTime).total_seconds(), 3600)[0]
             if user == i.employeeID and i.startTime.month == datetime.today().month -1 and i.startTime.year == datetime.today().year:
-                fivth_month_time = first_month_time + divmod((i.endTime-i.startTime).total_seconds(), 3600)[0]
+                fivth_month_time = fivth_month_time + divmod((i.endTime-i.startTime).total_seconds(), 3600)[0]
             if user == i.employeeID and i.startTime.month == datetime.today().month and i.startTime.year == datetime.today().year:
                 this_month_time = this_month_time + divmod((i.endTime-i.startTime).total_seconds(), 3600)[0]
         if datetime.today().month == 1:
             if user == i.employeeID and i.startTime.month == datetime.today().month -5+12 and i.startTime.year == datetime.today().year-1:
                 first_month_time = first_month_time + divmod((i.endTime-i.startTime).total_seconds(), 3600)[0]
             if user == i.employeeID and i.startTime.month == datetime.today().month -4+12 and i.startTime.year == datetime.today().year-1:
-                second_month_time = first_month_time + divmod((i.endTime-i.startTime).total_seconds(), 3600)[0]
+                second_month_time = second_month_time + divmod((i.endTime-i.startTime).total_seconds(), 3600)[0]
             if user == i.employeeID and i.startTime.month == datetime.today().month -3+12 and i.startTime.year == datetime.today().year-1:
-                third_month_time = first_month_time + divmod((i.endTime-i.startTime).total_seconds(), 3600)[0]
+                third_month_time = third_month_time + divmod((i.endTime-i.startTime).total_seconds(), 3600)[0]
             if user == i.employeeID and i.startTime.month == datetime.today().month -2+12 and i.startTime.year == datetime.today().year-1:
-                fourth_month_time = first_month_time + divmod((i.endTime-i.startTime).total_seconds(), 3600)[0]
+                fourth_month_time = fourth_month_time + divmod((i.endTime-i.startTime).total_seconds(), 3600)[0]
             if user == i.employeeID and i.startTime.month == datetime.today().month -1+12 and i.startTime.year == datetime.today().year-1:
-                fivth_month_time = first_month_time + divmod((i.endTime-i.startTime).total_seconds(), 3600)[0]
+                fivth_month_time = fivth_month_time + divmod((i.endTime-i.startTime).total_seconds(), 3600)[0]
             if user == i.employeeID and i.startTime.month == datetime.today().month and i.startTime.year == datetime.today().year:
                 this_month_time = this_month_time + divmod((i.endTime-i.startTime).total_seconds(), 3600)[0]
     time.append(first_month_time)
@@ -301,6 +302,7 @@ def getLoggedTime(employeeID):
     time.append(fourth_month_time)
     time.append(fivth_month_time)
     time.append(this_month_time)
+    print(time)
     return jsonify(time)
 
     

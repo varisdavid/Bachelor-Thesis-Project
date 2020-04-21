@@ -61,6 +61,7 @@ function changeToTimeReport() {
     getMyWork()
 }
 
+
 $(document).ready(function() {
     $("#mainView").html($("#landingPage").html())
 
@@ -102,9 +103,6 @@ $(document).ready(function() {
         changeToTimeReport()
     })
 
-    $("#dashboardViewLink").click(function(e) {
-        $("#mainView").html($("#dashboardView").html())
-    })
     $("#navProjectViewLink").click(function(e) {
         changeToProjectView()
     })

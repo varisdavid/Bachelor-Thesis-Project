@@ -1047,42 +1047,31 @@
     <template id="employeeView" type="text/html">
     <div>
       <table id="employee-table" class="table">
-        <thead>
-          <tr>
-            <th scope="col" id="employee-table-ID">ID 
-                <div class="form-group"></div>
-              <input type="text" class="form-control" id="employeeTableSearchID" placeholder="Sök ID">
-          </div></th>
-            <th scpoe="col">Namn <div class="form-group"></div>
-              <input type="text" class="form-control" id="employeeTableSearchName" placeholder="Sök Namn">
-          </div></th>
-          <th scope="col">Epost <div class="form-group"></div>
-              <input type="text" class="form-control" id="employeeTableSearchEmail" placeholder="Sök epost">
-          </div></th>
-            <th scope="col">Roll <div class="form-group"></div>
-              <div class="dropdown" id="roleDropDown">
-                  <button class="btn btn-primary dropdown-toggle" type="button" id="roleButton"data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                    Välj roll
-                    <span class="caret"></span>
-                  </button>
-                  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                    <li><a href="#" data-value="Alla">Alla</a></li>
-                    <li><a href="#" data-value="Chef">Chef</a></li>
-                    <li><a href="#" data-value="Medarbetare">Medarbetare</a></li>
-                  </ul>
-                </div>
-            </div></th>
-          </tr>
-          <table id="employee-table" class="table">
-            <thead>
+            <thead>                
               <tr>
-                <th scope="col">ID</th>
-                <th scpoe="col">Name</th>
-                <th scope="col">Admin</th>
-                <th scope="col">Chef</th>
-                <th scope="col">Projekt</th>
-                <th scope="col">Arbetad tid</th>
-                <th scope="col"> </th>
+                <th scope="col" id="employee-table-ID">ID 
+                    <div class="form-group"></div>
+                  <input type="text" class="form-control" id="employeeTableSearchID" placeholder="Sök ID">
+              </div></th>
+                <th scpoe="col">Namn <div class="form-group"></div>
+                  <input type="text" class="form-control" id="employeeTableSearchName" placeholder="Sök Namn">
+              </div></th>
+              <th scope="col">Epost <div class="form-group"></div>
+                  <input type="text" class="form-control" id="employeeTableSearchEmail" placeholder="Sök epost">
+              </div></th>
+                <th scope="col">Roll <div class="form-group"></div>
+                  <div class="dropdown" id="roleDropDown">
+                      <button class="btn btn-primary dropdown-toggle" type="button" id="roleButton"data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                        Välj roll
+                        <span class="caret"></span>
+                      </button>
+                      <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                        <li><a href="#" data-value="Alla">Alla</a></li>
+                        <li><a href="#" data-value="Chef">Chef</a></li>
+                        <li><a href="#" data-value="Medarbetare">Medarbetare</a></li>
+                      </ul>
+                    </div>
+                </div></th>
               </tr>
             </thead>
             <tbody id="employee-data">
@@ -1110,136 +1099,128 @@
                     <button type="button" class="close" data-dismiss="modal" aria-label="Stäng">
         <span aria-hidden="true">&times;</span>
       </button>
-            </div>
-            <div class="modal-body">
-                <form id="editLoggedWorkForm">
-                    <div class="form-group">
-                      <label for="changeLoggedWorkProjectSelector">Vilket projekt gäller detta</label>
-                      <select class="form-control" id="changeLoggedWorkProjectSelector">
+                </div>
+                <div class="modal-body">
+                    <form id="editLoggedWorkForm">
+                        <div class="form-group">
+                            <label for="changeLoggedWorkProjectSelector">Vilket projekt gäller detta</label>
+                            <select class="form-control" id="changeLoggedWorkProjectSelector">
                         <option value="0">Inget projekt</option>
                       </select>
-                    </div>
+                        </div>
 
-      
-                    <label for="changeLoggedWorkStartPickers">Starttid</label>
-                  <div class="row" id="changeLoggedWorkStartPickers">
-                    <div class="col">
-                      <div class="form-group">
-                        <div class="input-group date" id="changeLoggedWorkStartDatePicker" data-target-input="nearest">
-                          <input type="text" class="form-control datetimepicker-input"
-                            data-target="#changeLoggedWorkStartDatePicker" />
-                          <div class="input-group-append" data-target="#changeLoggedWorkStartDatePicker"
-                            data-toggle="datetimepicker">
-                            <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-                          </div>
+
+                        <label for="changeLoggedWorkStartPickers">Starttid</label>
+                        <div class="row" id="changeLoggedWorkStartPickers">
+                            <div class="col">
+                                <div class="form-group">
+                                    <div class="input-group date" id="changeLoggedWorkStartDatePicker" data-target-input="nearest">
+                                        <input type="text" class="form-control datetimepicker-input" data-target="#changeLoggedWorkStartDatePicker" />
+                                        <div class="input-group-append" data-target="#changeLoggedWorkStartDatePicker" data-toggle="datetimepicker">
+                                            <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col">
+                                <div class="form-group">
+                                    <div class="input-group date" id="changeLoggedWorkStartTimePicker" data-target-input="nearest">
+                                        <input type="text" class="form-control datetimepicker-input" data-target="#changeLoggedWorkStartTimePicker" />
+                                        <div class="input-group-append" data-target="#changeLoggedWorkStartTimePicker" data-toggle="datetimepicker">
+                                            <div class="input-group-text"><i class="fa fa-clock-o"></i></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                      </div>
-                    </div>
-      
-                    <div class="col">
-                      <div class="form-group">
-                        <div class="input-group date" id="changeLoggedWorkStartTimePicker" data-target-input="nearest">
-                          <input type="text" class="form-control datetimepicker-input"
-                            data-target="#changeLoggedWorkStartTimePicker" />
-                          <div class="input-group-append" data-target="#changeLoggedWorkStartTimePicker"
-                            data-toggle="datetimepicker">
-                            <div class="input-group-text"><i class="fa fa-clock-o"></i></div>
-                          </div>
+
+                        <label for="changeLoggedWorkStopPickers">Sluttid</label>
+                        <div class="row" id="changeLoggedWorkStopPickers">
+                            <div class="col">
+                                <div class="form-group">
+                                    <div class="input-group date" id="changeLoggedWorkStopDatePicker" data-target-input="nearest">
+                                        <input type="text" class="form-control datetimepicker-input" data-target="#changeLoggedWorkStopDatePicker" />
+                                        <div class="input-group-append" data-target="#changeLoggedWorkStopDatePicker" data-toggle="datetimepicker">
+                                            <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col">
+                                <div class="form-group">
+                                    <div class="input-group date" id="changeLoggedWorkStopTimePicker" data-target-input="nearest">
+                                        <input type="text" class="form-control datetimepicker-input" data-target="#changeLoggedWorkStopTimePicker" />
+                                        <div class="input-group-append" data-target="#changeLoggedWorkStopTimePicker" data-toggle="datetimepicker">
+                                            <div class="input-group-text"><i class="fa fa-clock-o"></i></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                      </div>
-                    </div>
-                  </div>
-      
-                  <label for="changeLoggedWorkStopPickers">Sluttid</label>
-                  <div class="row" id="changeLoggedWorkStopPickers">
-                    <div class="col">
-                      <div class="form-group">
-                        <div class="input-group date" id="changeLoggedWorkStopDatePicker" data-target-input="nearest">
-                          <input type="text" class="form-control datetimepicker-input"
-                            data-target="#changeLoggedWorkStopDatePicker" />
-                          <div class="input-group-append" data-target="#changeLoggedWorkStopDatePicker"
-                            data-toggle="datetimepicker">
-                            <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-                          </div>
+
+                        <div class="form-group">
+                            <label for="changeLoggedWorkComments">Kommentarer</label>
+                            <textarea class="form-control" id="changeLoggedWorkComments"></textarea>
                         </div>
-                      </div>
-                    </div>
-      
-                    <div class="col">
-                      <div class="form-group">
-                        <div class="input-group date" id="changeLoggedWorkStopTimePicker" data-target-input="nearest">
-                          <input type="text" class="form-control datetimepicker-input"
-                            data-target="#changeLoggedWorkStopTimePicker" />
-                          <div class="input-group-append" data-target="#changeLoggedWorkStopTimePicker"
-                            data-toggle="datetimepicker">
-                            <div class="input-group-text"><i class="fa fa-clock-o"></i></div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-      
-                    <div class="form-group">
-                      <label for="changeLoggedWorkComments">Kommentarer</label>
-                      <textarea class="form-control" id="changeLoggedWorkComments"></textarea>
-                    </div>
-            </div>
-          </form>
-            <div class="modal-footer">
-                <button type="button" id="deleteLoggedWorkButton" class="btn btn-danger" value="" data-dismiss="modal" onclick="deleteLoggedWork(this.value)">Radera tidsrapport</button>
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Stäng</button>
-                <button type="button" id="editLoggedWorkSubmitButton" class="btn btn-primary" value="" onclick="editLoggedWork(this.value)" data-dismiss="modal">Slutför</button>
+                </div>
+                </form>
+                <div class="modal-footer">
+                    <button type="button" id="deleteLoggedWorkButton" class="btn btn-danger" value="" data-dismiss="modal" onclick="deleteLoggedWork(this.value)">Radera tidsrapport</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Stäng</button>
+                    <button type="button" id="editLoggedWorkSubmitButton" class="btn btn-primary" value="" onclick="editLoggedWork(this.value)" data-dismiss="modal">Slutför</button>
+                </div>
             </div>
         </div>
-    </div>
 
-    <template id="aboutView">
+        <template id="aboutView">
       <h1>Om oss</h1>
       <p>Vi erbjuder en lösning för schemaläggning och tidsrapportering i form av en webbapplikation.</p>
     </template>
 
-    <template id="priceView">
+        <template id="priceView">
       <h1>Pris</h1>
       <p>Tjänsten kostar 200 kr i månaden.</p>
     </template>
 
-    <template id="contactView">
+        <template id="contactView">
       <h1>Kontakt</h1>
       <p>Kontakta oss på denna <a href="mailto:mail@mail.com">mailaddress</a> eller fyll i formuläret nedan som inte
         är där än.</p>
     </template>
 
-    <template id="supportView">
+        <template id="supportView">
       <h1>Support</h1>
       <p>Här kommer det att finnas hjälp någon gång i framtiden</p>
     </template>
 
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+        <!-- Optional JavaScript -->
+        <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
 
 
-    <!-- Tempus Dominus, adds time-picking, for more info see https://tempusdominus.github.io/bootstrap-4/ -->
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment-with-locales.min.js"></script>
-    <script type="text/javascript" src="tempus-dominus/tempusdominus-bootstrap-4.js"></script>
-    <!-- fullcalendar -->
-    <script src='https://unpkg.com/@fullcalendar/core@4.4.0/main.js'></script>
-    <script src='https://unpkg.com/@fullcalendar/daygrid@4.4.0/main.js'></script>
-    <script src='https://unpkg.com/@fullcalendar/timegrid@4.4.0/main.js'></script>
-    <script src='https://unpkg.com/@fullcalendar/core@4.4.0/locales/sv.js'></script>
-    <script src='https://unpkg.com/@fullcalendar/bootstrap@4.4.0/main.js'></script>
+        <!-- Tempus Dominus, adds time-picking, for more info see https://tempusdominus.github.io/bootstrap-4/ -->
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment-with-locales.min.js"></script>
+        <script type="text/javascript" src="tempus-dominus/tempusdominus-bootstrap-4.js"></script>
+        <!-- fullcalendar -->
+        <script src='https://unpkg.com/@fullcalendar/core@4.4.0/main.js'></script>
+        <script src='https://unpkg.com/@fullcalendar/daygrid@4.4.0/main.js'></script>
+        <script src='https://unpkg.com/@fullcalendar/timegrid@4.4.0/main.js'></script>
+        <script src='https://unpkg.com/@fullcalendar/core@4.4.0/locales/sv.js'></script>
+        <script src='https://unpkg.com/@fullcalendar/bootstrap@4.4.0/main.js'></script>
 
-    <!-- Our scripts -->
-    <script src="client.js"></script>
-    <script src="calendar.js"></script>
-    <script src="alerts.js"></script>
-    <script src="authentication.js"></script>
-    <script src="employee.js"></script>
-    <script src="time_report.js"></script>
-    <script src="project_view.js"></script>
+        <!-- Our scripts -->
+        <script src="client.js"></script>
+        <script src="calendar.js"></script>
+        <script src="alerts.js"></script>
+        <script src="authentication.js"></script>
+        <script src="employee.js"></script>
+        <script src="time_report.js"></script>
+        <script src="project_view.js"></script>
 </body>
 
 </html>

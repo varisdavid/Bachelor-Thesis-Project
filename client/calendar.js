@@ -16,6 +16,7 @@ let colorsArray = ["lightsalmon", "lightskyblue", "tomato", "papayawhip", "green
  * Function used for changing to the calendar view
  */
 function changeToCalendarView() {
+    $("#whatCalendarsAreViewed").html("Visar din kalender")
     $("#mainView").html($("#calendarView").html())
 
     $("#addActivityButton").click(function (e) {
@@ -55,7 +56,7 @@ function createCalendar() {
         var calendarEl = document.getElementById('calendar');
 
         calendar = new FullCalendar.Calendar(calendarEl, {
-            height: $(window).height() - 100,
+            height: $(window).height() - 130,
             timeZone: 'local',
             plugins: ['timeGrid', 'bootstrap'],
             defaultView: 'timeGridWeek',
@@ -99,7 +100,7 @@ function createCalendar() {
             themeSystem: "bootstrap",
             // Not a good solution since changes elsewhere could and probably would break this.
             windowResize: function (view) {
-                calendar.setOption("height", $(window).height() - 100);
+                calendar.setOption("height", $(window).height() - 130);
             }
 
         });
@@ -547,6 +548,7 @@ function spawnViewCalendarsModal() {
  * Uses global variable viewCalendarsEmployeeMap for determining what employees are currently selected.
  */
 function viewCalendars() {
+    var whatCalendarsString = "Visar "
     if (!$("#viewSchedulesConfirmButton").hasClass('disabled')) {
         calendar.getEventSources().forEach(s => s.remove());
         var colorIndex = 0;
@@ -567,10 +569,13 @@ function viewCalendars() {
                     },
                     color: colorsArray[colorIndex++]
                 });
+                whatCalendarsString = whatCalendarsString + value.name + "s, ";
             }
         })
         $("#viewCalendarsModal").modal("hide")
-
+        whatCalendarsString = whatCalendarsString.substring(0, whatCalendarsString.length - 2) + " kalender."
+        $("#whatCalendarsAreViewed").html(whatCalendarsString);
+        //$("#whatCalendarsAreViewed").animate("highlight");
     }
 }
 

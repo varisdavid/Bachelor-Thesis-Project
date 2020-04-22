@@ -44,7 +44,7 @@ function getProjectsDropdown() {
 
 $(document).ready(function () {
     //Activating date and time pickers
-    activateDateAndTimePickers("#addTimeReportStartDatePicker", "#addTimeReportStartTimePicker", "#addTimeReportStopDatePicker", "#addTimeReportStopTimePicker", "#addTimeReportWrongDateAlert", false);
+    activateDateAndTimePickers("#addTimeReportStartDatePicker", "#addTimeReportStartTimePicker", "#addTimeReportStopDatePicker", "#addTimeReportStopTimePicker", "#addTimeReportWrongDateAlert", true);
     activateDateAndTimePickers("#changeLoggedWorkStartDatePicker", "#changeLoggedWorkStartTimePicker", "#changeLoggedWorkStopDatePicker", "#changeLoggedWorkStopTimePicker", "#changeLoggedWorkWrongDateAlert", true);
 })
 

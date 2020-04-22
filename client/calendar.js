@@ -296,6 +296,7 @@ var viewCalendarsEmployeeMap = new Map();
 
 function populateEmployeeMap() {
     employeeMap = new Map();
+    viewCalendarsEmployeeMap = new Map();
     $.ajax({
         url: "employee/all",
         type: "GET",

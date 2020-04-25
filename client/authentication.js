@@ -89,6 +89,7 @@ function signIn() {
             spawnAlert("Inloggningen lyckades!", "success")
             updatePageLoggedIn(true);
             spawnChangePasswordDialogue()
+            document.getElementById("signInFailureAlert").hidden = true;
             failure = false;
         },
         error: function(loginResponse) {

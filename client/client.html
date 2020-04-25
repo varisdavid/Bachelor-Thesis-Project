@@ -43,7 +43,7 @@
                     <a class="nav-item nav-link header-item my-header-link" id="navProjectViewLink" href="#"><i class="fa fa-briefcase" aria-hidden="true"></i> Projektöversikt</a>
                     <a class="nav-item nav-link header-item my-header-link" id="navbarScheduleLink" href="#"><i class="fa fa-calendar"></i> Schema</a>
                     <a class="nav-item nav-link header-item my-header-link" id="navSupportLink" href="#"><i class="fa fa-handshake-o" aria-hidden="true"></i> Support</a>
-                    <a class="nav-item nav-link header-item my-header-link" id="navTimeReportLink" href="#"><i class="fa fa-clock-o" aria-hidden="true"></i> Tidsrapportering</a>
+                    <a class="nav-item nav-link header-item my-header-link" id="navTimeReportLink" href="#"><i class="fa fa-clock-o" aria-hidden="true"></i> Rapportera tid</a>
                     <a class="nav-item nav-link header-item my-header-link" id="navTimeOverviewLink" href="#"> <i class="fa fa-clock-o" aria-hidden="true"></i> Tidsöversikt</a>
                 </div>
                 <ul class="nav navbar-nav navbar-right ml-auto">
@@ -516,7 +516,7 @@
 
                 </div>
                 <div class="modal-footer">
-                    <button type="button" id="activityInfoRemoveActivityButton" value="" class="btn btn-danger" onclick="removeActivity(this.value)">Ta bort aktivitet</button>
+                    <button type="button" id="activityInfoRemoveActivityButton" value="" class="btn btn-danger" onclick="removeActivityCal(this.value)">Ta bort aktivitet</button>
                     <button type="button" id="activityInfoChangeButton" value="" class="btn btn-warning" onclick="spawnChangeActivityModal(this.value)">Ändra</button>
                     <button type="button" class="btn btn-primary" data-dismiss="modal">Klar</button>
                 </div>
@@ -806,8 +806,9 @@
     </div>
   </template>
 
-    <template id="calendarView">
+    <template id="calendarView"> 
     <div class="cal">
+        <h3 id="whatCalendarsAreViewed">Visar din kalender</h3>
       <div id='calendar'></div>
     </div>
   </template>

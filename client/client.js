@@ -40,7 +40,18 @@ function changeToLandingPage() {
     }
 }
 
-function changeToTimeOverview() {
+function changeToEmployeeView() {
+    $("#mainView").html($("#employeeView").html())
+    loadEmployees(); //In employee.js
+}
+
+
+
+function changeToSupportView(){
+    $("#mainView").html($("#supportView").html())
+}
+
+function changeToTimeOverview(){
     $("#mainView").html($("#timeOverviewView").html())
     getEmployees()
 }
@@ -49,6 +60,7 @@ function changeToTimeReport() {
     $("#mainView").html($("#timeReportView").html())
     getMyWork()
 }
+
 
 $(document).ready(function() {
     $("#mainView").html($("#landingPage").html())
@@ -91,9 +103,6 @@ $(document).ready(function() {
         changeToTimeReport()
     })
 
-    $("#dashboardViewLink").click(function(e) {
-        $("#mainView").html($("#dashboardView").html())
-    })
     $("#navProjectViewLink").click(function(e) {
         changeToProjectView()
     })

@@ -3,7 +3,7 @@ from flask_bcrypt import Bcrypt
 from flask_jwt_extended import JWTManager, jwt_required, create_access_token, get_jwt_identity
 
 # You can import the database from a blueprint
-from server.database import db, Employee, Company
+from server.database import db, Employee, Company, Project
 from server import app
 
 from . import personID 
@@ -81,13 +81,18 @@ def signUpCompany():
     else:
         newCompany = Company(
             orgNumber=jsonData["companyOrgNumber"], name=jsonData["companyName"])
-        db.session.add(newCompany)
-
+        
         admPasswordHash = bcrypt.generate_password_hash(
             jsonData["adminPassword"]).decode("utf-8")
         adm = Employee(personID=ssn, email=jsonData["adminEmail"], name=jsonData["adminName"],
                        isAdmin=True, isBoss=False, passwordHash=admPasswordHash, company=jsonData["companyOrgNumber"], usingDefaultPassword=False)
+        
+        defaultProject = Project(name="Övrigt", companyOrgNumber=jsonData["companyOrgNumber"])
+        
+        db.session.add(newCompany)
+        db.session.add(defaultProject)
         db.session.add(adm)
+        
         db.session.commit()
         return Company.query.get(jsonData["companyOrgNumber"]).serialize()
 

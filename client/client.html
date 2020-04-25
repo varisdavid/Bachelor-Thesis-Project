@@ -35,16 +35,15 @@
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                 <h2 id="brandButton"><a class="navbar-brand my-header-link active-link" href="#">ERP</a></h2>
                 <div class="navbar-nav" id="navBar">
-                    <a class="nav-item nav-link header-item my-header-link" id="navPriceLink" href="#"><i class="fa fa-usd" aria-hidden="true"></i> Pris</a>
-                    <a class="nav-item nav-link header-item my-header-link" id="navAboutLink" href="#"><i class="fa fa-info-circle" aria-hidden="true"></i> Om oss</a>
-                    <a class="nav-item nav-link header-item my-header-link" id="navSupportLink" href="#"><i class="fa fa-handshake-o" aria-hidden="true"></i> Support</a>
                     <a class="nav-item nav-link header-item my-header-link" id="navContactLink" href="#"><i class="fa fa-phone" aria-hidden="true"></i> Kontakt</a>
-                    <a class="nav-item nav-link header-item my-header-link" id="navTimeReportLink" href="#">Tidsrapportering</a>
-                    <a class="nav-item nav-link header-item my-header-link" id="navTimeOverviewLink" href="#">Tidsöversikt</a>
                     <a class="nav-item nav-link header-item my-header-link" id="navEmployeeLink" href="#"><i class="fa fa-address-book-o" aria-hidden="true"></i> Medarbetare</a>
-                    <a class="nav-item nav-link header-item my-header-link" id="navbarScheduleLink" href="#"><i class="fa fa-calendar"></i>
-            Schema</a>
+                    <a class="nav-item nav-link header-item my-header-link" id="navAboutLink" href="#"><i class="fa fa-info-circle" aria-hidden="true"></i> Om oss</a>
+                    <a class="nav-item nav-link header-item my-header-link" id="navPriceLink" href="#"><i class="fa fa-usd" aria-hidden="true"></i> Pris</a>
                     <a class="nav-item nav-link header-item my-header-link" id="navProjectViewLink" href="#"><i class="fa fa-briefcase" aria-hidden="true"></i> Projektöversikt</a>
+                    <a class="nav-item nav-link header-item my-header-link" id="navbarScheduleLink" href="#"><i class="fa fa-calendar"></i> Schema</a>
+                    <a class="nav-item nav-link header-item my-header-link" id="navSupportLink" href="#"><i class="fa fa-handshake-o" aria-hidden="true"></i> Support</a>
+                    <a class="nav-item nav-link header-item my-header-link" id="navTimeReportLink" href="#"><i class="fa fa-clock-o" aria-hidden="true"></i> Rapportera tid</a>
+                    <a class="nav-item nav-link header-item my-header-link" id="navTimeOverviewLink" href="#"> <i class="fa fa-clock-o" aria-hidden="true"></i> Tidsöversikt</a>
                 </div>
                 <ul class="nav navbar-nav navbar-right ml-auto">
                     <button type="button" class="btn btn-outline-dark signInButton header-item" data-toggle="modal" data-target="#signInModal" style="display:none;">Logga in</button>
@@ -182,7 +181,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Stäng</button>
-                    <button type="button" class="btn btn-primary" onclick="addEmployee()">Lägg till</button>
+                    <button type="submit" class="btn btn-primary" onclick="addEmployee()">Lägg till</button>
                 </div>
             </div>
         </div>
@@ -243,14 +242,14 @@
                 <div class="modal-header">
                     <h5 class="modal-title" id="addActivityModalTitle">Lägg till aktivitet</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Stäng">
-            <span aria-hidden="true">&times;</span>
-          </button>
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
                 <div class="modal-body">
-                    <form id="addActivityForm">
+                    <form novalidate id="addActivityForm">
                         <div class="form-group">
                             <label for="addActivityName">Namn</label>
-                            <input class="form-control" id="addActivityName" placeholder="Namn på aktiviteten">
+                            <input class="form-control" id="addActivityName" placeholder="Namn på aktiviteten" required>
                         </div>
 
                         <div class="form-group">
@@ -265,10 +264,9 @@
 
                         <div class="form-group">
                             <label for="addActivityProjectSelector">Vilket projekt gäller detta</label>
-                            <select class="form-control" id="addActivityProjectSelector">
-                <option value="0">Inget projekt</option>
-
-              </select>
+                            <select class="form-control" id="addActivityProjectSelector" required>
+                                <option value="0">Inget projekt</option>
+                            </select>
                         </div>
 
                         <div class="form-group">
@@ -276,17 +274,18 @@
                             <br>
                             <div id="addActivityButtonGroup" class="btn-group btn-group-toggle" data-toggle="buttons">
                                 <label class="btn btn-outline-secondary active">
-                  <input type="radio" name="options" id="addActivityOnlyMeButton" autocomplete="off" checked> Mig
-                </label>
+                                    <input type="radio" name="options" id="addActivityOnlyMeButton" autocomplete="off"
+                                        checked> Mig
+                                </label>
                                 <label class="btn btn-outline-secondary">
-                  <input type="radio" name="options" id="addActivitySomeButton" autocomplete="off">
-                  Vissa anställda
-                </label>
+                                    <input type="radio" name="options" id="addActivitySomeButton" autocomplete="off">
+                                    Vissa anställda
+                                </label>
                                 <label class="btn btn-outline-secondary">
-                  <input type="radio" name="options" id="addActivityEveryoneButton" autocomplete="off"
-                    style="display:none;"> Alla
-                  anställda
-                </label>
+                                    <input type="radio" name="options" id="addActivityEveryoneButton" autocomplete="off"
+                                        style="display:none;"> Alla
+                                    anställda
+                                </label>
                             </div>
                         </div>
 
@@ -295,12 +294,12 @@
                                 <div class="col">
                                     <div class="form-group">
                                         <select class="form-control" id="addActivityEmployeeSelector">
-                    </select>
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="col-2">
                                     <button type="button" class="btn btn-secondary" onclick="addEmployeeToSelectedEmployees('#addActivityEmployeeSelector', '#addActivitySelectedEmployeeList')"><i
-                      class="fa fa-user-plus"></i></button>
+                                            class="fa fa-user-plus"></i></button>
                                 </div>
                             </div>
                             <div class="empHolder rounded border" id="addActivityEmpHolder">
@@ -320,7 +319,7 @@
                             <div class="col">
                                 <div class="form-group">
                                     <div class="input-group date" id="addActivityStartDatePicker" data-target-input="nearest">
-                                        <input type="text" class="form-control datetimepicker-input" data-target="#addActivityStartDatePicker" />
+                                        <input type="text" class="form-control datetimepicker-input" data-target="#addActivityStartDatePicker" required/>
                                         <div class="input-group-append" data-target="#addActivityStartDatePicker" data-toggle="datetimepicker">
                                             <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                                         </div>
@@ -331,7 +330,7 @@
                             <div class="col">
                                 <div class="form-group">
                                     <div class="input-group date" id="addActivityStartTimePicker" data-target-input="nearest">
-                                        <input type="text" class="form-control datetimepicker-input" data-target="#addActivityStartTimePicker" />
+                                        <input type="text" class="form-control datetimepicker-input" data-target="#addActivityStartTimePicker" required/>
                                         <div class="input-group-append" data-target="#addActivityStartTimePicker" data-toggle="datetimepicker">
                                             <div class="input-group-text"><i class="fa fa-clock-o"></i></div>
                                         </div>
@@ -345,7 +344,7 @@
                             <div class="col">
                                 <div class="form-group">
                                     <div class="input-group date" id="addActivityStopDatePicker" data-target-input="nearest">
-                                        <input type="text" class="form-control datetimepicker-input" data-target="#addActivityStopDatePicker" />
+                                        <input type="text" class="form-control datetimepicker-input" data-target="#addActivityStopDatePicker" required/>
                                         <div class="input-group-append" data-target="#addActivityStopDatePicker" data-toggle="datetimepicker">
                                             <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                                         </div>
@@ -356,7 +355,7 @@
                             <div class="col">
                                 <div class="form-group">
                                     <div class="input-group date" id="addActivityStopTimePicker" data-target-input="nearest">
-                                        <input type="text" class="form-control datetimepicker-input" data-target="#addActivityStopTimePicker" />
+                                        <input type="text" class="form-control datetimepicker-input" data-target="#addActivityStopTimePicker" required/>
                                         <div class="input-group-append" data-target="#addActivityStopTimePicker" data-toggle="datetimepicker">
                                             <div class="input-group-text"><i class="fa fa-clock-o"></i></div>
                                         </div>
@@ -370,7 +369,7 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Stäng</button>
                     <button type="button" class="btn btn-primary" onclick="addActivity()" id="addActivitySubmitButton">Lägg
-            till</button>
+                        till</button>
                 </div>
             </div>
 
@@ -385,14 +384,14 @@
                 <div class="modal-header">
                     <h5 class="modal-title" id="changeActivityModalTitle">Ändra aktivitet: </h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Stäng">
-               <span aria-hidden="true">&times;</span>
-             </button>
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
                 <div class="modal-body">
-                    <form id="changeActivityForm">
+                    <form novalidate id="changeActivityForm">
                         <div class="form-group">
                             <label for="changeActivityName">Namn</label>
-                            <input class="form-control" id="changeActivityName" placeholder="Namn på aktiviteten">
+                            <input class="form-control" id="changeActivityName" placeholder="Namn på aktiviteten" required>
                         </div>
 
                         <div class="form-group">
@@ -408,9 +407,9 @@
                         <div class="form-group">
                             <label for="changeActivityProjectSelector">Vilket projekt gäller detta</label>
                             <select class="form-control" id="changeActivityProjectSelector">
-                   <option value="0">Inget projekt</option>
-   
-                 </select>
+                                <option value="0">Inget projekt</option>
+    
+                            </select>
                         </div>
 
                         <label for="changeActivityWholeEmpSelector">Vilka medarbetare?</label>
@@ -419,12 +418,12 @@
                                 <div class="col">
                                     <div class="form-group">
                                         <select class="form-control" id="changeActivityEmployeeSelector">
-                       </select>
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="col-2">
                                     <button type="button" class="btn btn-secondary" onclick="addEmployeeToSelectedEmployees('#changeActivityEmployeeSelector','#changeActivitySelectedEmployeeList')"><i
-                         class="fa fa-user-plus"></i></button>
+                                            class="fa fa-user-plus"></i></button>
                                 </div>
                             </div>
                             <div class="empHolder rounded border" id="changeActivityEmpHolder">
@@ -444,7 +443,7 @@
                             <div class="col">
                                 <div class="form-group">
                                     <div class="input-group date" id="changeActivityStartDatePicker" data-target-input="nearest">
-                                        <input type="text" class="form-control datetimepicker-input" data-target="#changeActivityStartDatePicker" />
+                                        <input type="text" class="form-control datetimepicker-input" data-target="#changeActivityStartDatePicker" required/>
                                         <div class="input-group-append" data-target="#changeActivityStartDatePicker" data-toggle="datetimepicker">
                                             <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                                         </div>
@@ -455,7 +454,7 @@
                             <div class="col">
                                 <div class="form-group">
                                     <div class="input-group date" id="changeActivityStartTimePicker" data-target-input="nearest">
-                                        <input type="text" class="form-control datetimepicker-input" data-target="#changeActivityStartTimePicker" />
+                                        <input type="text" class="form-control datetimepicker-input" data-target="#changeActivityStartTimePicker" required/>
                                         <div class="input-group-append" data-target="#changeActivityStartTimePicker" data-toggle="datetimepicker">
                                             <div class="input-group-text"><i class="fa fa-clock-o"></i></div>
                                         </div>
@@ -469,7 +468,7 @@
                             <div class="col">
                                 <div class="form-group">
                                     <div class="input-group date" id="changeActivityStopDatePicker" data-target-input="nearest">
-                                        <input type="text" class="form-control datetimepicker-input" data-target="#changeActivityStopDatePicker" />
+                                        <input type="text" class="form-control datetimepicker-input" data-target="#changeActivityStopDatePicker" required/>
                                         <div class="input-group-append" data-target="#changeActivityStopDatePicker" data-toggle="datetimepicker">
                                             <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                                         </div>
@@ -480,7 +479,7 @@
                             <div class="col">
                                 <div class="form-group">
                                     <div class="input-group date" id="changeActivityStopTimePicker" data-target-input="nearest">
-                                        <input type="text" class="form-control datetimepicker-input" data-target="#changeActivityStopTimePicker" />
+                                        <input type="text" class="form-control datetimepicker-input" data-target="#changeActivityStopTimePicker" required/>
                                         <div class="input-group-append" data-target="#changeActivityStopTimePicker" data-toggle="datetimepicker">
                                             <div class="input-group-text"><i class="fa fa-clock-o"></i></div>
                                         </div>
@@ -516,7 +515,7 @@
 
                 </div>
                 <div class="modal-footer">
-                    <button type="button" id="activityInfoRemoveActivityButton" value="" class="btn btn-danger" onclick="removeActivity(this.value)">Ta bort aktivitet</button>
+                    <button type="button" id="activityInfoRemoveActivityButton" value="" class="btn btn-danger" onclick="removeActivityCal(this.value)">Ta bort aktivitet</button>
                     <button type="button" id="activityInfoChangeButton" value="" class="btn btn-warning" onclick="spawnChangeActivityModal(this.value)">Ändra</button>
                     <button type="button" class="btn btn-primary" data-dismiss="modal">Klar</button>
                 </div>
@@ -599,7 +598,7 @@
 
     <!-- Edit Project Modal-->
     <div class="modal fade" tabindex="-1" role="dialog" id="modalEditProject">
-        <div class="modal-dialog" role="document">
+        <div class="modal-dialog modal-xl" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">Redigera Projekt</h5>
@@ -607,148 +606,211 @@
             <span aria-hidden="true">&times;</span>
           </button>
                 </div>
-                <div class="modal-body">
-                    <form>
-                        <div class="form-group">
-                            <label for="orgId">Projekt ID</label>
-                            <input type="name" readonly class="form-control" id="modalProjectId">
-                        </div>
-                        <div class="form-group">
-                            <label for="projectOrgNrInput">Organisationsnummer</label>
-                            <input type="name" readonly class="form-control" id="modalEditProjectOrgNr">
-                        </div>
-                        <div class="form-group">
-                            <label for="projectNameInput">Projektnamn</label>
-                            <input type="name" class="form-control" id="modalEditProjectName">
+                <div class="container">
+                    <div class="row">
+                        <div class="col">
+                            <div id="modalProjectInfoContainer">
+                                <form>
+                                    <div class="form-group">
+                                        <label class="pt-2 mt-2" for="orgId">
+                      <h5>Projekt ID</h5>
+                    </label>
+                                        <input type="name" readonly class="form-control" id="modalProjectId">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="projectOrgNrInput">
+                      <h5>Organisationsnummer</h5>
+                    </label>
+                                        <input type="name" readonly class="form-control" id="modalEditProjectOrgNr">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="projectNameInput">
+                      <h5>Projektnamn</h5>
+                    </label>
+                                        <input type="name" class="form-control" id="modalEditProjectName">
+                                    </div>
+                                    <div class="form-group">
+                                        <h5>Aktiviteter</h5>
+                                        <hr>
+                                        <div class="list-group animated fadeInDownBig" id="activityListTab" role="tablist">
+                                            <p class="font-italic mt-auto mb-auto">Det finns inga aktiviteter på det här projektet</p>
+                                            <!-- List of activities appear here-->
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div id="modalTimeReportInfoContainer">
+                                <!-- Employee time reports appear here-->
+                            </div>
                         </div>
 
-                        <div class="form-group">
-                            <div class="modal-footer">
-                            </div>
-                            <button type="button" class="btn btn-danger  mr-auto" id="modalRemoveProjectBtn">Ta
-                bort
-                projekt</button>
-                            <button type="submit" class="btn btn-primary  float-right mr-1" id="modalEditProjectButtonSubmit">Spara
-                ändringar</button>
-                            <button type="button" class="btn btn-secondary  float-right mr-1" data-dismiss="modal">Stäng</button>
-                        </div>
-                        <div class="form-group">
-                            <div id="areYouSureContainer">
-                                <!-- Are you sure message goes here-->
+                        <div class="col">
+                            <div id="projectActivityInfo">
+                                <!-- Info about an activity appears here-->
+                                <p class="font-italic mt-2 pt-2">Klicka på en aktivitet för att visa information</p>
+                                <hr>
                             </div>
                         </div>
+                    </div>
                 </div>
-                </form>
+                <div class="modal-body">
+                    <div class="form-group" id="modalProjectButtonsFooter">
+                        <div class="modal-footer">
+                        </div>
+                        <button type="button" class="btn btn-danger  mr-auto" id="modalRemoveProjectBtn">Ta
+              bort
+              projekt</button>
+                        <button class="btn btn-warning mr-auto" id="removeActivityBtn" )>Ta bort aktivitet</button>
+                        <button type="submit" class="btn btn-primary  float-right mr-1" id="modalEditProjectButtonSubmit">Spara
+              ändringar</button>
+                    </div>
+                    <div class="form-group">
+                        <div id="areYouSureContainer">
+                            <!-- Are you sure message goes here-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Employee Reported Time Modal-->
+    <div class="modal fadeInDownBig" tabindex="-1" role="dialog" id="reportedTimeModal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Rapporterad Tid</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+                </div>
+                <div class="modal-body">
+                    <div id="reportedTimeContents">
+
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 
     <!-- Remove Project Confirmation Message-->
     <template id="areYouSureConfirm">
-      <p>Är du säker på att du vill ta bort projektet?</p>
-      <button type="button" class="btn btn-secondary " onclick=areYouSureCancel()>Avbryt</button>
-      <button type="button" class="btn btn-danger " data-dismiss="modal" onclick=removeProject()
-        id="removeProjectBtn">Bekräfta</button>
-    </template>
+    <p>Är du säker på att du vill ta bort projektet?</p>
+    <button type="button" class="btn btn-secondary " onclick=areYouSureCancel()>Avbryt</button>
+    <button type="button" class="btn btn-danger " data-dismiss="modal" onclick=removeProject()
+      id="removeProjectBtn">Bekräfta</button>
+  </template>
 
     <!-- Sign-up page -->
     <template id="signUpView">
-      <div class="container-sm">
-        <form id="signUpForm">
-          <h2>Registrera företag</h2>
-          <div class="form-group">
-            <label for="signUpCompanyName">Namn på företag</label>
-            <input type="text" class="form-control" id="signUpCompanyName" placeholder="Bygg AB">
-          </div>
-          <div class="form-group">
-            <label for="signUpCompanyOrgNumber">Organisationsnummer</label>
-            <input type="text" class="form-control" id="signUpCompanyOrgNumber" placeholder="xxxxxx-xxxx">
-          </div>
-          <h2>Ansvarig för kontot</h2>
-          <p>Personen som har ansvar för kontot. Den som kommer ha fulla privilegier. Kommer kunna lägga till och
-            ta bort
-            medarbetare.</p>
-          <div class="form-group">
-            <label for="signUpAdminName">Namn</label>
-            <input type="text" class="form-control" id="signUpAdminName" placeholder="">
-          </div>
-          <div class="form-group">
-            <label for="signUpAdminPid">Personnummer</label>
-            <input type="text" class="form-control" id="signUpAdminPid" placeholder="ÅÅMMDD-xxxx">
-            <small id="" class="form-text text-muted">10 eller 12 siffror</small>
-          </div>
-          <div class="form-group">
-            <label for="signUpAdminEmail">E-mail</label>
-            <input type="text" class="form-control" id="signUpAdminEmail" placeholder="namn@foretag.com">
-          </div>
-          <div class="form-group">
-            <label for="signUpAdminPassword">Lösenord</label>
-            <input type="password" class="form-control" id="signUpAdminPassword" placeholder="Lösenord">
-            <small id="" class="form-text text-muted">Någon schysst mening om säkert lösenord.</small>
-          </div>
-          <button type="button" id="cancelSignUpButton" class="btn btn-outline-dark">Avbryt</button>
-          <button type="button" id="signUpButton" class="btn btn-primary">Registrera</button>
-        </form>
-      </div>
-    </template>
+    <div class="container-sm">
+      <form id="signUpForm">
+        <h2>Registrera företag</h2>
+        <div class="form-group">
+          <label for="signUpCompanyName">Namn på företag</label>
+          <input type="text" class="form-control" id="signUpCompanyName" placeholder="Bygg AB">
+        </div>
+        <div class="form-group">
+          <label for="signUpCompanyOrgNumber">Organisationsnummer</label>
+          <input type="text" class="form-control" id="signUpCompanyOrgNumber" placeholder="xxxxxx-xxxx">
+        </div>
+        <h2>Ansvarig för kontot</h2>
+        <p>Personen som har ansvar för kontot. Den som kommer ha fulla privilegier. Kommer kunna lägga till och
+          ta bort
+          medarbetare.</p>
+        <div class="form-group">
+          <label for="signUpAdminName">Namn</label>
+          <input type="text" class="form-control" id="signUpAdminName" placeholder="">
+        </div>
+        <div class="form-group">
+          <label for="signUpAdminPid">Personnummer</label>
+          <input type="text" class="form-control" id="signUpAdminPid" placeholder="ÅÅMMDD-xxxx">
+          <small id="" class="form-text text-muted">10 eller 12 siffror</small>
+        </div>
+        <div class="form-group">
+          <label for="signUpAdminEmail">E-mail</label>
+          <input type="text" class="form-control" id="signUpAdminEmail" placeholder="namn@foretag.com">
+        </div>
+        <div class="form-group">
+          <label for="signUpAdminPassword">Lösenord</label>
+          <input type="password" class="form-control" id="signUpAdminPassword" placeholder="Lösenord">
+          <small id="" class="form-text text-muted">Någon schysst mening om säkert lösenord.</small>
+        </div>
+        <button type="button" id="cancelSignUpButton" class="btn btn-outline-dark">Avbryt</button>
+        <button type="button" id="signUpButton" class="btn btn-primary">Registrera</button>
+      </form>
+    </div>
+  </template>
 
     <!-- Thank you view -->
     <template id="thankYouView">
-      <div>
-        <h2>Tack för att du registrerade dig</h2>
-        <p>Du kan nu logga in med knappen längst upp till höger och börja lägga till anställda.</p>
-      </div>
-    </template>
+    <div>
+      <h2>Tack för att du registrerade dig</h2>
+      <p>Du kan nu logga in med knappen längst upp till höger och börja lägga till anställda.</p>
+    </div>
+  </template>
 
     <!-- The template for the landing page for not logged in visitors -->
     <template id="landingPage">
-        <h1 class="landingPageHeading">ERP - Snickeri</h1>
-        <p>
-            Tidsrapportering och schemaläggning för den moderna snickaren
+    <h1 class="landingPageHeading">ERP - Snickeri</h1>
+    <p>
+        Tidsrapportering och schemaläggning för den moderna snickaren
+    </p>     
+    
+    <div class="row">
+      <div class="col-lg-12">
+        <p> <br><br>
+          <button type="button" class="btn btn-sq-lg btn-primary" data-toggle="modal" data-target="#signInModal">Logga
+          in</button>
+          <button type="button" class="btn btn-sq-lg btn-info" id="becomeCustomerButton">Bli kund</button>
         </p>
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#signInModal">Logga
-            in</button>
-        <button type="button" class="btn btn-outline-dark" id="becomeCustomerButton">Bli kund</button>
-
-        <svg xmlns="http://www.w3.org/2000/svg" style="position:relative;width:100vw;left: calc(-1 * (100vw - 100%) / 2);"viewBox="0 0 1440 320"><path fill="#B2E0FF" fill-opacity="1" d="M0,256L48,266.7C96,277,192,299,288,288C384,277,480,235,576,229.3C672,224,768,256,864,256C960,256,1056,224,1152,192C1248,160,1344,128,1392,112L1440,96L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>
-        <div class="landingPageImages">
-            <div class="container">
-                <div class="row">
-                    <div class="col-4">
-                        <img class="img-fluid" src="images/landing-page/time-report.png">
-                    </div>
-                    <div class="col-8">
-                        <h4>Rapportera tid enkelt</h4>
-                        <p>Du kan enkelt rapportera tid med verktyget tidsrapportering.</p>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-4">
-                        <h4>Visa ditt schema</h4>
-                        <p>Visa de saker du ska arbeta på idag eller under veckan</p>
-                    </div>
-                    <div class="col-8">
-                        <img class="img-fluid" src="images/landing-page/Apple-Macbook-Space-Grey.png">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-4">
-                        <img class="img-fluid" src="images/landing-page/support.png">
-                    </div>
-                    <div class="col-8">
-                        <h4>Support</h4>
-                        <p>Få hjälp från vår supportsida i världsklass<p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </template>
-
-    <template id="calendarView">
-      <div class="cal">
-        <div id='calendar'></div>
       </div>
-    </template>
+    </div>
+
+    <svg xmlns="http://www.w3.org/2000/svg" style="position:relative;width:100vw;left: calc(-1 * (100vw - 100%) / 2);"
+      viewBox="0 0 1440 320">
+      <path fill="#B2E0FF" fill-opacity="1"
+        d="M0,256L48,266.7C96,277,192,299,288,288C384,277,480,235,576,229.3C672,224,768,256,864,256C960,256,1056,224,1152,192C1248,160,1344,128,1392,112L1440,96L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z">
+      </path>
+    </svg>
+    <div class="landingPageImages">
+      <div class="container">
+        <div class="row">
+          <div class="col-4">
+            <img class="img-fluid" src="images/landing-page/time-report.png">
+          </div>
+          <div class="col-8">
+            <h4>Rapportera tid enkelt</h4>
+            <p>Du kan enkelt rapportera tid med verktyget tidsrapportering.</p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-4">
+            <h4>Visa ditt schema</h4>
+            <p>Visa de saker du ska arbeta på idag eller under veckan</p>
+          </div>
+          <div class="col-8">
+            <img class="img-fluid" src="images/landing-page/Apple-Macbook-Space-Grey.png">
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-4">
+            <img class="img-fluid" src="images/landing-page/support.png">
+          </div>
+          <div class="col-8">
+            <h4>Support</h4>
+            <p>Få hjälp från vår supportsida i världsklass<p>
+          </div>
+        </div>
+    </div>
+  </template>
+
+    <template id="calendarView"> 
+    <div class="cal">
+        <h3 id="whatCalendarsAreViewed">Visar din kalender</h3>
+      <div id='calendar'></div>
+    </div>
+  </template>
 
     <!-- TIME REPORT MODAL -->
     <div class="modal fade" id="timeReportModal" tabindex="-1" role="dialog">
@@ -828,7 +890,10 @@
                     </form>
                 </div>
             </div>
+
         </div>
+    </div>
+    </div>
     </div>
 
 
@@ -836,14 +901,13 @@
     <!-- TIME OVERVIEW -->
     <template id="timeOverviewView">
         <div class="row">
-
         </div>
         <div class="row">
           <div class="col">
             <h1>Tidsöversikt</h1>
           </div>
           <div class="col">
-            <div class="btn-group">
+            <div class="dropdown" id="roleEmployeeDropDown">
               <button type="button" class="btn btn-outline-dark dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 Anställd
                 <span class="caret"></span>
@@ -891,29 +955,20 @@
     <!-- HOMEPAGE ADMIN -->
     <template id="adminHomepageView">
         <div class="row">
-          <div class="col">
-            <a href=# class="btn btn-square btn-primary" onclick=changeToProjectView()>Projekt</a>    
-          </div>
-          <div class="col">
-            <a href=# class="btn btn-square btn-primary" onclick=changeToCalendarView()>Schemaläggning</a>     
-          </div>
-          <div class="col">
-            <a href=# class="btn btn-square btn-primary" onclick=changeToTimeOverview()>Tidsöversikt</a>     
+          <div class="col-lg-12">
+            <p> <br><br>
+              <a href=# class="btn btn-sq-lg btn-primary" onclick=changeToEmployeeView()> <i class="fa fa-address-book-o fa-4x"></i></br>Medarbetare</a>    
+              <a href=# class="btn btn-sq-lg btn-success" onclick=changeToProjectView()> <i class="fa fa-briefcase fa-4x"></i></br>Projektöversikt</a>      
+              <a href=# class="btn btn-sq-lg btn-info" onclick=changeToCalendarView()> <i class="fa fa-calendar fa-4x"></i></br>Schema</a>    
+            </p>
           </div>
         </div>
         <div class="row">
-          <p>   
-          </p>
-        </div>
-        <div class="row">
-          <div class="col">
-            <a href=# class="btn btn-square btn-primary" onclick=changeToEmployeeView()>Medarbetare</a>  
-          </div>
-          <div class="col">
-            <a href=# class="btn btn-square btn-primary">Betalningar</a>     
-          </div>
-          <div class="col">
-            <a href=# class="btn btn-square btn-primary" onclick=changeToSupportView()>Support</a>    
+          <div class="col-lg-12">
+            <p>
+              <a href=# class="btn btn-sq-lg btn-secondary" onclick=changeToSupportView()> <i class="fa fa-handshake-o fa-4x"></i></br>Support</a>       
+              <a href=# class="btn btn-sq-lg btn-danger" onclick=changeToTimeOverview()> <i class="fa fa-clock-o fa-4x"></i></br>Tidsöversikt</a>   
+            </p>
           </div>
         </div>
       </template>
@@ -921,23 +976,20 @@
     <!-- HOMEPAGE BOSS -->
     <template id="bossHomepageView">
         <div class="row">
-          <div class="col">
-            <a href=# class="btn btn-square btn-primary" onclick=changeToEmployeeView()>Medarbetare</a>  
-          </div>
-          <div class="col">
-            <a href=# class="btn btn-square btn-primary" onclick=changeToProjectView()>Projekt</a>    
+          <div class="col-lg-12">
+            <p> <br><br>
+              <a href=# class="btn btn-sq-lg btn-primary" onclick=changeToEmployeeView()> <i class="fa fa-address-book-o fa-4x"></i></br>Medarbetare</a>    
+              <a href=# class="btn btn-sq-lg btn-success" onclick=changeToProjectView()> <i class="fa fa-briefcase fa-4x"></i></br>Projektöversikt</a>      
+              <a href=# class="btn btn-sq-lg btn-info" onclick=changeToCalendarView()> <i class="fa fa-calendar fa-4x"></i></br>Schema</a>    
+            </p>
           </div>
         </div>
         <div class="row">
-          <p>   
-          </p>
-        </div>
-        <div class="row">
-          <div class="col">
-            <a href=# class="btn btn-square btn-primary" onclick=changeToCalendarView()>Schemaläggning</a>   
-          </div>
-          <div class="col">
-            <a href=# class="btn btn-square btn-primary" onclick=changeToTimeOverview()>Tidsöversikt</a>     
+          <div class="col-lg-12">
+            <p>
+              <a href=# class="btn btn-sq-lg btn-secondary" onclick=changeToSupportView()> <i class="fa fa-handshake-o fa-4x"></i></br>Support</a>       
+              <a href=# class="btn btn-sq-lg btn-danger" onclick=changeToTimeOverview()> <i class="fa fa-clock-o fa-4x"></i></br>Tidsöversikt</a>    
+            </p>
           </div>
         </div>
       </template>
@@ -945,23 +997,20 @@
     <!-- HOMEPAGE WORKER -->
     <template id="workerHomepageView">
         <div class="row">
+          <div class="col-lg-12">
+            <p> <br><br>
+              <a href=# class="btn btn-sq-lg btn-primary" onclick=changeToEmployeeView()> <i class="fa fa-address-book-o fa-4x"></i></br>Medarbetare</a>    
+              <a href=# class="btn btn-sq-lg btn-success" onclick=changeToProjectView()> <i class="fa fa-briefcase fa-4x"></i></br>Projektöversikt</a>      
+              <a href=# class="btn btn-sq-lg btn-info" onclick=changeToCalendarView()> <i class="fa fa-calendar fa-4x"></i></br>Schema</a>    
+            </p>
+          </div>
         </div>
         <div class="row">
-          <div class="col">
-            <a href=# class="btn btn-square btn-primary" onclick=changeToCalendarView()>Mitt Schema</a>    
-          </div>
-          <div class="col">
-            <a href=# class="btn btn-square btn-primary" onclick=changeToTimeReport()>Rapportera Tid</a>     
-          </div>
-        </div>
-        <p>   
-        </p>
-        <div class="row">
-          <div class="col">
-            <a href=# class="btn btn-square btn-primary" onclick=changeToEmployeeView()>Medarbetare</a> 
-          </div>
-          <div class="col">
-            <a href=# class="btn btn-square btn-primary" onclick=changeToProjectView()>Projekt</a>    
+          <div class="col-lg-12">
+            <p>
+              <a href=# class="btn btn-sq-lg btn-secondary" onclick=changeToSupportView()> <i class="fa fa-handshake-o fa-4x"></i></br>Support</a>
+              <a href=# class="btn btn-sq-lg btn-danger" onclick=changeToTimeReport()> <i class="fa fa-clock-o fa-4x"></i></br>Rapportera tid</a>    
+            </p>
           </div>
         </div>
       </template>
@@ -975,60 +1024,66 @@
             data-target='#newProjectModal' id="newProjectButton">Nytt Projekt</button>
         </div>
       </div>
-      <hr>
-      <div class="row">
-        <div class="col">
-          <h3>Aktiva Projekt</h3>
-          <hr>
-          <div class="list-group animated fadeInDownBig" id="projectListTab" role="tablist">
-            <!-- List of projects appear here-->
-          </div>
-        </div>
-        <div class="col">
-          <h3>Alla Projekt</h3>
-          <hr>
-          <ul>
-            <li>Temporär 1</li>
-            <li>Temporär 2</li>
-          </ul>
+    </div>
+    <hr>
+    <div class="row">
+      <div class="col">
+        <h3>Alla Projekt</h3>
+        <hr>
+        <div class="list-group animated fadeInDownBig allProjects" id="projectListTab" role="tablist">
+          <!-- List of all projects appear here-->
         </div>
       </div>
-    </template>
+      <div class="col">
+        <h3>Aktiva Projekt</h3>
+        <hr>
+        <div class="list-group animated fadeInDownBig activeProjects" id="projectListTabActive" role="tablist">
+          <!-- List of active projects appear here-->
+        </div>
+      </div>
+    </div>
+  </template>
 
     <!-- Employee View -->
     <template id="employeeView" type="text/html">
-      <div>
-        <table id="employee-table" class="table">
-          <thead>
-            <tr>
-              <th scope="col" id="employee-table-ID">ID 
-                  <div class="form-group"></div>
-                <input type="text" class="form-control" id="employeeTableSearchID" placeholder="Sök ID">
-            </div></th>
-              <th scpoe="col">Namn <div class="form-group"></div>
-                <input type="text" class="form-control" id="employeeTableSearchName" placeholder="Sök Namn">
-            </div></th>
-            <th scope="col">Epost <div class="form-group"></div>
-                <input type="text" class="form-control" id="employeeTableSearchEmail" placeholder="Sök epost">
-            </div></th>
-              <th scope="col">Roll <div class="form-group"></div>
-                <div class="dropdown" id="roleDropDown">
-                    <button class="btn btn-primary dropdown-toggle" type="button" id="roleButton"data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                      Välj roll
-                      <span class="caret"></span>
-                    </button>
-                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                      <li><a href="#" data-value="Alla">Alla</a></li>
-                      <li><a href="#" data-value="Chef">Chef</a></li>
-                      <li><a href="#" data-value="Medarbetare">Medarbetare</a></li>
-                    </ul>
-                  </div>
+    <div>
+      <table id="employee-table" class="table">
+            <thead>                
+              <tr>
+                <th scope="col" id="employee-table-ID">ID 
+                    <div class="form-group"></div>
+                  <input type="text" class="form-control" id="employeeTableSearchID" placeholder="Sök ID">
               </div></th>
-            </tr>
-          </thead>
-          <tbody id="employee-data">
-          </tbody>
-        </table>
+                <th scpoe="col">Namn <div class="form-group"></div>
+                  <input type="text" class="form-control" id="employeeTableSearchName" placeholder="Sök Namn">
+              </div></th>
+              <th scope="col">Epost <div class="form-group"></div>
+                  <input type="text" class="form-control" id="employeeTableSearchEmail" placeholder="Sök epost">
+              </div></th>
+                <th scope="col">Roll <div class="form-group"></div>
+                  <div class="dropdown" id="roleDropDown">
+                      <button class="btn btn-primary dropdown-toggle" type="button" id="roleButton"data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                        Välj roll
+                        <span class="caret"></span>
+                      </button>
+                      <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                        <li><a href="#" data-value="Alla">Alla</a></li>
+                        <li><a href="#" data-value="Chef">Chef</a></li>
+                        <li><a href="#" data-value="Medarbetare">Medarbetare</a></li>
+                      </ul>
+                    </div>
+                </div></th>
+              </tr>
+            </thead>
+            <tbody id="employee-data">
+            </tbody>
+          </table>
+        </thead>
+        <tbody id="employee-data">
+        </tbody>
+      </table>
+      
+      <div>
         <button type="submit" class="btn btn-primary" id="viewAddEmployeeButton"data-toggle='modal'
             data-target='#addEmployeeModal' id="addEmployeeButton">Lägg till medarbetare</button>
       </div>
@@ -1045,25 +1100,24 @@
                     <button type="button" class="close" data-dismiss="modal" aria-label="Stäng">
         <span aria-hidden="true">&times;</span>
       </button>
-
                 </div>
                 <div class="modal-body">
                     <form id="editLoggedWorkForm">
                         <div class="form-group">
-                            <label for="addProjectSelector">Vilket projekt gäller detta</label>
-                            <select class="form-control" id="addProjectSelector2">
-
+                            <label for="changeLoggedWorkProjectSelector">Vilket projekt gäller detta</label>
+                            <select class="form-control" id="changeLoggedWorkProjectSelector">
                         <option value="0">Inget projekt</option>
                       </select>
                         </div>
 
-                        <label for="addTimeReportStartPickers">Starttid</label>
-                        <div class="row" id="addTimeReportStartPickers">
+
+                        <label for="changeLoggedWorkStartPickers">Starttid</label>
+                        <div class="row" id="changeLoggedWorkStartPickers">
                             <div class="col">
                                 <div class="form-group">
-                                    <div class="input-group date" id="addTimeReportStartDatePicker" data-target-input="nearest">
-                                        <input type="text" class="form-control datetimepicker-input" data-target="#addTimeReportStartDatePicker" />
-                                        <div class="input-group-append" data-target="#addTimeReportStartDatePicker" data-toggle="datetimepicker">
+                                    <div class="input-group date" id="changeLoggedWorkStartDatePicker" data-target-input="nearest">
+                                        <input type="text" class="form-control datetimepicker-input" data-target="#changeLoggedWorkStartDatePicker" />
+                                        <div class="input-group-append" data-target="#changeLoggedWorkStartDatePicker" data-toggle="datetimepicker">
                                             <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                                         </div>
                                     </div>
@@ -1072,9 +1126,9 @@
 
                             <div class="col">
                                 <div class="form-group">
-                                    <div class="input-group date" id="addTimeReportStartTimePicker" data-target-input="nearest">
-                                        <input type="text" class="form-control datetimepicker-input" data-target="#addTimeReportStartTimePicker" />
-                                        <div class="input-group-append" data-target="#addTimeReportStartTimePicker" data-toggle="datetimepicker">
+                                    <div class="input-group date" id="changeLoggedWorkStartTimePicker" data-target-input="nearest">
+                                        <input type="text" class="form-control datetimepicker-input" data-target="#changeLoggedWorkStartTimePicker" />
+                                        <div class="input-group-append" data-target="#changeLoggedWorkStartTimePicker" data-toggle="datetimepicker">
                                             <div class="input-group-text"><i class="fa fa-clock-o"></i></div>
                                         </div>
                                     </div>
@@ -1082,13 +1136,13 @@
                             </div>
                         </div>
 
-                        <label for="addTimeReportStopPickers">Sluttid</label>
-                        <div class="row" id="addTimeReportStopPickers">
+                        <label for="changeLoggedWorkStopPickers">Sluttid</label>
+                        <div class="row" id="changeLoggedWorkStopPickers">
                             <div class="col">
                                 <div class="form-group">
-                                    <div class="input-group date" id="addTimeReportStopDatePicker" data-target-input="nearest">
-                                        <input type="text" class="form-control datetimepicker-input" data-target="#addTimeReportStopDatePicker" />
-                                        <div class="input-group-append" data-target="#addTimeReportStopDatePicker" data-toggle="datetimepicker">
+                                    <div class="input-group date" id="changeLoggedWorkStopDatePicker" data-target-input="nearest">
+                                        <input type="text" class="form-control datetimepicker-input" data-target="#changeLoggedWorkStopDatePicker" />
+                                        <div class="input-group-append" data-target="#changeLoggedWorkStopDatePicker" data-toggle="datetimepicker">
                                             <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                                         </div>
                                     </div>
@@ -1097,9 +1151,9 @@
 
                             <div class="col">
                                 <div class="form-group">
-                                    <div class="input-group date" id="addTimeReportStopTimePicker" data-target-input="nearest">
-                                        <input type="text" class="form-control datetimepicker-input" data-target="#addTimeReportStopTimePicker" />
-                                        <div class="input-group-append" data-target="#addTimeReportStopTimePicker" data-toggle="datetimepicker">
+                                    <div class="input-group date" id="changeLoggedWorkStopTimePicker" data-target-input="nearest">
+                                        <input type="text" class="form-control datetimepicker-input" data-target="#changeLoggedWorkStopTimePicker" />
+                                        <div class="input-group-append" data-target="#changeLoggedWorkStopTimePicker" data-toggle="datetimepicker">
                                             <div class="input-group-text"><i class="fa fa-clock-o"></i></div>
                                         </div>
                                     </div>
@@ -1108,69 +1162,66 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="sluttid">Kommentarer</label>
-                            <textarea class="form-control" id="comments"></textarea>
+                            <label for="changeLoggedWorkComments">Kommentarer</label>
+                            <textarea class="form-control" id="changeLoggedWorkComments"></textarea>
                         </div>
-
                 </div>
                 </form>
                 <div class="modal-footer">
-                    <button type="button" id="deleteLoggedWorkButton" class="btn btn-danger" data-dismiss="modal">Radera tidsrapport</button>
+                    <button type="button" id="deleteLoggedWorkButton" class="btn btn-danger" value="" data-dismiss="modal" onclick="deleteLoggedWork(this.value)">Radera tidsrapport</button>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Stäng</button>
-                    <button type="button" id="editLoggedWorkSubmitButton" class="btn btn-primary" data-dismiss="modal">Slutför</button>
-
+                    <button type="button" id="editLoggedWorkSubmitButton" class="btn btn-primary" value="" onclick="editLoggedWork(this.value)" data-dismiss="modal">Slutför</button>
                 </div>
             </div>
         </div>
-    </div>
 
-    <template id="aboutView">
+        <template id="aboutView">
       <h1>Om oss</h1>
       <p>Vi erbjuder en lösning för schemaläggning och tidsrapportering i form av en webbapplikation.</p>
     </template>
 
-    <template id="priceView">
+        <template id="priceView">
       <h1>Pris</h1>
       <p>Tjänsten kostar 200 kr i månaden.</p>
     </template>
 
-    <template id="contactView">
+        <template id="contactView">
       <h1>Kontakt</h1>
       <p>Kontakta oss på denna <a href="mailto:mail@mail.com">mailaddress</a> eller fyll i formuläret nedan som inte
         är där än.</p>
     </template>
 
-    <template id="supportView">
+        <template id="supportView">
       <h1>Support</h1>
       <p>Här kommer det att finnas hjälp någon gång i framtiden</p>
     </template>
 
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+        <!-- Optional JavaScript -->
+        <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
 
 
-    <!-- Tempus Dominus, adds time-picking, for more info see https://tempusdominus.github.io/bootstrap-4/ -->
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment-with-locales.min.js"></script>
-    <script type="text/javascript" src="tempus-dominus/tempusdominus-bootstrap-4.js"></script>
-    <!-- fullcalendar -->
-    <script src='https://unpkg.com/@fullcalendar/core@4.4.0/main.js'></script>
-    <script src='https://unpkg.com/@fullcalendar/daygrid@4.4.0/main.js'></script>
-    <script src='https://unpkg.com/@fullcalendar/timegrid@4.4.0/main.js'></script>
-    <script src='https://unpkg.com/@fullcalendar/core@4.4.0/locales/sv.js'></script>
-    <script src='https://unpkg.com/@fullcalendar/bootstrap@4.4.0/main.js'></script>
+        <!-- Tempus Dominus, adds time-picking, for more info see https://tempusdominus.github.io/bootstrap-4/ -->
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment-with-locales.min.js"></script>
+        <script type="text/javascript" src="tempus-dominus/tempusdominus-bootstrap-4.js"></script>
+        <!-- fullcalendar -->
+        <script src='https://unpkg.com/@fullcalendar/core@4.4.0/main.js'></script>
+        <script src='https://unpkg.com/@fullcalendar/daygrid@4.4.0/main.js'></script>
+        <script src='https://unpkg.com/@fullcalendar/timegrid@4.4.0/main.js'></script>
+        <script src='https://unpkg.com/@fullcalendar/core@4.4.0/locales/sv.js'></script>
+        <script src='https://unpkg.com/@fullcalendar/bootstrap@4.4.0/main.js'></script>
 
-    <!-- Our scripts -->
-    <script src="client.js"></script>
-    <script src="calendar.js"></script>
-    <script src="alerts.js"></script>
-    <script src="authentication.js"></script>
-    <script src="employee.js"></script>
-    <script src="time_report.js"></script>
-    <script src="project_view.js"></script>
+        <!-- Our scripts -->
+        <script src="client.js"></script>
+        <script src="calendar.js"></script>
+        <script src="alerts.js"></script>
+        <script src="authentication.js"></script>
+        <script src="employee.js"></script>
+        <script src="time_report.js"></script>
+        <script src="project_view.js"></script>
 </body>
 
 </html>

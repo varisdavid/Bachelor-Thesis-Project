@@ -17,8 +17,7 @@ bp = Blueprint('employee', __name__, url_prefix='/employee')
 @bp.route("/all", methods=['GET', 'POST'])
 @jwt_required
 def employees():
-    user_id = personID.format(get_jwt_identity())
-    print("user_id: " + user_id)
+    user_id = get_jwt_identity()
     user = Employee.query.get_or_404(user_id)
     if request.method == 'GET':
         employeeList = Employee.query.all()
@@ -48,12 +47,9 @@ def employees():
 @bp.route("/<string:pID>", methods=['GET', 'PUT', 'DELETE'])
 @jwt_required
 def employee(pID):
-    user_id = personID.format(get_jwt_identity())
-    print("user_id2: " + user_id)
+    user_id = get_jwt_identity()
     user = Employee.query.get_or_404(user_id)
     pID = personID.format(pID)
-    print("user.personID: " + user.personID)
-    print("pID: " + pID)
     if request.method == 'GET':
         employee = Employee.query.filter_by(personID=pID).first_or_404()
         if user.company == employee.company:

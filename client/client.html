@@ -958,15 +958,16 @@
         <div class="row">
           <div class="col-lg-12">
             <p> <br><br>
-              <a href=# class="btn btn-sq-lg btn-primary" onclick=changeToEmployeeView()> <i class="fa fa-address-book-o fa-4x"></i></br>Medarbetare</a>    
+              <a href=# class="btn btn-sq-lg btn-primary" onclick=changeToEmployeeView()> <i class="fa fa-address-book-o fa-4x"></i></br>Medarbetare</a>   
+              <a href=# class="btn btn-sq-lg btn-warning" onclick=changeToProfileView()> <i class="fa fa-user-o fa-4x"></i></br>Min Profil</a>      
               <a href=# class="btn btn-sq-lg btn-success" onclick=changeToProjectView()> <i class="fa fa-briefcase fa-4x"></i></br>Projektöversikt</a>      
-              <a href=# class="btn btn-sq-lg btn-info" onclick=changeToCalendarView()> <i class="fa fa-calendar fa-4x"></i></br>Schema</a>    
             </p>
           </div>
         </div>
         <div class="row">
           <div class="col-lg-12">
             <p>
+              <a href=# class="btn btn-sq-lg btn-info" onclick=changeToCalendarView()> <i class="fa fa-calendar fa-4x"></i></br>Schema</a>    
               <a href=# class="btn btn-sq-lg btn-secondary" onclick=changeToSupportView()> <i class="fa fa-handshake-o fa-4x"></i></br>Support</a>       
               <a href=# class="btn btn-sq-lg btn-danger" onclick=changeToTimeOverview()> <i class="fa fa-clock-o fa-4x"></i></br>Tidsöversikt</a>   
             </p>
@@ -980,14 +981,15 @@
           <div class="col-lg-12">
             <p> <br><br>
               <a href=# class="btn btn-sq-lg btn-primary" onclick=changeToEmployeeView()> <i class="fa fa-address-book-o fa-4x"></i></br>Medarbetare</a>    
+              <a href=# class="btn btn-sq-lg btn-warning" onclick=changeToProfileView()> <i class="fa fa-user-o fa-4x"></i></br>Min Profil</a>      
               <a href=# class="btn btn-sq-lg btn-success" onclick=changeToProjectView()> <i class="fa fa-briefcase fa-4x"></i></br>Projektöversikt</a>      
-              <a href=# class="btn btn-sq-lg btn-info" onclick=changeToCalendarView()> <i class="fa fa-calendar fa-4x"></i></br>Schema</a>    
             </p>
           </div>
         </div>
         <div class="row">
           <div class="col-lg-12">
             <p>
+              <a href=# class="btn btn-sq-lg btn-info" onclick=changeToCalendarView()> <i class="fa fa-calendar fa-4x"></i></br>Schema</a>    
               <a href=# class="btn btn-sq-lg btn-secondary" onclick=changeToSupportView()> <i class="fa fa-handshake-o fa-4x"></i></br>Support</a>       
               <a href=# class="btn btn-sq-lg btn-danger" onclick=changeToTimeOverview()> <i class="fa fa-clock-o fa-4x"></i></br>Tidsöversikt</a>    
             </p>
@@ -1001,14 +1003,15 @@
           <div class="col-lg-12">
             <p> <br><br>
               <a href=# class="btn btn-sq-lg btn-primary" onclick=changeToEmployeeView()> <i class="fa fa-address-book-o fa-4x"></i></br>Medarbetare</a>    
+              <a href=# class="btn btn-sq-lg btn-warning" onclick=changeToProfileView()> <i class="fa fa-user-o fa-4x"></i></br>Min Profil</a>      
               <a href=# class="btn btn-sq-lg btn-success" onclick=changeToProjectView()> <i class="fa fa-briefcase fa-4x"></i></br>Projektöversikt</a>      
-              <a href=# class="btn btn-sq-lg btn-info" onclick=changeToCalendarView()> <i class="fa fa-calendar fa-4x"></i></br>Schema</a>    
             </p>
           </div>
         </div>
         <div class="row">
           <div class="col-lg-12">
             <p>
+              <a href=# class="btn btn-sq-lg btn-info" onclick=changeToCalendarView()> <i class="fa fa-calendar fa-4x"></i></br>Schema</a>    
               <a href=# class="btn btn-sq-lg btn-secondary" onclick=changeToSupportView()> <i class="fa fa-handshake-o fa-4x"></i></br>Support</a>
               <a href=# class="btn btn-sq-lg btn-danger" onclick=changeToTimeReport()> <i class="fa fa-clock-o fa-4x"></i></br>Rapportera tid</a>    
             </p>
@@ -1279,7 +1282,7 @@
                 </div>
                 <div class="row mt-2">
                   <div style="padding-left: 15px;">
-                    <button type="submit" id="updateProfileInformationButton" class="btn btn-primary"
+                    <button type="submit" id="updatePasswordProfileButton" class="btn btn-primary"
                       onclick=changePasswordProfile()>Ändra lösenord</button>
                   </div>
                 </div>
@@ -1287,6 +1290,7 @@
               </form>
             </div>
           </div>
+        </template>
 
         <!-- Optional JavaScript -->
         <!-- jQuery first, then Popper.js, then Bootstrap JS -->
@@ -1314,6 +1318,7 @@
         <script src="employee.js"></script>
         <script src="time_report.js"></script>
         <script src="project_view.js"></script>
+        <script src="personID.js"></script>
         <script src="profile.js"></script>
 </body>
 

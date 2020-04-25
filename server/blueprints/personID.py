@@ -37,7 +37,7 @@ def check_ssn(ssn):
     t_day = datetime.datetime.now().day
     isValid = True
 
-    print(ssn)
+    # print(ssn)
     reg = r"^(\d{2}){0,1}(\d{2})(\d{2})(\d{2})([\-|\+| ]{0,1})?(\d{3})(\d{0,1})$"
     match = re.match(reg, str(ssn))
 

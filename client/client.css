@@ -82,3 +82,11 @@ h2 {
 
 #brandButton{
 }
+
+.btn-warning {
+    color: #ffffff;
+}
+
+.btn-warning:hover {
+    color: #ffffff;
+}

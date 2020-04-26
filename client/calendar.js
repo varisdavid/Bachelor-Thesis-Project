@@ -584,8 +584,19 @@ function viewCalendars() {
  * Front end functionality for removing an activity.
  * @param {number} id id of the activity to be removed.
  */
-function removeActivityCal(id) {
-    console.log("inne i rema")
+function removeActivity(id) {
+
+    $.ajax({
+        url: 'activity/' + id,
+        type: 'GET',
+        headers: { "Authorization": "Bearer " + JSON.parse(sessionStorage.getItem('auth')).access_token },
+        success: function (response) {
+            $("#activityListTab").empty()
+            displayActivities(response.project_id)
+        },
+        error: console.log("ERROR")
+    })
+
     $.ajax({
         url: 'activity/' + id,
         type: 'DELETE',

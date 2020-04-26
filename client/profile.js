@@ -1,9 +1,11 @@
+/**
+ * Function used for viewing the Projects page
+ */
 function changeToProfileView() {
     var personID = JSON.parse(sessionStorage.getItem('auth')).person_id;
     isPersonID = checkIfPersonID(personID);
     if (isPersonID) {
         personID = formatPersonID(personID)
-        // console.log("profileview personID: "+ personID);
     }
     $.ajax({
         headers: { "Authorization": "Bearer " + JSON.parse(sessionStorage.getItem('auth')).access_token },
@@ -34,12 +36,9 @@ function writeForm(personID, employee) {
 
 function updateProfileInformation() {
     var personID = (JSON.parse(sessionStorage.getItem('auth')).person_id).toString();
-    // var personID = JSON.parse(sessionStorage.getItem('auth')).person_id;
-    // // console.log("profileview personID: "+ personID);
     isPersonID = checkIfPersonID(personID);
     if (isPersonID) {
         personID = formatPersonID(personID)
-        // console.log("personID: " + personID);
     }
     var name = (document.getElementById("form-namn").value).toString();
     var email = (document.getElementById("changeEmail").value).toString();
@@ -57,13 +56,9 @@ function updateProfileInformation() {
         headers: { "Authorization": "Bearer " + JSON.parse(sessionStorage.getItem('auth')).access_token },
         url: '/employee/' + personID,
         type: 'PUT',
-        // dataType: 'json',
         data: employeeData,
         contentType: 'application/json',
         success: function () {
-            // if (newPassword) {
-            //     changePasswordProfile(currentPassword, newPassword, newPasswordRepeated);
-            // }
             spawnAlert("Medarbetaren har redigerats", "success");
             changeToProfileView(); 
         }
@@ -75,7 +70,6 @@ function changePasswordProfile() {
     var currentPassword = document.getElementById("currentPassword3").value
     var newPassword = document.getElementById("newPassword3").value
     var newPasswordRepeated = document.getElementById("repeatPassword3").value
-    // console.log("asd")
     if (newPassword !== newPasswordRepeated) {
         document.getElementById("wrongNewPasswordAlertProfile").hidden = false;
         document.getElementById("wrongOldPasswordAlertProfile").hidden = true;

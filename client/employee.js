@@ -236,6 +236,9 @@ function addEmployee() {
             $("#addEmployeeModal").modal("hide");
             spawnAlert("Medarbetaren har lagts till", "success")
             loadEmployees()
+        },
+        error: function(){
+            document.getElementById("invalidEmployeePersonID").hidden = false; 
         }
     })
 }

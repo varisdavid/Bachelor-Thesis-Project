@@ -1,7 +1,7 @@
+/**
+ * Function used to format password in client 
+ */
 function formatPersonID(personID) {
-    // var personID = JSON.parse(sessionStorage.getItem('auth')).person_id;
-    // console.log("profileview personID: "+ personID);
-
     var date = new Date;
     t_year = date.getFullYear();
 
@@ -30,8 +30,7 @@ function formatPersonID(personID) {
         } else {
             separator = '-';
         }
-        return year + month + day + separator + num + check;
-        // return personID; 
+        return year + month + day + separator + num + check; 
     }
 }
 
@@ -49,7 +48,6 @@ function changeToProfileView() {
     isPersonID = checkIfPersonID(personID);
     if (isPersonID) {
         personID = formatPersonID(personID)
-        // console.log("profileview personID: "+ personID);
     }
     $.ajax({
         headers: { "Authorization": "Bearer " + JSON.parse(sessionStorage.getItem('auth')).access_token },

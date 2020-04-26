@@ -1,9 +1,9 @@
-#import for check of SSN 
+#import functions
 import re
 import datetime
 import math
 
-# Change format     
+# Change format (YYMMDD-XXXX or YYMMDD+XXXX if person is 100+ years old)     
 def format(ssn): 
     t_year = datetime.datetime.now().year
 
@@ -37,7 +37,6 @@ def check_ssn(ssn):
     t_day = datetime.datetime.now().day
     isValid = True
 
-    # print(ssn)
     reg = r"^(\d{2}){0,1}(\d{2})(\d{2})(\d{2})([\-|\+| ]{0,1})?(\d{3})(\d{0,1})$"
     match = re.match(reg, str(ssn))
 
@@ -53,6 +52,7 @@ def check_ssn(ssn):
         num = match.group(6)
         check = match.group(7)
 
+        #Checks which century person was born in if not entered 
         if not cent:
             if separator == '+' or t_year - int('20'+year) < 0:
                 cent = '19'
@@ -66,7 +66,7 @@ def check_ssn(ssn):
         _num = int(num)
         _check = int(check)
 
-        #Check valid date
+        #Checks if date is valid
         isValidDate = True
         try:
             datetime.datetime(int(year), int(month), int(day))
@@ -78,7 +78,7 @@ def check_ssn(ssn):
             isValid = False
             print("Är inte ett giltigt datum.")
 
-        #Kontrollsiffra
+        #Checks last digit 
         data = year+month+day+num
         calculation = 0
         for i in range(0, len(data)):
@@ -88,7 +88,6 @@ def check_ssn(ssn):
                 v -= 9
             calculation += v
         luhn = int(math.ceil(float(calculation) / 10) * 10 - float(calculation))
-        # print("luhn: " + str(luhn))
         if _check != luhn:
             isValid = False
             print("Fel kontrollsiffra")

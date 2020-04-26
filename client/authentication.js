@@ -135,6 +135,9 @@ function signUpCompany() {
         data: companyAndAdminData,
         success: function(response) {
             $("#mainView").html($("#thankYouView").html())
+        },
+        error: function() {
+            document.getElementById("invalidPersonID").hidden = false;
         }
     })
 }

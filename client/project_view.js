@@ -286,20 +286,6 @@ function areYouSureCancel() {
     $('#areYouSureContainer').empty()
 }
 
-
-function removeActivity(activity_id, project_id) {
-    $.ajax({
-        url: 'activity/' + activity_id,
-        type: 'DELETE',
-        headers: { "Authorization": "Bearer " + JSON.parse(sessionStorage.getItem('auth')).access_token },
-        success: function (response) {
-            spawnAlert("Aktiviteten togs bort", "warning")
-            $("#activityListTab").empty()
-            displayActivities(project_id)
-        }
-    })
-}
-
 $(document).ready(function () {
     $("#modalEditProjectButtonSubmit").click(function (e) {
         modalProjectUpdate();

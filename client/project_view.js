@@ -201,7 +201,7 @@ function removeActivityConfirm(activity_id, project_id){
     `).fadeIn(400)
       $("#removeActivityConfirmBtn").click(function (e) {
         $('#areYouSureContainer').hide()
-        removeActivity(activity_id,project_id)
+        removeActivity(activity_id)
     });
 
     
@@ -284,20 +284,6 @@ function removeProject() {
 
 function areYouSureCancel() {
     $('#areYouSureContainer').empty()
-}
-
-
-function removeActivity(activity_id, project_id) {
-    $.ajax({
-        url: 'activity/' + activity_id,
-        type: 'DELETE',
-        headers: { "Authorization": "Bearer " + JSON.parse(sessionStorage.getItem('auth')).access_token },
-        success: function (response) {
-            spawnAlert("Aktiviteten togs bort", "warning")
-            $("#activityListTab").empty()
-            displayActivities(project_id)
-        }
-    })
 }
 
 $(document).ready(function () {

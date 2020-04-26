@@ -201,7 +201,7 @@ function removeActivityConfirm(activity_id, project_id){
     `).fadeIn(400)
       $("#removeActivityConfirmBtn").click(function (e) {
         $('#areYouSureContainer').hide()
-        removeActivity(activity_id,project_id)
+        removeActivity(activity_id)
     });
 
     

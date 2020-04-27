@@ -37,6 +37,7 @@
                 <div class="navbar-nav" id="navBar">
                     <a class="nav-item nav-link header-item my-header-link" id="navContactLink" href="#"><i class="fa fa-phone" aria-hidden="true"></i> Kontakt</a>
                     <a class="nav-item nav-link header-item my-header-link" id="navEmployeeLink" href="#"><i class="fa fa-address-book-o" aria-hidden="true"></i> Medarbetare</a>
+                    <a class="nav-item nav-link header-item my-header-link" id="navProfileLink" href="#"><i class="fa fa-user" aria-hidden="true"></i> Min Profil</a>        
                     <a class="nav-item nav-link header-item my-header-link" id="navAboutLink" href="#"><i class="fa fa-info-circle" aria-hidden="true"></i> Om oss</a>
                     <a class="nav-item nav-link header-item my-header-link" id="navPriceLink" href="#"><i class="fa fa-usd" aria-hidden="true"></i> Pris</a>
                     <a class="nav-item nav-link header-item my-header-link" id="navProjectViewLink" href="#"><i class="fa fa-briefcase" aria-hidden="true"></i> Projektöversikt</a>
@@ -168,6 +169,9 @@
                             <label for="addEmployeePid">Personnummer</label>
                             <input class="form-control" id="addEmployeePid" placeholder="ÅÅMMDD-xxxx">
                             <small id="10 eller 12 siffror" class="form-text text-muted"></small>
+                        </div>
+                        <div class="alert alert-warning" id="invalidEmployeePersonID" hidden="true" role="alert">
+                          Ogiltigt personnummer. 
                         </div>
                         <div class="form-check">
                             <input type="checkbox" class="form-check-input" id="addEmployeeisAdmin-input">
@@ -727,6 +731,9 @@
           <input type="text" class="form-control" id="signUpAdminPid" placeholder="ÅÅMMDD-xxxx">
           <small id="" class="form-text text-muted">10 eller 12 siffror</small>
         </div>
+        <div class="alert alert-warning" id="invalidPersonID" hidden="true" role="alert">
+          Ogiltigt personnummer. 
+        </div>
         <div class="form-group">
           <label for="signUpAdminEmail">E-mail</label>
           <input type="text" class="form-control" id="signUpAdminEmail" placeholder="namn@foretag.com">
@@ -957,15 +964,16 @@
         <div class="row">
           <div class="col-lg-12">
             <p> <br><br>
-              <a href=# class="btn btn-sq-lg btn-primary" onclick=changeToEmployeeView()> <i class="fa fa-address-book-o fa-4x"></i></br>Medarbetare</a>    
+              <a href=# class="btn btn-sq-lg btn-primary" onclick=changeToEmployeeView()> <i class="fa fa-address-book-o fa-4x"></i></br>Medarbetare</a>   
+              <a href=# class="btn btn-sq-lg btn-warning" onclick=changeToProfileView()> <i class="fa fa-user-o fa-4x"></i></br>Min Profil</a>      
               <a href=# class="btn btn-sq-lg btn-success" onclick=changeToProjectView()> <i class="fa fa-briefcase fa-4x"></i></br>Projektöversikt</a>      
-              <a href=# class="btn btn-sq-lg btn-info" onclick=changeToCalendarView()> <i class="fa fa-calendar fa-4x"></i></br>Schema</a>    
             </p>
           </div>
         </div>
         <div class="row">
           <div class="col-lg-12">
             <p>
+              <a href=# class="btn btn-sq-lg btn-info" onclick=changeToCalendarView()> <i class="fa fa-calendar fa-4x"></i></br>Schema</a>    
               <a href=# class="btn btn-sq-lg btn-secondary" onclick=changeToSupportView()> <i class="fa fa-handshake-o fa-4x"></i></br>Support</a>       
               <a href=# class="btn btn-sq-lg btn-danger" onclick=changeToTimeOverview()> <i class="fa fa-clock-o fa-4x"></i></br>Tidsöversikt</a>   
             </p>
@@ -979,14 +987,15 @@
           <div class="col-lg-12">
             <p> <br><br>
               <a href=# class="btn btn-sq-lg btn-primary" onclick=changeToEmployeeView()> <i class="fa fa-address-book-o fa-4x"></i></br>Medarbetare</a>    
+              <a href=# class="btn btn-sq-lg btn-warning" onclick=changeToProfileView()> <i class="fa fa-user-o fa-4x"></i></br>Min Profil</a>      
               <a href=# class="btn btn-sq-lg btn-success" onclick=changeToProjectView()> <i class="fa fa-briefcase fa-4x"></i></br>Projektöversikt</a>      
-              <a href=# class="btn btn-sq-lg btn-info" onclick=changeToCalendarView()> <i class="fa fa-calendar fa-4x"></i></br>Schema</a>    
             </p>
           </div>
         </div>
         <div class="row">
           <div class="col-lg-12">
             <p>
+              <a href=# class="btn btn-sq-lg btn-info" onclick=changeToCalendarView()> <i class="fa fa-calendar fa-4x"></i></br>Schema</a>    
               <a href=# class="btn btn-sq-lg btn-secondary" onclick=changeToSupportView()> <i class="fa fa-handshake-o fa-4x"></i></br>Support</a>       
               <a href=# class="btn btn-sq-lg btn-danger" onclick=changeToTimeOverview()> <i class="fa fa-clock-o fa-4x"></i></br>Tidsöversikt</a>    
             </p>
@@ -1000,14 +1009,15 @@
           <div class="col-lg-12">
             <p> <br><br>
               <a href=# class="btn btn-sq-lg btn-primary" onclick=changeToEmployeeView()> <i class="fa fa-address-book-o fa-4x"></i></br>Medarbetare</a>    
+              <a href=# class="btn btn-sq-lg btn-warning" onclick=changeToProfileView()> <i class="fa fa-user-o fa-4x"></i></br>Min Profil</a>      
               <a href=# class="btn btn-sq-lg btn-success" onclick=changeToProjectView()> <i class="fa fa-briefcase fa-4x"></i></br>Projektöversikt</a>      
-              <a href=# class="btn btn-sq-lg btn-info" onclick=changeToCalendarView()> <i class="fa fa-calendar fa-4x"></i></br>Schema</a>    
             </p>
           </div>
         </div>
         <div class="row">
           <div class="col-lg-12">
             <p>
+              <a href=# class="btn btn-sq-lg btn-info" onclick=changeToCalendarView()> <i class="fa fa-calendar fa-4x"></i></br>Schema</a>    g
               <a href=# class="btn btn-sq-lg btn-secondary" onclick=changeToSupportView()> <i class="fa fa-handshake-o fa-4x"></i></br>Support</a>
               <a href=# class="btn btn-sq-lg btn-danger" onclick=changeToTimeReport()> <i class="fa fa-clock-o fa-4x"></i></br>Rapportera tid</a>    
             </p>
@@ -1196,6 +1206,96 @@
       <p>Här kommer det att finnas hjälp någon gång i framtiden</p>
     </template>
 
+        <!-- Profile view-->
+        <template id="profileView">
+          <div class="row mt-5">
+            <div class="col">
+              <h1 class="float-left">Profilöversikt</h1>
+            </div>
+          </div>
+          <hr>
+          <div class="row">
+            <div class="col">
+              <h3 id="employeeName"> </h3>
+              <hr>
+              <form id="profileForm">
+                <div class="form-row">
+                  <div class="form-group col">
+                    <label for="readName">Namn</label>
+                    <input class="form-control" id="form-namn" type="text" readonly>
+                  </div>
+                  <div class="form-group col">
+                    <label for="readPID">Personnummer</label>
+                    <input class="form-control" id="form-pid" type="text" readonly>
+                  </div>
+                  <div class="form-group col">
+                    <label for="readCompany">Företag</label>
+                    <input class="form-control" id="form-company" type="text" readonly>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="changeEmail">Mejladress</label>
+                  <input type="email" class="form-control" id="changeEmail">
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="checkbox" id="profileIsAdmin" value="option1" disabled>
+                  <label class="form-check-label" for="inlineCheckbox1">Admin</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="checkbox" id="profileIsBoss" value="option2" disabled>
+                  <label class="form-check-label" for="inlineCheckbox2">Chef</label>
+                </div>
+                <div class="row mt-2">
+                </div>
+                <div class="row mt-4">
+                  <div style="padding-left: 15px;">
+                    <button type="submit" id="updateProfileInformationButton" class="btn btn-primary"
+                      onclick=updateProfileInformation()>Uppdatera information</button>
+                  </div>
+                </div>
+              </form>
+              <hr>
+              <form id="passwordProfileForm">
+                <div class="row mt-3">
+                  <div class="col">
+                    <h3>Ändra lösenord</h3>
+                    <hr>
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="col">
+                    <label for="newPassword">Nytt lösenord</label>
+                    <input type="password" class="form-control" id="newPassword3" placeholder="Nytt lösenord">
+                  </div>
+                  <div class="col">
+                    <label for="repeatPassword">Upprepa lösenord</label>
+                    <input type="password" class="form-control" id="repeatPassword3" placeholder="Nytt lösenord">
+                  </div>
+                  <div class="col">
+                    <label for="newPassword2">Nuvarande lösenord</label>
+                    <input type="password" class="form-control" id="currentPassword3" placeholder="Nuvarande lösenord">
+                  </div>
+                </div>
+                <div class="form-row mt-4">
+                  <div class="alert alert-warning" id="wrongNewPasswordAlertProfile" hidden="true" role="alert">
+                    De nya lösenorden matchar inte
+                  </div>
+                  <div class="alert alert-warning" id="wrongOldPasswordAlertProfile" hidden="true" role="alert">
+                    Ditt gamla lösenord stämmer inte
+                  </div>
+                </div>
+                <div class="row mt-2">
+                  <div style="padding-left: 15px;">
+                    <button type="submit" id="updatePasswordProfileButton" class="btn btn-primary"
+                      onclick=changePasswordProfile()>Ändra lösenord</button>
+                  </div>
+                </div>
+                <hr>
+              </form>
+            </div>
+          </div>
+        </template>
+
         <!-- Optional JavaScript -->
         <!-- jQuery first, then Popper.js, then Bootstrap JS -->
         <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
@@ -1222,6 +1322,8 @@
         <script src="employee.js"></script>
         <script src="time_report.js"></script>
         <script src="project_view.js"></script>
+        <script src="personID.js"></script>
+        <script src="profile.js"></script>
 </body>
 
 </html>

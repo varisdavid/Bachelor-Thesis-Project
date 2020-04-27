@@ -6,6 +6,8 @@ from flask_jwt_extended import JWTManager, jwt_required, create_access_token, ge
 from server.database import db, Employee, Company, Project
 from server import app
 
+from . import personID 
+
 bcrypt = Bcrypt(app)
 
 # Creates the blueprint
@@ -28,10 +30,16 @@ def employees():
     if request.method == 'POST':
         if user.isAdmin:
             jsonData = request.get_json()
-            db.session.add(Employee(personID=jsonData['personID'], email=jsonData['email'], name=jsonData['name'],
+            new_ssn = jsonData['personID']
+            valid = (personID.check_ssn(new_ssn))
+            if valid: 
+                ssn = personID.format(new_ssn)
+            else: 
+                return {"msg": "Wrong PID"}, 401
+            db.session.add(Employee(personID=ssn, email=jsonData['email'], name=jsonData['name'],
                                     isAdmin=jsonData['isAdmin'], isBoss=jsonData['isBoss'], company=user.company, passwordHash = bcrypt.generate_password_hash("halla").decode('utf-8'), usingDefaultPassword=True))
             db.session.commit()
-            return Employee.query.get_or_404(jsonData['personID']).serialize(), 200
+            return Employee.query.get_or_404(ssn).serialize(), 200
         else:
             return {"msg": "Not authorized"}, 401
 
@@ -41,7 +49,7 @@ def employees():
 def employee(pID):
     user_id = get_jwt_identity()
     user = Employee.query.get_or_404(user_id)
-
+    pID = personID.format(pID)
     if request.method == 'GET':
         employee = Employee.query.filter_by(personID=pID).first_or_404()
         if user.company == employee.company:
@@ -65,6 +73,16 @@ def employee(pID):
                 user.isBoss=jsonData['isBoss']
             db.session.commit()
             return Employee.query.get_or_404(jsonData['personID']).serialize()
+        elif (user.personID == pID):
+            print("ska ändra sin egen mejl (ev.namn)")
+            user = Employee.query.filter_by(personID=pID).first_or_404()
+            jsonData = request.get_json()
+            if jsonData['name'] != None and jsonData['name'] != "":
+                user.name=jsonData['name']
+            if jsonData['email'] != None and jsonData['email'] != "":
+                user.email=jsonData['email']
+            db.session.commit()
+            return Employee.query.get_or_404(jsonData['personID']).serialize()
         else: 
             return {"msg": "Not authorized"}, 401
 
@@ -85,6 +103,6 @@ def employee(pID):
 @bp.route("/getUser", methods=['GET'])
 @jwt_required
 def getUser():
-    user_id = get_jwt_identity()
+    user_id = personID.format(get_jwt_identity())
     employee = Employee.query.get(user_id)
     return jsonify(employee.serialize())

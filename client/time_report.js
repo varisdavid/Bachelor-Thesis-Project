@@ -44,7 +44,7 @@ function getProjectsDropdown() {
 
 $(document).ready(function () {
     //Activating date and time pickers
-    activateDateAndTimePickers("#addTimeReportStartDatePicker", "#addTimeReportStartTimePicker", "#addTimeReportStopDatePicker", "#addTimeReportStopTimePicker", "#addTimeReportWrongDateAlert", false);
+    activateDateAndTimePickers("#addTimeReportStartDatePicker", "#addTimeReportStartTimePicker", "#addTimeReportStopDatePicker", "#addTimeReportStopTimePicker", "#addTimeReportWrongDateAlert", true);
     activateDateAndTimePickers("#changeLoggedWorkStartDatePicker", "#changeLoggedWorkStartTimePicker", "#changeLoggedWorkStopDatePicker", "#changeLoggedWorkStopTimePicker", "#changeLoggedWorkWrongDateAlert", true);
 })
 
@@ -146,7 +146,7 @@ function createMyTimeChart(){
                         "labels: [" + JSON.stringify(getDates()[0]) + "," + JSON.stringify(getDates()[1]) + "," + JSON.stringify(getDates()[2]) + "," + JSON.stringify(getDates()[3]) + "," + JSON.stringify(getDates()[4]) + "," + JSON.stringify(getDates()[5]) + "]," +
                         "datasets: [{" +
                             "label: 'Arbetad tid'," +
-                            "data: [" + time[0] + "," + time[1] + "," + time[2] + "," + time[3] + "," + time[4] + "," + time[5] + "]," +
+                            "data: [" + time[5] + "," + time[4] + "," + time[3] + "," + time[2] + "," + time[1] + "," + time[0] + "]," +
                         "}]" +
                     "}," +
                     "options: {scales: {" +
@@ -176,7 +176,7 @@ function createTimeChart(employee) {
                     "labels: [" + JSON.stringify(getDates()[0]) + "," + JSON.stringify(getDates()[1]) + "," + JSON.stringify(getDates()[2]) + "," + JSON.stringify(getDates()[3]) + "," + JSON.stringify(getDates()[4]) + "," + JSON.stringify(getDates()[5]) + "]," +
                     "datasets: [{" +
                     "label: 'Arbetad tid'," +
-                    "data: [" + time[0] + "," + time[1] + "," + time[2] + "," + time[3] + "," + time[4] + "," + time[5] + "]," +
+                    "data: [" + time[5] + "," + time[4] + "," + time[3] + "," + time[2] + "," + time[1] + "," + time[0] + "]," +
                     "}]" +
                     "}," +
                     "options: {scales: {" +
@@ -242,7 +242,6 @@ function editLoggedWork(loggedWorkID){
             $("#editLoggedWorkModal").modal("hide");
             if (response[0].isAdmin){
                 getLoggedJobs(response[1].personID);
-                console.log("tjenare mannen")
             }else{
                 getMyWork();
             }
@@ -259,7 +258,6 @@ function deleteLoggedWork(loggedWorkID) {
             $("#editLoggedWorkModal").modal("hide");
             if (response[0].isAdmin){
                 getLoggedJobs(response[1].personID);
-                console.log("tjenare mannen")
             }else{
                 getMyWork();
             }
@@ -270,7 +268,6 @@ function deleteLoggedWork(loggedWorkID) {
 
 function spawnChangeLoggedWorkModal(workID) {
     $("#editLoggedWorkModal").modal("show");
-    console.log("tjena")
     console.log(workID)
     $.ajax({
         url: 'time-report/' + workID,

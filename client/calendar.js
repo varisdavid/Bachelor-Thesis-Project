@@ -16,6 +16,7 @@ let colorsArray = ["lightsalmon", "lightskyblue", "tomato", "papayawhip", "green
  * Function used for changing to the calendar view
  */
 function changeToCalendarView() {
+    $("#whatCalendarsAreViewed").html("Visar din kalender")
     $("#mainView").html($("#calendarView").html())
 
     $("#addActivityButton").click(function (e) {
@@ -55,7 +56,7 @@ function createCalendar() {
         var calendarEl = document.getElementById('calendar');
 
         calendar = new FullCalendar.Calendar(calendarEl, {
-            height: $(window).height() - 100,
+            height: $(window).height() - 130,
             timeZone: 'local',
             plugins: ['timeGrid', 'bootstrap'],
             defaultView: 'timeGridWeek',
@@ -99,7 +100,7 @@ function createCalendar() {
             themeSystem: "bootstrap",
             // Not a good solution since changes elsewhere could and probably would break this.
             windowResize: function (view) {
-                calendar.setOption("height", $(window).height() - 100);
+                calendar.setOption("height", $(window).height() - 130);
             }
 
         });
@@ -232,7 +233,7 @@ function activateDateAndTimePickers(startDatePicker, startTimePicker, stopDatePi
         content: "Avslutstiden måste ligga efter starttiden 🤔",
         title: "",
         trigger: 'manual', 
-        position: 'right'
+        placement: 'right'
     })
     if (autoChange) {
         //TODO: Eventuellt implementera automatisk datumväxlig när tid ändras. Även lägga till global offset som sätts när slutdatum ändras.
@@ -252,10 +253,12 @@ function activateDateAndTimePickers(startDatePicker, startTimePicker, stopDatePi
     function checkWrongDate() {
         if (verifyDates(startDatePicker, stopDatePicker, startTimePicker, stopTimePicker)) {
             $(stopTimePicker).find(".datetimepicker-input").removeClass("is-invalid")
-            $(stopTimePicker).popover("hide");
+            $(wrongDateAlert).hide()
+            //$(stopTimePicker).popover("hide");
         } else {
             $(stopTimePicker).find(".datetimepicker-input").addClass("is-invalid")
-            $(stopTimePicker).popover("show");
+            $(wrongDateAlert).show()
+            //$(stopTimePicker).popover("show");
 
         }
     }
@@ -293,6 +296,7 @@ var viewCalendarsEmployeeMap = new Map();
 
 function populateEmployeeMap() {
     employeeMap = new Map();
+    viewCalendarsEmployeeMap = new Map();
     $.ajax({
         url: "employee/all",
         type: "GET",
@@ -545,6 +549,7 @@ function spawnViewCalendarsModal() {
  * Uses global variable viewCalendarsEmployeeMap for determining what employees are currently selected.
  */
 function viewCalendars() {
+    var whatCalendarsString = "Visar "
     if (!$("#viewSchedulesConfirmButton").hasClass('disabled')) {
         calendar.getEventSources().forEach(s => s.remove());
         var colorIndex = 0;
@@ -565,10 +570,13 @@ function viewCalendars() {
                     },
                     color: colorsArray[colorIndex++]
                 });
+                whatCalendarsString = whatCalendarsString + value.name + "s, ";
             }
         })
         $("#viewCalendarsModal").modal("hide")
-
+        whatCalendarsString = whatCalendarsString.substring(0, whatCalendarsString.length - 2) + " kalender."
+        $("#whatCalendarsAreViewed").html(whatCalendarsString);
+        //$("#whatCalendarsAreViewed").animate("highlight");
     }
 }
 
@@ -577,16 +585,31 @@ function viewCalendars() {
  * @param {number} id id of the activity to be removed.
  */
 function removeActivity(id) {
+
+    $.ajax({
+        url: 'activity/' + id,
+        type: 'GET',
+        headers: { "Authorization": "Bearer " + JSON.parse(sessionStorage.getItem('auth')).access_token },
+        success: function (response) {
+            $("#activityListTab").empty()
+            displayActivities(response.project_id)
+        },
+        error: console.log("ERROR")
+    })
+
     $.ajax({
         url: 'activity/' + id,
         type: 'DELETE',
         headers: { "Authorization": "Bearer " + JSON.parse(sessionStorage.getItem('auth')).access_token },
         success: function (response) {
+            console.log("Tog bort aktivitet")
             $("#activityInfoModal").modal("hide");
+            console.log("modal bör ha gömts")
             spawnAlert("Aktiviteten togs bort", "warning")
             calendar.refetchEvents()
             //calendar.render()
-        }
+        },
+        error: console.log("ERROR")
     })
 }
 

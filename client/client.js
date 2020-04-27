@@ -110,6 +110,10 @@ $(document).ready(function() {
         $("#mainView").html($("#employeeView").html())
         loadEmployees(); //In employee.js
     })
+    $("#navProfileLink").click(function (e) {
+        changeToProfileView()
+     })
+     
 
     // Marks current navbar selection
     var linkwrapper = document.getElementById("navbarNavAltMarkup");

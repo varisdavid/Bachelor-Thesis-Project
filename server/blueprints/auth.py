@@ -6,6 +6,8 @@ from flask_jwt_extended import JWTManager, jwt_required, create_access_token, ge
 from server.database import db, Employee, Company, Project
 from server import app
 
+from . import personID 
+
 # random string
 app.config['JWT_SECRET_KEY'] = "GwzrtfCta1xDHgwfBVo0"
 app.config['JWT_ACCESS_TOKEN_EXPIRES'] = False
@@ -23,10 +25,16 @@ bp = Blueprint('authentication', __name__, url_prefix='/auth')
 @bp.route("/sign-in", methods=['POST'])
 def signIn():
     jsonData = request.get_json()
+    new_ssn = jsonData['personID']
+    valid = (personID.check_ssn(new_ssn))
+    if valid: 
+        ssn = personID.format(new_ssn)
     if ('personID' not in jsonData) or ('password' not in jsonData):
         return {"msg": "Wrong fields"}, 400
+    elif not valid: 
+        return {"msg": "Wrong PID"}, 401
     else:
-        emp = Employee.query.get_or_404(jsonData['personID'])
+        emp = Employee.query.get_or_404(ssn)
         if bcrypt.check_password_hash(emp.passwordHash, jsonData['password']):
             token = create_access_token(emp.personID)
             return {"access_token": token, "person_id": jsonData["personID"]}, 200
@@ -62,15 +70,21 @@ def defaultPassword():
 @bp.route("/sign-up-company", methods=['POST'])
 def signUpCompany():
     jsonData = request.get_json()
+    new_ssn = jsonData['adminPid']
+    valid = (personID.check_ssn(new_ssn))
+    if valid: 
+        ssn = personID.format(new_ssn)
     if (('companyName' not in jsonData) or ("companyOrgNumber" not in jsonData) or ('adminName' not in jsonData) or ('adminPid' not in jsonData) or ('adminEmail' not in jsonData) or ('adminPassword' not in jsonData)):
         return {"msg": "Wrong fields"}, 400
+    elif not valid: 
+        return {"msg": "Wrong PID"}, 401
     else:
         newCompany = Company(
             orgNumber=jsonData["companyOrgNumber"], name=jsonData["companyName"])
         
         admPasswordHash = bcrypt.generate_password_hash(
             jsonData["adminPassword"]).decode("utf-8")
-        adm = Employee(personID=jsonData["adminPid"], email=jsonData["adminEmail"], name=jsonData["adminName"],
+        adm = Employee(personID=ssn, email=jsonData["adminEmail"], name=jsonData["adminName"],
                        isAdmin=True, isBoss=False, passwordHash=admPasswordHash, company=jsonData["companyOrgNumber"], usingDefaultPassword=False)
         
         defaultProject = Project(name="Övrigt", companyOrgNumber=jsonData["companyOrgNumber"])

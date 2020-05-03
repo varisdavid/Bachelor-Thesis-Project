@@ -75,7 +75,7 @@ function displayProjects(projects_json) {
         //Adds items to list
         var html = `
         <span data-toggle="modal" data-target="#modalEditProject">
-        <a class="list-group-item list-group-item-action rounded-0" onclick=editProject(${project.id}) id="${project.name}">
+        <a class="list-group-item list-group-item-action rounded-0" href="#" onclick=editProject(${project.id}) id="${project.name}">
         <h4>${project.name}</h4></a></span>`
 
         $(html).appendTo("#projectListTab").hide().fadeIn(fadeSpeed * 130)
@@ -109,7 +109,7 @@ function displayActivities(project_id) {
                 $("#activityListTab").empty()
             }
             for (activity of activityList) {
-                var html = `<a class="list-group-item list-group-item-action rounded-0" onclick=loadActivityInfo(${activity.id})>
+                var html = `<a class="list-group-item list-group-item-action rounded-0" href="#" onclick=loadActivityInfo(${activity.id})>
                 <h6>${activity.name}</h6></a>`
                 //Adds items to list
                 $(html).appendTo("#activityListTab").hide().fadeIn(fadeSpeed * 500)
@@ -178,7 +178,7 @@ function loadActivityInfo(activityID) {
 
             response.employees.forEach(function (emp) {
                 $("#listOfEmployees").append('<a class="list-group-item list-group-item-action rounded-0" '
-                    + ' onclick=loadEmployeeHours(' + response.project_id + ',' + emp.personID + ')>'
+                    + ' href="#" onclick=loadEmployeeHours(' + response.project_id + ',' + emp.personID + ')>'
                     + emp.name + '</a>')
             })
             $(".list-group-item").click(function () {
@@ -201,7 +201,7 @@ function removeActivityConfirm(activity_id, project_id){
     `).fadeIn(400)
       $("#removeActivityConfirmBtn").click(function (e) {
         $('#areYouSureContainer').hide()
-        removeActivity(activity_id,project_id)
+        removeActivity(activity_id)
     });
 
     
@@ -284,20 +284,6 @@ function removeProject() {
 
 function areYouSureCancel() {
     $('#areYouSureContainer').empty()
-}
-
-
-function removeActivity(activity_id, project_id) {
-    $.ajax({
-        url: 'activity/' + activity_id,
-        type: 'DELETE',
-        headers: { "Authorization": "Bearer " + JSON.parse(sessionStorage.getItem('auth')).access_token },
-        success: function (response) {
-            spawnAlert("Aktiviteten togs bort", "warning")
-            $("#activityListTab").empty()
-            displayActivities(project_id)
-        }
-    })
 }
 
 $(document).ready(function () {
